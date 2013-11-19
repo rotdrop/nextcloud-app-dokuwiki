@@ -25,7 +25,7 @@ into the ownCloud instance, we execute a login-hook (which has the
 passphrase or other credentials readily available) and log into the
 DokuWiki instance by means of their xmlrpc protocol. The cookies
 returned by the DokuWiki instance are then simply forwarded the
-web-browser of the user. Not password information is stored on the
+web-browser of the user. No password information is stored on the
 host. So this should be as secure or insecure as DokuWiki behaves
 itself.
 

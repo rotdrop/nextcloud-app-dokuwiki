@@ -31,6 +31,11 @@ $(document).ready(function() {
 	fillWindow($('#dokuwiki_container'));
     });
     $(window).resize();
+
+    $('#dokuwikiFrame').load(function(){
+        $('#dokuwikiFrame').contents().find('.logout').remove();
+        $('#dokuwikiFrame').contents().find('li:empty').remove();
+        $('#dokuwikiFrame').contents().find('form.btn_logout').remove();
+    });
+
 });
-
-

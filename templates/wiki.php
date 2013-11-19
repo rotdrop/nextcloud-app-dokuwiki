@@ -27,8 +27,9 @@
 <!-- <pre>
 <?php echo $_['wikiURL']?>
 </pre> -->
-<iframe blahstyle="display:none;overflow:auto"
-        style="overflow:auto"
+
+<img src="<?php echo \OCP\Util::imagePath($_['app'], 'loader.gif'); ?>" id="loader">
+<iframe style="display:none;overflow:auto"
         src="<?php echo $_['wikiURL'];?>"
         id="dokuwikiFrame"
         name="dokuwikiembed" width="100%">

@@ -26,7 +26,6 @@ var DWEmbed = DWEmbed || {};
 })(window, jQuery, DWEmbed);
 
 $(document).ready(function() {
-    $('#dokuwikiFrame').slideDown('slow');
     $(window).resize(function() {
 	fillWindow($('#dokuwiki_container'));
     });
@@ -36,6 +35,9 @@ $(document).ready(function() {
         $('#dokuwikiFrame').contents().find('.logout').remove();
         $('#dokuwikiFrame').contents().find('li:empty').remove();
         $('#dokuwikiFrame').contents().find('form.btn_logout').remove();
+
+	$('#loader').fadeOut('slow');
+	$('#dokuwikiFrame').slideDown('slow');
     });
 
 });

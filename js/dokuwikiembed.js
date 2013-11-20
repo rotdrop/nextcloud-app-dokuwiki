@@ -36,6 +36,12 @@ $(document).ready(function() {
         $('#dokuwikiFrame').contents().find('li:empty').remove();
         $('#dokuwikiFrame').contents().find('form.btn_logout').remove();
 
+        $('#dokuwikiFrame').contents().find('a').filter(function() {
+            return this.hostname && this.hostname !== window.location.hostname;
+        }).each(function() {
+            $(this).attr('target','_blank');
+        });
+
 	$('#loader').fadeOut('slow');
 	$('#dokuwikiFrame').slideDown('slow');
     });

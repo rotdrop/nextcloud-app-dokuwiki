@@ -57,3 +57,38 @@ There are still some issues:
   actually works has to be accomplished by other means. So this is
   one-half of a SSO implementation.
 
+The following patch to DokuWiki is needed for a clean logout:
+
+==============================================================
+--- inc/RemoteAPICore.php.old   2013-10-13 23:47:48.000000000 +0200
++++ inc/RemoteAPICore.php       2013-11-18 22:35:31.413546041 +0100
+@@ -24,6 +24,10 @@
+                 'return' => 'int',
+                 'doc' => 'Tries to login with the given credentials and sets auth cookies.',
+                 'public' => '1'
++            ), 'dokuwiki.logoff' => array(
++                'args' => array(),
++                'return' => 'int',
++                'doc' => 'Tries to logoff by expiring auth cookies and the associated PHP session.'
+             ), 'dokuwiki.getPagelist' => array(
+                 'args' => array('string', 'array'),
+                 'return' => 'array',
+@@ -768,6 +772,17 @@
+         return $ok;
+     }
+ 
++    function logoff(){
++        global $conf;
++        global $auth;
++        if(!$conf['useacl']) return 0;
++        if(!$auth) return 0;
++        
++        auth_logoff();
++
++        return 1;
++    }
++
+     private function resolvePageId($id) {
+         $id = cleanID($id);
+         if(empty($id)) {
+==============================================================

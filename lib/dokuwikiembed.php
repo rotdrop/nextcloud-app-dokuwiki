@@ -32,6 +32,7 @@ class App
 
   private $dwProto;
   private $dwHost;
+  private $dwPort;
   private $dwPath;  
 
   private $authHeaders; //!< Authentication headers returned by DokuWiki
@@ -43,7 +44,8 @@ class App
 
     $urlParts = parse_url($url);
     $this->dwProto = $urlParts['scheme'];
-    $this->dwHost  = $urlParts['host'].':'.$urlParts['port'];
+    $this->dwHost  = $urlParts['host'];
+    $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
     $this->dwPath  = $urlParts['path'];
 
     $this->authHeaders = array();
@@ -61,7 +63,7 @@ class App
    */
   public function wikiURL()
   {
-    return $this->dwProto.'://'.$this->dwHost.$this->dwPath;
+    return $this->dwProto.'://'.$this->dwHost.$this->dwPort.$this->dwPath;
   }
 
   private function cleanCookies()

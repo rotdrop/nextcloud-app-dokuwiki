@@ -60,6 +60,7 @@ There are still some issues:
 The following patch to DokuWiki is needed for a clean logout:
 
 ==============================================================
+```
 --- inc/RemoteAPICore.php.old   2013-10-13 23:47:48.000000000 +0200
 +++ inc/RemoteAPICore.php       2013-11-18 22:35:31.413546041 +0100
 @@ -24,6 +24,10 @@
@@ -91,4 +92,4 @@ The following patch to DokuWiki is needed for a clean logout:
      private function resolvePageId($id) {
          $id = cleanID($id);
          if(empty($id)) {
-==============================================================
+```

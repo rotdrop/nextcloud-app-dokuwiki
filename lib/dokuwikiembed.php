@@ -161,10 +161,13 @@ class App
   {
     $this->cleanCookies();
     if (!empty($_POST["remember_login"])) {
-      return $this->xmlRequest("dokuwiki.stickylogin", array($username, $password));
-    } else {
-      return $this->xmlRequest("dokuwiki.login", array($username, $password));
+      $result = $this->xmlRequest("dokuwiki.stickylogin", array($username, $password));
+      if ($result !== false) {
+        return $result;
+      }
     }
+    // Fall back to "normal" login if long-life token could not be aquired.
+    return $this->xmlRequest("dokuwiki.login", array($username, $password));
   }
 
   /**Logoff from (hacked) DokuWiki with added XMLRPC dokuwiki.logoff

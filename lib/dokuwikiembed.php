@@ -111,33 +111,36 @@ class App
       return false;
     }
 
-    // Response _should_ be a single integer: if 0, login
-    // unsuccessful, if 1: got it.
-    if ($response == 1) {
-      $this->authHeaders = array();
-      // Store and duplicate set cookies for forwarding to the users web client
-      foreach ($responseHdr as $header) {
-        if (preg_match('/^Set-Cookie:\s*(DokuWiki|DW).*/', $header)) {
-          $this->authHeaders[] = $header;
-          $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
+    if ($method == "dokuwiki.login" || $method == "dokuwiki.logoff") {
+      // Response _should_ be a single integer: if 0, login
+      // unsuccessful, if 1: got it.
+      if ($response == 1) {
+        $this->authHeaders = array();
+        // Store and duplicate set cookies for forwarding to the users web client
+        foreach ($responseHdr as $header) {
+          if (preg_match('/^Set-Cookie:\s*(DokuWiki|DW).*/', $header)) {
+            $this->authHeaders[] = $header;
+            $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
+          }
         }
+        \OCP\Util::writeLog(self::APPNAME,
+                            "XMLRPC method \"$method\" executed with success. Got cookies ".
+                            print_r($this->authHeaders, true).
+                            ". Sent cookies ".$httpHeader,
+                            \OC_Log::DEBUG);
+        return true;
+      } else {
+        \OCP\Util::writeLog(self::APPNAME,
+                            "XMLRPC method \"$method\" failed. Got headers ".
+                            print_r($responseHdr, true).
+                            " data: ".$data.
+                            " response: ".$response,
+                            \OC_Log::DEBUG);
+        return false;
       }
-      \OCP\Util::writeLog(self::APPNAME,
-                          "XMLRPC method \"$method\" executed with success. Got cookies ".
-                          print_r($this->authHeaders, true).
-                          ". Sent cookies ".$httpHeader,
-                          \OC_Log::DEBUG);
-      return true;
-    } else {
-      \OCP\Util::writeLog(self::APPNAME,
-                          "XMLRPC method \"$method\" failed. Got headers ".
-                          print_r($responseHdr, true).
-                          " data: ".$data.
-                          " response: ".$response,
-                          \OC_Log::DEBUG);
-      return false;
     }
-
+    
+    return $response;
   }  
 
   /**Perform the login by means of a RPCXML call and stash the cookies
@@ -166,6 +169,15 @@ class App
   {
     return $this->xmlRequest("dokuwiki.logoff", array());
   }
+
+  /**Fetch the version from the DW instance in the hope that this also
+   * touches the session life-time.
+   */
+  function version()
+  {
+    return $this->xmlRequest("dokuwiki.getVersion", array());
+  }
+  
 
   /**Send authentication headers previously aquired
    */

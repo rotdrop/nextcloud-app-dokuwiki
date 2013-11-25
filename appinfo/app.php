@@ -78,6 +78,7 @@ OC::$CLASSPATH['DWEMBED\AuthHooks'] = OC_App::getAppPath($appName) . '/lib/auth.
 
 OCP\Util::connectHook('OC_User', 'post_login', 'DWEMBED\AuthHooks', 'login');
 OCP\Util::connectHook('OC_User', 'logout', 'DWEMBED\AuthHooks', 'logout');
+OCP\BackgroundJob::AddRegularTask('DWEMBED\AuthHooks', 'refresh');
 
 OCP\App::registerAdmin($appName, 'admin-settings');
 

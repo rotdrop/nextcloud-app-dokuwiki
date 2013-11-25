@@ -59,7 +59,31 @@ class AuthHooks
     $dokuWikiEmbed->logout();
     $dokuWikiEmbed->emitAuthHeaders();    
   }
+
+  /**Try to refresh the DW session by fetching the DW version via
+   * XMLRPC.
+   */
+  public static function refresh() 
+  {
+    if (defined('DOKU_INC')) {
+      return;
+    }
+
+    $wikiLocation = \OCP\Config::GetAppValue(App::APPNAME, 'wikilocation', '');
+    $dokuWikiEmbed = new App($wikiLocation);
+    $version = $dokuWikiEmbed->version();
+    if ($version === false) {
+        \OCP\Util::writeLog(App::APPNAME,
+                            "DokuWiki refresh failed.",
+                            \OC_Log::DEBUG);
+    } else {
+        \OCP\Util::writeLog(App::APPNAME,
+                            "DokuWiki@".$version." refresh probably succeeded.",
+                            \OC_Log::DEBUG);
+    }
+  }
   
+
 };
 
 } // namespace

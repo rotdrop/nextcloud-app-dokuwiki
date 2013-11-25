@@ -111,7 +111,9 @@ class App
       return false;
     }
 
-    if ($method == "dokuwiki.login" || $method == "dokuwiki.logoff") {
+    if ($method == "dokuwiki.login" ||
+        $method == "dokuwiki.stickylogin" ||
+        $method == "dokuwiki.logoff") {
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
       if ($response == 1) {
@@ -158,7 +160,11 @@ class App
   function login($username, $password)
   {
     $this->cleanCookies();
-    return $this->xmlRequest("dokuwiki.login", array($username, $password));
+    if (!empty($_POST["remember_login"])) {
+      return $this->xmlRequest("dokuwiki.stickylogin", array($username, $password));
+    } else {
+      return $this->xmlRequest("dokuwiki.login", array($username, $password));
+    }
   }
 
   /**Logoff from (hacked) DokuWiki with added XMLRPC dokuwiki.logoff

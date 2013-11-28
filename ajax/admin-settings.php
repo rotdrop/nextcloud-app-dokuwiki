@@ -37,7 +37,7 @@ if (isset($_POST['DW_Location'])) {
   // indeed be found at this location and report possible success and
   // error states back to the user
   if ($location == '') {
-    $message = L::t("Got an empty wiki location: `%s'.", array($location));  
+    $message = L::t("Got an empty wiki location.");  
   } else if (!Util::URLIsValid($location)) {
     $message = L::t("Setting wiki location to `%s' but the location seems to be invalid.",
                     array($location));

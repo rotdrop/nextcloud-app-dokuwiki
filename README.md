@@ -1,4 +1,4 @@
-ocapp-dokuwikiembed
+capp-dokuwikiembed
 ===================
 
 OwnCloud "app" which embeds an existing DokuWiki instance into
@@ -57,16 +57,34 @@ There are still some issues:
   actually works has to be accomplished by other means. So this is
   one-half of a SSO implementation.
 
-The following patch to DokuWiki is needed for a clean logout:
+The following patch to DokuWiki is needed for a clean logout, and in
+order to avoid infinite recursion in combination with the authowncloud
+plugin for DW.
 
 ==============================================================
 ```
---- inc/RemoteAPICore.php.old   2013-10-13 23:47:48.000000000 +0200
-+++ inc/RemoteAPICore.php       2013-11-18 22:35:31.413546041 +0100
-@@ -24,6 +24,10 @@
+diff --git a/inc/RemoteAPICore.php b/inc/RemoteAPICore.php
+index 2eb8ea4..c676105 100644
+--- a/inc/RemoteAPICore.php
++++ b/inc/RemoteAPICore.php
+@@ -3,7 +3,7 @@
+ /**
+  * Increased whenever the API is changed
+  */
+-define('DOKU_API_VERSION', 8);
++define('DOKU_API_VERSION', 10);
+ 
+ class RemoteAPICore {
+ 
+@@ -24,6 +24,15 @@ class RemoteAPICore {
                  'return' => 'int',
                  'doc' => 'Tries to login with the given credentials and sets auth cookies.',
                  'public' => '1'
++            ), 'dokuwiki.stickylogin' => array(
++                'args' => array('string', 'string'),
++                'return' => 'int',
++                'doc' => 'Tries to login with the given credentials and sets auth cookies.',
++                'public' => '1'
 +            ), 'dokuwiki.logoff' => array(
 +                'args' => array(),
 +                'return' => 'int',
@@ -74,10 +92,33 @@ The following patch to DokuWiki is needed for a clean logout:
              ), 'dokuwiki.getPagelist' => array(
                  'args' => array('string', 'array'),
                  'return' => 'array',
-@@ -768,6 +772,17 @@
+@@ -767,6 +776,40 @@ class RemoteAPICore {
          return $ok;
      }
  
++    function stickylogin($user,$pass){
++        global $conf;
++        global $auth;
++        if(!$conf['useacl']) return 0;
++        if(!$auth) return 0;
++
++        @session_start(); // reopen session for login
++        if($auth->canDo('external')){
++            $ok = $auth->trustExternal($user,$pass,false);
++        }else{
++            $evdata = array(
++                'user'     => $user,
++                'password' => $pass,
++                'sticky'   => true,
++                'silent'   => true,
++            );
++            $ok = trigger_event('AUTH_LOGIN_CHECK', $evdata, 'auth_login_wrapper');
++        }
++        session_write_close(); // we're done with the session
++
++        return $ok;
++    }
++
 +    function logoff(){
 +        global $conf;
 +        global $auth;
@@ -92,4 +133,23 @@ The following patch to DokuWiki is needed for a clean logout:
      private function resolvePageId($id) {
          $id = cleanID($id);
          if(empty($id)) {
+diff --git a/inc/auth.php b/inc/auth.php
+index b793f5d..2b3fd4f 100644
+--- a/inc/auth.php
++++ b/inc/auth.php
+@@ -263,8 +263,12 @@ function auth_login($user, $pass, $sticky = false, $silent = false) {
+             return auth_login($user, $pass, $sticky, true);
+         }
+     }
+-    //just to be sure
+-    auth_logoff(true);
++    // Bad idea in the presence of cross-dependent plugins. Only try
++    // to log-off if either $user is set or there are cookies to invalidate
++    if($user) {
++        //just to be sure
++        auth_logoff(true);
++    }
+     return false;
+ }
+
 ```

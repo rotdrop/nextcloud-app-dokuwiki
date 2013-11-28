@@ -31,6 +31,10 @@ class AuthHooks
 {
   public static function login($params)
   {
+    if (defined('DOKU_INC')) {
+      return;
+    }
+
     $wikiLocation = \OCP\Config::GetAppValue(App::APPNAME, 'wikilocation', '');
 
     $dokuWikiEmbed = new App($wikiLocation);
@@ -46,6 +50,10 @@ class AuthHooks
   
   public static function logout()
   {
+    if (defined('DOKU_INC')) {
+      return;
+    }
+
     $wikiLocation = \OCP\Config::GetAppValue(App::APPNAME, 'wikilocation', '');
     $dokuWikiEmbed = new App($wikiLocation);
     $dokuWikiEmbed->logout();

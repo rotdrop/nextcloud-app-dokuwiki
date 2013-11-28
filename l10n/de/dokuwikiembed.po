@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dokuwikiembded\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-17 01:59+0100\n"
-"PO-Revision-Date: 2013-11-17 01:58+0100\n"
+"POT-Creation-Date: 2013-11-29 00:20+0100\n"
+"PO-Revision-Date: 2013-11-29 00:24+0100\n"
 "Last-Translator: Claus-Justus Heine <himself@claus-justus-heine.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -16,27 +16,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ajax/admin-settings.php:36
+#: ajax/admin-settings.php:40
+msgid "Got an empty wiki location."
+msgstr "Wiki-Pfad fehlt."
+
+#: ajax/admin-settings.php:42
+#, php-format
+msgid "Setting wiki location to `%s' but the location seems to be invalid."
+msgstr "Wiki-Location ist jetzt `%s', aber dort scheint kein Wiki installiert zu sein."
+
+#: ajax/admin-settings.php:45
 #, php-format
 msgid "Setting wiki location to `%s'."
 msgstr "Wiki-Location ist jetzt `%s'."
 
-#: ajax/admin-settings.php:42
+#: ajax/admin-settings.php:54
 msgid "Unknown request."
 msgstr "Unbekannte Anfrage."
 
-#: appinfo/app.php:89
+#: appinfo/app.php:95
 msgid "DokuWiki"
 msgstr "DokuWiki"
 
-#: templates/admin-settings.php:30
+#: templates/admin-settings.php:31
 msgid "Embedded DokuWiki"
 msgstr "Eingebettetes DokuWiki"
 
-#: templates/admin-settings.php:32
+#: templates/admin-settings.php:35
 msgid "Location"
 msgstr "Location"
 
-#: templates/admin-settings.php:33
+#: templates/admin-settings.php:36
+msgid ""
+"Please enter the location of the already installed DokuWiki\n"
+"instance. This should either be an abolute path relative to the\n"
+"root of the web-browser, or a complete URL which points to the\n"
+"web-location of the DokuWiki. In order to make things work your\n"
+"have to enable the XMLRPC protocol in your DokuWiki."
+msgstr ""
+"Bitte geben Sie den Ort der DokuWiki-Installation an.\n"
+"Entweder als \"absoluten\" Pfad, aber relativ zum Basis-Verzeichnis\n"
+"Ihres Web-Servers, oder als vollständigen URL mit der Web-Adresse\n"
+"der DokuWiki-Installation. Sie müssen im DokuWiki das\n"
+"XMLRPC-Protokoll aktivieren"
+
+#: templates/admin-settings.php:42
 msgid "DokuWiki Location"
 msgstr "Dokuwiki Location"

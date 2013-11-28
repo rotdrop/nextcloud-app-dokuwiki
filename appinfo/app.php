@@ -78,13 +78,13 @@ OC::$CLASSPATH['DWEMBED\AuthHooks'] = OC_App::getAppPath($appName) . '/lib/auth.
 
 OCP\Util::connectHook('OC_User', 'post_login', 'DWEMBED\AuthHooks', 'login');
 OCP\Util::connectHook('OC_User', 'logout', 'DWEMBED\AuthHooks', 'logout');
+// probably no longer needed, now that we use routes ...
 OCP\BackgroundJob::AddRegularTask('DWEMBED\AuthHooks', 'refresh');
 
 OCP\App::registerAdmin($appName, 'admin-settings');
 
 // Add global JS routines; this one triggers a session refresh for DW.
 OCP\Util::addScript($appName, 'routes');
-
 
 OCP\App::addNavigationEntry(array(
 		'id' => $appName, 

@@ -82,6 +82,10 @@ OCP\BackgroundJob::AddRegularTask('DWEMBED\AuthHooks', 'refresh');
 
 OCP\App::registerAdmin($appName, 'admin-settings');
 
+// Add global JS routines; this one triggers a session refresh for DW.
+OCP\Util::addScript($appName, 'routes');
+
+
 OCP\App::addNavigationEntry(array(
 		'id' => $appName, 
 		'order' => 10, 

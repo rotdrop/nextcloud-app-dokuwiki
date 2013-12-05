@@ -21,6 +21,7 @@
  */
 
 use DWEMBED\App;
+use DWEMBED\Util;
 
 $appName = App::APPNAME;
 
@@ -34,8 +35,6 @@ if (!OCP\User::isLoggedIn()) {
   exit();
 }
 
-
-
 // Load our style
 OCP\Util::addStyle($appName, $appName);
 
@@ -47,16 +46,18 @@ OCP\App::setActiveNavigationEntry($appName);
 
 $wikiLocation = OCP\Config::GetAppValue($appName, 'wikilocation', '');
 
-
 $tmpl = new OCP\Template($appName, "wiki", "user");
 
 $dokuWikiEmbed = new App($wikiLocation);
-$wikiURL = $dokuWikiEmbed->wikiURL();
+$wikiURL  = $dokuWikiEmbed->wikiURL();
+$wikiPath = Util::cgiValue('wikiPath', '');
+
 $dokuWikiEmbed->emitAuthHeaders();
 
 $tmpl->assign('app', $appName);
 $tmpl->assign('wikilocation', $wikiLocation);
 $tmpl->assign('wikiURL', $wikiURL);
+$tmpl->assign('wikiPath', $wikiPath);
 
 $tmpl->printpage();
 

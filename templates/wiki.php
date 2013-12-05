@@ -30,7 +30,7 @@
 
 <img src="<?php echo \OCP\Util::imagePath($_['app'], 'loader.gif'); ?>" id="loader">
 <iframe style="display:none;overflow:auto"
-        src="<?php echo $_['wikiURL'];?>"
+        src="<?php echo $_['wikiURL'].$_['wikiPath'];?>"
         id="dokuwikiFrame"
         name="dokuwikiembed" width="100%">
 </iframe>

@@ -109,6 +109,20 @@ class Util
     return true;
   }
 
+  public static function cgiValue($key, $default=null, $allowEmpty = true)
+  {
+    $value = $default;
+    if (isset($_POST["$key"])) {
+      $value = $_POST["$key"];
+    } elseif (isset($_GET["$key"])) {
+      $value = $_GET["$key"];
+    }
+    if (!$allowEmpty && !is_null($default) && $value == '') {
+      $value = $default;
+    }
+    return $value;
+  }
+
 };
 
 } // NAMESPACE

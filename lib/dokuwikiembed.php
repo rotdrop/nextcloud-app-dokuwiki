@@ -97,12 +97,14 @@ class App
     $url  = self::wikiURL().self::RPCPATH;
     $fp   = fopen($url, 'rb', false, $context);
     if ($fp !== false) {
-      $data = stream_get_contents($fp);
+      $result = stream_get_contents($fp);
       fclose($fp);
+    } else {
+      $result = '';
     }
 
     $responseHdr = $http_response_header;
-    $response = xmlrpc_decode($data);
+    $response = xmlrpc_decode($result);
     if (is_array($response) && xmlrpc_is_fault($response)) {
       \OCP\Util::writeLog(self::APPNAME,
                           "Error: xlmrpc: $response[faultString] ($response[faultCode])",
@@ -135,14 +137,14 @@ class App
         \OCP\Util::writeLog(self::APPNAME,
                             "XMLRPC method \"$method\" failed. Got headers ".
                             print_r($responseHdr, true).
-                            " data: ".$data.
+                            " data: ".$result.
                             " response: ".$response,
                             \OC_Log::DEBUG);
         return false;
       }
     }
     
-    return $response;
+    return $result == '' ? false : $response;
   }  
 
   /**Perform the login by means of a RPCXML call and stash the cookies

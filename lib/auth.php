@@ -71,11 +71,11 @@ class AuthHooks
     if ($version === false) {
         \OCP\Util::writeLog(App::APPNAME,
                             "DokuWiki refresh failed.",
-                            \OC_Log::DEBUG);
+                            \OC_Log::ERROR);
     } else {
         \OCP\Util::writeLog(App::APPNAME,
                             "DokuWiki@".$version." refresh probably succeeded.",
-                            \OC_Log::DEBUG);
+                            \OC_Log::INFO);
     }
   }
   

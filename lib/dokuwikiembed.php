@@ -80,10 +80,11 @@ class App
   private function xmlRequest($method, $data)
   {
     // Generate the request
-    $request = xmlrpc_encode_request($method, $data);
-
+    $request = xmlrpc_encode_request($method, $data, array("encoding" => "UTF-8",
+                                                           "escaping" => "markup",
+                                                           "version" => "xmlrpc"));
     // Construct the header with any relevant cookies
-    $httpHeader = "Content-Type: text/xml".
+    $httpHeader = "Content-Type: text/xml; charset=UTF-8".
       (empty($this->reqHeaders)
        ? ""
        : "\r\n"."Cookie: ".join("; ", $this->reqHeaders));
@@ -189,6 +190,25 @@ class App
     return $this->xmlRequest("dokuwiki.getVersion", array());
   }
   
+  /**Rather a support function in case some other app wants to create
+   * some automatic wiki-pages (e.g. overview stuff and the like, may
+   * a changelog here and a readme there.
+   */
+  function putPage($pagename, $pagedata, $attr = array())
+  {
+    return $this->xmlRequest("wiki.putPage",
+                             array($pagename, $pagedata, $attr));
+  }  
+
+  /**Rather a support function in case some other app wants to create
+   * some automatic wiki-pages (e.g. overview stuff and the like, may
+   * a changelog here and a readme there.
+   */
+  function getPage($pagename)
+  {
+    return $this->xmlRequest("wiki.getPage", array($pagename));
+  }  
+
 
   /**Send authentication headers previously aquired
    */

@@ -45,6 +45,11 @@ class AuthHooks
 
     if ($dokuWikiEmbed->login($username, $password)) {
       $dokuWikiEmbed->emitAuthHeaders();
+      \OCP\Util::writeLog(App::APPNAME,
+                          "DokuWiki login of user ".
+                          $username.
+                          " probably succeeded.",
+                          \OC_Log::INFO);
     }
   }
   
@@ -56,8 +61,12 @@ class AuthHooks
 
     $wikiLocation = \OCP\Config::GetAppValue(App::APPNAME, 'wikilocation', '');
     $dokuWikiEmbed = new App($wikiLocation);
-    $dokuWikiEmbed->logout();
-    $dokuWikiEmbed->emitAuthHeaders();    
+    if ($dokuWikiEmbed->logout()) {
+      $dokuWikiEmbed->emitAuthHeaders();
+      \OCP\Util::writeLog(App::APPNAME,
+                          "DokuWiki logoff probably succeeded.",
+                          \OC_Log::INFO);
+    }
   }
 
   /**Try to refresh the DW session by fetching the DW version via

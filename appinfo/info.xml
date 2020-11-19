@@ -5,11 +5,14 @@
     <name>Doku Wiki Embedded</name>
     <summary>Support embedding an external DokuWiki instance with SSO</summary>
     <description><![CDATA[DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.]]></description>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <licence>agpl</licence>
     <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
     <namespace>DokuWikiEmbedded</namespace>
     <category>integration</category>
+    <types>
+      <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
+    </types>
     <bugs>https://github.com/rotdrop/ocapp-dokuwikiembed.git</bugs>
     <dependencies>
         <nextcloud min-version="20" max-version="20"/>

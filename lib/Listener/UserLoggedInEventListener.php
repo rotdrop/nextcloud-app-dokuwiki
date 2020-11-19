@@ -40,11 +40,11 @@ class UserLoggedInEventListener implements IEventListener
   private $appName;
 
   public function __construct(
-    $appName
-    , ILogger $logger
+    /*$appName
+      ,*/ ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = $appName; // can this work?
+    $this->appName = '';$appName; // can this work?
     $this->logger = $logger;
     $this->l = $l10n;
   }

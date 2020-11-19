@@ -11,5 +11,16 @@ return [
     'routes' => [
 	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-    ]
+    ],
+    // internal "ajax" routes
+    [
+      'name' => 'admin_settings#set',
+      'url' => '/settings/admin/set',
+      'verb' => 'POST',
+    ],
+    [
+      'name' => 'authentication#refresh',
+      'url' => '/authentication/refresh',
+      'verb' => 'POST',
+    ],
 ];

@@ -20,4 +20,8 @@
             <route>dokuwikiembedded.page.index</route>
         </navigation>
     </navigations>
+    <settings>
+      <admin>OCA\DokuWikiEmbedded\Settings\Admin</admin>
+      <admin-section>OCA\DokuWikiEmbedded\Settings\AdminSection</admin-section>
+    </settings>
 </info>

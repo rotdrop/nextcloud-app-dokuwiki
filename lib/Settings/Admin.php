@@ -24,6 +24,7 @@ namespace OCA\DokuWikiEmbedded\Settings;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IURLGenerator;
 use OCP\Settings\ISettings;
+use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
@@ -32,33 +33,41 @@ class Admin implements ISettings
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
   
   const TEMPLATE = "settings/index";
+  const SETTINGS = [
+    'externalLocation',
+    'authenticationRefreshInterval',
+  ];
 
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
   
   public function __construct(
     $appName
+    , IConfig $config
     , IURLGenerator $urlGenerator
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = $appName;
+    $this->config = $config;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
   }
 
   public function getForm() {
+    $templateParameters = [
+      'appName' => $this->appName,
+      'urlGenerator' => $this->urlGenerator,
+      'myFunnySettingappName' => 42,
+    ];
+    foreach (self::SETTINGS as $setting) {
+      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting);
+    }
     return new TemplateResponse(
       $this->appName,
       self::TEMPLATE,
-      [
-        'appName' => $this->appName,
-        'externalLocation' => 'WIKILOCATION',
-        'authenticationRefreshInterval' => 600,
-        'urlGenerator' => $this->urlGenerator,
-        'myFunnySettingappName' => 42,
-      ]);
+      $templateParameters);
   }
 
   /**

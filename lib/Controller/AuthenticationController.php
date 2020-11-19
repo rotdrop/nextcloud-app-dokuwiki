@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
@@ -19,53 +19,46 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\DokuWikiEmbedded\Listener;
+namespace OCA\DokuWikiEmbedded\Controller;
 
-use OCP\User\Events\UserLoggedOutEvent as HandledEvent;
-use OCP\EventDispatcher\Event;
-use OCP\EventDispatcher\IEventListener;
+use OCP\IRequest;
+use OCP\IConfig;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Controller;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
+use OCA\DokuWikiEmbedded\Service\AuthDokuWiki as Authenticator;
 
-class UserLoggedOutEventListener implements IEventListener
+class AuthenticationController extends Controller
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
-  const APP_NAME = 'dokuwikiembedded';
-  const EVENT = HandledEvent::class;
-
-  /** @var string */
-  private $appName;
-
-  /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
   private $authenticator;
-  
+    
   public function __construct(
-    AuthDokuWiki $authenticator
+    $appName
+    , IRequest $request
+    , Authenticator $authenticator
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = self::APP_NAME;
+    parent::__construct($appName, $request);
     $this->authenticator = $authenticator;
     $this->logger = $logger;
     $this->l = $l10n;
   }
 
-  public function handle(Event $event): void {
-    if (!($event instanceOf HandledEvent)) {
-      return;
-    }
-
-    if ($this->authenticator->logout()) {
-      $this->authenticator->emitAuthHeaders();
-      $this->logInfo("DokuWiki logoff probably succeeded.");
+  /**
+   * @NoAdminRequired
+   */
+  public function refresh()
+  {
+    if (false === $this->authenticator->refresh()) {
+      $this->logError("DokuWiki refresh failed.");
+    } else {
+      $this->logInfo("DokuWiki refresh probably succeeded.");
     }
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

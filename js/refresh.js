@@ -25,40 +25,31 @@ var DokuWikiEmbedded = DokuWikiEmbedded || {
     refreshTimer: false
 };
 
-DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
-
 (function(window, $, DokuWikiEmbedded) {
-    DokuWikiEmbedded.Settings.storeSettings = function(event, id) {
-	event.preventDefault();
-        if ($.trim($('#dwembedsettings .msg').html()) == '') {
-            $('#dwembedsettings .msg').hide();
+
+    DokuWikiEmbedded.refresh = function() {
+        const self = this;
+        if (OC.currentUser) {
+            const url = OC.generateUrl('apps/'+this.appName+'/authentication/refresh');
+            this.refresh = function(){
+                if (OC.currentUser) {
+                    $.post(url, {}).always(function () {
+                        self.refreshTimer = setTimeout(self.refresh, self.refreshInterval*1000);
+                    });
+                } else if (self.refreshTimer !== false) {
+                    clearTimeout(self.refreshTimer);
+                    self.refreshTimer = false;
+                }
+            };
+            this.refreshTimer = setTimeout(this.refresh, this.refreshInterval*1000);
+        } else if (this.refreshTimer !== false) {
+            clearTimeout(this.refreshTimer);
+            self.refreshTimer = false;
         }
-	const post = $(id).serialize();
-	$.post(OC.generateUrl('/apps/'+DokuWikiEmbedded.appName+'/settings/admin/set'),
-               post,
-               function(data) {
-                   console.info("Got response data", data);
-		   if (data.message) {
-	               $('#dwembedsettings .msg').html(data.message);
-		       $('#dwembedsettings .msg').show();
-		   }
-	       }, 'json');
     };
 
 })(window, jQuery, DokuWikiEmbedded);
 
-
-$(function(){
-
-    $('#externalLocation').blur(function (event) {
-        event.preventDefault();
-        DokuWikiEmbedded.Settings.storeSettings(event, '#externalLocation');
-        return false;
-    });
-
-    $('#authenticationRefreshInterval').blur(function (event) {
-        event.preventDefault();
-        DokuWikiEmbedded.Settings.storeSettings(event, '#authenticationRefreshInterval');
-        return false;
-    });
+$(function() {
+    DokuWikiEmbedded.refresh();
 });

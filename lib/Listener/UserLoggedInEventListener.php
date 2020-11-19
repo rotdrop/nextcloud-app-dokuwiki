@@ -28,23 +28,28 @@ use OCP\EventDispatcher\IEventListener;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCA\DokuWikiEmbedded\Service\EncryptionService;
+use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
 
 class UserLoggedInEventListener implements IEventListener
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
-  
+
+  const APP_NAME = 'dokuwikiembedded';
   const EVENT = [ Event1::class, Event2::class ];
 
   /** @var string */
   private $appName;
 
+  /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
+  private $authenticator;
+  
   public function __construct(
-    /*$appName
-      ,*/ ILogger $logger
+    AuthDokuWiki $authenticator
+    , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = '';$appName; // can this work?
+    $this->appName = self::APP_NAME;
+    $this->authenticator = $authenticator;
     $this->logger = $logger;
     $this->l = $l10n;
   }
@@ -53,7 +58,14 @@ class UserLoggedInEventListener implements IEventListener
     if (!($event instanceOf Event1 && !($event instanceOf Event2))) {
       return;
     }
-    $this->logInfo("Hello Login Event!");
+
+    $userName = $event->getUser()->getUID();
+    $password = $event->getPassword();
+    if ($this->authenticator->login($userName, $password)) {
+      // TODO: perhaps store in session and emit in middleware
+      $this->authenticator->emitAuthHeaders();
+      $this->logInfo("DokuWiki login of user $username probably succeeded.");
+    }
   }
 }
 

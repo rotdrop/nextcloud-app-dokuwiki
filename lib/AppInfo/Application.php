@@ -20,7 +20,6 @@ namespace OCA\DokuWikiEmbedded\AppInfo;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
-
 use OCP\AppFramework\App;
 use OCP\IL10N;
 
@@ -32,6 +31,7 @@ use OCP\IL10N;
  *
  */
 
+use OCP\EventDispatcher\IEventDispatcher;
 use OCA\DokuWikiEmbedded\Listener\Registration as ListenerRegistration;
 
 /*
@@ -40,32 +40,39 @@ use OCA\DokuWikiEmbedded\Listener\Registration as ListenerRegistration;
  *
  */
 
-class Application extends App implements IBootstrap {
+class Application extends App implements IBootstrap
+{
+  const APP_NAME = 'dokuwikiembedded';
 
-    public function __construct (array $urlParams=array()) {
-        parent::__construct('dokuwikiembedded', $urlParams);
-    }
+  public function __construct (array $urlParams=array()) {
+    parent::__construct(self::APP_NAME, $urlParams);
+  }
 
-    // Called later than "register".
-    public function boot(IBootContext $context): void
-    {
-        //$container = $context->getAppContainer();
-    }
+  // Called later than "register".
+  public function boot(IBootContext $context): void
+  {
+    $container = $context->getAppContainer();
 
-    // Called earlier than boot, so anything initialized in the
-    // "boot()" method must not be used here.
-    public function register(IRegistrationContext $context): void
-    {
-        // if ((@include_once __DIR__ . '/../../vendor/autoload.php')===false) {
-        //     throw new Exception('Cannot include autoload. Did you run install dependencies using composer?');
-        // }
+    /* @var IEventDispatcher $eventDispatcher */
+    $dispatcher = $container->query(IEventDispatcher::class);
 
-        // Register listeners
-        ListenerRegistration::register($context);
-    }
+    $dispatcher->addListener(        
+      \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
+      function() {
+        \OCP\Util::addScript(self::APP_NAME, 'refresh');
+      }
+    );
+  }
+
+  // Called earlier than boot, so anything initialized in the
+  // "boot()" method must not be used here.
+  public function register(IRegistrationContext $context): void
+  {
+    ListenerRegistration::register($context);
+  }
 }
 
 // Local Variables: ***
-// c-basic-offset: 4 ***
+// c-basic-offset: 2 ***
 // indent-tabs-mode: nil ***
 // End: ***

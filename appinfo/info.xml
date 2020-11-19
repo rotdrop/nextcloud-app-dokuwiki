@@ -1,10 +1,23 @@
 <?xml version="1.0"?>
-<info>
-	<id>dokuwikiembed</id>
-	<name>Embedded DokuWiki Wiki</name>
-	<description>Integrates existing dokuwiki into OwnCloud. Inspired by RoundCube app.</description>
-	<version>1.0.0</version>
-	<licence>AGPL</licence>
-	<author>Claus-Justus Heine</author>
-	<require>5.0</require>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>dokuwikiembedded</id>
+    <name>Doku Wiki Embedded</name>
+    <summary>Support embedding an external DokuWiki instance with SSO</summary>
+    <description><![CDATA[DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
+    <namespace>DokuWikiEmbedded</namespace>
+    <category>integration</category>
+    <bugs>https://github.com/rotdrop/ocapp-dokuwikiembed.git</bugs>
+    <dependencies>
+        <nextcloud min-version="20" max-version="20"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Doku Wiki Embedded</name>
+            <route>dokuwikiembedded.page.index</route>
+        </navigation>
+    </navigations>
 </info>

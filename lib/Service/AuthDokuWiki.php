@@ -151,6 +151,7 @@ class AuthDokuWiki
 
     if ($method == "dokuwiki.login" ||
         $method == "dokuwiki.stickylogin" ||
+        $method == "plugin.remoteauth.stickyLogin" ||
         $method == "dokuwiki.logoff") {
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
@@ -198,7 +199,7 @@ class AuthDokuWiki
   {
     $this->cleanCookies();
     if (!empty($_POST["remember_login"])) { // @TODO : DO NOT USE POST here
-      $result = $this->xmlRequest("dokuwiki.stickylogin", [ $username, $password ]);
+      $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
       if ($result !== false) {
         return $result;
       }

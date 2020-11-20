@@ -56,24 +56,26 @@ class Application extends App implements IBootstrap
 
     /* @var OCP\IConfig */
     $config = $container->query(IConfig::class);
+    $refreshInterval = $config->getAppValue(self::APP_NAME, 'refreshInterval', 600);
 
     /* @var OCP\IInitialStateService */
     $initialState = $container->query(IInitialStateService::class);
-
-    $initialState->provideInitialState(
-      self::APP_NAME,
-      'initial',
-      [
-        'appName' => self::APP_NAME,
-        'refreshInterval' => $config->getAppValue(self::APP_NAME, 'refreshInterval', 600),
-      ]
-    );
     
     /* @var IEventDispatcher $eventDispatcher */
     $dispatcher = $container->query(IEventDispatcher::class);
     $dispatcher->addListener(        
       \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
-      function() {
+      function() use ($initialState, $refreshInterval) {
+
+        $initialState->provideInitialState(
+          self::APP_NAME,
+          'initial',
+          [
+            'appName' => self::APP_NAME,
+            'refreshInterval' => $refreshInterval,    
+          ]
+        );
+        
         \OCP\Util::addScript(self::APP_NAME, 'refresh');
       }
     );

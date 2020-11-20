@@ -32,7 +32,7 @@ class Admin implements ISettings
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
   
-  const TEMPLATE = "settings/index";
+  const TEMPLATE = 'admin-settings';
   const SETTINGS = [
     'externalLocation',
     'authenticationRefreshInterval',

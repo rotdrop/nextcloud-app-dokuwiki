@@ -19,11 +19,12 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DokuWikiEmbedded = DokuWikiEmbedded || {
-    appName: 'dokuwikiembedded',
-    refreshInterval: 300,
-    refreshTimer: false
-};
+var DokuWikiEmbedded = DokuWikiEmbedded || {};
+if (!DokuWikiEmbedded.appName) {
+    console.info("State", state);
+    DokuWikiEmbedded = $.extend({}, state);
+    DokuWikiEmbedded.refreshTimer = false;
+}
 
 DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
 

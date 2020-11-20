@@ -11,15 +11,14 @@ return [
   'routes' => [
     [
       'name' => 'page#index',
-      'url' => '/',
-      'verb' => 'GET'
+      'url' => '/page/index',
+      'verb' => 'GET',
     ],
     [
-      'name' => 'page#do_echo',
-      'url' => '/echo',
-      'verb' => 'POST'
+      'name' => 'page#frame',
+      'url' => '/page/frame',
+      'verb' => 'POST',
     ],
-    // internal "ajax" routes
     [
       'name' => 'admin_settings#set',
       'url' => '/settings/admin/set',

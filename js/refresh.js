@@ -19,16 +19,21 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DokuWikiEmbedded = DokuWikiEmbedded || {
-    appName: 'dokuwikiembedded',
-    refreshInterval: 300,
-    refreshTimer: false
-};
+var DokuWikiEmbedded = DokuWikiEmbedded || {};
+if (!DokuWikiEmbedded.appName) {
+    const state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
+    DokuWikiEmbedded = $.extend({}, state);
+    DokuWikiEmbedded.refreshTimer = false;
+}
 
 (function(window, $, DokuWikiEmbedded) {
 
     DokuWikiEmbedded.refresh = function() {
         const self = this;
+        if (!(DokuWikiEmbedded.refreshInterval >= 30)) {
+            console.error("Refresh interval too short", DokuWikiEmbedded.refreshInterval);
+            DokuWikiEmbedded.refreshInterval = 30;
+        }
         if (OC.currentUser) {
             const url = OC.generateUrl('apps/'+this.appName+'/authentication/refresh');
             this.refresh = function(){

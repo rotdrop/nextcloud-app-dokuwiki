@@ -21,7 +21,8 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\App;
-use OCP\IL10N;
+use OCP\IConfig;
+use OCP\IInitialStateService;
 
 /*
  *
@@ -53,9 +54,23 @@ class Application extends App implements IBootstrap
   {
     $container = $context->getAppContainer();
 
+    /* @var OCP\IConfig */
+    $config = $container->query(IConfig::class);
+
+    /* @var OCP\IInitialStateService */
+    $initialState = $container->query(IInitialStateService::class);
+
+    $initialState->provideInitialState(
+      self::APP_NAME,
+      'initial',
+      [
+        'appName' => self::APP_NAME,
+        'refreshInterval' => $config->getAppValue(self::APP_NAME, 'refreshInterval', 600),
+      ]
+    );
+    
     /* @var IEventDispatcher $eventDispatcher */
     $dispatcher = $container->query(IEventDispatcher::class);
-
     $dispatcher->addListener(        
       \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
       function() {

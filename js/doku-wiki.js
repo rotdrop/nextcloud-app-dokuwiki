@@ -106,7 +106,9 @@ if (!DokuWikiEmbedded.appName) {
    * sure that external links are opened in another tab/window.
    */
   DokuWikiEmbedded.loadCallback = function(frame, frameWrapper, callback) {
-    var contents = frame.contents();
+    const contents = frame.contents();
+    const webPrefix = DokuWikiEmbedded.webPrefix;
+
 
     contents.find('.logout').remove();
     contents.find('li:empty').remove();
@@ -142,7 +144,7 @@ if (!DokuWikiEmbedded.appName) {
       callback = function() {};
     }
 
-    var loader = $('#dokuwikiLoader');
+    const loader = $('#'+webPrefix+'Loader');
     if (frameWrapper.is(':hidden')) {
       loader.fadeOut('slow', function() {
         frameWrapper.slideDown('slow', function() {
@@ -296,18 +298,20 @@ if (!DokuWikiEmbedded.appName) {
 })(window, jQuery, DokuWikiEmbedded);
 
 $(function() {
-
-  const wikiContainer = $('#dokuwiki_container');
-  const wikiFrame = $('#dokuwikiFrame');
-  const dokuwiki = wikiFrame.contents();
-  const frameWrapper = $('#dokuwikiFrameWrapper');
+  
+  const webPrefix = DokuWikiEmbedded.webPrefix;
+  console.info('webPrefix', webPrefix);
+  const container = $('#'+webPrefix+'_container');
+  const frame = $('#'+webPrefix+'Frame');
+  const frameWrapper = $('#'+webPrefix+'FrameWrapper');
+  const contents = frame.contents();
 
   const setHeightCallback = function() {
-    wikiContainer.height($('#content').height());
+    container.height($('#content').height());
   };
 
-  if (wikiFrame.length > 0) {
-    wikiFrame.load(function(){
+  if (frame.length > 0) {
+    frame.load(function(){
       DokuWikiEmbedded.loadCallback($(this), frameWrapper, setHeightCallback);
     });
 
@@ -317,8 +321,8 @@ $(function() {
       resizeTimer = setTimeout(setHeightCallback);
     });
   }
-  if (dokuwiki.find('.logout')) {
-    DokuWikiEmbedded.loadCallback(wikiFrame, frameWrapper, setHeightCallback);
+  if (contents.find('.logout')) {
+    DokuWikiEmbedded.loadCallback(frame, frameWrapper, setHeightCallback);
   }
   
 });

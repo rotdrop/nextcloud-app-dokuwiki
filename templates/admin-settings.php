@@ -21,13 +21,15 @@
 
 namespace OCA\DokuWikiEmbedded;
 
+use OCA\DokuWikiEmbedded\Service\Constants;
+
 script($appName, 'admin-settings');
 
 ?>
 
 <div class="section">
   <h2><?php p($l->t('Embedded DokuWiki')) ?></h2>
-  <form id="dwembedsettings">
+  <form id="<?php echo Constants::APP_PREFIX; ?>settings">
     <input type="text"
            name="externalLocation"
            id="externalLocation"

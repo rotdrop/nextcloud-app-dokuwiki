@@ -209,7 +209,7 @@ class AuthDokuWiki
   }
 
   /**
-   * Logoff from (hacked) DokuWiki with added XMLRPC dokuwiki.logoff
+   * Logoff from DokuWiki with added XMLRPC dokuwiki.logoff
    * call. For this to work we have to send the DokuWiki cookies
    * alongside the XMLRPC request.
    */
@@ -227,6 +227,10 @@ class AuthDokuWiki
     return $this->xmlRequest("dokuwiki.getVersion");
   }
 
+  /**
+   * Ping the external application in order to extend its login
+   * session.
+   */
   public function refresh():bool
   {
     return $this->version() !== false;

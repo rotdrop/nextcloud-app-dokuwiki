@@ -40,13 +40,12 @@ use OCA\DokuWikiEmbedded\Listener\Registration as ListenerRegistration;
  **********************************************************
  *
  */
+use OCA\DokuWikiEmbedded\Service\Constants;
 
 class Application extends App implements IBootstrap
 {
-  const APP_NAME = 'dokuwikiembedded';
-
   public function __construct (array $urlParams=array()) {
-    parent::__construct(self::APP_NAME, $urlParams);
+    parent::__construct(Constants::APP_NAME, $urlParams);
   }
 
   // Called later than "register".
@@ -56,7 +55,7 @@ class Application extends App implements IBootstrap
 
     /* @var OCP\IConfig */
     $config = $container->query(IConfig::class);
-    $refreshInterval = $config->getAppValue(self::APP_NAME, 'refreshInterval', 600);
+    $refreshInterval = $config->getAppValue(Constants::APP_NAME, 'refreshInterval', 600);
 
     /* @var OCP\IInitialStateService */
     $initialState = $container->query(IInitialStateService::class);
@@ -68,15 +67,16 @@ class Application extends App implements IBootstrap
       function() use ($initialState, $refreshInterval) {
 
         $initialState->provideInitialState(
-          self::APP_NAME,
+          Constants::APP_NAME,
           'initial',
           [
-            'appName' => self::APP_NAME,
+            'appName' => Constants::APP_NAME,
+            'webPrefix' => Constants::APP_PREFIX,
             'refreshInterval' => $refreshInterval,    
           ]
         );
         
-        \OCP\Util::addScript(self::APP_NAME, 'refresh');
+        \OCP\Util::addScript(Constants::APP_NAME, 'refresh');
       }
     );
   }

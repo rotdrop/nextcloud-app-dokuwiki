@@ -50,12 +50,11 @@ class AuthDokuWiki
   private $reqHeaders;  //!< Authentication headers, cookies we send to DW
 
   public function __construct(
-    /*$appname
-       ,*/ IConfig $config
-  , IURLGenerator $urlGenerator
-  , $userId
-  , ILogger $logger
-  , IL10N $l10n
+    IConfig $config
+    , IURLGenerator $urlGenerator
+    , $userId
+    , ILogger $logger
+    , IL10N $l10n
   ) {
     $this->userId = $userId;
     $this->appName = self::APP_NAME;

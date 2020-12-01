@@ -205,7 +205,7 @@ if (!DokuWikiEmbedded.appName) {
 
         dialogHolder.html(htmlContent);
         $('body').append(dialogHolder);
-        dialogHolder = $(containerSel);
+        //dialogHolder = $(containerSel);
         const popup = dialogHolder.dialog({
           title: options.popupTitle,
           position: { my: "middle top",

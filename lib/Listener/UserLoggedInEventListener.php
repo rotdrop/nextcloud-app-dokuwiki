@@ -25,6 +25,7 @@ use OCP\User\Events\UserLoggedInEvent as Event1;
 use OCP\User\Events\UserLoggedInWithCookieEvent as Event2;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\IRequest;
 use OCP\ILogger;
 use OCP\IL10N;
 
@@ -40,16 +41,21 @@ class UserLoggedInEventListener implements IEventListener
   /** @var string */
   private $appName;
 
+  /** @var OCP\IRequest */
+  private $request;
+  
   /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
   private $authenticator;
   
   public function __construct(
     AuthDokuWiki $authenticator
+    , IRequest $request
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = self::APP_NAME;
     $this->authenticator = $authenticator;
+    $this->request = $request;
     $this->logger = $logger;
     $this->l = $l10n;
   }
@@ -59,14 +65,36 @@ class UserLoggedInEventListener implements IEventListener
       return;
     }
 
+    if ($this->ignoreRequest($this->request)) {
+      return;
+    }
+
     $userName = $event->getUser()->getUID();
     $password = $event->getPassword();
     if ($this->authenticator->login($userName, $password)) {
       // TODO: perhaps store in session and emit in middleware
       $this->authenticator->emitAuthHeaders();
-      $this->logInfo("DokuWiki login of user $username probably succeeded.");
+      $this->logInfo("DokuWiki login of user $userName probably succeeded.");
     }
   }
+
+  /**
+   * In order to avoid request ping-pong the auto-login should only be
+   * attempted for UI logins.
+   */
+  private function ignoreRequest(IRequest $request):bool
+  {
+    if ($request->getHeader('OCS-APIREQUEST') === 'true') {
+      $this->logInfo('Ignoring API login');
+      return true;
+    }
+    if (strpos($this->request->getHeader('Authorization'), 'Bearer ') === 0) {
+      $this->logInfo('Ignoring API "bearer" auth');
+      return true;
+    }
+    return false;
+  }
+  
 }
 
 // Local Variables: ***

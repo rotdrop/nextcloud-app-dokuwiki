@@ -180,7 +180,7 @@ if (!DokuWikiEmbedded.appName) {
       cssClass: 'popup',
       iframeAttributes: 'scrolling="no"'
     };
-    $.get(
+    $.post(
       OC.generateUrl('/apps/'+DokuWikiEmbedded.appName+'/page/frame/blank'),
       parameters)
       .fail(function(xhr, status, errorThrown) {

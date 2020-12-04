@@ -16,8 +16,11 @@ return [
     ],
     [
       'name' => 'page#frame',
-      'url' => '/page/frame',
+      'url' => '/page/frame/{renderAs}',
       'verb' => 'POST',
+      'default' => [
+        'renderAs' => 'blank',
+      ],
     ],
     [
       'name' => 'admin_settings#set',

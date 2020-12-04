@@ -54,10 +54,11 @@ class AuthenticationController extends Controller
    */
   public function refresh()
   {
-    if (false === $this->authenticator->refresh()) {
+    $response = $this->authenticator->refresh();
+    if (false === $response) {
       $this->logError("DokuWiki refresh failed.");
     } else {
-      $this->logInfo("DokuWiki refresh probably succeeded.");
+      $this->logInfo("DokuWiki refresh probably succeeded, response ".print_r($response, true));
     }
   }
 }

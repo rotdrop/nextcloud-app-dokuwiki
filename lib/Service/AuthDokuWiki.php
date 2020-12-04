@@ -32,22 +32,38 @@ class AuthDokuWiki
 
   const APP_NAME = 'dokuwikiembedded';
   const RPCPATH = '/lib/exe/xmlrpc.php';
+  const ON_ERROR_THROW = 'throw'; ///< Throw an exception on error
+  const ON_ERROR_RETURN = 'return'; ///< Return boolean on error
+
+  /**
+   * Auth Levels
+   * @file inc/auth.php
+   */
+  const AUTH_NONE = 0;
+  const AUTH_READ = 1;
+  const AUTH_EDIT = 2;
+  const AUTH_CREATE = 4;
+  const AUTH_UPLOAD = 8;
+  const AUTH_DELETE = 16;
+  const AUTH_ADMIN = 255;
 
   private $userId;
-  
+
   private $appName;
 
   private $config;
 
   private $urlGenerator;
-  
+
   private $dwProto;
   private $dwHost;
   private $dwPort;
-  private $dwPath;  
+  private $dwPath;
 
   private $authHeaders; //!< Authentication headers returned by DokuWiki
   private $reqHeaders;  //!< Authentication headers, cookies we send to DW
+
+  private $errorReporting;
 
   public function __construct(
     IConfig $config
@@ -62,7 +78,9 @@ class AuthDokuWiki
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
-    
+
+    $this->errorReporting = self::ON_ERROR_RETURN;
+
     $location = $this->config->getAppValue($this->appName, 'externalLocation');
     if ($location[0] == '/') {
       $url = $this->urlGenerator->getAbsoluteURL($location);
@@ -87,6 +105,36 @@ class AuthDokuWiki
     }
   }
 
+  public function errorReporting($how = null)
+  {
+    $reporting = $this->errorReporting;
+    switch ($how) {
+      case null:
+        break;
+      case self::ON_ERROR_THROW:
+      case self::ON_ERROR_RETURN:
+        $this->errorReporting = $how;
+        break;
+      default:
+        throw new \Exception('Unknown error-reporting method: '.$how);
+    }
+    return $reporting;
+  }
+
+  private function handleError($msg)
+  {
+    switch ($this->errorReporting) {
+      case self::ON_ERROR_THROW:
+        throw new \Exception($msg);
+      case self::ON_ERROR_RETURN:
+        $this->logError($msg);
+        return false;
+      default:
+        throw new \Exception("Invalid error handling method: ".$this->errorReporting);
+    }
+    return false;
+  }
+
   /**
    * Return the URL for use with an iframe or object tag
    */
@@ -97,8 +145,8 @@ class AuthDokuWiki
 
   private function cleanCookies()
   {
-    $this->authHeaders = array();
-    $this->reqHeaders = array();
+    $this->authHeaders = [];
+    $this->reqHeaders = [];
     foreach ($_COOKIE as $cookie => $value) {
       if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
         unset($_COOKIE[$cookie]);
@@ -106,7 +154,10 @@ class AuthDokuWiki
     }
   }
 
-  private function xmlRequest($method, $data = [])
+  /**
+   * Issue an RPC XML request to the configured DokuWiki instance.
+   */
+  public function xmlRequest($method, $data = [])
   {
     // Generate the request
     $request = xmlrpc_encode_request($method, $data, [ "encoding" => "UTF-8",
@@ -136,16 +187,19 @@ class AuthDokuWiki
       fclose($fp);
       $responseHdr = $http_response_header;
     } else {
-      $this->logError("URL fopen to $url failed");      
-      $result = '';
-      $responseHdr = '';
+      $error = error_get_last();
+      $headers = $http_response_header;
+      return $this->handleError(
+        "URL fopen to $url failed: "
+        .print_r($error, true)
+        .$headers[0]
+      );
     }
 
     $response = xmlrpc_decode($result);
     if (is_array($response) && \xmlrpc_is_fault($response)) {
-      $this->logError("Error: xlmrpc: $response[faultString] ($response[faultCode])");
-      $this->authHeaders = array(); // nothing
-      return false;
+      $this->authHeaders = []; // nothing
+      return $this->handleError("Error: xmlrpc: $response[faultString] ($response[faultCode])");
     }
 
     if ($method == "dokuwiki.login" ||
@@ -155,7 +209,7 @@ class AuthDokuWiki
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
       if ($response == 1) {
-        $this->authHeaders = array();
+        $this->authHeaders = [];
         // Store and duplicate set cookies for forwarding to the users web client
         foreach ($responseHdr as $header) {
           if (preg_match('/^Set-Cookie:\s*(DokuWiki|DW).*/', $header)) {
@@ -177,9 +231,9 @@ class AuthDokuWiki
         return false;
       }
     }
-    
-    return $result == '' ? false : $response;
-  }  
+
+    return $response;
+  }
 
   /**
    * Perform the login by means of a RPCXML call and stash the cookies
@@ -197,7 +251,7 @@ class AuthDokuWiki
   public function login($username, $password)
   {
     $this->cleanCookies();
-    if (!empty($_POST["remember_login"])) { // @TODO : DO NOT USE POST here
+    if (!empty($_POST["remember_login"])) { // @TODO : DO NOT USE $_POST here
       $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
       if ($result !== false) {
         return $result;
@@ -230,11 +284,11 @@ class AuthDokuWiki
    * Ping the external application in order to extend its login
    * session.
    */
-  public function refresh():bool
+  public function refresh()
   {
-    return $this->version() !== false;
+    return $this->version();
   }
-  
+
   /**
    * Rather a support function in case some other app wants to create
    * some automatic wiki-pages (e.g. overview stuff and the like,
@@ -243,16 +297,58 @@ class AuthDokuWiki
   public function putPage($pagename, $pagedata, $attr = [])
   {
     return $this->xmlRequest("wiki.putPage", [ $pagename, $pagedata, $attr ]);
-  }  
+  }
 
   /**
    * Rather a support function in case some other app wants to create
-   * some automatic wiki-pages (e.g. overview stuff and the like, may
-   * a changelog here and a readme there.
+   * some automatic wiki-pages (e.g. overview stuff and the like,
+   * maybe a changelog here and a readme there.
    */
   public function getPage($pagename)
   {
     return $this->xmlRequest("wiki.getPage", [ $pagename ]);
+  }
+
+  /**
+   * Add an ACL rule
+   *
+   * @param string $scope A page or namespace, use `NAMESPACE:*` to
+   * grant access to an entire name-space, otherwise just the full
+   * path to the target page.
+   *
+   * @param string $who User or group. Use `@GROUP` to define a rule
+   * for a group.
+   *
+   * @param int $what One of
+   * `self::AUTH_NONE`,
+   * `self::AUTH_READ`,
+   * `self::AUTH_EDIT`,
+   * `self::AUTH_CREATE`,
+   * `self::AUTH_UPLOAD`,
+   * `self::AUTH_DELETE`,
+   * `self::AUTH_ADMIN`.
+   *
+   * @return mixed Response from the RPC call, false on error.
+   */
+  public function addAcl($scope, $who, int $what)
+  {
+    return $this->xmlRequest('plugin.acl.addAcl', [ $scope, $who, $what ]);
+  }
+
+  /**
+   * Delete an ACL rule, see self::addACL().
+   */
+  public function delAcl($scope, $who)
+  {
+    return $this->xmlRequest('plugin.acl.delAcl', [ $scope, $who ]);
+  }
+
+  /**
+   * List all ACLs.
+   */
+  public function listAcls()
+  {
+    return $this->xmlRequest('plugin.acl.listAcls');
   }
 
   /**
@@ -282,7 +378,7 @@ class AuthDokuWiki
     ksort($cookie);
     return $cookie;
   }
-  
+
   /**
    * Normally, we do NOT want to replace cookies, we need two
    * paths: one for the RC directory, one for the OC directory
@@ -317,7 +413,7 @@ class AuthDokuWiki
   /**
    * Send authentication headers previously aquired
    */
-  public function emitAuthHeaders() 
+  public function emitAuthHeaders()
   {
     foreach ($this->authHeaders as $header) {
       //header($header, false);

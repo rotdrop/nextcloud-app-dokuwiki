@@ -34,16 +34,22 @@ class AuthenticationController extends Controller
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
+  /** @var \OCA\DokuWikiEmbedded\Service\AuthRedaxo4 */
   private $authenticator;
-    
+
+  /** @var string */
+  private $userId;
+
   public function __construct(
     $appName
     , IRequest $request
+    , $userId
     , Authenticator $authenticator
     , ILogger $logger
     , IL10N $l10n
   ) {
     parent::__construct($appName, $request);
+    $this->userId = $userId;
     $this->authenticator = $authenticator;
     $this->logger = $logger;
     $this->l = $l10n;
@@ -56,9 +62,9 @@ class AuthenticationController extends Controller
   {
     $response = $this->authenticator->refresh();
     if (false === $response) {
-      $this->logError("DokuWiki refresh failed.");
+      $this->logError("DokuWiki refresh for user ".($this->userId)." failed.");
     } else {
-      $this->logInfo("DokuWiki refresh probably succeeded, response ".print_r($response, true));
+      $this->logInfo("DokuWiki refresh ".($this->userId)." probably succeeded, response ".print_r($response, true));
     }
   }
 }

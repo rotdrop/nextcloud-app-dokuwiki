@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
@@ -23,28 +23,26 @@ namespace OCA\DokuWikiEmbedded\Settings;
 
 use OCP\Settings\IIconSection;
 use OCP\IURLGenerator;
-use OCP\ILogger;
 use OCP\IL10N;
 
 class AdminSection implements IIconSection
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
-
   /** @var string */
   private $appName;
 
   /** @var \OCP\IURLGenerator */
   private $ulrGenerator;
-  
+
+  /** @var \OCP\IL10N */
+  private $l;
+
   public function __construct(
     string $appName
     , IURLGenerator $urlGenerator
-    , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = $appName;
     $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
     $this->l = $l10n;
   }
 
@@ -81,7 +79,7 @@ class AdminSection implements IIconSection
     // @@TODO make it configurable
     return $this->urlGenerator->imagePath($this->appName, 'app.svg');
   }
-  
+
 }
 
 // Local Variables: ***

@@ -55,14 +55,14 @@ class Application extends App implements IBootstrap
 
     /* @var OCP\IConfig */
     $config = $container->query(IConfig::class);
-    $refreshInterval = $config->getAppValue(Constants::APP_NAME, 'refreshInterval', 600);
+    $refreshInterval = $config->getAppValue(Constants::APP_NAME, 'authenticationRefreshInterval', 600);
 
     /* @var OCP\IInitialStateService */
     $initialState = $container->query(IInitialStateService::class);
-    
+
     /* @var IEventDispatcher $eventDispatcher */
     $dispatcher = $container->query(IEventDispatcher::class);
-    $dispatcher->addListener(        
+    $dispatcher->addListener(
       \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
       function() use ($initialState, $refreshInterval) {
 
@@ -72,10 +72,10 @@ class Application extends App implements IBootstrap
           [
             'appName' => Constants::APP_NAME,
             'webPrefix' => Constants::APP_PREFIX,
-            'refreshInterval' => $refreshInterval,    
+            'refreshInterval' => $refreshInterval,
           ]
         );
-        
+
         \OCP\Util::addScript(Constants::APP_NAME, 'refresh');
       }
     );

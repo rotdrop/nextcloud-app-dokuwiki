@@ -1,7 +1,7 @@
 /**
  * Embed a DokuWiki instance as app into ownCloud, intentionally with
  * single-sign-on.
- * 
+ *
  * @author Claus-Justus Heine
  * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -39,6 +39,7 @@ if (!DokuWikiEmbedded.appName) {
             this.refresh = function(){
                 if (OC.currentUser) {
                     $.post(url, {}).always(function () {
+                        console.info('DokuWiki refresh scheduled', self.refreshInterval * 1000);
                         self.refreshTimer = setTimeout(self.refresh, self.refreshInterval*1000);
                     });
                 } else if (self.refreshTimer !== false) {
@@ -46,8 +47,10 @@ if (!DokuWikiEmbedded.appName) {
                     self.refreshTimer = false;
                 }
             };
+            console.info('DokuWiki refresh scheduled', this.refreshInterval * 1000);
             this.refreshTimer = setTimeout(this.refresh, this.refreshInterval*1000);
         } else if (this.refreshTimer !== false) {
+            console.info('OC.currentUser appears unset');
             clearTimeout(this.refreshTimer);
             self.refreshTimer = false;
         }
@@ -56,5 +59,6 @@ if (!DokuWikiEmbedded.appName) {
 })(window, jQuery, DokuWikiEmbedded);
 
 $(function() {
+    console.info('Starting DokuWiki refresh');
     DokuWikiEmbedded.refresh();
 });

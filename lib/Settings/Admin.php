@@ -59,7 +59,6 @@ class Admin implements ISettings
     $templateParameters = [
       'appName' => $this->appName,
       'urlGenerator' => $this->urlGenerator,
-      'myFunnySettingappName' => 42,
     ];
     foreach (self::SETTINGS as $setting) {
       $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting);

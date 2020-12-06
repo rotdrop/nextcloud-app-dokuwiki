@@ -1,7 +1,7 @@
 /**
  * Embed a DokuWiki instance as app into ownCloud, intentionally with
  * single-sign-on.
- * 
+ *
  * @author Claus-Justus Heine
  * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -59,7 +59,7 @@ if (!DokuWikiEmbedded.appName) {
     //console.info(data);
     return data;
   };
-  
+
   /**
    * Unfortunately, the textare element does not fire a resize
    * event. This function emulates one.
@@ -68,7 +68,7 @@ if (!DokuWikiEmbedded.appName) {
    *
    * @param delay Optional, defaults to 50. If true, fire the event
    * immediately, if set, then this is a delay in ms.
-   * 
+   *
    *
    */
   DokuWikiEmbedded.textareaResize = function(textarea, delay) {
@@ -168,7 +168,7 @@ if (!DokuWikiEmbedded.appName) {
    *   popupTitle: 'title',
    *   modal: true/false
    * }
-   * 
+   *
    * @param openCallback Optional callback to be call on open. The
    * callback will get the element holding the dialog content as
    * argument and the dialog widget itself. The callback is called BEFORE the iframe is loaded.
@@ -233,7 +233,7 @@ if (!DokuWikiEmbedded.appName) {
             frame.load(function(){
               const self = this;
               const contents = $(self).contents();
-              
+
               // Remove some more stuff. The popup is meant for a
               // single page.
               contents.find('#dokuwiki__header div.pad').remove();
@@ -250,19 +250,19 @@ if (!DokuWikiEmbedded.appName) {
                                    display: 'none' });
               }
               // </HACK>
-              
+
               DokuWikiEmbedded.loadCallback(frame, frameWrapper, function() {
 		//dialogHolder.dialog('option', 'height', 'auto');
 		//dialogHolder.dialog('option', 'width', 'auto');
                 var newHeight = dialogWidget.height() - titleHeight;
                 dialogHolder.height(newHeight);
-                
+
                 // Unfortunately, there is no resize event on
                 // textareas. We simulate one
                 var editArea = contents.find('textarea');
                 if (editArea.length > 0) {
                   DokuWikiEmbedded.textareaResize(editArea);
-                  
+
                   editArea.on('resize', function() {
                     const scrollHeight = self.contentWindow.document.body.scrollHeight;
                     frame.css({ height: scrollHeight + 'px',
@@ -273,21 +273,21 @@ if (!DokuWikiEmbedded.appName) {
                     dialogHolder.height(newHeight);
                   });
                 }
-                
+
               });
             });
           },
           close: function() {
             $('.tipsy').remove();
             const dialogHolder = $(this);
-            
+
             dialogHolder.dialog('close');
             dialogHolder.dialog('destroy').remove();
-            
+
             if (typeof closeCallback == 'function') {
               closeCallback();
             }
-            
+
             return false;
           }
         });
@@ -298,9 +298,9 @@ if (!DokuWikiEmbedded.appName) {
 })(window, jQuery, DokuWikiEmbedded);
 
 $(function() {
-  
+
   const webPrefix = DokuWikiEmbedded.webPrefix;
-  console.info('webPrefix', webPrefix);
+  console.info('DokuWiki webPrefix', webPrefix);
   const container = $('#'+webPrefix+'_container');
   const frame = $('#'+webPrefix+'Frame');
   const frameWrapper = $('#'+webPrefix+'FrameWrapper');
@@ -324,7 +324,7 @@ $(function() {
   if (contents.find('.logout')) {
     DokuWikiEmbedded.loadCallback(frame, frameWrapper, setHeightCallback);
   }
-  
+
 });
 
 // Local Variables: ***

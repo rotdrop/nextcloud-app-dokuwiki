@@ -47,8 +47,6 @@ class AuthDokuWiki
   const AUTH_DELETE = 16;
   const AUTH_ADMIN = 255;
 
-  private $userId;
-
   private $appName;
 
   private $config;
@@ -68,11 +66,9 @@ class AuthDokuWiki
   public function __construct(
     IConfig $config
     , IURLGenerator $urlGenerator
-    , $userId
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->userId = $userId;
     $this->appName = self::APP_NAME;
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
@@ -268,6 +264,7 @@ class AuthDokuWiki
    */
   public function logout()
   {
+    // TODO: delete all cookies
     return $this->xmlRequest("dokuwiki.logoff");
   }
 

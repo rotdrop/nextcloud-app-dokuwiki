@@ -30,12 +30,12 @@ use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
+use OCA\DokuWikiEmbedded\Service\Constants;
 
 class UserLoggedInEventListener implements IEventListener
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
-  const APP_NAME = 'dokuwikiembedded';
   const EVENT = [ Event1::class, Event2::class ];
 
   /** @var string */
@@ -43,17 +43,17 @@ class UserLoggedInEventListener implements IEventListener
 
   /** @var OCP\IRequest */
   private $request;
-  
+
   /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
   private $authenticator;
-  
+
   public function __construct(
     AuthDokuWiki $authenticator
     , IRequest $request
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = self::APP_NAME;
+    $this->appName = Constants::APP_NAME;
     $this->authenticator = $authenticator;
     $this->request = $request;
     $this->logger = $logger;
@@ -94,7 +94,7 @@ class UserLoggedInEventListener implements IEventListener
     }
     return false;
   }
-  
+
 }
 
 // Local Variables: ***

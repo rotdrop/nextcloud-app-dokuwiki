@@ -61,6 +61,7 @@ class AuthDokuWiki
   private $authHeaders; //!< Authentication headers returned by DokuWiki
   private $reqHeaders;  //!< Authentication headers, cookies we send to DW
 
+  /** @var string */
   private $errorReporting;
 
   /** @var bool */
@@ -106,6 +107,15 @@ class AuthDokuWiki
     }
   }
 
+  /**
+   * Modify how errors are handled.
+   *
+   * @param string $how One of self::ON_ERROR_THROW or
+   * self::ON_ERROR_RETURN or null (just return the current
+   * reporting).1
+   *
+   * @return string Currently active error handling policy.
+   */
   public function errorReporting($how = null)
   {
     $reporting = $this->errorReporting;
@@ -243,11 +253,11 @@ class AuthDokuWiki
    * activated. This login function itself is only meant for being
    * called during the login process.
    *
-   * @param[in] $username Login name
+   * @param $username Login name
    *
-   * @param[in] $password credentials
+   * @param $password credentials
    *
-   * @return true if successful, false otherwise.
+   * @return bool true if successful, false otherwise.
    */
   public function login($username, $password)
   {
@@ -359,7 +369,8 @@ class AuthDokuWiki
    *
    * @parm cookieHeader Guess what
    *
-   * @return Array with name, value, expires and path fields, or
+   * @return array
+   * Array with name, value, expires and path fields, or
    * false if $cookie was not a Set-Cookie header.
    *
    */

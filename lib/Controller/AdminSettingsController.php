@@ -57,35 +57,44 @@ class AdminSettingsController extends Controller
 
   public function set()
   {
-    foreach (Admin::SETTINGS as $setting) {
-      if (!empty($this->request[$setting])) {
-        $value = trim($this->request[$setting]);
-        $this->logInfo("Got setting ".$setting.": ".$value);
-        switch ($setting) {
-          case 'externalLocation':
-            if ($value[0] == '/') {
-              $value = $this->urlGenerator->getAbsoluteURL($value);
-            }
-            $urlParts = parse_url($value);
-            if (empty($urlParts['scheme']) || !preg_match('/https?/', $urlParts['scheme'])) {
-              return self::grumble($this->l->t("Scheme of external URL must be one of `http' or `https', `%s' given.", [$urlParts['scheme']]));
-            }
-            if (empty($urlParts['host'])) {
-              return self::grumble($this->l->t("Host-part of external URL seems to be empty"));
-            }
-            break;
-          case 'authenticationRefreshInterval':
-            break;
+    foreach (array_keys(Admin::SETTINGS) as $setting) {
+      if (!isset($this->request[$setting])) {
+        continue;
+      }
+      $value = trim($this->request[$setting]);
+      $this->logInfo("Got setting ".$setting.": ".$value);
+      switch ($setting) {
+      case 'externalLocation':
+        if ($value[0] == '/') {
+          $value = $this->urlGenerator->getAbsoluteURL($value);
         }
-        $this->config->setAppValue($this->appName, $setting, $value);
-        return new DataResponse([
-          'value' => $value,
-          'message' => $this->l->t("Parameter %s set to %s", [ $setting, $value ]),
-        ]);
+        $urlParts = parse_url($value);
+        if (empty($urlParts['scheme']) || !preg_match('/https?/', $urlParts['scheme'])) {
+          return self::grumble($this->l->t("Scheme of external URL must be one of `http' or `https', `%s' given.", [$urlParts['scheme']]));
+        }
+        if (empty($urlParts['host'])) {
+          return self::grumble($this->l->t("Host-part of external URL seems to be empty"));
+        }
+        break;
+      case 'authenticationRefreshInterval':
+        break;
+      case 'enableSSLVerify':
+        $realValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+        if ($realValue === null) {
+          return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not convertible to boolean.', [$value, $setting]));
+        }
+        $value = $realValue;
+        $strValue = $value ? 'on' : 'off';
+        break;
       }
-      if (isset($this->request[$setting]))   {
-        return self::grumble($this->l->t("No data submitted for setting `%s'.", [$setting]));
+      $this->config->setAppValue($this->appName, $setting, $value);
+      if (empty($strValue)) {
+        $strValue = $value;
       }
+      return new DataResponse([
+        'value' => $value,
+        'message' => $this->l->t("Parameter %s set to %s", [ $setting, $strValue ]),
+      ]);
     }
     return new DataResponse([ 'message' => $this->l->t('Unknown Request') ], Http::STATUS_BAD_REQUEST);
   }

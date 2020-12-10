@@ -34,8 +34,9 @@ class Admin implements ISettings
   
   const TEMPLATE = 'admin-settings';
   const SETTINGS = [
-    'externalLocation',
-    'authenticationRefreshInterval',
+    'externalLocation' => '',
+    'authenticationRefreshInterval' => 600,
+    'enableSSLVerify' => true,
   ];
 
   /** @var \OCP\IURLGenerator */
@@ -60,8 +61,8 @@ class Admin implements ISettings
       'appName' => $this->appName,
       'urlGenerator' => $this->urlGenerator,
     ];
-    foreach (self::SETTINGS as $setting) {
-      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting);
+    foreach (self::SETTINGS as $setting => $default) {
+      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $default);
     }
     return new TemplateResponse(
       $this->appName,

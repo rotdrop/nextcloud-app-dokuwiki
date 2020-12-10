@@ -63,6 +63,9 @@ class AuthDokuWiki
 
   private $errorReporting;
 
+  /** @var bool */
+  private $enableSSLVerify;
+  
   public function __construct(
     IConfig $config
     , IURLGenerator $urlGenerator
@@ -76,6 +79,8 @@ class AuthDokuWiki
     $this->l = $l10n;
 
     $this->errorReporting = self::ON_ERROR_RETURN;
+
+    $this->enableSSLVerify = $this->config->getAppValue('enableSSLVerfiy', true);
 
     $location = $this->config->getAppValue($this->appName, 'externalLocation');
     if ($location[0] == '/') {
@@ -172,8 +177,8 @@ class AuthDokuWiki
                   'content' => $request,
       ],
       'ssl' => [
-        'verify_peer' => false,
-        'verify_peer_name' => false,
+        'verify_peer' => $this->enableSSLVerify,
+        'verify_peer_name' => $this->enableSSLVerify,
       ],
     ]);
     $url  = $this->wikiURL().self::RPCPATH;

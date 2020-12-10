@@ -54,6 +54,17 @@ have to enable the XMLRPC protocol in your DokuWiki.'); ?>"
     />
     <label for="authenticationRefreshInterval"><?php echo $l->t('DokuWiki Session Refresh Interval [s]'); ?></label>
     <br/>        
+    <input type="checkbox"
+           name="enableSSLVerify"
+           id="enableSSLVerify"
+           class="checkbox"
+	   <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
+    />
+    <label title="<?php p($l->t('Disable SSL verification, e.g. for self-signed certification or known mis-matching host-names like "localhost".')); ?>"
+           for="enableSSLVerify">
+      <?php p($l->t('Enable SSL verification.')); ?>
+    </label>
+    <br/>
     <span class="msg"></span>
   </form>
 </div>

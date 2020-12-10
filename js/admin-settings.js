@@ -64,18 +64,26 @@ DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
         return data;
     };
     
-    DokuWikiEmbedded.Settings.storeSettings = function(event, id) {
+    DokuWikiEmbedded.Settings.storeSettings = function(event, $id) {
         const webPrefix = DokuWikiEmbedded.webPrefix;
         const msg = $('#'+webPrefix+'settings .msg');
         if ($.trim(msg.html()) == '') {
             msg.hide();
         }
-	const post = $(id).serialize();
+	var post = $id.serialize();
+	const cbSelector = 'input:checkbox:not(:checked)';
+	$id.find(cbSelector).addBack(cbSelector).each(function(index) {
+	    console.info('unchecked?', index, $(this));
+	    if (post !== '') {
+		post += '&';
+	    }
+	    post += $(this).attr('name') + '=' + 'off';
+	});
 	$.post(OC.generateUrl('/apps/'+DokuWikiEmbedded.appName+'/settings/admin/set'), post)
             .done(function(data) {
                 console.info("Got response data", data);
                 if (data.value) {
-                    $(id).val(data.value);
+                    $id.val(data.value);
                 }
 		if (data.message) {
 	            msg.html(data.message);
@@ -97,16 +105,22 @@ DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
 
 
 $(function(){
+    const inputs = {
+	'externalLocation': 'blur',
+	'authenticationRefreshInterval': 'blur',
+	'enableSSLVerify': 'change'
+    };
 
-    $('#externalLocation').blur(function (event) {
-        event.preventDefault();
-        DokuWikiEmbedded.Settings.storeSettings(event, '#externalLocation');
-        return false;
-    });
+    for (const input in inputs) {
+	const $id = $('#' + input);
+	const event = inputs[input];
 
-    $('#authenticationRefreshInterval').blur(function (event) {
-        event.preventDefault();
-        DokuWikiEmbedded.Settings.storeSettings(event, '#authenticationRefreshInterval');
-        return false;
-    });
+	console.info(input, event);
+
+	$id.on(event, function(event) {
+	    event.preventDefault();
+	    DokuWikiEmbedded.Settings.storeSettings(event, $id);
+	    return false;
+	});
+    }
 });

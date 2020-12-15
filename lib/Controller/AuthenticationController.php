@@ -64,7 +64,7 @@ class AuthenticationController extends Controller
     if (false === $response) {
       $this->logError("DokuWiki refresh for user ".($this->userId)." failed.");
     } else {
-      $this->logInfo("DokuWiki refresh ".($this->userId)." probably succeeded, response ".print_r($response, true));
+      $this->logInfo("DokuWiki refresh ".($this->userId)." probably succeeded");
     }
   }
 }

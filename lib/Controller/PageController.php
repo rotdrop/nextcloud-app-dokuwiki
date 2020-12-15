@@ -64,6 +64,7 @@ class PageController extends Controller
   ) {
     parent::__construct($appName, $request);
     $this->authenticator = $authenticator;
+    $this->authenticator->errorReporting(Authenticator::ON_ERROR_THROW);
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
     $this->initialStateService = $initialStateService;
@@ -100,8 +101,9 @@ class PageController extends Controller
       $popupTitle   = $this->request->getParam('popupTitle', '');
       $cssClass     = $this->request->getParam('cssClass', 'fullscreen');
       $attributes   =  $this->request->getParam('iframeAttributes', '');
-  
-      $this->authenticator->emitAuthHeaders(); // @todo: should be attached to template
+
+      $this->authenticator->refresh(); // maybe attempt re-login
+      $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
 
       $templateParameters = [
         'appName' => $this->appName,

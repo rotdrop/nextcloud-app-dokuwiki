@@ -21,7 +21,7 @@
 
 namespace OCA\DokuWikiEmbedded\Listener;
 
-use OCP\User\Events\UserLoggedOutEvent as HandledEvent;
+use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\ILogger;

@@ -21,6 +21,8 @@
 
 namespace OCA\DokuWikiEmbedded\Service;
 
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+use OCP\Authentication\LoginCredentials\ICredentials;
 use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\ILogger;
@@ -35,6 +37,10 @@ class AuthDokuWiki
   const ON_ERROR_THROW = 'throw'; ///< Throw an exception on error
   const ON_ERROR_RETURN = 'return'; ///< Return boolean on error
 
+  const STATUS_UNKNOWN = 0;
+  const STATUS_LOGGED_OUT = -1;
+  const STATUS_LOGGED_IN = 1;
+
   /**
    * Auth Levels
    * @file inc/auth.php
@@ -47,11 +53,17 @@ class AuthDokuWiki
   const AUTH_DELETE = 16;
   const AUTH_ADMIN = 255;
 
+  /** @var string */
   private $appName;
 
+  /** @var \OCP\IConfig */
   private $config;
 
+  /** @var \OCP\IURLGeneator */
   private $urlGenerator;
+
+  /** @var \OCP\Authentication\LoginCredentials\IStore */
+  private $credentialsStore;
 
   private $dwProto;
   private $dwHost;
@@ -61,20 +73,28 @@ class AuthDokuWiki
   private $authHeaders; //!< Authentication headers returned by DokuWiki
   private $reqHeaders;  //!< Authentication headers, cookies we send to DW
 
+  /** @var int */
+  private $httpCode;
+
+  /** @var string */
+  private $httpStatus;
+
   /** @var string */
   private $errorReporting;
 
   /** @var bool */
   private $enableSSLVerify;
-  
+
   public function __construct(
     IConfig $config
+    , ICredentialsStore $credentialsStore
     , IURLGenerator $urlGenerator
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = self::APP_NAME;
     $this->config = $config;
+    $this->credentialsStore = $credentialsStore;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
@@ -105,6 +125,9 @@ class AuthDokuWiki
         $this->reqHeaders[] = "$cookie=".urlencode($value);
       }
     }
+
+    $this->httpCode = -1;
+    $this->httpStatus = '';
   }
 
   /**
@@ -170,6 +193,34 @@ class AuthDokuWiki
    */
   public function xmlRequest($method, $data = [])
   {
+    $t = null;
+    try {
+      $result = $this->doXmlRequest($method, $data);
+    } catch (\Throwable $t) {
+      $result = false;
+    }
+    if ($result === false) {
+      if ($this->httpCode == 401) {
+        $this->logInfo("CODE: ".$this->httpCode);
+        try {
+          $credentials = $this->loginCredentials();
+          if ($this->login($credentials['userId'], $credentials['password'])) {
+            $this->logInfo("Re-login succeeded");
+            return $this->doXmlRequest($method, $data);
+          }
+        } catch (\Throwable $t) {
+        }
+      }
+      return $this->handleError("xmlRequest($method) failed ($this->httpCode)", $t);
+    }
+    return $result;
+  }
+
+  /**
+   * Issue an RPC XML request to the configured DokuWiki instance.
+   */
+  private function doXmlRequest($method, $data = [])
+  {
     // Generate the request
     $request = xmlrpc_encode_request($method, $data, [ "encoding" => "UTF-8",
                                                        "escaping" => "markup",
@@ -182,9 +233,10 @@ class AuthDokuWiki
 
     // Compose the context with method, headers and data
     $context = stream_context_create([
-      'http' => [ 'method' => 'POST',
-                  'header' => $httpHeader,
-                  'content' => $request,
+      'http' => [
+        'method' => 'POST',
+        'header' => $httpHeader,
+        'content' => $request,
       ],
       'ssl' => [
         'verify_peer' => $this->enableSSLVerify,
@@ -192,18 +244,25 @@ class AuthDokuWiki
       ],
     ]);
     $url  = $this->wikiURL().self::RPCPATH;
-    $fp   = fopen($url, 'rb', false, $context);
+
+    $this->httpCode = -1;
+    $fp = fopen($url, 'rb', false, $context);
+    $responseHdr = $http_response_header;
+    if (count($responseHdr) > 0) {
+      list(,$this->httpCode, $this->httpStatus) = explode(' ', $responseHdr[0], 3);
+    } else {
+      $this->httpCode = -1;
+      $this->httpStatus = '';
+    }
     if ($fp !== false) {
       $result = stream_get_contents($fp);
       fclose($fp);
-      $responseHdr = $http_response_header;
     } else {
       $error = error_get_last();
-      $headers = $http_response_header;
       return $this->handleError(
         "URL fopen to $url failed: "
         .print_r($error, true)
-        .$headers[0]
+        .$responseHdr[0]
       );
     }
 
@@ -222,13 +281,16 @@ class AuthDokuWiki
       if ($response == 1) {
         $this->authHeaders = [];
         // Store and duplicate set cookies for forwarding to the users web client
+        $this->reqHeaders = [];
         foreach ($responseHdr as $header) {
           if (preg_match('/^Set-Cookie:\s*(DokuWiki|DW).*/', $header)) {
+            $this->reqHeaders[] = trim(strtok(preg_replace('/^Set-Cookie:\s*/i', '', $header), ';'));
             $this->authHeaders[] = $header;
             $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
           }
         }
         $this->logDebug("XMLRPC method \"$method\" executed with success. Got cookies ".
+                        print_r($this->reqHeaders, true).
                         print_r($this->authHeaders, true).
                         ". Sent cookies ".$httpHeader);
         return true;
@@ -247,6 +309,30 @@ class AuthDokuWiki
   }
 
   /**
+   * Try to obtain login-credentials from Nextcloud credentials store.
+   *
+   * @return array|bool
+   * ```
+   * [
+   *   'userId' => USER_ID,
+   *   'password' => PASSWORD,
+   * ]
+   * ```
+   */
+  private function loginCredentials()
+  {
+    try {
+      $credentials = $this->credentialsStore->getLoginCredentials();
+      return [
+        'userId' => $credentials->getUID(),
+        'password' => $credentials->getPassword(),
+      ];
+    } catch (\Throwable $t) {
+      return $this->handleError("Unable to obtain login-credentials", $t);
+    }
+  }
+
+  /**
    * Perform the login by means of a RPCXML call and stash the cookies
    * storing the credentials away for later; the cookies are
    * re-emitted to the users web-client when the OC wiki-app is
@@ -262,14 +348,16 @@ class AuthDokuWiki
   public function login($username, $password)
   {
     $this->cleanCookies();
-    if (!empty($_POST["remember_login"])) { // @TODO : DO NOT USE $_POST here
-      $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
-      if ($result !== false) {
-        return $result;
-      }
+    $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
+    if ($result === true) {
+      return $result;
     }
     // Fall back to "normal" login if long-life token could not be aquired.
-    return $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
+    $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
+    if ($result === true) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -279,8 +367,7 @@ class AuthDokuWiki
    */
   public function logout()
   {
-    // TODO: delete all cookies
-    return $this->xmlRequest("dokuwiki.logoff");
+    return $this->doXmlRequest("dokuwiki.logoff");
   }
 
   /**
@@ -289,7 +376,7 @@ class AuthDokuWiki
    */
   public function version()
   {
-    return $this->xmlRequest("dokuwiki.getVersion");
+    return $this->doXmlRequest("dokuwiki.getVersion");
   }
 
   /**
@@ -298,7 +385,7 @@ class AuthDokuWiki
    */
   public function refresh()
   {
-    return $this->version();
+    return $this->getPage('');
   }
 
   /**

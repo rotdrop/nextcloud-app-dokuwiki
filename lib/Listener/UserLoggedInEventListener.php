@@ -85,11 +85,11 @@ class UserLoggedInEventListener implements IEventListener
   private function ignoreRequest(IRequest $request):bool
   {
     if ($request->getHeader('OCS-APIREQUEST') === 'true') {
-      $this->logInfo('Ignoring API login');
+      $this->logDebug('Ignoring API login');
       return true;
     }
     if (strpos($this->request->getHeader('Authorization'), 'Bearer ') === 0) {
-      $this->logInfo('Ignoring API "bearer" auth');
+      $this->logDebug('Ignoring API "bearer" auth');
       return true;
     }
     return false;

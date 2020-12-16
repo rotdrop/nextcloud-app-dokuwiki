@@ -109,7 +109,6 @@ if (!DokuWikiEmbedded.appName) {
     const contents = frame.contents();
     const webPrefix = DokuWikiEmbedded.webPrefix;
 
-
     contents.find('.logout').remove();
     contents.find('li:empty').remove();
     contents.find('form.btn_logout').remove();
@@ -215,7 +214,7 @@ if (!DokuWikiEmbedded.appName) {
           height: 'auto',
           modal: options.modal,
           closeOnEscape: false,
-          dialogClass: 'dokuwiki-page-popup',
+          dialogClass: 'dokuwiki-page-popup '+options.cssClass,
           resizable: false,
           open: function() {
             const dialogHolder = $(this);
@@ -230,7 +229,7 @@ if (!DokuWikiEmbedded.appName) {
               openCallback(dialogHolder, dialogWidget);
             }
 
-            frame.load(function(){
+            frame.load(function() {
               const self = this;
               const contents = $(self).contents();
 
@@ -238,6 +237,7 @@ if (!DokuWikiEmbedded.appName) {
               // single page.
               contents.find('#dokuwiki__header div.pad').remove();
               contents.find('#dokuwiki__header').css('padding', '2.5em 0px 0px');
+              contents.find('#dokuwiki__footer').remove();
 
               // <HACK REASON="determine the height of the iframe contents">
               dialogHolder.height('');
@@ -252,9 +252,9 @@ if (!DokuWikiEmbedded.appName) {
               // </HACK>
 
               DokuWikiEmbedded.loadCallback(frame, frameWrapper, function() {
-		//dialogHolder.dialog('option', 'height', 'auto');
+                //dialogHolder.dialog('option', 'height', 'auto');
 		//dialogHolder.dialog('option', 'width', 'auto');
-                var newHeight = dialogWidget.height() - titleHeight;
+                const newHeight = dialogWidget.height() - titleHeight;
                 dialogHolder.height(newHeight);
 
                 // Unfortunately, there is no resize event on

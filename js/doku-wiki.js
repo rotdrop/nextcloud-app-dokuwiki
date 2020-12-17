@@ -251,16 +251,53 @@ if (!DokuWikiEmbedded.appName) {
               }
               // </HACK>
 
+              self.contentHeight = -1;
+
               DokuWikiEmbedded.loadCallback(frame, frameWrapper, function() {
                 //dialogHolder.dialog('option', 'height', 'auto');
 		//dialogHolder.dialog('option', 'width', 'auto');
                 const newHeight = dialogWidget.height() - titleHeight;
                 dialogHolder.height(newHeight);
 
-                // Unfortunately, there is no resize event on
-                // textareas. We simulate one
-                var editArea = contents.find('textarea');
+                const editArea = contents.find('textarea');
                 if (editArea.length > 0) {
+                  const wysiwygArea = contents.find('.prosemirror_wrapper');
+                  const wysiwygToggle = contents.find('.button.plugin_prosemirror_useWYSIWYG');
+                  wysiwygArea.css('overflow', 'auto');
+                  //wysiwygArea.css('max-height', dialogHolder.height() + 'px');
+
+                  self.heightChecker = function() {
+                    if (self.contentWindow == undefined) {
+                      if (self.heightTimer != undefined) {
+                        clearInterval(self.heightTimer);
+                        self.heightTimer = undefined;
+                      }
+                      return;
+                    }
+                    const height = self.contentWindow.document.body.scrollHeight;
+                    if (height != self.contentHeight) {
+                      console.debug('new height', height, self.contentHeight, frame.css('height'));
+                      self.contentHeight = height;
+                      frame.css({ height: height +  'px' });
+                      dialogHolder.dialog('option', 'height', 'auto');
+                      dialogHolder.dialog('option', 'width', 'auto');
+                      const newHeight = dialogWidget.height() - titleHeight;
+                      dialogHolder.height(newHeight);
+                    }
+                  };
+                  self.heightTimer = setInterval(self.heightChecker, 100);
+
+                  wysiwygToggle.on('click', function() {
+                    if (editArea.is(':visible')) {
+                      const editAreaHeight = editArea.height();
+                      //wysiwygArea.height(editAreaHeight+28); // button height
+                    } else {
+                      wysiwygArea.css({ 'height': '' });
+                    }
+                  });
+
+                  // Unfortunately, there is no resize event on
+                  // textareas. We simulate one
                   DokuWikiEmbedded.textareaResize(editArea);
 
                   editArea.on('resize', function() {
@@ -272,6 +309,11 @@ if (!DokuWikiEmbedded.appName) {
                     const newHeight = dialogWidget.height() - titleHeight;
                     dialogHolder.height(newHeight);
                   });
+                } else {
+                  if (self.heightTimer != undefined) {
+                    clearInterval(self.heightTimer);
+                    self.heightTimer = undefined;
+                  }
                 }
 
               });

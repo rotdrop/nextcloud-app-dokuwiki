@@ -28,7 +28,6 @@ use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
-use OCA\DokuWikiEmbedded\Service\Constants;
 
 class UserLoggedOutEventListener implements IEventListener
 {

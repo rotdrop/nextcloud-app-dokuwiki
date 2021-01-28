@@ -19,108 +19,69 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DokuWikiEmbedded = DokuWikiEmbedded || {};
-if (!DokuWikiEmbedded.appName) {
-    const state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
-    console.info("State", state);
-    DokuWikiEmbedded = $.extend({}, state);
-    DokuWikiEmbedded.refreshTimer = false;
-}
-
-DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
-
-(function(window, $, DokuWikiEmbedded) {
-
-    /**
-     * Fetch data from an error response.
-     *
-     * @param xhr jqXHR, see fail() method of jQuery ajax.
-     *
-     * @param status from jQuery, see fail() method of jQuery ajax.
-     *
-     * @param errorThrown, see fail() method of jQuery ajax.
-     */
-    DokuWikiEmbedded.ajaxFailData = function(xhr, status, errorThrown) {
-        const ct = xhr.getResponseHeader("content-type") || "";
-        var data = {
-            'error': errorThrown,
-            'status': status,
-            'message': t(DokuWikiEmbedded.appName, 'Unknown JSON error response to AJAX call: {status} / {error}')
-  };
-        if (ct.indexOf('html') > -1) {
-            console.debug('html response', xhr, status, errorThrown);
-            console.debug(xhr.status);
-            data.message = t(DokuWikiEmbedded.appName, 'HTTP error response to AJAX call: {code} / {error}',
-                             {'code': xhr.status, 'error': errorThrown});
-        } else if (ct.indexOf('json') > -1) {
-            const response = JSON.parse(xhr.responseText);
-            //console.info('XHR response text', xhr.responseText);
-            //console.log('JSON response', response);
-            data = {...data, ...response };
-        } else {
-            console.log('unknown response');
-        }
-        //console.info(data);
-        return data;
-    };
-
-    DokuWikiEmbedded.Settings.storeSettings = function(event, $id) {
-        const webPrefix = DokuWikiEmbedded.webPrefix;
-        const msg = $('#'+webPrefix+'settings .msg');
-        if ($.trim(msg.html()) == '') {
-            msg.hide();
-        }
-	var post = $id.serialize();
-	const cbSelector = 'input:checkbox:not(:checked)';
-	$id.find(cbSelector).addBack(cbSelector).each(function(index) {
-	    console.info('unchecked?', index, $(this));
-	    if (post !== '') {
-		post += '&';
-	    }
-	    post += $(this).attr('name') + '=' + 'off';
-	});
-	$.post(OC.generateUrl('/apps/'+DokuWikiEmbedded.appName+'/settings/admin/set'), post)
-            .done(function(data) {
-                console.info("Got response data", data);
-                if (data.value) {
-                    $id.val(data.value);
-                }
-		if (data.message) {
-	            msg.html(data.message);
-		    msg.show();
-		}
-	    })
-            .fail(function(xhr, status, errorThrown) {
-                const response = DokuWikiEmbedded.ajaxFailData(xhr, status, errorThrown);
-                console.error(response);
-                if (response.message) {
-	            msg.html(response.message);
-                    msg.show();
-                }
-            });
-        return false;
-    };
-
-})(window, jQuery, DokuWikiEmbedded);
-
+import { state } from './state.js';
+import { ajaxFailData } from './doku-wiki.js';
 
 $(function(){
-    const inputs = {
-	'externalLocation': 'blur',
-	'authenticationRefreshInterval': 'blur',
-	'enableSSLVerify': 'change'
-    };
 
-    for (const input in inputs) {
-	const $id = $('#' + input);
-	const event = inputs[input];
-
-	console.info(input, event);
-
-	$id.on(event, function(event) {
-	    event.preventDefault();
-	    DokuWikiEmbedded.Settings.storeSettings(event, $id);
-	    return false;
-	});
+  const storeSettings = function(event, $id) {
+    const webPrefix = state.webPrefix;
+    const msg = $('#' + webPrefix + 'settings .msg');
+    if ($.trim(msg.html()) === '') {
+      msg.hide();
     }
+    let post = $id.serialize();
+    const cbSelector = 'input:checkbox:not(:checked)';
+    $id.find(cbSelector).addBack(cbSelector).each(function(index) {
+      console.info('unchecked?', index, $(this));
+      if (post !== '') {
+        post += '&';
+      }
+      post += $(this).attr('name') + '=' + 'off';
+    });
+    $.post(OC.generateUrl('/apps/' + state.appName + '/settings/admin/set'), post)
+      .done(function(data) {
+        console.info('Got response data', data);
+        if (data.value) {
+          $id.val(data.value);
+        }
+        if (data.message) {
+          msg.html(data.message);
+          msg.show();
+        }
+      })
+      .fail(function(xhr, status, errorThrown) {
+        const response = ajaxFailData(xhr, status, errorThrown);
+        console.error(response);
+        if (response.message) {
+          msg.html(response.message);
+          msg.show();
+        }
+      });
+    return false;
+  };
+
+  const inputs = {
+    externalLocation: 'blur',
+    authenticationRefreshInterval: 'blur',
+    enableSSLVerify: 'change'
+  };
+
+  for (const input in inputs) {
+    const $id = $('#' + input);
+    const event = inputs[input];
+
+    console.info(input, event);
+
+    $id.on(event, function(event) {
+      event.preventDefault();
+      storeSettings(event, $id);
+      return false;
+    });
+  }
 });
+
+// Local Variables: ***
+// js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
+// End: ***

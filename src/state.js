@@ -19,14 +19,15 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-let appName = 'dokuwikiembedded';
-let state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
+let state = OCP.InitialState.loadState(__APP_NAME__, 'initial');
+state = $.extend({}, state);
+state.refreshTimer = false;
 
-if (!DokuWikiEmbedded.appName) {
-    DokuWikiEmbedded = $.extend({}, state);
-    DokuWikiEmbedded.refreshTimer = false;
-};
+if (__APP_NAME__ !== state.appName) {
+  throw new Error('__APP_NAME__ / state.appName are different: ' + __APP_NAME__ +  ' / ' + state.appName);
+}
 
+export { state };
 
 // Local Variables: ***
 // js-indent-level: 2 ***

@@ -19,13 +19,16 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { state } from './state.js';
+import { loadCallback } from './doku-wiki.js';
+
 $(function() {
 
-  const webPrefix = DokuWikiEmbedded.webPrefix;
+  const webPrefix = state.webPrefix;
   console.info('DokuWiki webPrefix', webPrefix);
-  const container = $('#'+webPrefix+'_container');
+  const container = $('#' + webPrefix + '_container');
   const frame = $('#'+webPrefix+'Frame');
-  const frameWrapper = $('#'+webPrefix+'FrameWrapper');
+  const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
   const contents = frame.contents();
 
   const setHeightCallback = function() {
@@ -33,18 +36,18 @@ $(function() {
   };
 
   if (frame.length > 0) {
-    frame.load(function(){
-      DokuWikiEmbedded.loadCallback($(this), frameWrapper, setHeightCallback);
+    frame.load(function() {
+      loadCallback($(this), frameWrapper, setHeightCallback);
     });
 
-    var resizeTimer;
-    $(window).resize(function()  {
+    let resizeTimer;
+    $(window).resize(function() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(setHeightCallback);
     });
   }
   if (contents.find('.logout')) {
-    DokuWikiEmbedded.loadCallback(frame, frameWrapper, setHeightCallback);
+    loadCallback(frame, frameWrapper, setHeightCallback);
   }
 
 });

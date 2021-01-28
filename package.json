@@ -5,8 +5,8 @@
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "main": "doku-wiki.js",
   "scripts": {
-    "build": "true",
-    "dev": "true"
+    "build": "NODE_ENV=production webpack --progress --hide-modules --config webpack.config.js",
+    "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "homepage": "https://github.com/rotdrop/ocapp-dokuwikiembed.git",
   "devDependencies": {
     "eslint": "^7.18.0"
+  },
+  "dependencies": {
+    "xml-reader": "^2.4.3"
   }
 }

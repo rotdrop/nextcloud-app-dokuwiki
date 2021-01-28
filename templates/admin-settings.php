@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
@@ -21,15 +21,13 @@
 
 namespace OCA\DokuWikiEmbedded;
 
-use OCA\DokuWikiEmbedded\Service\Constants;
-
 script($appName, 'admin-settings');
 
 ?>
 
 <div class="section">
   <h2><?php p($l->t('Embedded DokuWiki')) ?></h2>
-  <form id="<?php echo Constants::APP_PREFIX; ?>settings">
+  <form id="<?php p($appName); ?>settings">
     <input type="text"
            name="externalLocation"
            id="externalLocation"
@@ -53,7 +51,7 @@ have to enable the XMLRPC protocol in your DokuWiki.'); ?>"
            title="<?php echo $l->t('Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.'); ?>"
     />
     <label for="authenticationRefreshInterval"><?php echo $l->t('DokuWiki Session Refresh Interval [s]'); ?></label>
-    <br/>        
+    <br/>
     <input type="checkbox"
            name="enableSSLVerify"
            id="enableSSLVerify"

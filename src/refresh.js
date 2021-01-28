@@ -19,46 +19,42 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DokuWikiEmbedded = DokuWikiEmbedded || {};
-if (!DokuWikiEmbedded.appName) {
-    const state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
-    DokuWikiEmbedded = $.extend({}, state);
-    DokuWikiEmbedded.refreshTimer = false;
-}
-
-(function(window, $, DokuWikiEmbedded) {
-
-    DokuWikiEmbedded.refresh = function() {
-        const self = this;
-        if (!(DokuWikiEmbedded.refreshInterval >= 30)) {
-            console.error("Refresh interval too short", DokuWikiEmbedded.refreshInterval);
-            DokuWikiEmbedded.refreshInterval = 30;
-        }
-        if (OC.currentUser) {
-            const url = OC.generateUrl('apps/'+this.appName+'/authentication/refresh');
-            this.refresh = function(){
-                if (OC.currentUser) {
-                    $.post(url, {}).always(function () {
-                        console.info('DokuWiki refresh scheduled', self.refreshInterval * 1000);
-                        self.refreshTimer = setTimeout(self.refresh, self.refreshInterval*1000);
-                    });
-                } else if (self.refreshTimer !== false) {
-                    clearTimeout(self.refreshTimer);
-                    self.refreshTimer = false;
-                }
-            };
-            console.info('DokuWiki refresh scheduled', this.refreshInterval * 1000);
-            this.refreshTimer = setTimeout(this.refresh, this.refreshInterval*1000);
-        } else if (this.refreshTimer !== false) {
-            console.info('OC.currentUser appears unset');
-            clearTimeout(this.refreshTimer);
-            self.refreshTimer = false;
-        }
-    };
-
-})(window, jQuery, DokuWikiEmbedded);
+import { state } from './state.js';
 
 $(function() {
-    console.info('Starting DokuWiki refresh');
-    DokuWikiEmbedded.refresh();
+
+  state.refresh = function() {
+    if (!(state.refreshInterval >= 30)) {
+      console.error('Refresh interval too short', state.refreshInterval);
+      state.refreshInterval = 30;
+    }
+    if (OC.currentUser) {
+      const url = OC.generateUrl('apps/'+state.appName+'/authentication/refresh');
+      state.refresh = function(){
+        if (OC.currentUser) {
+          $.post(url, {}).always(function () {
+            console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
+            state.refreshTimer = setTimeout(state.refresh, state.refreshInterval*1000);
+          });
+        } else if (state.refreshTimer !== false) {
+          clearTimeout(state.refreshTimer);
+          state.refreshTimer = false;
+        }
+      };
+      console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
+      state.refreshTimer = setTimeout(state.refresh, state.refreshInterval*1000);
+    } else if (state.refreshTimer !== false) {
+      console.info('OC.currentUser appears unset');
+      clearTimeout(state.refreshTimer);
+      state.refreshTimer = false;
+    }
+  };
+
+  console.info('Starting DokuWiki refresh');
+  state.refresh();
 });
+
+// Local Variables: ***
+// js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
+// End: ***

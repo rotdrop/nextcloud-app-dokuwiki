@@ -20,7 +20,7 @@
  */
 
 style($appName, 'doku-wiki');
-script($appName, 'doku-wiki');
+script($appName, 'app');
 
 // additional CSS class
 $cssClass = $appName.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');

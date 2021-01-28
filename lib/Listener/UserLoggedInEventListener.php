@@ -30,7 +30,6 @@ use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
-use OCA\DokuWikiEmbedded\Service\Constants;
 
 class UserLoggedInEventListener implements IEventListener
 {

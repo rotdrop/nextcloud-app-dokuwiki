@@ -40,7 +40,6 @@ use OCA\DokuWikiEmbedded\Listener\Registration as ListenerRegistration;
  **********************************************************
  *
  */
-use OCA\DokuWikiEmbedded\Service\Constants;
 
 class Application extends App implements IBootstrap
 {

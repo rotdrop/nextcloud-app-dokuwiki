@@ -1,0 +1,24 @@
+{
+  "name": "dokuwikiembedded",
+  "version": "0.0.2",
+  "description": "Support embedding an external DokuWiki instance with SSO",
+  "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
+  "main": "doku-wiki.js",
+  "scripts": {
+    "build": "true",
+    "dev": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rotdrop/ocapp-dokuwikiembed.git"
+  },
+  "keywords": [],
+  "license": "agpl",
+  "bugs": {
+    "url": "https://github.com/rotdrop/ocapp-dokuwikiembed.git"
+  },
+  "homepage": "https://github.com/rotdrop/ocapp-dokuwikiembed.git",
+  "devDependencies": {
+    "eslint": "^7.18.0"
+  }
+}

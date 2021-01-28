@@ -9,7 +9,22 @@ PHPDOC_TEMPLATE=--template=default
 #--template=clean --template=xml
 #--template=responsive-twig
 
-all:
+all: build
+
+build: npm
+
+.PHONY: npm-update
+npm-update:
+	npm update
+
+.PHONY: npm-init
+npm-init:
+	npm install
+
+# Installs npm dependencies
+.PHONY: npm
+npm: npm-init
+	npm run dev
 
 .PHONY: doc
 doc: $(PHPDOC) $(DOC_BUILD_DIR)

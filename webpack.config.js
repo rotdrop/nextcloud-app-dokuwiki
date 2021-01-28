@@ -29,7 +29,7 @@ module.exports = {
   devtool: false, // 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      __APP_NAME__: JSON.stringify(JSON.stringify(appName()))
+      __APP_NAME__: JSON.stringify(appName())
     }),
   ],
 };

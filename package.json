@@ -5,7 +5,7 @@
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "main": "doku-wiki.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --progress --hide-modules --config webpack.config.js",
+    "build": "NODE_ENV=production webpack --progress --mode production --hide-modules --config webpack.config.js",
     "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js"
   },
   "repository": {

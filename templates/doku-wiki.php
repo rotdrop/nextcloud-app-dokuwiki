@@ -1,7 +1,7 @@
 <?php
 /**Embed a DokuWiki instance as app into ownCloud, intentionally with
  * single-sign-on.
- * 
+ *
  * @author Claus-Justus Heine
  * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -23,7 +23,7 @@ style($appName, 'doku-wiki');
 script($appName, 'doku-wiki');
 
 // additional CSS class
-$cssClass = 'dokuwiki-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
+$cssClass = $appName.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
 
 // additional attributes
 $cnt = 0;
@@ -37,18 +37,21 @@ if ($cnt == 0) {
 
 ?>
 
-<div id="dokuwiki_container" class="<?php echo $cssClass; ?>">
+<div id="<?php p($appName) ?>_container" class="<?php echo $cssClass; ?>">
 
-  <img src="<?php echo $urlGenerator->imagePath($appName, 'loader.gif'); ?>" id="dokuwikiLoader" class="<?php echo $cssClass; ?>">
-  <div id="dokuwikiFrameWrapper" class="<?php echo $cssClass; ?>">
+  <img src="<?php echo $urlGenerator->imagePath($appName, 'loader.gif'); ?>"
+       id="<?php p($appName) ?>Loader"
+       class="<?php echo $cssClass; ?>"
+  >
+  <div id="<?php p($appName); ?>FrameWrapper"
+       class="<?php echo $cssClass; ?>"
+  >
     <iframe style="overflow:auto"
             src="<?php echo $wikiURL.$wikiPath;?>"
-            id="dokuwikiFrame"
-            name="dokuwikiembed"
+            id="<?php p($appName) ?>Frame"
+            name="<?php $appName ?>"
             width="100%"
             <?php echo $iframeAttributes; ?>>
     </iframe>
   </div>
-
 </div>
-

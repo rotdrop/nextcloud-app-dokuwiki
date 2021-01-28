@@ -21,42 +21,46 @@
 
 var DokuWikiEmbedded = DokuWikiEmbedded || {};
 if (!DokuWikiEmbedded.appName) {
-    const state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
-    DokuWikiEmbedded = $.extend({}, state);
-    DokuWikiEmbedded.refreshTimer = false;
+  const state = OCP.InitialState.loadState('dokuwikiembedded', 'initial');
+  console.info('STATE', state);
+  DokuWikiEmbedded = $.extend({}, state);
+  DokuWikiEmbedded.refreshTimer = false;
 };
 
 (function(window, $, DokuWikiEmbedded) {
 
-  /**Fetch data from an error response.
+  /**
+   * Fetch data from an error response.
    *
    * @param xhr jqXHR, see fail() method of jQuery ajax.
    *
    * @param status from jQuery, see fail() method of jQuery ajax.
    *
    * @param errorThrown, see fail() method of jQuery ajax.
+   *
+   * @returns {Array}
    */
   DokuWikiEmbedded.ajaxFailData = function(xhr, status, errorThrown) {
     const ct = xhr.getResponseHeader("content-type") || "";
     var data = {
       'error': errorThrown,
       'status': status,
-      'message': t('dokuwikiembedded', 'Unknown JSON error response to AJAX call: {status} / {error}')
+      'message': t(DokuWikiEmbedded.appName, 'Unknown JSON error response to AJAX call: {status} / {error}')
     };
     if (ct.indexOf('html') > -1) {
       console.debug('html response', xhr, status, errorThrown);
       console.debug(xhr.status);
-      data.message = t('dokuwikiembedded', 'HTTP error response to AJAX call: {code} / {error}',
+      data.message = t(DokuWikiEmbedded.appName, 'HTTP error response to AJAX call: {code} / {error}',
                        {'code': xhr.status, 'error': errorThrown});
     } else if (ct.indexOf('json') > -1) {
       const response = JSON.parse(xhr.responseText);
-      //console.info('XHR response text', xhr.responseText);
-      //console.log('JSON response', response);
+      // console.info('XHR response text', xhr.responseText);
+      // console.log('JSON response', response);
       data = {...data, ...response };
     } else {
       console.log('unknown response');
     }
-    //console.info(data);
+    // console.info(data);
     return data;
   };
 
@@ -179,6 +183,7 @@ if (!DokuWikiEmbedded.appName) {
       cssClass: 'popup',
       iframeAttributes: 'scrolling="no"'
     };
+    const webPrefix = DokuWikiEmbedded.webPrefix;
     $.post(
       OC.generateUrl('/apps/'+DokuWikiEmbedded.appName+'/page/frame/blank'),
       parameters)
@@ -189,7 +194,7 @@ if (!DokuWikiEmbedded.appName) {
         if (typeof response.message != 'undefined') {
 	  info = response.message;
         } else {
-	  info = t('dokuwikiembedded', 'Unknown error :(');
+	  info = t(DokuWikiEmbedded.appName, 'Unknown error :(');
         }
         if (typeof response.error != 'undefined' && response.error == 'exception') {
 	  info += '<p><pre>'+response.exception+'</pre>';
@@ -198,7 +203,7 @@ if (!DokuWikiEmbedded.appName) {
         OC.dialogs.alert(info, t('dokluwikiembed', 'Error'));
       })
       .done(function(htmlContent, textStatus, request) {
-        const containerId  = 'dokuwiki_popup';
+        const containerId  = webPrefix +  '_popup';
         const containerSel = '#'+containerId;
         const dialogHolder = $('<div id="'+containerId+'"></div>');
 
@@ -214,13 +219,13 @@ if (!DokuWikiEmbedded.appName) {
           height: 'auto',
           modal: options.modal,
           closeOnEscape: false,
-          dialogClass: 'dokuwiki-page-popup '+options.cssClass,
+          dialogClass: webPrefix + '-page-popup '+options.cssClass,
           resizable: false,
           open: function() {
             const dialogHolder = $(this);
             const dialogWidget = dialogHolder.dialog('widget');
-            const frameWrapper = dialogHolder.find('#dokuwikiFrameWrapper');
-            const frame        = dialogHolder.find('#dokuwikiFrame');
+            const frameWrapper = dialogHolder.find('#'+webPrefix+'FrameWrapper');
+            const frame        = dialogHolder.find('#'+webPrefix+'Frame');
             const titleHeight  = dialogWidget.find('.ui-dialog-titlebar').outerHeight();
 
             dialogWidget.draggable('option', 'containment', '#content');
@@ -371,4 +376,5 @@ $(function() {
 
 // Local Variables: ***
 // js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
 // End: ***

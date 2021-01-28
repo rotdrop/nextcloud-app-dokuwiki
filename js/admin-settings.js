@@ -1,7 +1,7 @@
 /**
  * Embed a DokuWiki instance as app into ownCloud, intentionally with
  * single-sign-on.
- * 
+ *
  * @author Claus-Justus Heine
  * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -63,7 +63,7 @@ DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
         //console.info(data);
         return data;
     };
-    
+
     DokuWikiEmbedded.Settings.storeSettings = function(event, $id) {
         const webPrefix = DokuWikiEmbedded.webPrefix;
         const msg = $('#'+webPrefix+'settings .msg');
@@ -102,7 +102,6 @@ DokuWikiEmbedded.Settings = DokuWikiEmbedded.Settings || {};
     };
 
 })(window, jQuery, DokuWikiEmbedded);
-
 
 $(function(){
     const inputs = {

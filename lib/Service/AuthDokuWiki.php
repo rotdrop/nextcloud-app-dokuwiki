@@ -28,11 +28,12 @@ use OCP\IURLGenerator;
 use OCP\ILogger;
 use OCP\IL10N;
 
+use OCA\DokuWikiEmbedded\AppInfo\Application;
+
 class AuthDokuWiki
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
-  const APP_NAME = 'dokuwikiembedded';
   const RPCPATH = '/lib/exe/xmlrpc.php';
   const ON_ERROR_THROW = 'throw'; ///< Throw an exception on error
   const ON_ERROR_RETURN = 'return'; ///< Return boolean on error
@@ -86,13 +87,14 @@ class AuthDokuWiki
   private $enableSSLVerify;
 
   public function __construct(
-    IConfig $config
+    Application $app
+    , IConfig $config
     , ICredentialsStore $credentialsStore
     , IURLGenerator $urlGenerator
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = self::APP_NAME;
+    $this->appName = $app->getAppName();
     $this->config = $config;
     $this->credentialsStore = $credentialsStore;
     $this->urlGenerator = $urlGenerator;
@@ -128,6 +130,16 @@ class AuthDokuWiki
 
     $this->httpCode = -1;
     $this->httpStatus = '';
+
+    $this->logInfo('APPNAME: '.print_r($this->appName, true));
+  }
+
+  /**
+   * Return the name of the app.
+   */
+  public function getAppName(): string
+  {
+    return $this->appName;
   }
 
   /**

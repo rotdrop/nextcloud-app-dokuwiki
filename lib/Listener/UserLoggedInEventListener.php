@@ -53,8 +53,8 @@ class UserLoggedInEventListener implements IEventListener
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = Constants::APP_NAME;
     $this->authenticator = $authenticator;
+    $this->appName = $this->authenticator->getAppName();
     $this->request = $request;
     $this->logger = $logger;
     $this->l = $l10n;

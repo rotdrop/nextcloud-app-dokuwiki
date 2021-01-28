@@ -19,29 +19,29 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#dokuwikiFrameWrapper.dokuwiki-fullscreen {
+#dokuwikiembeddedFrameWrapper.dokuwikiembedded-fullscreen {
   height: 100%;
   display: none;
   overflow: hidden;
 }
 
-#dokuwiki_container.dokuwiki-fullscreen {
+#dokuwikiembedded_container.dokuwikiembedded-fullscreen {
   position: fixed;
   width: 100%;
   height: 100%;
 }
 
-#dokuwiki_container.dokuwiki-popup {
+#dokuwikiembedded_container.dokuwikiembedded-popup {
   width: auto;
   height: auto;
 }
 
-#dokuwikiFrameWrapper.dokuwiki-popup {
+#dokuwikiembeddedFrameWrapper.dokuwikiembedded-popup {
   height:0px;
   overflow: hidden;
 }
 
-#dokuwiki_popup {
+#dokuwikiembedded_popup {
   width:75em !important;
   height:auto;
   max-width:100%;
@@ -51,15 +51,15 @@
   box-sizing:border-box;
 }
 
-#dokuwikiFrame {
+#dokuwikiembeddedFrame {
   width: 100%;
 }
 
-#dokuwikiFrame.dokuwiki-fullscreen {
+#dokuwikiembeddedFrame.dokuwikiembedded-fullscreen {
   height: 100%;
 }
 
-#dokuwikiLoader {
+#dokuwikiembeddedLoader {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -70,20 +70,20 @@
 }
 
 @media only screen and (max-width: 768px) {
-  #dokuwikiLoader {
+  #dokuwikiembeddedLoader {
     position: fixed !important;
   }
 }
 
 /* make popups scrollable in smaller viewports */
-.ui-dialog.dokuwiki-page-popup {
+.ui-dialog.dokuwikiembedded-page-popup {
   max-height: 90% !important;
   max-width: 90% !important;
   overflow: hidden;
   padding: 0;
 }
 
-.ui-dialog.dokuwiki-page-popup .ui-dialog-content {
+.ui-dialog.dokuwikiembedded-page-popup .ui-dialog-content {
   /* height has to be computed in order to attach the vertical
    * scrollbar to the inner div.
    */

@@ -30,6 +30,10 @@ module.exports = {
     new webpack.DefinePlugin({
       __APP_NAME__: JSON.stringify(appName())
     }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
   ],
 };
 

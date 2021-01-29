@@ -19,9 +19,7 @@
   },
   "homepage": "https://github.com/rotdrop/ocapp-dokuwikiembed.git",
   "devDependencies": {
-    "eslint": "^7.18.0"
-  },
-  "dependencies": {
+    "eslint": "^7.18.0",
     "xml-reader": "^2.4.3"
   }
 }

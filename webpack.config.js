@@ -20,7 +20,6 @@ module.exports = {
     app: './src/index.js',
     refresh: './src/refresh.js',
     'admin-settings': './src/admin-settings.js',
-    popup: './src/popup.js'
   },
   output: {
     filename: '[name].js',

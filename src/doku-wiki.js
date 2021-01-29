@@ -19,31 +19,32 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './state.js';
+import { state, appName } from './state.js';
 
 /**
  * Fetch data from an error response.
  *
- * @param xhr jqXHR, see fail() method of jQuery ajax.
+ * @param {Object} xhr jqXHR, see fail() method of jQuery ajax.
  *
- * @param status from jQuery, see fail() method of jQuery ajax.
+ * @param {Object} status from jQuery, see fail() method of jQuery ajax.
  *
- * @param errorThrown, see fail() method of jQuery ajax.
+ * @param {Object} errorThrown, see fail() method of jQuery ajax.
  *
  * @returns {Array}
  */
 const ajaxFailData = function(xhr, status, errorThrown) {
-  const ct = xhr.getResponseHeader("content-type") || "";
+  const ct = xhr.getResponseHeader('content-type') || '';
   let data = {
     error: errorThrown,
-    'status': status,
-    message: t(state.appName, 'Unknown JSON error response to AJAX call: {status} / {error}')
+    status,
+    message: t(appName, 'Unknown JSON error response to AJAX call: {status} / {error}'),
   };
   if (ct.indexOf('html') > -1) {
     console.debug('html response', xhr, status, errorThrown);
     console.debug(xhr.status);
-    data.message = t(state.appName, 'HTTP error response to AJAX call: {code} / {error}',
-                     {code: xhr.status, error: errorThrown});
+    data.message = t(appName, 'HTTP error response to AJAX call: {code} / {error}', {
+      code: xhr.status, error: errorThrown,
+    });
   } else if (ct.indexOf('json') > -1) {
     const response = JSON.parse(xhr.responseText);
     // console.info('XHR response text', xhr.responseText);
@@ -60,12 +61,10 @@ const ajaxFailData = function(xhr, status, errorThrown) {
  * Unfortunately, the textare element does not fire a resize
  * event. This function emulates one.
  *
- * @param textarea jQuery descriptor for the textarea element
+ * @param {Object} textarea jQuery descriptor for the textarea element
  *
- * @param delay Optional, defaults to 50. If true, fire the event
+ * @param {Float} delay Optional, defaults to 50. If true, fire the event
  * immediately, if set, then this is a delay in ms.
- *
- *
  */
 const textareaResize = function(textarea, delay) {
   if (typeof delay == 'undefined') {
@@ -73,26 +72,26 @@ const textareaResize = function(textarea, delay) {
   }
   textarea.off('mouseup mousemove');
   textarea.on('mouseup mousemove', function() {
-    if (this.oldwidth  === null) {
-      this.oldwidth  = this.style.width;
+    if (textarea.oldwidth === null) {
+      textarea.oldwidth  = textarea.style.width;
     }
-    if (this.oldheight === null) {
-      this.oldheight = this.style.height;
+    if (textarea.oldheight === null) {
+      textarea.oldheight = textarea.style.height;
     }
-    if (this.style.width != this.oldwidth || this.style.height != this.oldheight) {
-      const self = this;
+    if (textarea.style.width !== textarea.oldwidth
+        || textarea.style.height !== textarea.oldheight) {
       if (delay > 0) {
-        if (this.resize_timeout) {
-          clearTimeout(this.resize_timeout);
+        if (textarea.resize_timeout) {
+          clearTimeout(textarea.resize_timeout);
         }
-        this.resize_timeout = setTimeout(function() {
-          $(self).resize();
+        textarea.resize_timeout = setTimeout(function() {
+          $(textarea).resize();
         }, delay);
       } else {
-        $(this).resize();
+        $(textarea).resize();
       }
-      this.oldwidth  = this.style.width;
-      this.oldheight = this.style.height;
+      textarea.oldwidth = textarea.style.width;
+      textarea.oldheight = textarea.style.height;
     }
   });
 };
@@ -100,6 +99,13 @@ const textareaResize = function(textarea, delay) {
 /**
  * Called after the DokuWiki has been loaded by the iframe. We make
  * sure that external links are opened in another tab/window.
+ *
+ * @param {Object} frame TBD.
+ *
+ * @param {Object} frameWrapper TBD.
+ *
+ * @param {Function} callback TBD.
+ *
  */
 const loadCallback = function(frame, frameWrapper, callback) {
   const contents = frame.contents();
@@ -122,24 +128,26 @@ const loadCallback = function(frame, frameWrapper, callback) {
   contents.find('div.preview').find('a[class^="wikilink"]').off('click').on('click', function() {
     let wikiPage = $(this).attr('href');
     wikiPage = wikiPage.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-    OC.dialogs.alert(t('dokluwikiembed', 'Links to wiki-pages are disabled in preview mode.'),
-                     t('dokluwikiembed', 'Link to Wiki-Page') + ' "' + wikiPage + '"');
+    OC.dialogs.alert(
+      t(appName, 'Links to wiki-pages are disabled in preview mode.'),
+      t(appName, 'Link to Wiki-Page') + ' "' + wikiPage + '"');
     return false;
   });
 
   contents.find('div.preview').find('a[class^="media"]').off('click').on('click', function() {
     let mediaPage = $(this).attr('href');
     mediaPage = mediaPage.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-    OC.dialogs.alert(t('dokluwikiembed', 'Links to media-files are disabled in preview mode.'),
-                     t('dokluwikiembed', 'Link to Media') + ' "' + mediaPage + '"');
+    OC.dialogs.alert(
+      t(appName, 'Links to media-files are disabled in preview mode.'),
+      t(appName, 'Link to Media') + ' "' + mediaPage + '"');
     return false;
   });
 
-  if (typeof callback == 'undefined') {
+  if (typeof callback === 'undefined') {
     callback = function() {};
   }
 
-  const loader = $('#'+webPrefix+'Loader');
+  const loader = $('#' + webPrefix + 'Loader');
   if (frameWrapper.is(':hidden')) {
     loader.fadeOut('slow', function() {
       frameWrapper.slideDown('slow', function() {
@@ -164,50 +172,50 @@ const loadCallback = function(frame, frameWrapper, callback) {
  *   modal: true/false
  * }
  *
- * @param openCallback Optional callback to be call on open. The
- * callback will get the element holding the dialog content as
- * argument and the dialog widget itself. The callback is called BEFORE the iframe is loaded.
+ * @param {Function} openCallback Optional callback to be call on
+ * open. The callback will get the element holding the dialog content
+ * as argument and the dialog widget itself. The callback is called
+ * BEFORE the iframe is loaded.
  */
 const wikiPopup = function(options, openCallback, closeCallback) {
   const parameters = {
     wikiPage: options.wikiPage,
     popupTitle: options.popupTitle,
     cssClass: 'popup',
-    iframeAttributes: 'scrolling="no"'
+    iframeAttributes: 'scrolling="no"',
   };
   const webPrefix = state.webPrefix;
   $.post(
-    OC.generateUrl('/apps/'+state.appName+'/page/frame/blank'),
+    OC.generateUrl('/apps/' + appName + '/page/frame/blank'),
     parameters)
     .fail(function(xhr, status, errorThrown) {
       const response = ajaxFailData(xhr, status, errorThrown);
       console.log(response);
       let info = '';
-      if (typeof response.message != 'undefined') {
-	info = response.message;
+      if (typeof response.message !== 'undefined') {
+        info = response.message;
       } else {
-	info = t(state.appName, 'Unknown error :(');
+        info = t(appName, 'Unknown error :(');
       }
-      if (typeof response.error != 'undefined' && response.error == 'exception') {
-	info += '<p><pre>'+response.exception+'</pre>';
-	info += '<p><pre>'+response.trace+'</pre>';
+      if (typeof response.error !== 'undefined' && response.error === 'exception') {
+        info += '<p><pre>' + response.exception + '</pre>';
+        info += '<p><pre>' + response.trace + '</pre>';
       }
       OC.dialogs.alert(info, t('dokluwikiembed', 'Error'));
     })
     .done(function(htmlContent, textStatus, request) {
-      const containerId  = webPrefix +  '_popup';
-      const containerSel = '#'+containerId;
-      const dialogHolder = $('<div id="'+containerId+'"></div>');
+      const containerId = webPrefix + '_popup';
+      const dialogHolder = $('<div id="' + containerId + '"></div>');
 
       dialogHolder.html(htmlContent);
       $('body').append(dialogHolder);
       // dialogHolder = $(containerSel);
-      const popup = dialogHolder.dialog({
+      dialogHolder.dialog({
         title: options.popupTitle,
         position: {
-          my: "middle top",
-          at: "middle bottom+50px",
-          of: "#header"
+          my: 'middle top',
+          at: 'middle bottom+50px',
+          of: '#header',
         },
         width: 'auto',
         height: 'auto',
@@ -215,12 +223,12 @@ const wikiPopup = function(options, openCallback, closeCallback) {
         closeOnEscape: false,
         dialogClass: webPrefix + '-page-popup '+options.cssClass,
         resizable: false,
-        open: function() {
+        open() {
           const dialogHolder = $(this);
           const dialogWidget = dialogHolder.dialog('widget');
-          const frameWrapper = dialogHolder.find('#'+webPrefix+'FrameWrapper');
-          const frame        = dialogHolder.find('#'+webPrefix+'Frame');
-          const titleHeight  = dialogWidget.find('.ui-dialog-titlebar').outerHeight();
+          const frameWrapper = dialogHolder.find('#' + webPrefix + 'FrameWrapper');
+          const frame = dialogHolder.find('#' + webPrefix + 'Frame');
+          const titleHeight = dialogWidget.find('.ui-dialog-titlebar').outerHeight();
 
           dialogWidget.draggable('option', 'containment', '#content');
 
@@ -247,8 +255,10 @@ const wikiPopup = function(options, openCallback, closeCallback) {
               overflow: 'hidden'
             });
             if (frameWrapper.css('height') == '0px') {
-              frameWrapper.css({ height: 'auto',
-                                 display: 'none' });
+              frameWrapper.css({
+                height: 'auto',
+                display: 'none',
+              });
             }
             // </HACK>
 
@@ -256,7 +266,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
             loadCallback(frame, frameWrapper, function() {
               // dialogHolder.dialog('option', 'height', 'auto');
-	      // dialogHolder.dialog('option', 'width', 'auto');
+              // dialogHolder.dialog('option', 'width', 'auto');
               const newHeight = dialogWidget.height() - titleHeight;
               dialogHolder.height(newHeight);
 
@@ -265,7 +275,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
                 const wysiwygArea = contents.find('.prosemirror_wrapper');
                 const wysiwygToggle = contents.find('.button.plugin_prosemirror_useWYSIWYG');
                 wysiwygArea.css('overflow', 'auto');
-                //wysiwygArea.css('max-height', dialogHolder.height() + 'px');
+                // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
 
                 self.heightChecker = function() {
                   if (self.contentWindow == undefined) {
@@ -279,7 +289,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
                   if (height != self.contentHeight) {
                     console.debug('new height', height, self.contentHeight, frame.css('height'));
                     self.contentHeight = height;
-                    frame.css({ height: height +  'px' });
+                    frame.css({ height: height + 'px' });
                     dialogHolder.dialog('option', 'height', 'auto');
                     dialogHolder.dialog('option', 'width', 'auto');
                     const newHeight = dialogWidget.height() - titleHeight;
@@ -290,10 +300,10 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
                 wysiwygToggle.on('click', function() {
                   if (editArea.is(':visible')) {
-                    const editAreaHeight = editArea.height();
-                    //wysiwygArea.height(editAreaHeight+28); // button height
+                    // const editAreaHeight = editArea.height();
+                    // wysiwygArea.height(editAreaHeight+28); // button height
                   } else {
-                    wysiwygArea.css({ 'height': '' });
+                    wysiwygArea.css({ height: '' });
                   }
                 });
 
@@ -305,7 +315,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
                   const scrollHeight = self.contentWindow.document.body.scrollHeight;
                   frame.css({
                     height: scrollHeight + 'px',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
                   });
                   dialogHolder.dialog('option', 'height', 'auto');
                   dialogHolder.dialog('option', 'width', 'auto');
@@ -322,7 +332,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
             });
           });
         },
-        close: function() {
+        close() {
           $('.tipsy').remove();
           const dialogHolder = $(this);
 
@@ -334,7 +344,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
           }
 
           return false;
-        }
+        },
       });
       return false;
     });

@@ -21,7 +21,7 @@
 
 import { state } from './state.js';
 
-$(function() {
+function start() {
 
   state.refresh = function() {
     if (!(state.refreshInterval >= 30)) {
@@ -29,10 +29,10 @@ $(function() {
       state.refreshInterval = 30;
     }
     if (OC.currentUser) {
-      const url = OC.generateUrl('apps/'+state.appName+'/authentication/refresh');
+      const url = OC.generateUrl('apps/' + state.appName + '/authentication/refresh');
       state.refresh = function(){
         if (OC.currentUser) {
-          $.post(url, {}).always(function () {
+          $.post(url, {}).always(function() {
             console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
             state.refreshTimer = setTimeout(state.refresh, state.refreshInterval*1000);
           });
@@ -42,7 +42,7 @@ $(function() {
         }
       };
       console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
-      state.refreshTimer = setTimeout(state.refresh, state.refreshInterval*1000);
+      state.refreshTimer = setTimeout(state.refresh, state.refreshInterval * 1000);
     } else if (state.refreshTimer !== false) {
       console.info('OC.currentUser appears unset');
       clearTimeout(state.refreshTimer);
@@ -52,7 +52,10 @@ $(function() {
 
   console.info('Starting DokuWiki refresh');
   state.refresh();
-});
+
+}
+
+$(start);
 
 // Local Variables: ***
 // js-indent-level: 2 ***

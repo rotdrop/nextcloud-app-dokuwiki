@@ -19,11 +19,10 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './state.js';
 import { wikiPopup } from './doku-wiki.js';
 
 window.DokuWikiEmbedded = {
-  wikiPopup: wikiPopup
+  wikiPopup,
 };
 
 // Local Variables: ***

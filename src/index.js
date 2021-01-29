@@ -27,7 +27,7 @@ $(function() {
   const webPrefix = state.webPrefix;
   console.info('DokuWiki webPrefix', webPrefix);
   const container = $('#' + webPrefix + '_container');
-  const frame = $('#'+webPrefix+'Frame');
+  const frame = $('#' + webPrefix + 'Frame');
   const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
   const contents = frame.contents();
 

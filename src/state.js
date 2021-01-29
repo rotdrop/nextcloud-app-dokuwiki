@@ -19,16 +19,22 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-let state = OCP.InitialState.loadState(__APP_NAME__, 'initial');
+const appName = __APP_NAME__;
+
+let state = OCP.InitialState.loadState(appName, 'initial');
 state = $.extend({}, state);
 state.refreshTimer = false;
 
 if (__APP_NAME__ !== state.appName) {
-  throw new Error('__APP_NAME__ / state.appName are different: ' + __APP_NAME__ +  ' / ' + state.appName);
+  throw new Error('appName / state.appName are different: ' + appName +  ' / ' + state.appName);
 }
 
-export { state };
+export {
+  state,
+  appName,
+};
 
 // Local Variables: ***
 // js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
 // End: ***

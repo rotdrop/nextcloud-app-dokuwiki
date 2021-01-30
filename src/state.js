@@ -19,18 +19,20 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const appName = __APP_NAME__;
+const appInfo = require('../appinfo/info.xml');
+const appName = appInfo.info.id[0];
 
 let state = OCP.InitialState.loadState(appName, 'initial');
 state = $.extend({}, state);
 state.refreshTimer = false;
 
-if (__APP_NAME__ !== state.appName) {
-  throw new Error('appName / state.appName are different: ' + appName +  ' / ' + state.appName);
+if (appName !== state.appName) {
+  throw new Error('appName / state.appName are different: ' + appName + ' / ' + state.appName);
 }
 
 export {
   state,
+  appInfo,
   appName,
 };
 

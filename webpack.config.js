@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const xmlReader = require('xml-reader');
+//const xmlReader = require('xml-reader');
 const fs = require('fs');
 
 // function appName() {

@@ -44,10 +44,11 @@ doc: $(PHPDOC) $(DOC_BUILD_DIR)
 $(DOC_BUILD_DIR):
 	mkdir -p $@
 
-# Removes the appstore build
+# Removes build files
 .PHONY: clean
 clean:
-	rm -rf ./build
+	rm -rf js/*
+	rm -rf css/*
 
 # Same as clean but also removes dependencies installed by composer, bower and
 # npm
@@ -55,7 +56,6 @@ clean:
 distclean: clean
 	rm -rf vendor
 	rm -rf node_modules
-	rm -rf js/*
 
 .PHONY: realclean
 realclean: distclean

@@ -19,7 +19,7 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-style($appName, 'doku-wiki');
+style($appName, 'app');
 script($appName, 'app');
 
 // additional CSS class

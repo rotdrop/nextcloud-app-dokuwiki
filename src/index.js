@@ -21,6 +21,7 @@
 
 import { state } from './state.js';
 import { loadCallback } from './doku-wiki.js';
+import '../style/doku-wiki.css';
 
 $(function() {
 

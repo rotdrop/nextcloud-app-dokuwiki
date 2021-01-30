@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-//const xmlReader = require('xml-reader');
-const fs = require('fs');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const xmlReader = require('xml-reader');
+// const fs = require('fs');
 
 // function appName() {
 //   const infoFile = path.join(__dirname, 'appinfo/info.xml');
@@ -18,12 +19,14 @@ const fs = require('fs');
 module.exports = {
   entry: {
     app: './src/index.js',
+    popup: './src/doku-wiki-popup.js',
     refresh: './src/refresh.js',
     'admin-settings': './src/admin-settings.js',
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'js'),
+    // path: path.resolve(__dirname, 'js'),
+    path: path.resolve(__dirname, '.'),
+    filename: 'js/[name].js',
   },
   devtool: false, // 'source-map',
   plugins: [
@@ -34,6 +37,9 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
     }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
   ],
   module: {
     rules: [
@@ -41,8 +47,21 @@ module.exports = {
         test: /\.xml$/i,
         use: 'xml-loader',
       },
+      {
+        test: /\.css$/,
+        use: [
+          // 'style-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: 'file-loader',
+      },
     ],
   },
+
 };
 
 /**

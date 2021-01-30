@@ -1,5 +1,7 @@
 build/**
 js/*.js
+js/*.map
 css/*.css
+css/*.map
 node_modules/**
 package-lock.json

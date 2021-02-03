@@ -130,8 +130,6 @@ class AuthDokuWiki
 
     $this->httpCode = -1;
     $this->httpStatus = '';
-
-    $this->logInfo('APPNAME: '.print_r($this->appName, true));
   }
 
   /**

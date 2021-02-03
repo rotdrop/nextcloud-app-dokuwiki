@@ -5,3 +5,5 @@ css/*.css
 css/*.map
 node_modules/**
 package-lock.json
+*.html
+#*

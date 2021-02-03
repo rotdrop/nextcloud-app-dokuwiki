@@ -19,8 +19,12 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './state.js';
+import { state } from './config.js';
 import { ajaxFailData } from './doku-wiki.js';
+import generateUrl from './generate-url.js';
+
+const jQuery = require('jquery');
+const $ = jQuery;
 
 $(function(){
 
@@ -39,7 +43,7 @@ $(function(){
       }
       post += $(this).attr('name') + '=' + 'off';
     });
-    $.post(OC.generateUrl('/apps/' + state.appName + '/settings/admin/set'), post)
+    $.post(generateUrl('settings/admin/set'), post)
       .done(function(data) {
         console.info('Got response data', data);
         if (data.value) {
@@ -64,7 +68,7 @@ $(function(){
   const inputs = {
     externalLocation: 'blur',
     authenticationRefreshInterval: 'blur',
-    enableSSLVerify: 'change'
+    enableSSLVerify: 'change',
   };
 
   for (const input in inputs) {

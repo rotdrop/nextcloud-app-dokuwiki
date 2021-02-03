@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -12,7 +14,6 @@ module.exports = {
     'admin-settings': './src/admin-settings.js',
   },
   output: {
-    // path: path.resolve(__dirname, 'js'),
     path: path.resolve(__dirname, '.'),
     filename: 'js/[name].js',
   },
@@ -32,9 +33,13 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+    new BundleAnalyzerPlugin({
+      analyzerPort: 11111,
+      analyzerMode: 'static',
+      openAnalyzer: false,
+    }),
+    new Visualizer({
+      filename: './visualizer-stats.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
@@ -55,9 +60,23 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg$/,
-        use: 'file-loader',
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'css/img/',
+          publicPath: 'img',
+          useRelativePaths: true,
+        },
       },
+    ],
+  },
+  resolve: {
+    modules: [
+      'node_modules',
+      'style',
+      'src',
+      path.resolve(__dirname, '.'),
     ],
   },
 };

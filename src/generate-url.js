@@ -1,9 +1,10 @@
 /**
- * Embed a DokuWiki instance as app into ownCloud, intentionally with
- * single-sign-on.
+ * Orchestra member, musicion and project management application.
+ *
+ * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
  * @author Claus-Justus Heine
- * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2011-2016, 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU GENERAL PUBLIC LICENSE
@@ -19,22 +20,13 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const appInfo = require('../appinfo/info.xml');
-const appName = appInfo.info.id[0];
+import { appName } from './config.js';
 
-let state = OCP.InitialState.loadState(appName, 'initial');
-state = $.extend({}, state);
-state.refreshTimer = false;
-
-if (appName !== state.appName) {
-  throw new Error('appName / state.appName are different: ' + appName + ' / ' + state.appName);
-}
-
-export {
-  state,
-  appInfo,
-  appName,
+const generateUrl = function(postFix) {
+  return OC.generateUrl('/apps/' + appName + '/' + postFix);
 };
+
+export default generateUrl;
 
 // Local Variables: ***
 // js-indent-level: 2 ***

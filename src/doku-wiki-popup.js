@@ -19,10 +19,19 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state, appName } from './state.js';
+import { state, appName } from './config.js';
 import { loadCallback, ajaxFailData } from './doku-wiki.js';
+import generateUrl from './generate-url.js';
+
 import '../style/doku-wiki.css';
 import '../style/doku-wiki-popup.css';
+
+const jQuery = require('jquery');
+const $ = jQuery;
+require('jquery-ui');
+// require('jquery-ui/ui/effect');
+require('jquery-ui/ui/widgets/dialog');
+require('./nextcloud/jquery/requesttoken.js');
 
 /**
  * Unfortunately, the textare element does not fire a resize
@@ -89,7 +98,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
   };
   const webPrefix = state.webPrefix;
   $.post(
-    OC.generateUrl('/apps/' + appName + '/page/frame/blank'),
+    generateUrl('page/frame/blank'),
     parameters)
     .fail(function(xhr, status, errorThrown) {
       const response = ajaxFailData(xhr, status, errorThrown);
@@ -139,7 +148,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
             openCallback(dialogHolder, dialogWidget);
           }
 
-          frame.load(function() {
+          frame.on('load', function() {
             const self = this;
             const contents = $(self).contents();
 

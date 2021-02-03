@@ -19,7 +19,12 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './state.js';
+import { state, cloudUser } from './config.js';
+import generateUrl from './generate-url.js';
+
+const jQuery = require('jquery');
+const $ = jQuery;
+require('./nextcloud/jquery/requesttoken.js');
 
 function start() {
 
@@ -28,13 +33,13 @@ function start() {
       console.error('Refresh interval too short', state.refreshInterval);
       state.refreshInterval = 30;
     }
-    if (OC.currentUser) {
-      const url = OC.generateUrl('apps/' + state.appName + '/authentication/refresh');
+    if (cloudUser) {
+      const url = generateUrl('authentication/refresh');
       state.refresh = function(){
-        if (OC.currentUser) {
+        if (cloudUser) {
           $.post(url, {}).always(function() {
             console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
-            state.refreshTimer = setTimeout(state.refresh, state.refreshInterval*1000);
+            state.refreshTimer = setTimeout(state.refresh, state.refreshInterval * 1000);
           });
         } else if (state.refreshTimer !== false) {
           clearTimeout(state.refreshTimer);

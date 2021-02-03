@@ -19,9 +19,12 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './state.js';
+import { state } from './config.js';
 import { loadCallback } from './doku-wiki.js';
 import '../style/doku-wiki.css';
+
+const jQuery = require('jquery');
+const $ = jQuery;
 
 $(function() {
 
@@ -37,7 +40,7 @@ $(function() {
   };
 
   if (frame.length > 0) {
-    frame.load(function() {
+    frame.on('load', function() {
       loadCallback($(this), frameWrapper, setHeightCallback);
     });
 

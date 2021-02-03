@@ -19,46 +19,10 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state, appName } from './config.js';
+import { appName, webPrefix } from './config.js';
 
 const jQuery = require('jquery');
 const $ = jQuery;
-
-/**
- * Fetch data from an error response.
- *
- * @param {Object} xhr jqXHR, see fail() method of jQuery ajax.
- *
- * @param {Object} status from jQuery, see fail() method of jQuery ajax.
- *
- * @param {Object} errorThrown, see fail() method of jQuery ajax.
- *
- * @returns {Array}
- */
-const ajaxFailData = function(xhr, status, errorThrown) {
-  const ct = xhr.getResponseHeader('content-type') || '';
-  let data = {
-    error: errorThrown,
-    status,
-    message: t(appName, 'Unknown JSON error response to AJAX call: {status} / {error}'),
-  };
-  if (ct.indexOf('html') > -1) {
-    console.debug('html response', xhr, status, errorThrown);
-    console.debug(xhr.status);
-    data.message = t(appName, 'HTTP error response to AJAX call: {code} / {error}', {
-      code: xhr.status, error: errorThrown,
-    });
-  } else if (ct.indexOf('json') > -1) {
-    const response = JSON.parse(xhr.responseText);
-    // console.info('XHR response text', xhr.responseText);
-    // console.log('JSON response', response);
-    data = {...data, ...response };
-  } else {
-    console.log('unknown response');
-  }
-  // console.info(data);
-  return data;
-};
 
 /**
  * Called after the DokuWiki has been loaded by the iframe. We make
@@ -71,9 +35,8 @@ const ajaxFailData = function(xhr, status, errorThrown) {
  * @param {Function} callback TBD.
  *
  */
-const loadCallback = function(frame, frameWrapper, callback) {
+const loadHandler = function(frame, frameWrapper, callback) {
   const contents = frame.contents();
-  const webPrefix = state.webPrefix;
 
   contents.find('.logout').remove();
   contents.find('li:empty').remove();
@@ -124,7 +87,7 @@ const loadCallback = function(frame, frameWrapper, callback) {
   }
 };
 
-export { loadCallback, ajaxFailData };
+export { loadHandler };
 
 // Local Variables: ***
 // js-indent-level: 2 ***

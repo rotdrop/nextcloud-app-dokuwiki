@@ -39,9 +39,9 @@ class PageController extends Controller
 {
   use Traits\LoggerTrait;
   use Traits\ResponseTrait;
-  
+
   const TEMPLATE = 'doku-wiki';
-  
+
   private $userId;
 
   private $authenticator;
@@ -51,7 +51,7 @@ class PageController extends Controller
   private $urlGenerator;
 
   private $initialStateService;
-  
+
   public function __construct(
     $appName
     , IRequest $request
@@ -71,7 +71,7 @@ class PageController extends Controller
     $this->logger = $logger;
     $this->l = $l10n;
   }
-  
+
   /**
    * @NoAdminRequired
    * @NoCSRFRequired
@@ -95,7 +95,7 @@ class PageController extends Controller
           'refreshInterval' => $this->config->getAppValue('refreshInterval', 600),
         ]
       );
-      
+
       $wikiURL      = $this->authenticator->wikiURL();
       $wikiPage     = $this->request->getParam('wikiPage', '');
       $popupTitle   = $this->request->getParam('popupTitle', '');
@@ -107,13 +107,14 @@ class PageController extends Controller
 
       $templateParameters = [
         'appName' => $this->appName,
+        'webPrefix' => $this->appName,
         'wikiURL' => $wikiURL,
         'wikiPath' => '/doku.php?id='.$wikiPage,
         'cssClass' => $cssClass,
         'iframeAttributes' => $attributes,
         'urlGenerator' => $this->urlGenerator,
       ];
-      
+
       $response = new TemplateResponse(
         $this->appName,
         self::TEMPLATE,
@@ -124,9 +125,9 @@ class PageController extends Controller
       $policy->addAllowedChildSrcDomain('*');
       $policy->addAllowedFrameDomain('*');
       $response->setContentSecurityPolicy($policy);
-      
+
       return $response;
-      
+
     } catch (\Throwable $t) {
       if ($renderAS == 'blank') {
         $this->logException($t);
@@ -136,6 +137,6 @@ class PageController extends Controller
       }
     }
 
-    
+
   }
 }

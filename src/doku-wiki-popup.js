@@ -19,8 +19,9 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state, appName } from './config.js';
-import { loadCallback, ajaxFailData } from './doku-wiki.js';
+import { appName, webPrefix } from './config.js';
+import { loadHandler } from './doku-wiki.js';
+import ajaxFailData from './ajax.js';
 import generateUrl from './generate-url.js';
 
 import '../style/doku-wiki.css';
@@ -96,7 +97,6 @@ const wikiPopup = function(options, openCallback, closeCallback) {
     cssClass: 'popup',
     iframeAttributes: 'scrolling="no"',
   };
-  const webPrefix = state.webPrefix;
   $.post(
     generateUrl('page/frame/blank'),
     parameters)
@@ -176,7 +176,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
             self.contentHeight = -1;
 
-            loadCallback(frame, frameWrapper, function() {
+            loadHandler(frame, frameWrapper, function() {
               // dialogHolder.dialog('option', 'height', 'auto');
               // dialogHolder.dialog('option', 'width', 'auto');
               const newHeight = dialogWidget.height() - titleHeight;

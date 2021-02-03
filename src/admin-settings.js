@@ -19,51 +19,51 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './config.js';
-import { ajaxFailData } from './doku-wiki.js';
+import { webPrefix } from './config.js';
+import ajaxFailData from './ajax.js';
 import generateUrl from './generate-url.js';
 
 const jQuery = require('jquery');
 const $ = jQuery;
+require('./nextcloud/jquery/requesttoken.js');
 
-$(function(){
-
-  const storeSettings = function(event, $id) {
-    const webPrefix = state.webPrefix;
-    const msg = $('#' + webPrefix + 'settings .msg');
-    if ($.trim(msg.html()) === '') {
-      msg.hide();
+const storeSettings = function(event, $id) {
+  const msg = $('#' + webPrefix + 'settings .msg');
+  if ($.trim(msg.html()) === '') {
+    msg.hide();
+  }
+  let post = $id.serialize();
+  const cbSelector = 'input:checkbox:not(:checked)';
+  $id.find(cbSelector).addBack(cbSelector).each(function(index) {
+    console.info('unchecked?', index, $(this));
+    if (post !== '') {
+      post += '&';
     }
-    let post = $id.serialize();
-    const cbSelector = 'input:checkbox:not(:checked)';
-    $id.find(cbSelector).addBack(cbSelector).each(function(index) {
-      console.info('unchecked?', index, $(this));
-      if (post !== '') {
-        post += '&';
+    post += $(this).attr('name') + '=' + 'off';
+  });
+  $.post(generateUrl('settings/admin/set'), post)
+    .done(function(data) {
+      console.info('Got response data', data);
+      if (data.value) {
+        $id.val(data.value);
       }
-      post += $(this).attr('name') + '=' + 'off';
+      if (data.message) {
+        msg.html(data.message);
+        msg.show();
+      }
+    })
+    .fail(function(xhr, status, errorThrown) {
+      const response = ajaxFailData(xhr, status, errorThrown);
+      console.error(response);
+      if (response.message) {
+        msg.html(response.message);
+        msg.show();
+      }
     });
-    $.post(generateUrl('settings/admin/set'), post)
-      .done(function(data) {
-        console.info('Got response data', data);
-        if (data.value) {
-          $id.val(data.value);
-        }
-        if (data.message) {
-          msg.html(data.message);
-          msg.show();
-        }
-      })
-      .fail(function(xhr, status, errorThrown) {
-        const response = ajaxFailData(xhr, status, errorThrown);
-        console.error(response);
-        if (response.message) {
-          msg.html(response.message);
-          msg.show();
-        }
-      });
-    return false;
-  };
+  return false;
+};
+
+$(function() {
 
   const inputs = {
     externalLocation: 'blur',

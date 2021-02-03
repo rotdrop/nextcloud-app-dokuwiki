@@ -27,7 +27,7 @@ script($appName, 'admin-settings');
 
 <div class="section">
   <h2><?php p($l->t('Embedded DokuWiki')) ?></h2>
-  <form id="<?php p($appName); ?>settings">
+  <form id="<?php p($webPrefix); ?>settings">
     <input type="text"
            name="externalLocation"
            id="externalLocation"

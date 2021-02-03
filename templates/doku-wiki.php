@@ -23,7 +23,7 @@ style($appName, 'app');
 script($appName, 'app');
 
 // additional CSS class
-$cssClass = $appName.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
+$cssClass = $webPrefix.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
 
 // additional attributes
 $cnt = 0;
@@ -37,19 +37,19 @@ if ($cnt == 0) {
 
 ?>
 
-<div id="<?php p($appName) ?>_container" class="<?php echo $cssClass; ?>">
+<div id="<?php p($webPrefix) ?>_container" class="<?php echo $cssClass; ?>">
 
   <img src="<?php echo $urlGenerator->imagePath($appName, 'loader.gif'); ?>"
-       id="<?php p($appName) ?>Loader"
+       id="<?php p($webPrefix) ?>Loader"
        class="<?php echo $cssClass; ?>"
   >
-  <div id="<?php p($appName); ?>FrameWrapper"
+  <div id="<?php p($webPrefix); ?>FrameWrapper"
        class="<?php echo $cssClass; ?>"
   >
     <iframe style="overflow:auto"
             src="<?php echo $wikiURL.$wikiPath;?>"
-            id="<?php p($appName) ?>Frame"
-            name="<?php $appName ?>"
+            id="<?php p($webPrefix) ?>Frame"
+            name="<?php $webPrefix ?>"
             width="100%"
             <?php echo $iframeAttributes; ?>>
     </iframe>

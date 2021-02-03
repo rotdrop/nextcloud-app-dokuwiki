@@ -3,7 +3,7 @@
  * single-sign-on.
  *
  * @author Claus-Justus Heine
- * @copyright 2013-2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2013-2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU GENERAL PUBLIC LICENSE

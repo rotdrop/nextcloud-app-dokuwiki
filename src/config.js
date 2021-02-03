@@ -21,6 +21,7 @@
 
 const appInfo = require('../appinfo/info.xml');
 const appName = appInfo.info.id[0];
+const webPrefix = appName;
 const webRoot = OC.appswebroots[appName] + '/';
 const cloudUser = OC.currentUser;
 
@@ -37,6 +38,7 @@ export {
   appInfo,
   appName,
   webRoot,
+  webPrefix,
   cloudUser,
 };
 

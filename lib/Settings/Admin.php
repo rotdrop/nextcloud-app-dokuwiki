@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
@@ -31,7 +31,7 @@ use OCP\IL10N;
 class Admin implements ISettings
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
-  
+
   const TEMPLATE = 'admin-settings';
   const SETTINGS = [
     'externalLocation' => '',
@@ -41,7 +41,7 @@ class Admin implements ISettings
 
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
-  
+
   public function __construct(
     $appName
     , IConfig $config
@@ -59,6 +59,7 @@ class Admin implements ISettings
   public function getForm() {
     $templateParameters = [
       'appName' => $this->appName,
+      'webPrefix' => $this->appName,
       'urlGenerator' => $this->urlGenerator,
     ];
     foreach (self::SETTINGS as $setting => $default) {

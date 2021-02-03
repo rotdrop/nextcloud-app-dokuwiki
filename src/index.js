@@ -19,8 +19,8 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { state } from './config.js';
-import { loadCallback } from './doku-wiki.js';
+import { webPrefix } from './config.js';
+import { loadHandler } from './doku-wiki.js';
 import '../style/doku-wiki.css';
 
 const jQuery = require('jquery');
@@ -28,11 +28,10 @@ const $ = jQuery;
 
 $(function() {
 
-  const webPrefix = state.webPrefix;
   console.info('DokuWiki webPrefix', webPrefix);
   const container = $('#' + webPrefix + '_container');
-  const frame = $('#' + webPrefix + 'Frame');
   const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
+  const frame = $('#' + webPrefix + 'Frame');
   const contents = frame.contents();
 
   const setHeightCallback = function() {
@@ -41,7 +40,7 @@ $(function() {
 
   if (frame.length > 0) {
     frame.on('load', function() {
-      loadCallback($(this), frameWrapper, setHeightCallback);
+      loadHandler($(this), frameWrapper, setHeightCallback);
     });
 
     let resizeTimer;
@@ -51,11 +50,12 @@ $(function() {
     });
   }
   if (contents.find('.logout')) {
-    loadCallback(frame, frameWrapper, setHeightCallback);
+    loadHandler(frame, frameWrapper, setHeightCallback);
   }
 
 });
 
 // Local Variables: ***
 // js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
 // End: ***

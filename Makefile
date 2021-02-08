@@ -62,3 +62,4 @@ realclean: distclean
 	rm -f composer.lock
 	rm -f composer.json
 	rm -f stamp.composer-core-versions
+	rm -f *.html

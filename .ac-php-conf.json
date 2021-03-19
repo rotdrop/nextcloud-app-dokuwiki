@@ -6,7 +6,9 @@
       "php"
     ],
     "php-path-list": [
-      "."
+      ".",
+      "../../lib",
+      "../../3rdparty"
     ],
     "php-path-list-without-subdir": []
   }

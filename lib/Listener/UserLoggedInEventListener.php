@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU GENERAL PUBLIC LICENSE
@@ -73,7 +73,7 @@ class UserLoggedInEventListener implements IEventListener
     if ($this->authenticator->login($userName, $password)) {
       // TODO: perhaps store in session and emit in middleware
       $this->authenticator->emitAuthHeaders();
-      $this->logInfo("DokuWiki login of user $userName probably succeeded.");
+      $this->logDebug("DokuWiki login of user $userName probably succeeded.");
     }
   }
 
@@ -83,6 +83,11 @@ class UserLoggedInEventListener implements IEventListener
    */
   private function ignoreRequest(IRequest $request):bool
   {
+    $method = $request->getMethod();
+    if ($method != 'GET' && $method != 'POST') {
+      $this->logDebug('Ignoring request with method '.$method);
+      return true;
+    }
     if ($request->getHeader('OCS-APIREQUEST') === 'true') {
       $this->logDebug('Ignoring API login');
       return true;

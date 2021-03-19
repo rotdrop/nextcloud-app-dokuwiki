@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU GENERAL PUBLIC LICENSE
@@ -22,6 +22,7 @@
 namespace OCA\DokuWikiEmbedded\Controller;
 
 use OCP\IRequest;
+use OCP\ISession;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
@@ -42,19 +43,28 @@ class PageController extends Controller
 
   const TEMPLATE = 'doku-wiki';
 
+  /** @var string */
   private $userId;
 
+  /** @var ISession */
+  private $session;
+
+  /** @var Authenticator */
   private $authenticator;
 
+  /** @var IConfig */
   private $config;
 
+  /** @var IURLGenerator */
   private $urlGenerator;
 
+  /** @var IInitialStateService */
   private $initialStateService;
 
   public function __construct(
-    $appName
+    string $appName
     , IRequest $request
+    , ISession $session
     , Authenticator $authenticator
     , IConfig $config
     , IURLGenerator $urlGenerator
@@ -63,6 +73,7 @@ class PageController extends Controller
     , IL10N $l10n
   ) {
     parent::__construct($appName, $request);
+    $this->session = $session;
     $this->authenticator = $authenticator;
     $this->authenticator->errorReporting(Authenticator::ON_ERROR_THROW);
     $this->config = $config;
@@ -75,6 +86,7 @@ class PageController extends Controller
   /**
    * @NoAdminRequired
    * @NoCSRFRequired
+   * @UseSession
    */
   public function index()
   {
@@ -83,6 +95,7 @@ class PageController extends Controller
 
   /**
    * @NoAdminRequired
+   * @UseSession
    */
   public function frame($renderAs = 'blank')
   {
@@ -104,6 +117,7 @@ class PageController extends Controller
 
       $this->authenticator->refresh(); // maybe attempt re-login
       $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
+      $this->session->close(); // can close now
 
       $templateParameters = [
         'appName' => $this->appName,

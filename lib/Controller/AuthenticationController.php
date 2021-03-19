@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWik into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU GENERAL PUBLIC LICENSE
@@ -22,6 +22,7 @@
 namespace OCA\DokuWikiEmbedded\Controller;
 
 use OCP\IRequest;
+use OCP\ISession;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
@@ -34,21 +35,26 @@ class AuthenticationController extends Controller
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
-  /** @var \OCA\DokuWikiEmbedded\Service\AuthRedaxo4 */
+  /** @var ISession */
+  private $session;
+
+  /** @var Authenticator */
   private $authenticator;
 
   /** @var string */
   private $userId;
 
   public function __construct(
-    $appName
+    string $appName
     , IRequest $request
-    , $userId
+    , ISession $session
+    , string $userId
     , Authenticator $authenticator
     , ILogger $logger
     , IL10N $l10n
   ) {
     parent::__construct($appName, $request);
+    $this->session = $session;
     $this->userId = $userId;
     $this->authenticator = $authenticator;
     $this->logger = $logger;
@@ -57,6 +63,7 @@ class AuthenticationController extends Controller
 
   /**
    * @NoAdminRequired
+   * @UseSession
    */
   public function refresh()
   {
@@ -67,5 +74,6 @@ class AuthenticationController extends Controller
       $this->authenticator->emitAuthHeaders();
       $this->logDebug("DokuWiki refresh ".($this->userId)." probably succeeded");
     }
+    $this->session->close();
   }
 }

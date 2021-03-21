@@ -23,7 +23,6 @@
 namespace OCA\DokuWikiEmbedded\Controller;
 
 use OCP\IRequest;
-use OCP\ISession;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
@@ -36,9 +35,6 @@ class AuthenticationController extends Controller
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
-  /** @var ISession */
-  private $session;
-
   /** @var Authenticator */
   private $authenticator;
 
@@ -48,14 +44,12 @@ class AuthenticationController extends Controller
   public function __construct(
     string $appName
     , IRequest $request
-    , ISession $session
     , string $userId
     , Authenticator $authenticator
     , ILogger $logger
     , IL10N $l10n
   ) {
     parent::__construct($appName, $request);
-    $this->session = $session;
     $this->userId = $userId;
     $this->authenticator = $authenticator;
     $this->logger = $logger;
@@ -64,7 +58,6 @@ class AuthenticationController extends Controller
 
   /**
    * @NoAdminRequired
-   * @UseSession
    *
    * @todo Check whether there is a successful login which could be
    * refreshed.
@@ -78,6 +71,5 @@ class AuthenticationController extends Controller
       $this->authenticator->emitAuthHeaders();
       $this->logDebug("DokuWiki refresh ".($this->userId)." probably succeeded");
     }
-    $this->session->close();
   }
 }

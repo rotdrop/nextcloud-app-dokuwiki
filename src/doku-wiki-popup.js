@@ -44,13 +44,13 @@ require('./nextcloud/jquery/requesttoken.js');
  * immediately, if set, then this is a delay in ms.
  */
 const textareaResize = function(textarea, delay) {
-  if (typeof delay == 'undefined') {
+  if (delay === undefined) {
     delay = 50; // ms
   }
   textarea.off('mouseup mousemove');
   textarea.on('mouseup mousemove', function() {
     if (textarea.oldwidth === null) {
-      textarea.oldwidth  = textarea.style.width;
+      textarea.oldwidth = textarea.style.width;
     }
     if (textarea.oldheight === null) {
       textarea.oldheight = textarea.style.height;
@@ -85,10 +85,14 @@ const textareaResize = function(textarea, delay) {
  *   modal: true/false
  * }
  *
- * @param {Function} openCallback Optional callback to be call on
+ * @param {function} openCallback Optional callback to be call on
  * open. The callback will get the element holding the dialog content
  * as argument and the dialog widget itself. The callback is called
  * BEFORE the iframe is loaded.
+ *
+ * @param {function} closeCallback TBD.
+ *
+ * @returns bool
  */
 const wikiPopup = function(options, openCallback, closeCallback) {
   const parameters = {
@@ -102,7 +106,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
     parameters)
     .fail(function(xhr, status, errorThrown) {
       const response = ajaxFailData(xhr, status, errorThrown);
-      console.log(response);
+      // console.log(response);
       let info = '';
       if (typeof response.message !== 'undefined') {
         info = response.message;
@@ -133,7 +137,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
         height: 'auto',
         modal: options.modal,
         closeOnEscape: false,
-        dialogClass: webPrefix + '-page-popup '+options.cssClass,
+        dialogClass: webPrefix + '-page-popup ' + options.cssClass,
         resizable: false,
         open() {
           const dialogHolder = $(this);
@@ -144,7 +148,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
           dialogWidget.draggable('option', 'containment', '#content');
 
-          if (typeof openCallback == 'function') {
+          if (typeof openCallback === 'function') {
             openCallback(dialogHolder, dialogWidget);
           }
 
@@ -164,9 +168,9 @@ const wikiPopup = function(options, openCallback, closeCallback) {
             const scrollHeight = self.contentWindow.document.body.scrollHeight;
             frame.css({
               height: scrollHeight + 'px',
-              overflow: 'hidden'
+              overflow: 'hidden',
             });
-            if (frameWrapper.css('height') == '0px') {
+            if (frameWrapper.css('height') === '0px') {
               frameWrapper.css({
                 height: 'auto',
                 display: 'none',
@@ -190,15 +194,15 @@ const wikiPopup = function(options, openCallback, closeCallback) {
                 // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
 
                 self.heightChecker = function() {
-                  if (self.contentWindow == undefined) {
-                    if (self.heightTimer != undefined) {
+                  if (self.contentWindow === undefined) {
+                    if (self.heightTimer !== undefined) {
                       clearInterval(self.heightTimer);
                       self.heightTimer = undefined;
                     }
                     return;
                   }
                   const height = self.contentWindow.document.body.scrollHeight;
-                  if (height != self.contentHeight) {
+                  if (height !== self.contentHeight) {
                     console.debug('new height', height, self.contentHeight, frame.css('height'));
                     self.contentHeight = height;
                     frame.css({ height: height + 'px' });
@@ -235,7 +239,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
                   dialogHolder.height(newHeight);
                 });
               } else {
-                if (self.heightTimer != undefined) {
+                if (self.heightTimer !== undefined) {
                   clearInterval(self.heightTimer);
                   self.heightTimer = undefined;
                 }
@@ -251,7 +255,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
           dialogHolder.dialog('close');
           dialogHolder.dialog('destroy').remove();
 
-          if (typeof closeCallback == 'function') {
+          if (typeof closeCallback === 'function') {
             closeCallback();
           }
 

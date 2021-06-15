@@ -44,7 +44,7 @@ class AuthenticationController extends Controller
   public function __construct(
     string $appName
     , IRequest $request
-    , string $userId
+    , ?string $userId
     , Authenticator $authenticator
     , ILogger $logger
     , IL10N $l10n

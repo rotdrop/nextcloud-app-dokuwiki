@@ -67,10 +67,10 @@ class AuthDokuWiki
   /** @var \OCP\Authentication\LoginCredentials\IStore */
   private $credentialsStore;
 
-  private $dwProto;
-  private $dwHost;
-  private $dwPort;
-  private $dwPath;
+  private $dwProto = null;
+  private $dwHost = null;
+  private $dwPort = null;
+  private $dwPath = null;
 
   private $authHeaders; //!< Authentication headers returned by DokuWiki
   private $reqHeaders;  //!< Authentication headers, cookies we send to DW
@@ -107,17 +107,21 @@ class AuthDokuWiki
     $this->enableSSLVerify = $this->config->getAppValue('enableSSLVerfiy', true);
 
     $location = $this->config->getAppValue($this->appName, 'externalLocation');
-    if ($location[0] == '/') {
-      $url = $this->urlGenerator->getAbsoluteURL($location);
-    } else {
-      $url = $location;
-    }
 
-    $urlParts = parse_url($url);
-    $this->dwProto = $urlParts['scheme'];
-    $this->dwHost  = $urlParts['host'];
-    $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
-    $this->dwPath  = $urlParts['path'];
+    if (!empty($location)) {
+
+        if ($location[0] == '/') {
+            $url = $this->urlGenerator->getAbsoluteURL($location);
+        } else {
+            $url = $location;
+        }
+        
+        $urlParts = parse_url($url);
+        $this->dwProto = $urlParts['scheme'];
+        $this->dwHost  = $urlParts['host'];
+        $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
+        $this->dwPath  = $urlParts['path'];
+    }
 
     $this->authHeaders = [];
 

@@ -262,7 +262,7 @@ class AuthDokuWiki
 
     $this->httpCode = -1;
     $fp = fopen($url, 'rb', false, $context);
-    $responseHdr = $http_response_header;
+    $responseHdr = $http_response_header??[];
     if (count($responseHdr) > 0) {
       list(,$this->httpCode, $this->httpStatus) = explode(' ', $responseHdr[0], 3);
     } else {
@@ -277,7 +277,7 @@ class AuthDokuWiki
       return $this->handleError(
         "URL fopen to $url failed: "
         .print_r($error, true)
-        .$responseHdr[0]
+        .($responseHdr[0]??'')
       );
     }
 

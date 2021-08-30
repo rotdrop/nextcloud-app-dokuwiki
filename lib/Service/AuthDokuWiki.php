@@ -212,7 +212,6 @@ class AuthDokuWiki
     try {
       $result = $this->doXmlRequest($method, $data);
     } catch (\Throwable $t) {
-      $this->logException($t);
       $result = false;
     }
     if ($result === false) {
@@ -220,7 +219,7 @@ class AuthDokuWiki
         $this->logInfo("CODE: ".$this->httpCode);
         try {
           $credentials = $this->loginCredentials();
-          if ($this->login_($credentials['userId'], $credentials['password'])) {
+          if ($this->_login($credentials['userId'], $credentials['password'])) {
             $this->logInfo("Re-login succeeded");
             return $this->doXmlRequest($method, $data);
           }

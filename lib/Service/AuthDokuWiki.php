@@ -220,11 +220,12 @@ class AuthDokuWiki
         $this->logInfo("CODE: ".$this->httpCode);
         try {
           $credentials = $this->loginCredentials();
-          if ($this->login($credentials['userId'], $credentials['password'])) {
+          if ($this->login_($credentials['userId'], $credentials['password'])) {
             $this->logInfo("Re-login succeeded");
             return $this->doXmlRequest($method, $data);
           }
         } catch (\Throwable $t) {
+          $this->logException($t);
         }
       }
       return $this->handleError("xmlRequest($method) failed ($this->httpCode)", $t);
@@ -355,13 +356,23 @@ class AuthDokuWiki
    * activated. This login function itself is only meant for being
    * called during the login process.
    *
-   * @param $username Login name
+   * @param null|$username Login name
    *
-   * @param $password credentials
+   * @param null|$password credentials
    *
    * @return bool true if successful, false otherwise.
    */
-  public function login($username, $password)
+  public function login($userName = null, $password = null)
+  {
+    if ($userName === null && $password === null) {
+      $credentials = $this->loginCredentials();
+      $userName = $credentials['userId'];
+      $password = $credentials['password'];
+    }
+    return $this->_login($userName, $password);
+  }
+
+  private function _login($username, $password)
   {
     $this->cleanCookies();
     $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);

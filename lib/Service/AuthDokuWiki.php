@@ -115,7 +115,7 @@ class AuthDokuWiki
         } else {
             $url = $location;
         }
-        
+
         $urlParts = parse_url($url);
         $this->dwProto = $urlParts['scheme'];
         $this->dwHost  = $urlParts['host'];
@@ -212,6 +212,7 @@ class AuthDokuWiki
     try {
       $result = $this->doXmlRequest($method, $data);
     } catch (\Throwable $t) {
+      $this->logException($t);
       $result = false;
     }
     if ($result === false) {
@@ -281,7 +282,7 @@ class AuthDokuWiki
       );
     }
 
-    $response = xmlrpc_decode($result);
+    $response = xmlrpc_decode($result, 'UTF-8');
     if (is_array($response) && \xmlrpc_is_fault($response)) {
       $this->authHeaders = []; // nothing
       return $this->handleError("Error: xmlrpc: $response[faultString] ($response[faultCode])");

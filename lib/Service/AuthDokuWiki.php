@@ -115,7 +115,7 @@ class AuthDokuWiki
         } else {
             $url = $location;
         }
-        
+
         $urlParts = parse_url($url);
         $this->dwProto = $urlParts['scheme'];
         $this->dwHost  = $urlParts['host'];
@@ -170,16 +170,20 @@ class AuthDokuWiki
     return $reporting;
   }
 
-  private function handleError($msg)
+  private function handleError($msg, $t = null)
   {
     switch ($this->errorReporting) {
-      case self::ON_ERROR_THROW:
-        throw new \Exception($msg);
-      case self::ON_ERROR_RETURN:
+    case self::ON_ERROR_THROW:
+      throw new \Exception($msg, !empty($t) ? $t->getCode() : 0, $t);
+    case self::ON_ERROR_RETURN:
+      if (!empty($t)) {
+        $this->logException($t, $msg);
+      } else {
         $this->logError($msg);
-        return false;
-      default:
-        throw new \Exception("Invalid error handling method: ".$this->errorReporting);
+      }
+      return false;
+    default:
+      throw new \Exception("Invalid error handling method: ".$this->errorReporting);
     }
     return false;
   }
@@ -211,19 +215,20 @@ class AuthDokuWiki
     $t = null;
     try {
       $result = $this->doXmlRequest($method, $data);
-    } catch (\Throwable $t) {
+    } catch (\Throwable $t1) {
+      $t = $t1;
       $result = false;
     }
     if ($result === false) {
       if ($this->httpCode == 401) {
-        $this->logInfo("CODE: ".$this->httpCode);
         try {
           $credentials = $this->loginCredentials();
           if ($this->login($credentials['userId'], $credentials['password'])) {
             $this->logInfo("Re-login succeeded");
             return $this->doXmlRequest($method, $data);
           }
-        } catch (\Throwable $t) {
+        } catch (\Throwable $t1) {
+          $t = $t1;
         }
       }
       return $this->handleError("xmlRequest($method) failed ($this->httpCode)", $t);
@@ -261,7 +266,7 @@ class AuthDokuWiki
     $url  = $this->wikiURL().self::RPCPATH;
 
     $this->httpCode = -1;
-    $fp = fopen($url, 'rb', false, $context);
+    $fp = @fopen($url, 'rb', false, $context);
     $responseHdr = $http_response_header;
     if (count($responseHdr) > 0) {
       list(,$this->httpCode, $this->httpStatus) = explode(' ', $responseHdr[0], 3);
@@ -281,7 +286,7 @@ class AuthDokuWiki
       );
     }
 
-    $response = xmlrpc_decode($result);
+    $response = xmlrpc_decode($result, 'UTF-8');
     if (is_array($response) && \xmlrpc_is_fault($response)) {
       $this->authHeaders = []; // nothing
       return $this->handleError("Error: xmlrpc: $response[faultString] ($response[faultCode])");
@@ -418,9 +423,23 @@ class AuthDokuWiki
    * some automatic wiki-pages (e.g. overview stuff and the like,
    * maybe a changelog here and a readme there.
    */
-  public function getPage($pagename)
+  public function getPage(string $pagename, ?int $version = null)
   {
-    return $this->xmlRequest("wiki.getPage", [ $pagename ]);
+    if (!empty($version)) {
+      return $this->xmlRequest('wiki.getPageVersion', [ $pagename, $version ]);
+    } else {
+      return $this->xmlRequest("wiki.getPage", [ $pagename ]);
+    }
+  }
+
+  public function getPageVersions($pagename)
+  {
+    return $this->xmlRequest('wiki.getPageVersions', [ $pagename ]);
+  }
+
+  public function getPageInfo($pagename)
+  {
+    return $this->xmlRequest('wiki.getPageInfo', [ $pagename ]);
   }
 
   /**

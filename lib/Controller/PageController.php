@@ -135,7 +135,7 @@ class PageController extends Controller
       return $response;
 
     } catch (\Throwable $t) {
-      if ($renderAS == 'blank') {
+      if ($renderAs == 'blank') {
         $this->logException($t);
         return self::grumble($this->exceptionChainData($t));
       } else {

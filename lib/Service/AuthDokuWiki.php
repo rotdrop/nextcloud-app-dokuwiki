@@ -22,6 +22,9 @@
 
 namespace OCA\DokuWikiEmbedded\Service;
 
+use PhpXmlRpc as XmlRpc;
+use PhpXmlRpc\PhpXmlRpc as XmlRpcData;
+
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 use OCP\Authentication\LoginCredentials\ICredentials;
 use OCP\IConfig;
@@ -87,6 +90,9 @@ class AuthDokuWiki
   /** @var bool */
   private $enableSSLVerify;
 
+  /** @var XmlRpc\Client */
+  private $xmlRpcClient;
+
   public function __construct(
     Application $app
     , IConfig $config
@@ -123,6 +129,11 @@ class AuthDokuWiki
         $this->dwPath  = $urlParts['path'];
     }
 
+    /* Construct the xml client control class */
+    $this->xmlRpcClient = new XmlRpc\Client($this->wikiURL() . self::RPCPATH);
+    $this->xmlRpcClient->setSSLVerifyHost($this->enableSSLVerify);
+    $this->xmlRpcClient->setSSLVerifyPeer($this->enableSSLVerify);
+
     $this->authHeaders = [];
 
     // If we have cookies with AuthData, then store them in authHeaders
@@ -130,12 +141,14 @@ class AuthDokuWiki
     foreach ($_COOKIE as $cookie => $value) {
       if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
         $this->reqHeaders[] = "$cookie=".urlencode($value);
+        $this->xmlRpcClient->setCookie($cookie, $value);
       }
     }
 
     $this->httpCode = -1;
     $this->httpStatus = '';
   }
+
 
   /**
    * Return the name of the app.
@@ -241,56 +254,25 @@ class AuthDokuWiki
    */
   private function doXmlRequest($method, $data = [])
   {
-    // Generate the request
-    $request = xmlrpc_encode_request($method, $data, [ "encoding" => "UTF-8",
-                                                       "escaping" => "markup",
-                                                       "version" => "xmlrpc" ]);
-    // Construct the header with any relevant cookies
-    $httpHeader = "Content-Type: text/xml; charset=UTF-8".
-                  (empty($this->reqHeaders)
-                 ? ""
-                 : "\r\n"."Cookie: ".join("; ", $this->reqHeaders));
+    $request = new XmlRpc\Request($method, (new XmlRpc\Encoder)->encode($data));
+    $response = $this->xmlRpcClient->send($request);
 
-    // Compose the context with method, headers and data
-    $context = stream_context_create([
-      'http' => [
-        'method' => 'POST',
-        'header' => $httpHeader,
-        'content' => $request,
-      ],
-      'ssl' => [
-        'verify_peer' => $this->enableSSLVerify,
-        'verify_peer_name' => $this->enableSSLVerify,
-      ],
-    ]);
-    $url  = $this->wikiURL().self::RPCPATH;
-
-    $this->httpCode = -1;
-    $fp = @fopen($url, 'rb', false, $context);
-    $responseHdr = $http_response_header??[];
-    if (count($responseHdr) > 0) {
-      list(,$this->httpCode, $this->httpStatus) = explode(' ', $responseHdr[0], 3);
-    } else {
-      $this->httpCode = -1;
-      $this->httpStatus = '';
-    }
-    if ($fp !== false) {
-      $result = stream_get_contents($fp);
-      fclose($fp);
-    } else {
-      $error = error_get_last();
-      return $this->handleError(
-        "URL fopen to $url failed: "
-        .print_r($error, true)
-        .($responseHdr[0]??'')
-      );
+    if ($response->faultCode() != 0) {
+      if ($response->faultCode() == XmlRpcData::$xmlrpcerr['http_error']) {
+        // unfortunately, the current version does not provide the http
+        // error code
+        preg_match('/\(([^\)]+)\)/', $response->faultString(), $matches);
+        list(,$this->httpCode, $this->httpStatus) = explode(' ', $matches[1], 3);
+      } else {
+        $this->httpCode = -1;
+        $this->httpStatus = '';
+      }
+      return $this->handleError('XMLRPC request failed: ' . $response->faultString());
     }
 
-    $response = xmlrpc_decode($result, 'UTF-8');
-    if (is_array($response) && \xmlrpc_is_fault($response)) {
-      $this->authHeaders = []; // nothing
-      return $this->handleError("Error: xmlrpc: $response[faultString] ($response[faultCode])");
-    }
+    // ok, we got a valid response
+    $responseHdr = $response->hdrs;
+    $decodedResponse = (new XmlRpc\Encoder)->decode($response->value());
 
     if ($method == "dokuwiki.login" ||
         $method == "dokuwiki.stickylogin" ||
@@ -298,7 +280,7 @@ class AuthDokuWiki
         $method == "dokuwiki.logoff") {
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
-      if ($response == 1) {
+      if ($decodedResponse == 1) {
         $this->authHeaders = [];
         // Store and duplicate set cookies for forwarding to the users web client
         $this->reqHeaders = [];

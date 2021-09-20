@@ -3,6 +3,14 @@ ABSSRCDIR=$(CURDIR)
 ABSBUILDDIR=$(CURDIR)/build
 DOC_BUILD_DIR=$(ABSBUILDDIR)/artifacts/doc
 
+COMPOSER_SYSTEM=$(shell which composer 2> /dev/null)
+ifeq (, $(COMPOSER_SYSTEM))
+COMPOSER=php $(build_tools_directory)/composer.phar
+else
+COMPOSER=$(COMPOSER_SYSTEM)
+endif
+COMPOSER_OPTIONS=--prefer-dist
+
 PHPDOC=/opt/phpDocumentor/bin/phpdoc
 PHPDOC_TEMPLATE=--template=default
 
@@ -11,7 +19,11 @@ PHPDOC_TEMPLATE=--template=default
 
 all: build
 
-build: npm
+build: composer npm
+
+.PHONY: composer
+composer:
+	composer install
 
 .PHONY: npm-update
 npm-update:
@@ -60,6 +72,4 @@ distclean: clean
 .PHONY: realclean
 realclean: distclean
 	rm -f composer.lock
-	rm -f composer.json
-	rm -f stamp.composer-core-versions
 	rm -f *.html

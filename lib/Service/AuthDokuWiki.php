@@ -76,7 +76,6 @@ class AuthDokuWiki
   private $dwPath = null;
 
   private $authHeaders; //!< Authentication headers returned by DokuWiki
-  private $reqHeaders;  //!< Authentication headers, cookies we send to DW
 
   /** @var int */
   private $httpCode;
@@ -92,6 +91,9 @@ class AuthDokuWiki
 
   /** @var XmlRpc\Client */
   private $xmlRpcClient;
+
+  /** @var array */
+  private $cookies;
 
   public function __construct(
     Application $app
@@ -134,13 +136,12 @@ class AuthDokuWiki
     $this->xmlRpcClient->setSSLVerifyHost($this->enableSSLVerify);
     $this->xmlRpcClient->setSSLVerifyPeer($this->enableSSLVerify);
 
-    $this->authHeaders = [];
+    $this->cookies = [];
 
-    // If we have cookies with AuthData, then store them in authHeaders
-    $this->reqHeaders = [];
+    // Forward any received DW cookies from the client to our XML RPC
+    // calls. This uses the cookie-storage of the web-client.
     foreach ($_COOKIE as $cookie => $value) {
       if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
-        $this->reqHeaders[] = "$cookie=".urlencode($value);
         $this->xmlRpcClient->setCookie($cookie, $value);
       }
     }
@@ -211,8 +212,7 @@ class AuthDokuWiki
 
   private function cleanCookies()
   {
-    $this->authHeaders = [];
-    $this->reqHeaders = [];
+    $this->cookies = [];
     foreach ($_COOKIE as $cookie => $value) {
       if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
         unset($_COOKIE[$cookie]);
@@ -238,6 +238,12 @@ class AuthDokuWiki
           $credentials = $this->loginCredentials();
           if ($this->_login($credentials['userId'], $credentials['password'])) {
             $this->logInfo("Re-login succeeded");
+            foreach ($this->cookies as $cookie) {
+              if ($cookie['value'] == 'deleted') {
+                continue;
+              }
+              $this->xmlRpcClient->setCookie($cookie['name'], $cookie['value']);
+            }
             return $this->doXmlRequest($method, $data);
           }
         } catch (\Throwable $t1) {
@@ -271,7 +277,6 @@ class AuthDokuWiki
     }
 
     // ok, we got a valid response
-    $responseHdr = $response->hdrs;
     $decodedResponse = (new XmlRpc\Encoder)->decode($response->value());
 
     if ($method == "dokuwiki.login" ||
@@ -281,28 +286,25 @@ class AuthDokuWiki
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
       if ($decodedResponse == 1) {
-        $this->authHeaders = [];
         // Store and duplicate set cookies for forwarding to the users web client
-        $this->reqHeaders = [];
-        foreach ($responseHdr as $header) {
-          if (preg_match('/^Set-Cookie:\s*(DokuWiki|DW).*/', $header)) {
-            $this->reqHeaders[] = trim(strtok(preg_replace('/^Set-Cookie:\s*/i', '', $header), ';'));
-            $this->authHeaders[] = $header;
-            $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
+        $this->cookies = [];
+        foreach ($response->cookies() as $cookieName => $cookieInfo) {
+          if ($cookieName !== 'DokuWiki' && strpos($cookieName, 'DW') !== 0) {
+            continue;
           }
+          $cookieInfo['name'] = $cookieName;
+          $cookieInfo[$cookieName] = $cookieInfo['value'];
+          ksort($cookieInfo);
+          $this->cookies[] = $cookieInfo;
+          $cookieInfo['path'] = \OC::$WEBROOT;
+          $this->cookies[] = $cookieInfo;
         }
-        $this->logDebug("XMLRPC method \"$method\" executed with success. Got cookies ".
-                        print_r($this->reqHeaders, true).
-                        print_r($this->authHeaders, true).
-                        ". Sent cookies ".$httpHeader);
+        $this->logDebug("XMLRPC method \"$method\" executed with success. Got cookies "
+                        . print_r($this->cookies, true));
         return true;
       } else {
-        $this->logDebug("XMLRPC method \"$method\" to \"$url\" failed. Got headers ".
-                        //print_r($responseHdr, true).
-                        " request: ".print_r($data, true).
-                        " data: ".$result.
-                        " response: ".print_r($response, true).
-                        " false: ".($response === false));
+        $this->logDebug("XMLRPC method \"$method\" to \"$url\" failed. Got Cookies "
+                        . print_r($response->cookies(), true));
         return false;
       }
     }
@@ -498,8 +500,13 @@ class AuthDokuWiki
     $cookieValues = explode(';', $cookieString);
     foreach ($cookieValues as $field) {
       $cookieInfo = explode('=', $field);
-      $cookie[trim($cookieInfo[0])] =
-        count($cookieInfo) == 2 ? trim($cookieInfo[1]) : true;
+      $key = trim($cookieInfo[0]);
+      $value = count($cookieInfo) == 2 ? trim($cookieInfo[1]) : null;
+      if (empty($cookie)) {
+        $cookie['name'] = $key;
+        $cookie['value'] = $value;
+      }
+      $cookie[$key] = $value;
     }
     ksort($cookie);
     return $cookie;
@@ -517,14 +524,14 @@ class AuthDokuWiki
    * cookies with the same name and path, but adding a new
    * cookie if name or path differs.
    *
-   * @param cookieHeader The raw header holding the cookie.
+   * @param array cookie Cookie info with NAME => VALUE pairs
+   * where the cookie-name is one of the array-keys.
    *
    * @todo This probably should go into the Middleware as
    * afterController() and add the headers there.
    */
-  private function addCookie($cookieHeader)
+  private function addCookie($thisCookie)
   {
-    $thisCookie = $this->parseCookie($cookieHeader);
     $found = false;
     foreach (headers_list() as $header) {
       $cookie = $this->parseCookie($header);
@@ -532,8 +539,16 @@ class AuthDokuWiki
         return;
       }
     }
-    $this->logDebug("Emitting cookie ".$cookieHeader);
-    header($cookieHeader, false);
+    $this->logDebug("Emitting cookie " . print_r($thisCookie, true));
+    setcookie(
+      $thisCookie['name'],
+      $thisCookie['value'],
+      empty($thisCookie['expires']) ? 0 : strtotime($thisCookie['expires']),
+      $thisCookie['path']??'',
+      $thisCookie['domain']??'',
+      isset($thisCookie['secure']),
+      isset($thisCookie['HttpOnly'])
+    );
   }
 
   /**
@@ -541,9 +556,8 @@ class AuthDokuWiki
    */
   public function emitAuthHeaders()
   {
-    foreach ($this->authHeaders as $header) {
-      //header($header, false);
-      $this->addCookie($header);
+    foreach ($this->cookies as $cookie) {
+      $this->addCookie($cookie);
     }
   }
 };

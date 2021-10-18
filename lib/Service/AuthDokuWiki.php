@@ -363,15 +363,22 @@ class AuthDokuWiki
   {
     $this->cleanCookies();
     $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
-    if ($result === true) {
-      return $result;
+    if ($result !== true) {
+      // Fall back to "normal" login if long-life token could not be aquired.
+      $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
+      if ($result !== true) {
+        return false;
+      }
     }
-    // Fall back to "normal" login if long-life token could not be aquired.
-    $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
-    if ($result === true) {
-      return true;
+
+    foreach ($this->cookies as $cookie) {
+      if ($cookie['value'] == 'deleted') {
+        continue;
+      }
+      $this->xmlRpcClient->setCookie($cookie['name'], $cookie['value']);
     }
-    return false;
+
+    return true;
   }
 
   /**

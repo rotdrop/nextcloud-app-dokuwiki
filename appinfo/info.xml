@@ -10,8 +10,10 @@
     <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
     <namespace>DokuWikiEmbedded</namespace>
     <category>integration</category>
+    <category>organization</category>
+    <category>social</category>
     <types>
-      <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
+      <filesystem/><!-- @todo: this forces load of the app even for non-ui request. Check whether this is really needed. -->
     </types>
     <bugs>https://github.com/rotdrop/ocapp-dokuwikiembed.git</bugs>
     <dependencies>

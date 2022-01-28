@@ -17,7 +17,7 @@
     </types>
     <bugs>https://github.com/rotdrop/ocapp-dokuwikiembed.git</bugs>
     <dependencies>
-        <nextcloud min-version="20" max-version="22"/>
+        <nextcloud min-version="20" max-version="23"/>
     </dependencies>
     <navigations>
         <navigation>

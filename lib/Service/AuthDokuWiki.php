@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -309,7 +309,7 @@ class AuthDokuWiki
       }
     }
 
-    return $response;
+    return $decodedResponse;
   }
 
   /**
@@ -363,15 +363,22 @@ class AuthDokuWiki
   {
     $this->cleanCookies();
     $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
-    if ($result === true) {
-      return $result;
+    if ($result !== true) {
+      // Fall back to "normal" login if long-life token could not be aquired.
+      $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
+      if ($result !== true) {
+        return false;
+      }
     }
-    // Fall back to "normal" login if long-life token could not be aquired.
-    $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
-    if ($result === true) {
-      return true;
+
+    foreach ($this->cookies as $cookie) {
+      if ($cookie['value'] == 'deleted') {
+        continue;
+      }
+      $this->xmlRpcClient->setCookie($cookie['name'], $cookie['value']);
     }
-    return false;
+
+    return true;
   }
 
   /**

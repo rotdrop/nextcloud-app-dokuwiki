@@ -12,9 +12,11 @@
     <category>integration</category>
     <category>organization</category>
     <category>social</category>
-    <types>
-      <filesystem/><!-- @todo: this forces load of the app even for non-ui request. Check whether this is really needed. -->
-    </types>
+    <!-- Should no longer be necessary
+      <types>
+        <filesystem/>
+      </types>
+    -->
     <bugs>https://github.com/rotdrop/ocapp-dokuwikiembed.git</bugs>
     <dependencies>
         <nextcloud min-version="20" max-version="23"/>

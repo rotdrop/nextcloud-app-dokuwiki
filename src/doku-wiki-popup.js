@@ -186,17 +186,16 @@ const wikiPopup = function(options, openCallback, closeCallback) {
               const newHeight = dialogWidget.height() - titleHeight;
               dialogHolder.height(newHeight);
 
-              const editArea = contents.find('textarea');
+              const editForm = contents.find('form#dw__editform');
+              const editArea = editForm.find('textarea');
               if (editArea.length > 0) {
-                const wysiwygArea = contents.find('.prosemirror_wrapper');
-                const wysiwygToggle = contents.find('.button.plugin_prosemirror_useWYSIWYG');
+                const wysiwygArea = editForm.find('.prosemirror_wrapper');
+                const wysiwygToggle = editForm.find('.button.plugin_prosemirror_useWYSIWYG');
                 wysiwygArea.css({
                   overflow: 'auto',
-                  float: 'right',
-                  display: 'block',
                 });
-                wysiwygToggle.css({
-                  top: '3.3em',
+                editForm.css({
+                  float: 'right',
                 });
                 // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
 

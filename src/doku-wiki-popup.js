@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -190,7 +190,14 @@ const wikiPopup = function(options, openCallback, closeCallback) {
               if (editArea.length > 0) {
                 const wysiwygArea = contents.find('.prosemirror_wrapper');
                 const wysiwygToggle = contents.find('.button.plugin_prosemirror_useWYSIWYG');
-                wysiwygArea.css('overflow', 'auto');
+                wysiwygArea.css({
+                  overflow: 'auto',
+                  float: 'right',
+                  display: 'block',
+                });
+                wysiwygToggle.css({
+                  top: '3.3em',
+                });
                 // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
 
                 self.heightChecker = function() {

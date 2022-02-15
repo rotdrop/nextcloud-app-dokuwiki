@@ -1,6 +1,5 @@
 build/**
-js/*.js
-js/*.map
+js/**
 css/*.css
 css/*.map
 node_modules/**

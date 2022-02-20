@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,15 +23,11 @@
 namespace OCA\DokuWikiEmbedded\Traits;
 
 use OCP\ILogger;
-use OCP\IL10N;
 
 trait LoggerTrait
 {
   /** @var ILogger */
   protected $logger;
-
-  /** @var IL10N */
-  protected $l;
 
   public function log(int $level, string $message, array $context = [], $shift = 0) {
     $trace = debug_backtrace();

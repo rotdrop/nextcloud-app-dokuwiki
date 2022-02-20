@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,9 +26,9 @@ use OCP\User\Events\UserLoggedInEvent as Event1;
 use OCP\User\Events\UserLoggedInWithCookieEvent as Event2;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
 use OCP\ILogger;
-use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
 
@@ -38,26 +38,18 @@ class UserLoggedInEventListener implements IEventListener
 
   const EVENT = [ Event1::class, Event2::class ];
 
-  /** @var string */
-  private $appName;
+  /** @var IAppContainer */
+  private $appContainer;
 
   /** @var OCP\IRequest */
   private $request;
 
-  /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
-  private $authenticator;
-
   public function __construct(
-    AuthDokuWiki $authenticator
-    , IRequest $request
-    , ILogger $logger
-    , IL10N $l10n
+    IRequest $request
+    , IAppContainer $appContainer
   ) {
-    $this->authenticator = $authenticator;
-    $this->appName = $this->authenticator->getAppName();
     $this->request = $request;
-    $this->logger = $logger;
-    $this->l = $l10n;
+    $this->appContainer = $appContainer;
   }
 
   public function handle(Event $event): void {
@@ -65,16 +57,24 @@ class UserLoggedInEventListener implements IEventListener
       return;
     }
 
+    $this->logger = $this->appContainer->get(ILogger::class);
+
     if ($this->ignoreRequest($this->request)) {
       return;
     }
 
-    $userName = $event->getUser()->getUID();
-    $password = $event->getPassword();
-    if ($this->authenticator->login($userName, $password)) {
-      // TODO: perhaps store in session and emit in middleware
-      $this->authenticator->emitAuthHeaders();
-      $this->logDebug("DokuWiki login of user $userName probably succeeded.");
+    try  {
+      /** @var AuthDokuWiki $authenticator */
+      $authenticator = $this->appContainer->get(AuthDokuWiki::class);
+      $userName = $event->getUser()->getUID();
+      $password = $event->getPassword();
+      if ($authenticator->login($userName, $password)) {
+        // TODO: perhaps store in session and emit in middleware
+        $authenticator->emitAuthHeaders();
+        $this->logDebug("DokuWiki login of user $userName probably succeeded.");
+      }
+    } catch (\Throwable $t) {
+      $this->logException($t, 'Unable to emit auth-headers in login-listener');
     }
   }
 
@@ -93,7 +93,7 @@ class UserLoggedInEventListener implements IEventListener
       $this->logDebug('Ignoring API login');
       return true;
     }
-    if (strpos($this->request->getHeader('Authorization'), 'Bearer ') === 0) {
+    if (strpos($request->getHeader('Authorization'), 'Bearer ') === 0) {
       $this->logDebug('Ignoring API "bearer" auth');
       return true;
     }

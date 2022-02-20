@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,8 +25,8 @@ namespace OCA\DokuWikiEmbedded\Listener;
 use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\AppFramework\IAppContainer;
 use OCP\ILogger;
-use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
 
@@ -36,21 +36,12 @@ class UserLoggedOutEventListener implements IEventListener
 
   const EVENT = HandledEvent::class;
 
-  /** @var string */
-  private $appName;
+  /** @var IAppContainer */
+  private $appContainer;
 
-  /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
-  private $authenticator;
-
-  public function __construct(
-    AuthDokuWiki $authenticator
-    , ILogger $logger
-    , IL10N $l10n
-  ) {
-    $this->authenticator = $authenticator;
-    $this->appName = $this->authenticator->getAppName();
-    $this->logger = $logger;
-    $this->l = $l10n;
+  public function __construct(IAppContainer $appContainer)
+  {
+    $this->appContainer = $appContainer;
   }
 
   public function handle(Event $event): void {
@@ -58,9 +49,16 @@ class UserLoggedOutEventListener implements IEventListener
       return;
     }
 
-    if ($this->authenticator->logout()) {
-      $this->authenticator->emitAuthHeaders();
-      $this->logInfo("DokuWiki logoff probably succeeded.");
+    $this->logger = $this->appContainer->get(ILogger::class);
+
+    try {
+      $authenticator = $this->appContainer->get(AuthDokuWiki::class);
+      if ($authenticator->logout()) {
+        $authenticator->emitAuthHeaders();
+        $this->logInfo("DokuWiki logoff probably succeeded.");
+      }
+    } catch (\Throwable $t) {
+      $this->logException($t, 'Unable to log out of dokuwiki.');
     }
   }
 }

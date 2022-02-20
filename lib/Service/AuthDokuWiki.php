@@ -303,7 +303,7 @@ class AuthDokuWiki
                         . print_r($this->cookies, true));
         return true;
       } else {
-        $this->logDebug("XMLRPC method \"$method\" to \"$url\" failed. Got Cookies "
+        $this->logDebug("XMLRPC method \"$method\" to \"" . ($this->wikiURL() . self::RPCPATH) . "\" failed. Got Cookies "
                         . print_r($response->cookies(), true));
         return false;
       }

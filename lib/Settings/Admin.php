@@ -3,7 +3,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,12 +24,12 @@ namespace OCA\DokuWikiEmbedded\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IURLGenerator;
-use OCP\Settings\ISettings;
+use OCP\Settings\IDelegatedSettings;
 use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
-class Admin implements ISettings
+class Admin implements IDelegatedSettings
 {
   use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
 
@@ -91,6 +91,14 @@ class Admin implements ISettings
   public function getPriority() {
     // @@TODO could be made a configure option.
     return 50;
+  }
+
+  public function getName(): ?string {
+    return null;
+  }
+
+  public function getAuthorizedAppConfig(): array {
+    return [];
   }
 }
 

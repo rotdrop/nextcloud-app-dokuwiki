@@ -1,52 +1,32 @@
 # Doku Wiki Embedded
-Place this app in **nextcloud/apps/**
 
-## Building the app
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
 
-The app can be built by using the provided Makefile by running:
+- [Doku Wiki Embedded](#doku-wiki-embedded)
+    - [Intro](#intro)
+    - [Installation](#installation)
+    - [More Documentation will follow ...](#more-documentation-will-follow-)
 
-    make
+<!-- markdown-toc end -->
 
-This requires the following things to be present:
-* make
-* which
-* tar: for building the archive
-* curl: used if phpunit and composer are not installed to fetch them from the web
-* npm: for building and testing everything JS, only required if a package.json is placed inside the **js/** folder
+## Intro
 
-The make command will install or update Composer dependencies if a composer.json is present and also **npm run build** if a package.json is present in the **js/** folder. The npm **build** script should use local paths for build systems and package managers, so people that simply want to build the app won't need to install npm libraries globally, e.g.:
+This is a Nextcloud app which embeds a Dokuwiki instance into a
+Nextcloud server installation. If Dokuwiki and Nextcloud are
+configured to use the same authentication backend, then this will work
+with SSO, otherwise the login window of DokuWiki will appear in the
+embedding iframe.
 
-**package.json**:
-```json
-"scripts": {
-    "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
-    "build": "node node_modules/gulp-cli/bin/gulp.js"
-}
-```
+## Installation
 
+- ~install from the app-store~ (not yet)
+- install from a (pre-)release tar-ball by extracting it in to your app folder
+- clone the git repository in to your app folder and run make
+  - `make help` will list all targets
+  - `make dev` comiles without minification or other assset-size optimizations
+  - `make build` will generate optimized assets
+  - there are several build-dependencies like compose, node, tar
+    ... just try and install all missing tools ;)
 
-## Publish to App Store
-
-First get an account for the [App Store](http://apps.nextcloud.com/) then run:
-
-    make && make appstore
-
-The archive is located in build/artifacts/appstore and can then be uploaded to the App Store.
-
-## Running tests
-You can use the provided Makefile to run all tests by using:
-
-    make test
-
-This will run the PHP unit and integration tests and if a package.json is present in the **js/** folder will execute **npm run test**
-
-Of course you can also install [PHPUnit](http://phpunit.de/getting-started.html) and use the configurations directly:
-
-    phpunit -c phpunit.xml
-
-or:
-
-    phpunit -c phpunit.integration.xml
-
-for integration tests
+## More Documentation will follow ...

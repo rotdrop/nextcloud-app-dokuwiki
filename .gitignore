@@ -4,7 +4,10 @@ css/*.css
 css/*.map
 node_modules/**
 package-lock.json
+build-flavour
+stamp*
 *.html
 #*
 composer.lock
+composer.json
 vendor

@@ -1,8 +1,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -28,9 +29,9 @@ const $ = jQuery;
  * Called after the DokuWiki has been loaded by the iframe. We make
  * sure that external links are opened in another tab/window.
  *
- * @param {Object} frame TBD.
+ * @param {object} frame TBD.
  *
- * @param {Object} frameWrapper TBD.
+ * @param {object} frameWrapper TBD.
  *
  * @param {Function} callback TBD.
  *
@@ -48,7 +49,7 @@ const loadHandler = function(frame, frameWrapper, callback) {
   contents.find('a').filter(function() {
     return this.hostname && this.hostname !== window.location.hostname;
   }).each(function() {
-    $(this).attr('target','_blank');
+    $(this).attr('target', '_blank');
   });
 
   // make sure that links in the preview pane are NOT followed.

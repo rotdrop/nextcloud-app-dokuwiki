@@ -1,8 +1,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -32,15 +33,14 @@ const $ = jQuery;
 require('jquery-ui');
 // require('jquery-ui/ui/effect');
 require('jquery-ui/ui/widgets/dialog');
-require('./nextcloud/jquery/requesttoken.js');
 
 /**
  * Unfortunately, the textare element does not fire a resize
  * event. This function emulates one.
  *
- * @param {Object} textarea jQuery descriptor for the textarea element
+ * @param {object} textarea jQuery descriptor for the textarea element
  *
- * @param {Float} delay Optional, defaults to 50. If true, fire the event
+ * @param {number} delay Optional, defaults to 50. If true, fire the event
  * immediately, if set, then this is a delay in ms.
  */
 const textareaResize = function(textarea, delay) {
@@ -78,21 +78,21 @@ const textareaResize = function(textarea, delay) {
  * is sent to an Ajax callback which generates a suitable iframe
  * which then finally holds the wiki contents.
  *
- * @param options Object with the following components:
+ * @param {object} options Object with the following components:
  * {
  *   wikiPage: 'page',
  *   popupTitle: 'title',
  *   modal: true/false
  * }
  *
- * @param {function} openCallback Optional callback to be call on
+ * @param {Function} openCallback Optional callback to be call on
  * open. The callback will get the element holding the dialog content
  * as argument and the dialog widget itself. The callback is called
  * BEFORE the iframe is loaded.
  *
- * @param {function} closeCallback TBD.
+ * @param {Function} closeCallback TBD.
  *
- * @returns bool
+ * @return {boolean}
  */
 const wikiPopup = function(options, openCallback, closeCallback) {
   const parameters = {

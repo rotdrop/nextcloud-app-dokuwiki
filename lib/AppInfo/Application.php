@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2023, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,9 +21,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+// phpcs:disable PSR1.Files.SideEffects
+// phpcs:ignore PSR1.Files.SideEffects
+
 namespace OCA\DokuWikiEmbedded\AppInfo;
 
-/**********************************************************
+/*-********************************************************
  *
  * Bootstrap
  *
@@ -52,24 +56,34 @@ use OCA\DokuWikiEmbedded\Listener\Registration as ListenerRegistration;
  *
  */
 
+include_once __DIR__ . '/../../vendor/autoload.php';
+
+/**
+ * App entry point.
+ */
 class Application extends App implements IBootstrap
 {
+  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
+
   /** @var string */
   protected $appName;
 
-  public function __construct (array $urlParams=array()) {
-    $infoXml = new \SimpleXMLElement(file_get_contents(__DIR__ . '/../../appinfo/info.xml'));
-    $this->appName = (string)$infoXml->id;
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
+  public function __construct(array $urlParams = [])
+  {
     parent::__construct($this->appName, $urlParams);
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
+  /** @return true */
   public function getAppName()
   {
     return $this->appName;
   }
 
-  // Called later than "register".
-  public function boot(IBootContext $context): void
+
+  /** {@inheritdoc} */
+  public function boot(IBootContext $context):void
   {
     $container = $context->getAppContainer();
 
@@ -101,18 +115,9 @@ class Application extends App implements IBootstrap
     );
   }
 
-  // Called earlier than boot, so anything initialized in the
-  // "boot()" method must not be used here.
-  public function register(IRegistrationContext $context): void
+  /** {@inheritdoc} */
+  public function register(IRegistrationContext $context):void
   {
-    if ((@include_once __DIR__ . '/../../vendor/autoload.php') === false) {
-      throw new \Exception('Cannot include autoload. Did you run install dependencies using composer?');
-    }
     ListenerRegistration::register($context);
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,21 +23,25 @@
 
 namespace OCA\DokuWikiEmbedded\Service;
 
+use Throwable;
+use Exception;
 use PhpXmlRpc as XmlRpc;
 use PhpXmlRpc\PhpXmlRpc as XmlRpcData;
 
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 use OCP\Authentication\LoginCredentials\ICredentials;
+use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IURLGenerator;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\AppInfo\Application;
 
+/** Authenticator work-horse. */
 class AuthDokuWiki
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const RPCPATH = '/lib/exe/xmlrpc.php';
   const ON_ERROR_THROW = 'throw'; ///< Throw an exception on error
@@ -48,7 +53,6 @@ class AuthDokuWiki
 
   /**
    * Auth Levels
-   * @file inc/auth.php
    */
   const AUTH_NONE = 0;
   const AUTH_READ = 1;
@@ -61,8 +65,11 @@ class AuthDokuWiki
   /** @var string */
   private $appName;
 
-  /** @var \OCP\IConfig */
+  /** @var IConfig */
   private $config;
+
+  /** @var IRequest */
+  private $request;
 
   /** @var \OCP\IURLGeneator */
   private $urlGenerator;
@@ -74,8 +81,6 @@ class AuthDokuWiki
   private $dwHost = null;
   private $dwPort = null;
   private $dwPath = null;
-
-  private $authHeaders; //!< Authentication headers returned by DokuWiki
 
   /** @var int */
   private $httpCode;
@@ -95,16 +100,19 @@ class AuthDokuWiki
   /** @var array */
   private $cookies;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    Application $app
-    , IConfig $config
-    , ICredentialsStore $credentialsStore
-    , IURLGenerator $urlGenerator
-    , ILogger $logger
-    , IL10N $l10n
+    Application $app,
+    IConfig $config,
+    IRequest $request,
+    ICredentialsStore $credentialsStore,
+    IURLGenerator $urlGenerator,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     $this->appName = $app->getAppName();
     $this->config = $config;
+    $this->request = $request;
     $this->credentialsStore = $credentialsStore;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
@@ -118,17 +126,17 @@ class AuthDokuWiki
 
     if (!empty($location)) {
 
-        if ($location[0] == '/') {
-            $url = $this->urlGenerator->getAbsoluteURL($location);
-        } else {
-            $url = $location;
-        }
+      if ($location[0] == '/') {
+        $url = $this->urlGenerator->getAbsoluteURL($location);
+      } else {
+        $url = $location;
+      }
 
-        $urlParts = parse_url($url);
-        $this->dwProto = $urlParts['scheme'];
-        $this->dwHost  = $urlParts['host'];
-        $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
-        $this->dwPath  = $urlParts['path'];
+      $urlParts = parse_url($url);
+      $this->dwProto = $urlParts['scheme'];
+      $this->dwHost  = $urlParts['host'];
+      $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
+      $this->dwPath  = $urlParts['path'];
     }
 
     /* Construct the xml client control class */
@@ -140,7 +148,7 @@ class AuthDokuWiki
 
     // Forward any received DW cookies from the client to our XML RPC
     // calls. This uses the cookie-storage of the web-client.
-    foreach ($_COOKIE as $cookie => $value) {
+    foreach ($this->request->cookies as $cookie => $value) {
       if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
         $this->xmlRpcClient->setCookie($cookie, $value);
       }
@@ -149,12 +157,14 @@ class AuthDokuWiki
     $this->httpCode = -1;
     $this->httpStatus = '';
   }
-
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
    * Return the name of the app.
+   *
+   * @return string
    */
-  public function getAppName(): string
+  public function getAppName():string
   {
     return $this->appName;
   }
@@ -162,13 +172,13 @@ class AuthDokuWiki
   /**
    * Modify how errors are handled.
    *
-   * @param string $how One of self::ON_ERROR_THROW or
+   * @param null|string $how One of self::ON_ERROR_THROW or
    * self::ON_ERROR_RETURN or null (just return the current
-   * reporting).1
+   * reporting).
    *
    * @return string Currently active error handling policy.
    */
-  public function errorReporting($how = null)
+  public function errorReporting(?string $how = null):string
   {
     $reporting = $this->errorReporting;
     switch ($how) {
@@ -179,51 +189,62 @@ class AuthDokuWiki
         $this->errorReporting = $how;
         break;
       default:
-        throw new \Exception('Unknown error-reporting method: '.$how);
+        throw new Exception('Unknown error-reporting method: '.$how);
     }
     return $reporting;
   }
 
-  private function handleError($msg, $t = null)
+  /**
+   * @param string $msg
+   *
+   * @param null|Throwable $throwable
+   *
+   * @return bool
+   */
+  private function handleError(string $msg, ?Throwable $throwable = null):bool
   {
     switch ($this->errorReporting) {
-    case self::ON_ERROR_THROW:
-      throw new \Exception($msg, !empty($t) ? $t->getCode() : 0, $t);
-    case self::ON_ERROR_RETURN:
-      if (!empty($t)) {
-        $this->logException($t, $msg);
-      } else {
-        $this->logError($msg);
-      }
-      return false;
-    default:
-      throw new \Exception("Invalid error handling method: ".$this->errorReporting);
+      case self::ON_ERROR_THROW:
+        throw new Exception($msg, !empty($throwable) ? $throwable->getCode() : 0, $throwable);
+      case self::ON_ERROR_RETURN:
+        if (!empty($throwable)) {
+          $this->logException($throwable, $msg);
+        } else {
+          $this->logError($msg);
+        }
+        return false;
+      default:
+        throw new Exception("Invalid error handling method: ".$this->errorReporting);
     }
     return false;
   }
 
   /**
    * Return the URL for use with an iframe or object tag
+   *
+   * @return string
    */
-  public function wikiURL()
+  public function wikiURL():string
   {
     return $this->dwProto.'://'.$this->dwHost.$this->dwPort.$this->dwPath;
   }
 
-  private function cleanCookies()
+  /** @return void */
+  private function cleanCookies():void
   {
     $this->cookies = [];
-    foreach ($_COOKIE as $cookie => $value) {
-      if (preg_match('/^(DokuWiki|DW).*/', $cookie)) {
-        unset($_COOKIE[$cookie]);
-      }
-    }
   }
 
   /**
    * Issue an RPC XML request to the configured DokuWiki instance.
+   *
+   * @param string $method
+   *
+   * @param array $data
+   *
+   * @return bool
    */
-  public function xmlRequest($method, $data = [])
+  public function xmlRequest(string $method, array $data = []):bool
   {
     $t = null;
     try {
@@ -257,8 +278,14 @@ class AuthDokuWiki
 
   /**
    * Issue an RPC XML request to the configured DokuWiki instance.
+   *
+   * @param string $method
+   *
+   * @param array $data
+   *
+   * @return mixed
    */
-  private function doXmlRequest($method, $data = [])
+  private function doXmlRequest(string $method, array $data = []):mixed
   {
     $request = new XmlRpc\Request($method, (new XmlRpc\Encoder)->encode($data));
     $response = $this->xmlRpcClient->send($request);
@@ -343,23 +370,30 @@ class AuthDokuWiki
    * activated. This login function itself is only meant for being
    * called during the login process.
    *
-   * @param null|$username Login name
+   * @param null|string $userName Login name.
    *
-   * @param null|$password credentials
+   * @param null|string $password credentials.
    *
    * @return bool true if successful, false otherwise.
    */
-  public function login($userName = null, $password = null)
+  public function login(?string $userName = null, ?string $password = null):bool
   {
     if ($userName === null && $password === null) {
       $credentials = $this->loginCredentials();
       $userName = $credentials['userId'];
       $password = $credentials['password'];
     }
-    return $this->_login($userName, $password);
+    return $this->doLogin($userName, $password);
   }
 
-  private function _login($username, $password)
+  /**
+   * @param null|string $username Login name.
+   *
+   * @param null|string $password credentials.
+   *
+   * @return bool true if successful, false otherwise.
+   */
+  private function doLogin($username, $password)
   {
     $this->cleanCookies();
     $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
@@ -385,8 +419,10 @@ class AuthDokuWiki
    * Logoff from DokuWiki with added XMLRPC dokuwiki.logoff
    * call. For this to work we have to send the DokuWiki cookies
    * alongside the XMLRPC request.
+   *
+   * @return mixed
    */
-  public function logout()
+  public function logout():mixed
   {
     return $this->doXmlRequest("dokuwiki.logoff");
   }
@@ -394,8 +430,10 @@ class AuthDokuWiki
   /**
    * Fetch the version from the DW instance in the hope that this also
    * touches the session life-time.
+   *
+   * @return mixed
    */
-  public function version()
+  public function version():mixed
   {
     return $this->doXmlRequest("dokuwiki.getVersion");
   }
@@ -403,8 +441,10 @@ class AuthDokuWiki
   /**
    * Ping the external application in order to extend its login
    * session.
+   *
+   * @return mixed
    */
-  public function refresh()
+  public function refresh():mixed
   {
     return $this->getPage('');
   }
@@ -413,8 +453,16 @@ class AuthDokuWiki
    * Rather a support function in case some other app wants to create
    * some automatic wiki-pages (e.g. overview stuff and the like,
    * maybe a changelog here and a readme there.
+   *
+   * @param string $pagename
+   *
+   * @param string $pagedata
+   *
+   * @param array $attr
+   *
+   * @return mixed
    */
-  public function putPage($pagename, $pagedata, $attr = [])
+  public function putPage(string $pagename, string $pagedata, array $attr = []):mixed
   {
     return $this->xmlRequest("wiki.putPage", [ $pagename, $pagedata, $attr ]);
   }
@@ -423,8 +471,14 @@ class AuthDokuWiki
    * Rather a support function in case some other app wants to create
    * some automatic wiki-pages (e.g. overview stuff and the like,
    * maybe a changelog here and a readme there.
+   *
+   * @param string $pagename
+   *
+   * @param null|int $version
+   *
+   * @return mixed
    */
-  public function getPage(string $pagename, ?int $version = null)
+  public function getPage(string $pagename, ?int $version = null):mixed
   {
     if (!empty($version)) {
       return $this->xmlRequest('wiki.getPageVersion', [ $pagename, $version ]);
@@ -433,12 +487,22 @@ class AuthDokuWiki
     }
   }
 
-  public function getPageVersions($pagename)
+  /**
+   * @param string $pagename
+   *
+   * @return mixed
+   */
+  public function getPageVersions(string $pagename):mixed
   {
     return $this->xmlRequest('wiki.getPageVersions', [ $pagename ]);
   }
 
-  public function getPageInfo($pagename)
+  /**
+   * @param string $pagename
+   *
+   * @return mixed
+   */
+  public function getPageInfo(string $pagename):mixed
   {
     return $this->xmlRequest('wiki.getPageInfo', [ $pagename ]);
   }
@@ -464,23 +528,34 @@ class AuthDokuWiki
    *
    * @return mixed Response from the RPC call, false on error.
    */
-  public function addAcl($scope, $who, int $what)
+  public function addAcl(string $scope, string $who, int $what):mixed
   {
     return $this->xmlRequest('plugin.acl.addAcl', [ $scope, $who, $what ]);
   }
 
   /**
    * Delete an ACL rule, see self::addACL().
+   *
+   * @param string $scope A page or namespace, use `NAMESPACE:*` to
+   * grant access to an entire name-space, otherwise just the full
+   * path to the target page.
+   *
+   * @param string $who User or group. Use `@GROUP` to define a rule
+   * for a group.
+   *
+   * @return mixed Response from the RPC call, false on error.
    */
-  public function delAcl($scope, $who)
+  public function delAcl(string $scope, string $who):mixed
   {
     return $this->xmlRequest('plugin.acl.delAcl', [ $scope, $who ]);
   }
 
   /**
    * List all ACLs.
+   *
+   * @return mixed
    */
-  public function listAcls()
+  public function listAcls():mixed
   {
     return $this->xmlRequest('plugin.acl.listAcls');
   }
@@ -489,14 +564,13 @@ class AuthDokuWiki
    * Parse a cookie header in order to obtain name, date of
    * expiry and path.
    *
-   * @parm cookieHeader Guess what
+   * @param string $header Guess what.
    *
    * @return array
    * Array with name, value, expires and path fields, or
    * false if $cookie was not a Set-Cookie header.
-   *
    */
-  private function parseCookie($header)
+  private function parseCookie(string $header):array
   {
     $count = 0;
     $cookieString = preg_replace('/^Set-Cookie: /i', '', trim($header), -1, $count);
@@ -531,15 +605,16 @@ class AuthDokuWiki
    * cookies with the same name and path, but adding a new
    * cookie if name or path differs.
    *
-   * @param array cookie Cookie info with NAME => VALUE pairs
+   * @param array $thisCookie Cookie info with NAME => VALUE pairs
    * where the cookie-name is one of the array-keys.
+   *
+   * @return void
    *
    * @todo This probably should go into the Middleware as
    * afterController() and add the headers there.
    */
-  private function addCookie($thisCookie)
+  private function addCookie(array $thisCookie):void
   {
-    $found = false;
     foreach (headers_list() as $header) {
       $cookie = $this->parseCookie($header);
       if ($cookie === $thisCookie) {
@@ -559,17 +634,14 @@ class AuthDokuWiki
   }
 
   /**
-   * Send authentication headers previously aquired
+   * Send authentication headers previously aquired.
+   *
+   * @return void
    */
-  public function emitAuthHeaders()
+  public function emitAuthHeaders():void
   {
     foreach ($this->cookies as $cookie) {
       $this->addCookie($cookie);
     }
   }
-};
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***
+}

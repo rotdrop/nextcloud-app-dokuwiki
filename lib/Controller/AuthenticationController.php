@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,14 +27,15 @@ use OCP\IRequest;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki as Authenticator;
 
+/** AJAX end points for periodic authentication refresh. */
 class AuthenticationController extends Controller
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   /** @var Authenticator */
   private $authenticator;
@@ -41,13 +43,14 @@ class AuthenticationController extends Controller
   /** @var string */
   private $userId;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName
-    , IRequest $request
-    , ?string $userId
-    , Authenticator $authenticator
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IRequest $request,
+    ?string $userId,
+    Authenticator $authenticator,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     parent::__construct($appName, $request);
     $this->userId = $userId;
@@ -55,14 +58,17 @@ class AuthenticationController extends Controller
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
-   * @NoAdminRequired
+   * @return void
    *
    * @todo Check whether there is a successful login which could be
    * refreshed.
+   *
+   * @NoAdminRequired
    */
-  public function refresh()
+  public function refresh():void
   {
     $response = $this->authenticator->refresh();
     if (false === $response) {

@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,30 +23,37 @@
 
 namespace OCA\DokuWikiEmbedded\Listener;
 
+use Throwable;
+
 use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\AppFramework\IAppContainer;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
 
+/** Log the current user out of DokuWiki if it logs out of Nextcloud. */
 class UserLoggedOutEventListener implements IEventListener
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 
   /** @var IAppContainer */
   private $appContainer;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(IAppContainer $appContainer)
   {
     $this->appContainer = $appContainer;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function handle(Event $event): void {
-    if (!($event instanceOf HandledEvent)) {
+  /** {@inheritdoc} */
+  public function handle(Event $event):void
+  {
+    if (!($event instanceof HandledEvent)) {
       return;
     }
 
@@ -57,13 +65,8 @@ class UserLoggedOutEventListener implements IEventListener
         $authenticator->emitAuthHeaders();
         $this->logInfo("DokuWiki logoff probably succeeded.");
       }
-    } catch (\Throwable $t) {
+    } catch (Throwable $t) {
       $this->logException($t, 'Unable to log out of dokuwiki.');
     }
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

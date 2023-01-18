@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,14 +25,29 @@ namespace OCA\DokuWikiEmbedded\Listener;
 
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
+/** Register all listeners. */
 class Registration
 {
-  public static function register(IRegistrationContext $context) {
+  /**
+   * @param IRegistrationContext $context
+   *
+   * @return void
+   */
+  public static function register(IRegistrationContext $context)
+  {
     self::registerListener($context, UserLoggedInEventListener::class);
     self::registerListener($context, UserLoggedOutEventListener::class);
   }
 
-  private static function registerListener(IRegistrationContext $context, $class) {
+  /**
+   * @param IRegistrationContext $context
+   *
+   * @param string $class
+   *
+   * @return void
+   */
+  private static function registerListener(IRegistrationContext $context, string $class)
+  {
     $events = $class::EVENT;
     if (!is_array($events)) {
       $events = [ $events ];
@@ -41,8 +57,3 @@ class Registration
     }
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

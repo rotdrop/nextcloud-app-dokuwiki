@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,12 +27,13 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IURLGenerator;
 use OCP\Settings\IDelegatedSettings;
 use OCP\IConfig;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
+/** Admin settings. */
 class Admin implements IDelegatedSettings
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const TEMPLATE = 'admin-settings';
   const SETTINGS = [
@@ -43,12 +45,13 @@ class Admin implements IDelegatedSettings
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IConfig $config
-    , IURLGenerator $urlGenerator
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IConfig $config,
+    IURLGenerator $urlGenerator,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     $this->appName = $appName;
     $this->config = $config;
@@ -56,8 +59,11 @@ class Admin implements IDelegatedSettings
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function getForm() {
+  /** {@inheritdoc} */
+  public function getForm()
+  {
     $templateParameters = [
       'appName' => $this->appName,
       'webPrefix' => $this->appName,
@@ -72,37 +78,28 @@ class Admin implements IDelegatedSettings
       $templateParameters);
   }
 
-  /**
-   * @return string the section ID, e.g. 'sharing'
-   * @since 9.1
-   */
-  public function getSection() {
+  /** {@inheritdoc} */
+  public function getSection()
+  {
     return $this->appName;
   }
 
-  /**
-   * @return int whether the form should be rather on the top or bottom of
-   * the admin section. The forms are arranged in ascending order of the
-   * priority values. It is required to return a value between 0 and 100.
-   *
-   * E.g.: 70
-   * @since 9.1
-   */
-  public function getPriority() {
+  /** {@inheritdoc} */
+  public function getPriority()
+  {
     // @@TODO could be made a configure option.
     return 50;
   }
 
-  public function getName(): ?string {
+  /** {@inheritdoc} */
+  public function getName():?string
+  {
     return null;
   }
 
-  public function getAuthorizedAppConfig(): array {
+  /** {@inheritdoc} */
+  public function getAuthorizedAppConfig():array
+  {
     return [];
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

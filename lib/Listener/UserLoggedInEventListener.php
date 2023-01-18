@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine<himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -28,43 +29,45 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki;
 
+/** Automatically log into DokuWiki when user logs in into GUI. */
 class UserLoggedInEventListener implements IEventListener
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = [ Event1::class, Event2::class ];
 
   /** @var IAppContainer */
   private $appContainer;
 
-  /** @var OCP\IRequest */
-  private $request;
-
-  public function __construct(
-    IRequest $request
-    , IAppContainer $appContainer
-  ) {
-    $this->request = $request;
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
+  public function __construct(IAppContainer $appContainer)
+  {
     $this->appContainer = $appContainer;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function handle(Event $event): void {
-    if (!($event instanceOf Event1 && !($event instanceOf Event2))) {
+  /** {@inheritdoc} */
+  public function handle(Event $event):void
+  {
+    if (!($event instanceof Event1 && !($event instanceof Event2))) {
+      return;
+    }
+
+    /** @var OCP\IRequest $request */
+    $request = $this->appContainer->get(IRequest::class);
+
+    if ($this->ignoreRequest($request)) {
       return;
     }
 
     $this->logger = $this->appContainer->get(ILogger::class);
 
-    if ($this->ignoreRequest($this->request)) {
-      return;
-    }
-
-    try  {
-      /** @var AuthDokuWiki $authenticator */
+    try {
+      /** @var Authdokuwiki $authenticator */
       $authenticator = $this->appContainer->get(AuthDokuWiki::class);
       $userName = $event->getUser()->getUID();
       $password = $event->getPassword();
@@ -81,6 +84,10 @@ class UserLoggedInEventListener implements IEventListener
   /**
    * In order to avoid request ping-pong the auto-login should only be
    * attempted for UI logins.
+   *
+   * @param IRequest $request
+   *
+   * @return bool
    */
   private function ignoreRequest(IRequest $request):bool
   {
@@ -99,10 +106,4 @@ class UserLoggedInEventListener implements IEventListener
     }
     return false;
   }
-
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

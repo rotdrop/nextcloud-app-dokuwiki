@@ -2,8 +2,9 @@
 /**
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,25 +27,24 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Controller;
 use OCP\IURLGenerator;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 use OCP\IConfig;
 use OCP\IInitialStateService;
 
-use OCA\DokuWikiEmbedded\Traits;
+use OCA\RotDrop\Toolkit\Traits;
 use OCA\DokuWikiEmbedded\Service\AuthDokuWiki as Authenticator;
 
+/** Main entry point for web frontend. */
 class PageController extends Controller
 {
   use Traits\LoggerTrait;
   use Traits\ResponseTrait;
 
   const TEMPLATE = 'doku-wiki';
-
-  /** @var string */
-  private $userId;
 
   /** @var Authenticator */
   private $authenticator;
@@ -58,15 +58,16 @@ class PageController extends Controller
   /** @var IInitialStateService */
   private $initialStateService;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName
-    , IRequest $request
-    , Authenticator $authenticator
-    , IConfig $config
-    , IURLGenerator $urlGenerator
-    , IInitialStateService $initialStateService
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IRequest $request,
+    Authenticator $authenticator,
+    IConfig $config,
+    IURLGenerator $urlGenerator,
+    IInitialStateService $initialStateService,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     parent::__construct($appName, $request);
     $this->authenticator = $authenticator;
@@ -77,20 +78,27 @@ class PageController extends Controller
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
+   * @return Response
+   *
    * @NoAdminRequired
    * @NoCSRFRequired
    */
-  public function index()
+  public function index():Response
   {
     return $this->frame('user');
   }
 
   /**
+   * @param string $renderAs
+   *
+   * @return Response
+   *
    * @NoAdminRequired
    */
-  public function frame($renderAs = 'blank')
+  public function frame(string $renderAs = 'blank'):Response
   {
     try {
       $this->initialStateService->provideInitialState(
@@ -104,7 +112,6 @@ class PageController extends Controller
 
       $wikiURL      = $this->authenticator->wikiURL();
       $wikiPage     = $this->request->getParam('wikiPage', '');
-      $popupTitle   = $this->request->getParam('popupTitle', '');
       $cssClass     = $this->request->getParam('cssClass', 'fullscreen');
       $attributes   =  $this->request->getParam('iframeAttributes', '');
 
@@ -142,7 +149,5 @@ class PageController extends Controller
         throw $t;
       }
     }
-
-
   }
 }

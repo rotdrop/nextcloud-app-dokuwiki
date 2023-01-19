@@ -71,6 +71,7 @@ class Application extends App implements IBootstrap
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(array $urlParams = [])
   {
+    $this->appName = $this->getAppInfoAppName(__DIR__);
     parent::__construct($this->appName, $urlParams);
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing

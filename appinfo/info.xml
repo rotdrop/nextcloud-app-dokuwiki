@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>dokuwikiembedded</id>
-    <name>Doku Wiki Embedded</name>
-    <summary>Support embedding an external DokuWiki instance with SSO</summary>
+    <id>text_dokuwiki</id>
+    <name>Doku Wiki</name>
+    <summary>Support embedding an external DokuWiki instance into Nextcloud with SSO.</summary>
     <description><![CDATA[DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.]]></description>
-    <version>0.0.3</version>
+    <version>1.0.0-rc1</version>
     <licence>agpl</licence>
     <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
-    <namespace>DokuWikiEmbedded</namespace>
+    <namespace>TextDokuWiki</namespace>
     <category>integration</category>
     <category>organization</category>
     <category>social</category>
@@ -23,12 +23,12 @@
     </dependencies>
     <navigations>
         <navigation>
-            <name>Doku Wiki Embedded</name>
-            <route>dokuwikiembedded.page.index</route>
+            <name>Doku Wiki</name>
+            <route>text_dokuwiki.page.index</route>
         </navigation>
     </navigations>
     <settings>
-      <admin>OCA\DokuWikiEmbedded\Settings\Admin</admin>
-      <admin-section>OCA\DokuWikiEmbedded\Settings\AdminSection</admin-section>
+      <admin>OCA\TextDokuWiki\Settings\Admin</admin>
+      <admin-section>OCA\TextDokuWiki\Settings\AdminSection</admin-section>
     </settings>
 </info>

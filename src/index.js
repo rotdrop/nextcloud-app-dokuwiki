@@ -34,13 +34,8 @@ const webPrefix = appName;
   }
 })(() => {
   console.info('DokuWiki webPrefix', webPrefix);
-  // const container = $('#' + webPrefix + '_container');
-  // const container = document.getElementById(webPrefix + '_container');
-  // const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
   const frameWrapper = document.getElementById(webPrefix + 'FrameWrapper');
-  // const frame = $('#' + webPrefix + 'Frame');
   const frame = document.getElementById(webPrefix + 'Frame');
-  // const contents = frame.contents();
 
   const setHeightCallback = function() {
     const height = window.innerHeight - frame.getBoundingClientRect().top;

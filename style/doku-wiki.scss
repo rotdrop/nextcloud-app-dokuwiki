@@ -21,7 +21,6 @@
 
 ##{$appName}FrameWrapper.#{$appName}-fullscreen {
   height: 100%;
-  display: none;
   overflow: hidden;
 }
 
@@ -67,6 +66,12 @@
   height: 14px;
   margin-top: -7px; /* Half the height */
   margin-left: -64px; /* Half the width */
+  transition: visibility 1s, opacity 1s;
+  z-index: 10;
+  &.fading {
+      opacity: 0;
+      visibility: hidden;
+  }
 }
 
 @media only screen and (max-width: 768px) {

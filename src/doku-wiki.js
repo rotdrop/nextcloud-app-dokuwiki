@@ -21,9 +21,9 @@
  */
 
 import { appName } from './config.js';
-import jQuery from './toolkit/util/jquery.js';
 
-const $ = jQuery;
+import '../style/doku-wiki.scss';
+
 const webPrefix = appName;
 
 /**
@@ -38,58 +38,50 @@ const webPrefix = appName;
  *
  */
 const loadHandler = function(frame, frameWrapper, callback) {
-  const $frame = $(frame);
-  const $frameWrapper = $(frameWrapper);
+  const frameDocument = frame.contentWindow.document;
 
-  const contents = $frame.contents();
+  frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
+  frameDocument.querySelectorAll('li:empty').forEach(el => el.remove());
+  frameDocument.querySelectorAll('form.btn_logout').forEach(el => el.remove());
+  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.user').forEach(el => el.remove());
+  frameDocument.querySelectorAll(':scope #dokuwiki__usertools a.action.profile').forEach(el => el.remove());
 
-  contents.find('.logout').remove();
-  contents.find('li:empty').remove();
-  contents.find('form.btn_logout').remove();
-  contents.find('#dokuwiki__usertools li.user').remove();
-  contents.find('#dokuwiki__usertools a.action.profile').remove();
-
-  // Make sure all external links are opened in another window
-  contents.find('a').filter(function() {
-    return this.hostname && this.hostname !== window.location.hostname;
-  }).each(function() {
-    $(this).attr('target', '_blank');
+  frameDocument.querySelectorAll('a').forEach(el => {
+    if (el.hostname && el.hostname !== window.location.hostname) {
+      el.setAttribute('target', '_blank');
+    }
   });
 
-  // make sure that links in the preview pane are NOT followed.
-  contents.find('div.preview').find('a[class^="wikilink"]').off('click').on('click', function() {
-    let wikiPage = $(this).attr('href');
-    wikiPage = wikiPage.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-    OC.dialogs.alert(
-      t(appName, 'Links to wiki-pages are disabled in preview mode.'),
-      t(appName, 'Link to Wiki-Page') + ' "' + wikiPage + '"');
-    return false;
-  });
-
-  contents.find('div.preview').find('a[class^="media"]').off('click').on('click', function() {
-    let mediaPage = $(this).attr('href');
-    mediaPage = mediaPage.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-    OC.dialogs.alert(
-      t(appName, 'Links to media-files are disabled in preview mode.'),
-      t(appName, 'Link to Media') + ' "' + mediaPage + '"');
-    return false;
-  });
+  const previewDiv = frameDocument.querySelector('div.preview');
+  if (previewDiv) {
+    // make sure that links in the preview pane are NOT followed.
+    previewDiv.querySelectorAll('a[class^="wikilink"]').forEach(el => {
+      el.addEventListener('click', function(event) {
+        const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
+        OC.dialogs.alert(
+          t(appName, 'Links to wiki-pages are disabled in preview mode.'),
+          t(appName, 'Link to Wiki-Page') + ' "' + href + '"');
+        event.stopPropagation();
+      }, true);
+    });
+    previewDiv.querySelectorAll('a[class^="media"]').forEach(el => {
+      el.addEventListener('click', function(event) {
+        const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
+        OC.dialogs.alert(
+          t(appName, 'Links to media-files are disabled in preview mode.'),
+          t(appName, 'Link to Wiki-Page') + ' "' + href + '"');
+        event.stopPropagation();
+      }, true);
+    });
+  }
 
   if (typeof callback === 'undefined') {
     callback = function() {};
   }
 
-  const loader = $('#' + webPrefix + 'Loader');
-  if ($frameWrapper.is(':hidden')) {
-    loader.fadeOut('slow', function() {
-      $frameWrapper.slideDown('slow', function() {
-        callback(frame, frameWrapper);
-      });
-    });
-  } else {
-    loader.fadeOut('slow');
-    callback(frame, frameWrapper);
-  }
+  const loader = document.getElementById(webPrefix + 'Loader');
+  loader.classList.toggle('fading');
+  callback(frame, frameWrapper);
 };
 
 export { loadHandler };

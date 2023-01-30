@@ -182,7 +182,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
             self.contentHeight = -1;
 
-            loadHandler(frame, frameWrapper, function() {
+            loadHandler(frame[0], frameWrapper[0], function() {
               // dialogHolder.dialog('option', 'height', 'auto');
               // dialogHolder.dialog('option', 'width', 'auto');
               const newHeight = dialogWidget.height() - titleHeight;
@@ -257,7 +257,6 @@ const wikiPopup = function(options, openCallback, closeCallback) {
           });
         },
         close() {
-          $('.tipsy').remove();
           const dialogHolder = $(this);
 
           dialogHolder.dialog('close');
@@ -276,8 +275,3 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 };
 
 export { wikiPopup };
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

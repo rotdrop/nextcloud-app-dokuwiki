@@ -60,7 +60,6 @@ class AdminSection implements IIconSection
   /** {@inheritdoc} */
   public function getName()
   {
-    // @@TODO make this configurable
     return $this->l->t("DokuWiki Integration");
   }
 
@@ -73,7 +72,6 @@ class AdminSection implements IIconSection
   /** {@inheritdoc} */
   public function getIcon()
   {
-    // @@TODO make it configurable
     return $this->urlGenerator->imagePath($this->appName, 'app.svg');
   }
 }

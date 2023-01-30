@@ -20,10 +20,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName, webPrefix } from './config.js';
+import { appName } from './config.js';
+import jQuery from './toolkit/util/jquery.js';
 
-const jQuery = require('jquery');
 const $ = jQuery;
+const webPrefix = appName;
 
 /**
  * Called after the DokuWiki has been loaded by the iframe. We make

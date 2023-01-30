@@ -3,7 +3,7 @@
  * TextDokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * TextDokuWiki is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,8 +20,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-style($appName, 'app');
-script($appName, 'app');
+script($appName, $assets['js']['asset']);
+style($appName, $assets['css']['asset']);
+
+$webPrefix = $appName;
 
 // additional CSS class
 $cssClass = $webPrefix.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');

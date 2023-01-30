@@ -37,7 +37,7 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\App;
 use OCP\IConfig;
-use OCP\IInitialStateService;
+use OCP\AppFramework\Services\IInitialState;
 
 /*
  *
@@ -49,6 +49,17 @@ use OCP\IInitialStateService;
 
 use OCP\EventDispatcher\IEventDispatcher;
 use OCA\TextDokuWiki\Listener\Registration as ListenerRegistration;
+
+/*
+ *
+ **********************************************************
+ *
+ * Assets
+ *
+ */
+
+use OCA\TextDokuWiki\Service\AssetService;
+use OCA\TextDokuWiki\Constants;
 
 /*
  *
@@ -82,38 +93,32 @@ class Application extends App implements IBootstrap
     return $this->appName;
   }
 
-
   /** {@inheritdoc} */
   public function boot(IBootContext $context):void
   {
     $container = $context->getAppContainer();
 
-    /* @var OCP\IConfig */
-    $config = $container->query(IConfig::class);
-    $refreshInterval = $config->getAppValue($this->appName, 'authenticationRefreshInterval', 600);
-
-    /* @var OCP\IInitialStateService */
-    $initialState = $container->query(IInitialStateService::class);
-
-    /* @var IEventDispatcher $eventDispatcher */
-    $dispatcher = $container->query(IEventDispatcher::class);
-    $dispatcher->addListener(
-      \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
-      function() use ($initialState, $refreshInterval) {
-
-        $initialState->provideInitialState(
-          $this->appName,
-          'initial',
-          [
-            'appName' => $this->appName,
-            'webPrefix' => $this->appName,
-            'refreshInterval' => $refreshInterval,
-          ]
-        );
-
-        \OCP\Util::addScript($this->appName, 'refresh');
-      }
-    );
+    $context->injectFn(function(
+      IConfig $config,
+      IInitialState $initialState,
+      IEventDispatcher $dispatcher,
+      AssetService $assetService,
+    ) {
+      $refreshInterval = $config->getAppValue($this->appName, 'authenticationRefreshInterval', 600);
+      $dispatcher->addListener(
+        \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
+        function() use ($initialState, $refreshInterval, $assetService) {
+          $initialState->provideInitialState(
+            'initial', [
+              'appName' => $this->appName,
+              'webPrefix' => $this->appName,
+              'refreshInterval' => $refreshInterval,
+            ],
+          );
+          \OCP\Util::addScript($this->appName, $assetService->getJSAsset('refresh')['asset']);
+        }
+      );
+    });
   }
 
   /** {@inheritdoc} */

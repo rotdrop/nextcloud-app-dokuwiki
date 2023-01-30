@@ -20,19 +20,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName, webPrefix } from './config.js';
+import { appName } from './config.js';
 import { loadHandler } from './doku-wiki.js';
-import ajaxFailData from './ajax.js';
-import generateUrl from './generate-url.js';
+import { failData as ajaxFailData } from './toolkit/util/ajax.js';
+import generateUrl from './toolkit/util/generate-url.js';
+import jQuery from './toolkit/util/jquery.js';
 
-import '../style/doku-wiki.css';
-import '../style/doku-wiki-popup.css';
+import '../style/doku-wiki.scss';
+import '../style/doku-wiki-popup.scss';
 
-const jQuery = require('jquery');
-const $ = jQuery;
 require('jquery-ui');
 // require('jquery-ui/ui/effect');
 require('jquery-ui/ui/widgets/dialog');
+
+const $ = jQuery;
+const webPrefix = appName;
 
 /**
  * Unfortunately, the textare element does not fire a resize

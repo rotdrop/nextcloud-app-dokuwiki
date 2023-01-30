@@ -24,40 +24,34 @@
 namespace OCA\TextDokuWiki\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\IURLGenerator;
 use OCP\Settings\IDelegatedSettings;
 use OCP\IConfig;
-use Psr\Log\LoggerInterface as ILogger;
-use OCP\IL10N;
+
+use OCA\TextDokuWiki\Service\AssetService;
+use OCA\TextDokuWiki\Controller\SettingsController;
+use OCA\TextDokuWiki\Constants;
 
 /** Admin settings. */
 class Admin implements IDelegatedSettings
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-
   const TEMPLATE = 'admin-settings';
-  const SETTINGS = [
-    'externalLocation' => '',
-    'authenticationRefreshInterval' => 600,
-    'enableSSLVerify' => true,
-  ];
+  const ASSET_NAME = 'admin-settings';
 
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
+  /** @var IConfig */
+  private $config;
+
+  /** @var AssetService */
+  private $assetService;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IConfig $config,
-    IURLGenerator $urlGenerator,
-    ILogger $logger,
-    IL10N $l10n,
+    AssetService $assetService,
   ) {
     $this->appName = $appName;
     $this->config = $config;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
+    $this->assetService = $assetService;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -67,10 +61,13 @@ class Admin implements IDelegatedSettings
     $templateParameters = [
       'appName' => $this->appName,
       'webPrefix' => $this->appName,
-      'urlGenerator' => $this->urlGenerator,
+      'assets' => [
+        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
+        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
+      ],
     ];
-    foreach (self::SETTINGS as $setting => $default) {
-      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $default);
+    foreach (SettingsController::ADMIN_SETTINGS as $setting => $meta) {
+      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $meta['default']);
     }
     return new TemplateResponse(
       $this->appName,
@@ -87,7 +84,6 @@ class Admin implements IDelegatedSettings
   /** {@inheritdoc} */
   public function getPriority()
   {
-    // @@TODO could be made a configure option.
     return 50;
   }
 

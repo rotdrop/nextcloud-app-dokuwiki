@@ -21,9 +21,9 @@
  */
 
 import { state, cloudUser } from './config.js';
-import generateUrl from './generate-url.js';
+import generateUrl from './toolkit/util/generate-url.js';
+import jQuery from './toolkit/util/jquery.js';
 
-const jQuery = require('jquery');
 const $ = jQuery;
 
 /**

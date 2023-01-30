@@ -2,9 +2,9 @@
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>text_dokuwiki</id>
-    <name>Doku Wiki</name>
-    <summary>Support embedding an external DokuWiki instance into Nextcloud with SSO.</summary>
-    <description><![CDATA[DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.]]></description>
+    <name>DokuWiki</name>
+    <summary>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.</summary>
+    <description>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.</description>
     <version>1.0.0-rc1</version>
     <licence>agpl</licence>
     <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>

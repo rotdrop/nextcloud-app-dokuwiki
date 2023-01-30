@@ -37,6 +37,8 @@ use OCP\IInitialStateService;
 
 use OCA\RotDrop\Toolkit\Traits;
 use OCA\TextDokuWiki\Service\AuthDokuWiki as Authenticator;
+use OCA\TextDokuWiki\Service\AssetService;
+use OCA\TextDokuWiki\Constants;
 
 /** Main entry point for web frontend. */
 class PageController extends Controller
@@ -45,9 +47,13 @@ class PageController extends Controller
   use Traits\ResponseTrait;
 
   const TEMPLATE = 'doku-wiki';
+  const ASSET = 'app';
 
   /** @var Authenticator */
   private $authenticator;
+
+  /** @var AssetService */
+  private $assetService;
 
   /** @var IConfig */
   private $config;
@@ -63,6 +69,7 @@ class PageController extends Controller
     string $appName,
     IRequest $request,
     Authenticator $authenticator,
+    AssetService $assetService,
     IConfig $config,
     IURLGenerator $urlGenerator,
     IInitialStateService $initialStateService,
@@ -72,6 +79,7 @@ class PageController extends Controller
     parent::__construct($appName, $request);
     $this->authenticator = $authenticator;
     $this->authenticator->errorReporting(Authenticator::ON_ERROR_THROW);
+    $this->assetService = $assetService;
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
     $this->initialStateService = $initialStateService;
@@ -120,12 +128,15 @@ class PageController extends Controller
 
       $templateParameters = [
         'appName' => $this->appName,
-        'webPrefix' => $this->appName,
         'wikiURL' => $wikiURL,
-        'wikiPath' => '/doku.php?id='.$wikiPage,
+        'wikiPath' => '/doku.php?id=' . $wikiPage,
         'cssClass' => $cssClass,
         'iframeAttributes' => $attributes,
         'urlGenerator' => $this->urlGenerator,
+        'assets' => [
+          Constants::JS => $this->assetService->getJSAsset(self::ASSET),
+          Constants::CSS => $this->assetService->getCSSAsset(self::ASSET),
+        ],
       ];
 
       $response = new TemplateResponse(

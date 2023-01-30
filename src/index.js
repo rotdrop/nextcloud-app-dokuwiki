@@ -21,43 +21,46 @@
 
 import { appName } from './config.js';
 import { loadHandler } from './doku-wiki.js';
-import jQuery from './toolkit/util/jquery.js';
 
 import '../style/doku-wiki.scss';
 
-const $ = jQuery;
 const webPrefix = appName;
 
-$(function() {
-
+(callback => {
+  if (document.readyState !== 'loading') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
+  }
+})(() => {
   console.info('DokuWiki webPrefix', webPrefix);
-  const container = $('#' + webPrefix + '_container');
-  const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
-  const frame = $('#' + webPrefix + 'Frame');
-  const contents = frame.contents();
+  // const container = $('#' + webPrefix + '_container');
+  // const container = document.getElementById(webPrefix + '_container');
+  // const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
+  const frameWrapper = document.getElementById(webPrefix + 'FrameWrapper');
+  // const frame = $('#' + webPrefix + 'Frame');
+  const frame = document.getElementById(webPrefix + 'Frame');
+  // const contents = frame.contents();
 
   const setHeightCallback = function() {
-    container.height($('#content').height());
+    const height = window.innerHeight - frame.getBoundingClientRect().top;
+    frame.style.height = height + 'px';
+    const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
+    if (outerDelta) {
+      frame.style.height = (height - outerDelta) + 'px';
+    }
   };
 
-  if (frame.length > 0) {
-    frame.on('load', function() {
-      loadHandler($(this), frameWrapper, setHeightCallback);
-    });
+  if (frame) {
+    frame.addEventListener('load', () => loadHandler(frame, frameWrapper, setHeightCallback));
 
     let resizeTimer;
-    $(window).resize(function() {
+    window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(setHeightCallback);
     });
+    if (frame.contentWindow.document.querySelector('.logout')) {
+      loadHandler(frame, frameWrapper, setHeightCallback);
+    }
   }
-  if (contents.find('.logout')) {
-    loadHandler(frame, frameWrapper, setHeightCallback);
-  }
-
 });
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

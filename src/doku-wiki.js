@@ -38,7 +38,10 @@ const webPrefix = appName;
  *
  */
 const loadHandler = function(frame, frameWrapper, callback) {
-  const contents = frame.contents();
+  const $frame = $(frame);
+  const $frameWrapper = $(frameWrapper);
+
+  const contents = $frame.contents();
 
   contents.find('.logout').remove();
   contents.find('li:empty').remove();
@@ -77,9 +80,9 @@ const loadHandler = function(frame, frameWrapper, callback) {
   }
 
   const loader = $('#' + webPrefix + 'Loader');
-  if (frameWrapper.is(':hidden')) {
+  if ($frameWrapper.is(':hidden')) {
     loader.fadeOut('slow', function() {
-      frameWrapper.slideDown('slow', function() {
+      $frameWrapper.slideDown('slow', function() {
         callback(frame, frameWrapper);
       });
     });
@@ -90,8 +93,3 @@ const loadHandler = function(frame, frameWrapper, callback) {
 };
 
 export { loadHandler };
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

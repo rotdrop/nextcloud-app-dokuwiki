@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,17 +19,28 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#dokuwikiembedded_container.dokuwikiembedded-popup {
+##{$appName}FrameWrapper.#{$appName}-fullscreen {
+  height: 100%;
+  overflow: hidden;
+}
+
+##{$appName}_container.#{$appName}-fullscreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+##{$appName}_container.#{$appName}-popup {
   width: auto;
   height: auto;
 }
 
-#dokuwikiembeddedFrameWrapper.dokuwikiembedded-popup {
+##{$appName}FrameWrapper.#{$appName}-popup {
   height:0px;
   overflow: hidden;
 }
 
-#dokuwikiembedded_popup {
+##{$appName}_popup {
   width:75em !important;
   height:auto;
   max-width:100%;
@@ -39,15 +50,45 @@
   box-sizing:border-box;
 }
 
+##{$appName}Frame {
+  width: 100%;
+}
+
+##{$appName}Frame.#{$appName}-fullscreen {
+  height: 100%;
+}
+
+##{$appName}Loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 128px;
+  height: 14px;
+  margin-top: -7px; /* Half the height */
+  margin-left: -64px; /* Half the width */
+  transition: visibility 1s, opacity 1s;
+  z-index: 10;
+  &.fading {
+      opacity: 0;
+      visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  ##{$appName}Loader {
+    position: fixed !important;
+  }
+}
+
 /* make popups scrollable in smaller viewports */
-.ui-dialog.dokuwikiembedded-page-popup {
+.ui-dialog.#{$appName}-page-popup {
   max-height: 90% !important;
   max-width: 90% !important;
   overflow: hidden;
   padding: 0;
 }
 
-.ui-dialog.dokuwikiembedded-page-popup .ui-dialog-content {
+.ui-dialog.#{$appName}-page-popup .ui-dialog-content {
   /* height has to be computed in order to attach the vertical
    * scrollbar to the inner div.
    */

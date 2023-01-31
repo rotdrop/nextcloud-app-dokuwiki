@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,43 +19,43 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { webPrefix } from './config.js';
+import { appName } from './config.js';
 import { loadHandler } from './doku-wiki.js';
-import '../style/doku-wiki.css';
 
-const jQuery = require('jquery');
-const $ = jQuery;
+import '../style/doku-wiki.scss';
 
-$(function() {
+const webPrefix = appName;
 
+(callback => {
+  if (document.readyState !== 'loading') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
+  }
+})(() => {
   console.info('DokuWiki webPrefix', webPrefix);
-  const container = $('#' + webPrefix + '_container');
-  const frameWrapper = $('#' + webPrefix + 'FrameWrapper');
-  const frame = $('#' + webPrefix + 'Frame');
-  const contents = frame.contents();
+  const frameWrapper = document.getElementById(webPrefix + 'FrameWrapper');
+  const frame = document.getElementById(webPrefix + 'Frame');
 
   const setHeightCallback = function() {
-    container.height($('#content').height());
+    const height = window.innerHeight - frame.getBoundingClientRect().top;
+    frame.style.height = height + 'px';
+    const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
+    if (outerDelta) {
+      frame.style.height = (height - outerDelta) + 'px';
+    }
   };
 
-  if (frame.length > 0) {
-    frame.on('load', function() {
-      loadHandler($(this), frameWrapper, setHeightCallback);
-    });
+  if (frame) {
+    frame.addEventListener('load', () => loadHandler(frame, frameWrapper, setHeightCallback));
 
     let resizeTimer;
-    $(window).resize(function() {
+    window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(setHeightCallback);
     });
+    if (frame.contentWindow.document.querySelector('.logout')) {
+      loadHandler(frame, frameWrapper, setHeightCallback);
+    }
   }
-  if (contents.find('.logout')) {
-    loadHandler(frame, frameWrapper, setHeightCallback);
-  }
-
 });
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

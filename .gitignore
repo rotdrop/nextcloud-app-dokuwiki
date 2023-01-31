@@ -1,7 +1,6 @@
 build/**
 js/**
-css/*.css
-css/*.map
+css/**
 node_modules/**
 package-lock.json
 build-flavour

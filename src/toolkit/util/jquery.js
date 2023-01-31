@@ -1,6 +1,8 @@
 /**
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine
+ *
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +22,7 @@
 
 // jQuery stuff
 
-import { appName } from './config.js';
+import { appName } from '../../config.js';
 import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 const jQuery = require('jquery');
 
@@ -33,10 +35,10 @@ if (window.jQuery && window.jQuery !== jQuery) {
 }
 
 let requestToken = getRequestToken() || '';
+
 jQuery.ajaxSetup({
   beforeSend(xhr) {
     xhr.setRequestHeader('requesttoken', requestToken);
-    xhr.setRequestHeader('OCS-APIREQUEST', 'true');
   },
 });
 

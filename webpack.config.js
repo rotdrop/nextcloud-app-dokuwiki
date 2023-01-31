@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
+const DeadCodePlugin = require('webpack-deadcode-plugin');
+const Visualizer = require('webpack-visualizer-plugin2');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const fs = require('fs');
 const xml2js = require('xml2js');
 
@@ -23,7 +26,7 @@ webpackConfig.entry = {
   'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
   popup: path.join(__dirname, 'src', 'doku-wiki-popup.js'),
   refresh: path.join(__dirname, 'src', 'refresh.js'),
-  app: path.join(__dirname, 'src', 'doku-wiki.js'),
+  app: path.join(__dirname, 'src', 'index.js'),
 };
 
 webpackConfig.output = {
@@ -73,6 +76,24 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     },
     productionMode ? /\.css$/ : /^$/
   ),
+  new DeadCodePlugin({
+    patterns: [
+      'src/**/*.(js|jsx|css)',
+      'style/**/*.scss',
+    ],
+    exclude: [
+      'src/toolkit/**',
+    ],
+  }),
+  new BundleAnalyzerPlugin({
+    analyzerPort: 11111,
+    analyzerMode: 'static',
+    openAnalyzer: false,
+    reportFilename: './statistics/bundle-analyzer.html',
+  }),
+  new Visualizer({
+    filename: './statistics/visualizer-stats.html',
+  }),
 ]);
 
 // webpackConfig.module.rules = webpackConfig.module.rules.concat([

@@ -1,63 +1,57 @@
 <?php
 /**
- * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
+ * TextDokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
- * DokuWikiEmbedded is free software: you can redistribute it and/or
+ * TextDokuWiki is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
- * DokuWikiEmbedded is distributed in the hope that it will be useful,
+ * TextDokuWiki is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * AFFERO GENERAL PUBLIC LICENSE for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with DokuWikiEmbedded. If not, see
+ * License along with TextDokuWiki. If not, see
  * <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\DokuWikiEmbedded\Settings;
+namespace OCA\TextDokuWiki\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\IURLGenerator;
 use OCP\Settings\IDelegatedSettings;
 use OCP\IConfig;
-use Psr\Log\LoggerInterface as ILogger;
-use OCP\IL10N;
+
+use OCA\TextDokuWiki\Service\AssetService;
+use OCA\TextDokuWiki\Controller\SettingsController;
+use OCA\TextDokuWiki\Constants;
 
 /** Admin settings. */
 class Admin implements IDelegatedSettings
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-
   const TEMPLATE = 'admin-settings';
-  const SETTINGS = [
-    'externalLocation' => '',
-    'authenticationRefreshInterval' => 600,
-    'enableSSLVerify' => true,
-  ];
+  const ASSET_NAME = 'admin-settings';
 
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
+  /** @var IConfig */
+  private $config;
+
+  /** @var AssetService */
+  private $assetService;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IConfig $config,
-    IURLGenerator $urlGenerator,
-    ILogger $logger,
-    IL10N $l10n,
+    AssetService $assetService,
   ) {
     $this->appName = $appName;
     $this->config = $config;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
+    $this->assetService = $assetService;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -67,10 +61,13 @@ class Admin implements IDelegatedSettings
     $templateParameters = [
       'appName' => $this->appName,
       'webPrefix' => $this->appName,
-      'urlGenerator' => $this->urlGenerator,
+      'assets' => [
+        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
+        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
+      ],
     ];
-    foreach (self::SETTINGS as $setting => $default) {
-      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $default);
+    foreach (SettingsController::ADMIN_SETTINGS as $setting => $meta) {
+      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $meta['default']);
     }
     return new TemplateResponse(
       $this->appName,
@@ -87,7 +84,6 @@ class Admin implements IDelegatedSettings
   /** {@inheritdoc} */
   public function getPriority()
   {
-    // @@TODO could be made a configure option.
     return 50;
   }
 

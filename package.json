@@ -1,5 +1,5 @@
 {
-  "name": "text_dokuwiki",
+  "name": "text-dokuwiki",
   "version": "1.0.0-rc1",
   "description": "Support embedding an existing DokuWiki instance with SSO",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",

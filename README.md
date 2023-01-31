@@ -21,7 +21,7 @@ embedding iframe.
 ## Installation
 
 - ~install from the app-store~ (not yet)
-- install from a (pre-)release tar-ball by extracting it in to your app folder
+- install from a (pre-)release tar-ball by extracting it into your app folder
 - clone the git repository in to your app folder and run make
   - `make help` will list all targets
   - `make dev` comiles without minification or other assset-size optimizations

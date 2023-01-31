@@ -20,47 +20,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { state, cloudUser } from './config.js';
+import { getCurrentUser } from '@nextcloud/auth';
+import axios from '@nextcloud/axios';
+import onDocumentLoaded from './toolkit/util/on-document-loaded.js';
 import generateUrl from './toolkit/util/generate-url.js';
-import jQuery from './toolkit/util/jquery.js';
+import { getInitialState } from './toolkit/services/InitialStateService.js';
 
-const $ = jQuery;
+const state = getInitialState();
+let refreshInterval = state.authenticationRefreshInterval;
 
-/**
- * Actually $().
- */
-function start() {
-
-  state.refresh = function() {
-    if (!(state.refreshInterval >= 30)) {
-      console.error('Refresh interval too short', state.refreshInterval);
-      state.refreshInterval = 30;
-    }
-    if (cloudUser) {
-      const url = generateUrl('authentication/refresh');
-      state.refresh = function() {
-        if (cloudUser) {
-          $.post(url, {}).always(function() {
-            console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
-            state.refreshTimer = setTimeout(state.refresh, state.refreshInterval * 1000);
-          });
-        } else if (state.refreshTimer !== false) {
-          clearTimeout(state.refreshTimer);
-          state.refreshTimer = false;
-        }
-      };
-      console.info('DokuWiki refresh scheduled', state.refreshInterval * 1000);
-      state.refreshTimer = setTimeout(state.refresh, state.refreshInterval * 1000);
-    } else if (state.refreshTimer !== false) {
-      console.info('OC.currentUser appears unset');
-      clearTimeout(state.refreshTimer);
-      state.refreshTimer = false;
-    }
-  };
-
-  console.info('Starting DokuWiki refresh');
-  state.refresh();
-
+if (!(refreshInterval >= 30)) {
+  console.error('Refresh interval too short', refreshInterval);
+  refreshInterval = 30;
 }
 
-$(start);
+let refreshTimer = null;
+const url = generateUrl('authentication/refresh');
+
+const refreshHandler = async function() {
+  await axios.post(url);
+  console.info('DokuWiki refresh scheduled', refreshInterval * 1000);
+  refreshTimer = setTimeout(refreshHandler, refreshInterval * 1000);
+};
+
+onDocumentLoaded(() => {
+  if (getCurrentUser()) {
+    console.info('Starting DokuWiki authentication refresh.');
+    refreshTimer = setTimeout(refreshHandler, refreshInterval * 1000);
+  } else {
+    console.info('cloud-user appears unset.');
+    clearTimeout(refreshTimer);
+    refreshTimer = false;
+  }
+});

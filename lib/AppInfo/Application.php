@@ -59,6 +59,7 @@ use OCA\TextDokuWiki\Listener\Registration as ListenerRegistration;
  */
 
 use OCA\TextDokuWiki\Service\AssetService;
+use OCA\TextDokuWiki\Controller\SettingsController;
 use OCA\TextDokuWiki\Constants;
 
 /*
@@ -96,23 +97,20 @@ class Application extends App implements IBootstrap
   /** {@inheritdoc} */
   public function boot(IBootContext $context):void
   {
-    $container = $context->getAppContainer();
-
     $context->injectFn(function(
       IConfig $config,
       IInitialState $initialState,
       IEventDispatcher $dispatcher,
       AssetService $assetService,
     ) {
-      $refreshInterval = $config->getAppValue($this->appName, 'authenticationRefreshInterval', 600);
+      $refreshInterval = $config->getAppValue($this->appName, SettingsController::AUTHENTICATION_REFRESH_INTERVAL, 600);
       $dispatcher->addListener(
         \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
         function() use ($initialState, $refreshInterval, $assetService) {
           $initialState->provideInitialState(
-            'initial', [
+            Constants::INITIAL_STATE_SECTION, [
               'appName' => $this->appName,
-              'webPrefix' => $this->appName,
-              'refreshInterval' => $refreshInterval,
+              SettingsController::AUTHENTICATION_REFRESH_INTERVAL => $refreshInterval,
             ],
           );
           \OCP\Util::addScript($this->appName, $assetService->getJSAsset('refresh')['asset']);

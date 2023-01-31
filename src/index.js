@@ -20,19 +20,14 @@
  */
 
 import { appName } from './config.js';
+import onDocumentLoaded from './toolkit/util/on-document-loaded.js';
 import { loadHandler } from './doku-wiki.js';
 
 import '../style/doku-wiki.scss';
 
 const webPrefix = appName;
 
-(callback => {
-  if (document.readyState !== 'loading') {
-    callback();
-  } else {
-    document.addEventListener('DOMContentLoaded', callback);
-  }
-})(() => {
+onDocumentLoaded(() => {
   console.info('DokuWiki webPrefix', webPrefix);
   const frameWrapper = document.getElementById(webPrefix + 'FrameWrapper');
   const frame = document.getElementById(webPrefix + 'Frame');

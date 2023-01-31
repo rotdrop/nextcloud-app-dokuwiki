@@ -33,7 +33,7 @@ use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 use OCP\IConfig;
-use OCP\IInitialStateService;
+use OCP\AppFramework\Services\IInitialState;
 
 use OCA\RotDrop\Toolkit\Traits;
 use OCA\TextDokuWiki\Service\AuthDokuWiki as Authenticator;
@@ -61,8 +61,8 @@ class PageController extends Controller
   /** @var IURLGenerator */
   private $urlGenerator;
 
-  /** @var IInitialStateService */
-  private $initialStateService;
+  /** @var IInitialState */
+  private $initialState;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -72,7 +72,7 @@ class PageController extends Controller
     AssetService $assetService,
     IConfig $config,
     IURLGenerator $urlGenerator,
-    IInitialStateService $initialStateService,
+    IInitialState $initialState,
     ILogger $logger,
     IL10N $l10n,
   ) {
@@ -82,7 +82,7 @@ class PageController extends Controller
     $this->assetService = $assetService;
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
-    $this->initialStateService = $initialStateService;
+    $this->initialState = $initialState;
     $this->logger = $logger;
     $this->l = $l10n;
   }
@@ -109,12 +109,11 @@ class PageController extends Controller
   public function frame(string $renderAs = 'blank'):Response
   {
     try {
-      $this->initialStateService->provideInitialState(
-        $this->appName,
-        'initial',
+      $this->initialState->provideInitialState(
+        Constants::INITIAL_STATE_SECTION,
         [
           'appName' => $this->appName,
-          'refreshInterval' => $this->config->getAppValue('refreshInterval', 600),
+          SettingsController::AUTHENTICATION_REFRESH_INTERVAL => $this->config->getAppValue(SettingsController::AUTHENTICATION_REFRESH_INTERVAL, 600),
         ]
       );
 

@@ -25,4 +25,5 @@ use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
 /** General constants for the app. */
 class Constants extends TraitsConstants
 {
+  public const INITIAL_STATE_SECTION = 'config';
 }

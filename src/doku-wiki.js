@@ -38,6 +38,7 @@ const webPrefix = appName;
  *
  */
 const loadHandler = function(frame, frameWrapper, callback) {
+
   const frameDocument = frame.contentWindow.document;
 
   frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
@@ -80,7 +81,7 @@ const loadHandler = function(frame, frameWrapper, callback) {
   }
 
   const loader = document.getElementById(webPrefix + 'Loader');
-  loader.classList.toggle('fading');
+  loader.classList.add('fading');
   callback(frame, frameWrapper);
 };
 

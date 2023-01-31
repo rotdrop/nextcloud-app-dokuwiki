@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -23,10 +23,11 @@ import { appName } from '../../config.js';
 
 import { loadState } from '@nextcloud/initial-state';
 
-export const getInitialState = () => {
+export const getInitialState = (section) => {
+  section = section || 'config';
   try {
-    return loadState(appName, 'config');
+    return loadState(appName, section);
   } catch (err) {
-    return console.error('error in loadState: ', err);
+    return console.error('error in loadState("' + section + '"): ', err);
   }
 };

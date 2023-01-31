@@ -18,7 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\TextDokuWiki;
+namespace OCA\DokuWiki;
 
 use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
 

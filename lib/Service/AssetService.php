@@ -18,12 +18,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\TextDokuWiki\Service;
+namespace OCA\DokuWiki\Service;
 
 use OCP\IL10N;
 use Psr\Log\LoggerInterface;
 
-use OCA\TextDokuWiki\Constants;
+use OCA\DokuWiki\Constants;
 
 /**
  * Return JavaScript- and CSS-assets names dealing with the attached content

@@ -1,5 +1,5 @@
 {
-  "name": "@rotdrop/nextcloud-app-text-dokuwiki",
+  "name": "@rotdrop/nextcloud-app-dokuwiki",
   "version": "1.0.0-rc1",
   "description": "Support embedding an existing DokuWiki instance with SSO",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",

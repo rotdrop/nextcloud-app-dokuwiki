@@ -20,6 +20,7 @@
     <bugs>https://github.com/rotdrop/nextcloud-app-dokuwiki</bugs>
     <dependencies>
         <nextcloud min-version="24" max-version="25"/>
+        <php min-version="8.0.2" max-version="8.1" />
     </dependencies>
     <navigations>
         <navigation>

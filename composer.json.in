@@ -9,6 +9,13 @@
       "email": "himself@claus-justus-heine.de"
     }
   ],
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.0.2"
+    }
+  },
   "require": {
     "phpxmlrpc/phpxmlrpc": "^4"
   },

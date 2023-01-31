@@ -45,7 +45,7 @@ The idea is here to use LDAP for the authentication for Nextcloud as
 well as DokuWiki. In this case the user-names and passwords just
 coincide.
 
-It is stiff possible to have "local" accounts for Nextcloud and
+It is still possible to have "local" accounts for Nextcloud and
 DokuWiki, e.g. in order to have an administrator account which is
 independent from LDAP in order not to run into a chicken-and-egg
 problem.

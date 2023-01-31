@@ -19,7 +19,7 @@
     -->
     <bugs>https://github.com/rotdrop/nextcloud-app-dokuwiki</bugs>
     <dependencies>
-        <nextcloud min-version="23" max-version="25"/>
+        <nextcloud min-version="24" max-version="25"/>
     </dependencies>
     <navigations>
         <navigation>

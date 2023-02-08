@@ -35,7 +35,6 @@ class Registration
    */
   public static function register(IRegistrationContext $context)
   {
-    self::registerListener($context, UserLoggedInEventListener::class);
     self::registerListener($context, UserLoggedOutEventListener::class);
   }
 

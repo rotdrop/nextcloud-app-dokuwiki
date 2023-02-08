@@ -257,7 +257,7 @@ class AuthDokuWiki
       if ($this->httpCode == 401) {
         try {
           $credentials = $this->loginCredentials();
-          if ($this->_login($credentials['userId'], $credentials['password'])) {
+          if ($this->doLogin($credentials['userId'], $credentials['password'])) {
             $this->logInfo("Re-login succeeded");
             foreach ($this->cookies as $cookie) {
               if ($cookie['value'] == 'deleted') {

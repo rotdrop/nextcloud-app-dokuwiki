@@ -3,4 +3,7 @@ build/
 doc/
 js/
 lib/Toolkit/Service/
+lib/Toolkit/Traits/UtilTrait.php
 statistics/
+repositories/
+src/toolkit/

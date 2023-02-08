@@ -33,7 +33,11 @@ use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\DokuWiki\Service\AuthDokuWiki;
 
-/** Automatically log into DokuWiki when user logs in into GUI. */
+/**
+ * Automatically log into DokuWiki when user logs in into GUI.
+ *
+ * @todo This should no longer be needed.
+ */
 class UserLoggedInEventListener implements IEventListener
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;

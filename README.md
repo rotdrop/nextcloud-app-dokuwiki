@@ -10,6 +10,10 @@ DokuWiki Integration for Nextcloud
     - [Using LDAP](#using-ldap)
     - [Using a DokuWiki Authentication Plugin](#using-a-dokuwiki-authentication-plugin)
 - [More Documentation should follow ...](#more-documentation-should-follow-)
+- [Screenshots](#screenshots)
+    - [Start Page](#start-page)
+    - [Admin Settings](#admin-settings)
+    - [JQuery Popup](#jquery-popup)
 
 <!-- markdown-toc end -->
 
@@ -62,3 +66,17 @@ or to my own private fork
 https://github.com/rotdrop/authnc
 
 # More Documentation should follow ...
+
+# Screenshots
+
+## Start Page
+
+![file_list](contrib/screenshots/start-page.png)
+
+## Admin Settings
+
+![file_list](contrib/screenshots/admin-settings.png)
+
+## JQuery Popup
+
+![file_list](contrib/screenshots/jquery-popup.png)

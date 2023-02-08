@@ -1,35 +1,38 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>dokuwiki</id>
-    <name>DokuWiki Integration</name>
-    <summary>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.</summary>
-    <description>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.</description>
-    <version>1.0.0-rc2</version>
-    <licence>agpl</licence>
-    <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
-    <namespace>DokuWiki</namespace>
-    <category>integration</category>
-    <category>organization</category>
-    <category>social</category>
-    <!-- Should no longer be necessary
-      <types>
-        <filesystem/>
-      </types>
-    -->
-    <bugs>https://github.com/rotdrop/nextcloud-app-dokuwiki</bugs>
-    <dependencies>
-        <nextcloud min-version="24" max-version="25"/>
-        <php min-version="8.0.2" max-version="8.1" />
-    </dependencies>
-    <navigations>
-        <navigation>
-            <name>Doku Wiki</name>
-            <route>dokuwiki.page.index</route>
-        </navigation>
-    </navigations>
-    <settings>
-      <admin>OCA\DokuWiki\Settings\Admin</admin>
-      <admin-section>OCA\DokuWiki\Settings\AdminSection</admin-section>
-    </settings>
+  <id>dokuwiki</id>
+  <name>DokuWiki Integration</name>
+  <summary>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.</summary>
+  <description>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration.</description>
+  <version>1.0.0-rc2</version>
+  <licence>agpl</licence>
+  <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
+  <namespace>DokuWiki</namespace>
+  <category>integration</category>
+  <category>organization</category>
+  <category>social</category>
+  <!-- Should no longer be necessary
+       <types>
+       <filesystem/>
+       </types>
+  -->
+  <bugs>https://github.com/rotdrop/nextcloud-app-dokuwiki</bugs>
+  <dependencies>
+    <nextcloud min-version="24" max-version="25"/>
+    <php min-version="8.0.2" max-version="8.1" />
+  </dependencies>
+  <navigations>
+    <navigation>
+      <name>Doku Wiki</name>
+      <route>dokuwiki.page.index</route>
+    </navigation>
+  </navigations>
+  <settings>
+    <admin>OCA\DokuWiki\Settings\Admin</admin>
+    <admin-section>OCA\DokuWiki\Settings\AdminSection</admin-section>
+  </settings>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-dokuwiki/raw/master/contrib/screenshots/start-page.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-dokuwiki/raw/master/contrib/screenshots/admin-settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-dokuwiki/raw/master/contrib/screenshots/jquery-popup.png</screenshot>
 </info>

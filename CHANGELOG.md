@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - cookie-path tweaking if NC is installed top-level
 - login-listener removed
 
+### Added
+
+- screenshots
+
 ## [1.0.0-rc1] - 2023-02-08
 
 ### Added

@@ -323,7 +323,7 @@ class AuthDokuWiki
           $cookieInfo[$cookieName] = $cookieInfo['value'];
           ksort($cookieInfo);
           $this->cookies[] = $cookieInfo;
-          $cookieInfo['path'] = \OC::$WEBROOT;
+          $cookieInfo['path'] = \OC::$WEBROOT == '' ? '/' : \OC::$WEBROOT;
           $this->cookies[] = $cookieInfo;
         }
         $this->logDebug("XMLRPC method \"$method\" executed with success. Got cookies "

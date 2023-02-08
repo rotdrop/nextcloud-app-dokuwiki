@@ -175,7 +175,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
             if (frameWrapper.css('height') === '0px') {
               frameWrapper.css({
                 height: 'auto',
-                display: 'none',
+                // display: 'none',
               });
             }
             // </HACK>

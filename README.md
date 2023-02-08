@@ -65,6 +65,11 @@ or to my own private fork
 
 https://github.com/rotdrop/authnc
 
+# jQuery Popup
+
+DokuWiki may optionally be loading into a jQuery dialog, if
+desired. To be documented ...
+
 # More Documentation should follow ...
 
 # Screenshots

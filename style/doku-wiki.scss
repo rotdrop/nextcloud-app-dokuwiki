@@ -52,6 +52,11 @@
 
 ##{$dokuWikiAppName}Frame {
   width: 100%;
+  transition: visibility 1s, opacity 1s;
+  &.faded {
+    visibility: hidden;
+    opacity:0;
+  }
 }
 
 ##{$dokuWikiAppName}Frame.#{$dokuWikiAppName}-fullscreen {

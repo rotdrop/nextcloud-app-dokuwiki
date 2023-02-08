@@ -26,16 +26,16 @@ style($appName, $assets['css']['asset']);
 $webPrefix = $appName;
 
 // additional CSS class
-$cssClass = $webPrefix.'-'.(isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
+$cssClass = $webPrefix . '-' . (isset($_['cssClass']) ? $_['cssClass'] : 'fullscreen');
 
 // additional attributes
 $cnt = 0;
-$tmp = preg_replace('/class="([^"]*)"/i', '${1} '.$cssClass, $iframeAttributes, -1 , $cnt);
+$tmp = preg_replace('/class="([^"]*)"/i', '${1} ' . $cssClass, $iframeAttributes, -1 , $cnt);
 if ($tmp !== null) {
   $iframeAttributes = $tmp;
 }
 if ($cnt == 0) {
-  $iframeAttributes .= 'class="'.$cssClass.'"';
+  $iframeAttributes .= 'class="' . $cssClass . ' faded"';
 }
 
 ?>

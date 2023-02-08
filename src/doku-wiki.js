@@ -45,7 +45,7 @@ const loadHandler = function(frame, frameWrapper, callback) {
   frameDocument.querySelectorAll('li:empty').forEach(el => el.remove());
   frameDocument.querySelectorAll('form.btn_logout').forEach(el => el.remove());
   frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.user').forEach(el => el.remove());
-  frameDocument.querySelectorAll(':scope #dokuwiki__usertools a.action.profile').forEach(el => el.remove());
+  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.action.profile').forEach(el => el.remove());
 
   frameDocument.querySelectorAll('a').forEach(el => {
     if (el.hostname && el.hostname !== window.location.hostname) {
@@ -82,6 +82,7 @@ const loadHandler = function(frame, frameWrapper, callback) {
 
   const loader = document.getElementById(webPrefix + 'Loader');
   loader.classList.add('fading');
+  frame.classList.remove('faded');
   callback(frame, frameWrapper);
 };
 

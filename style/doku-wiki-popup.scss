@@ -19,17 +19,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-##{$appName}_container.#{$appName}-popup {
+##{$dokuWikiAppName}_container.#{$dokuWikiAppName}-popup {
   width: auto;
   height: auto;
 }
 
-##{$appName}FrameWrapper.#{$appName}-popup {
+##{$dokuWikiAppName}FrameWrapper.#{$dokuWikiAppName}-popup {
   height:0px;
   overflow: hidden;
 }
 
-##{$appName}_popup {
+##{$dokuWikiAppName}_popup {
   width:75em !important;
   height:auto;
   max-width:100%;
@@ -40,14 +40,14 @@
 }
 
 /* make popups scrollable in smaller viewports */
-.ui-dialog.#{$appName}-page-popup {
+.ui-dialog.#{$dokuWikiAppName}-page-popup {
   max-height: 90% !important;
   max-width: 90% !important;
   overflow: hidden;
   padding: 0;
 }
 
-.ui-dialog.#{$appName}-page-popup .ui-dialog-content {
+.ui-dialog.#{$dokuWikiAppName}-page-popup .ui-dialog-content {
   /* height has to be computed in order to attach the vertical
    * scrollbar to the inner div.
    */

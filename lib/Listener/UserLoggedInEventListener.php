@@ -93,14 +93,17 @@ class UserLoggedInEventListener implements IEventListener
   {
     $method = $request->getMethod();
     if ($method != 'GET' && $method != 'POST') {
+      $this->logger = $this->appContainer->get(ILogger::class);
       $this->logDebug('Ignoring request with method '.$method);
       return true;
     }
     if ($request->getHeader('OCS-APIREQUEST') === 'true') {
+      $this->logger = $this->appContainer->get(ILogger::class);
       $this->logDebug('Ignoring API login');
       return true;
     }
     if (strpos($request->getHeader('Authorization'), 'Bearer ') === 0) {
+      $this->logger = $this->appContainer->get(ILogger::class);
       $this->logDebug('Ignoring API "bearer" auth');
       return true;
     }

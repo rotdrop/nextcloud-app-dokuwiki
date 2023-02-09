@@ -49,7 +49,8 @@ onDocumentLoaded(() => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(setHeightCallback);
     });
-    if (frame.contentWindow.document.querySelector('.logout')) {
+    if (frame.contentWindow.document.querySelector('.logout')
+        || frame.contentWindow.document.querySelector('.login')) {
       loadHandler(frame, frameWrapper, setHeightCallback);
     }
   }

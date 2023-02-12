@@ -302,6 +302,8 @@ class AuthDokuWiki
       }
       return $this->handleError('XMLRPC request failed: ' . $response->faultString());
     }
+    $this->httpCode = 200;
+    $this->httpStatus = 'OK';
 
     // ok, we got a valid response
     $decodedResponse = (new XmlRpc\Encoder)->decode($response->value());

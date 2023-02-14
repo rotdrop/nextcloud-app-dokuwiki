@@ -1,0 +1,6 @@
+{ "translations": {
+    "true" : "真",
+    "false" : "假",
+    "Error" : "错误"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

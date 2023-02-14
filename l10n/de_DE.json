@@ -1,0 +1,5 @@
+{ "translations": {
+    "The admin setting \"%1$s\" is read-only" : "Die Administrationseinstellung \"%1$s\" kann nur gelesen werden",
+    "Caused by previous exception" : "Verursacht durch eine vorangegangene Ausnahme"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

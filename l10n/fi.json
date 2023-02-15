@@ -1,0 +1,6 @@
+{ "translations": {
+    "DokuWiki Integration" : "DokuWiki-integraatio",
+    "DokuWiki Installation Path" : "DokuWikin asennuspolku",
+    "Error" : "Virhe"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

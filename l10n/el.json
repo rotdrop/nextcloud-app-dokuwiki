@@ -1,0 +1,6 @@
+{ "translations": {
+    "true" : "αληθές",
+    "false" : "ψευδές",
+    "Error" : "Σφάλμα"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

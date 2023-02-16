@@ -1,12 +1,12 @@
 { "translations": {
     "Unknown admin setting: \"%1$s\"" : "Ajuste administrativo desconocido: \"%1$s\"",
-    "The admin setting \"%1$s\" is read-only" : "El ajuste administrativo \"%1$s\" is sólo lectura",
+    "The admin setting \"%1$s\" is read-only" : "El ajuste administrativo \"%1$s\" es de sólo lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "El protocolo de la URL externa deber ser \"http\" ó \"https\", pero no se especificó nada.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "El protocolo de la URL externa deber ser \"http\" o \"https\", se especificó \"%s\"",
     "Host-part of external URL seems to be empty" : "El componente de host de la URL externa parece estar vacío",
-    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "El valor \"%1$s\" para la configuración \"%2$s\" nos es convertible a entero o está fuera del rango (el mínimo es %d segundos).",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "El valor \"%1$s\" para la configuración \"%2$s\" no se puede convertir a un entero o está fuera del rango (el mínimo es %d segundos).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "El valor \"%1$s\" para la configuración \"%2$s\" no es convertible a booleano.",
-    "true" : "cierto",
+    "true" : "verdadero",
     "false" : "falso",
     "DokuWiki Integration" : "Integración DokuWiki",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; el recurso requerido \"%1$s\" de tipo \"%2$s\" no está instalado en el servidor, ¡por favor, contacte al administrador del sistema!",
@@ -14,17 +14,17 @@
     "Caused by previous exception" : "Causado por la excepción anterior",
     "Doku Wiki" : "Doku Wiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Embeber una instancia existente de DokuWiki en Nextcloud, potencialmente con SSO.",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Embeber una instancia existente de DokuWiki en Nextcloud, potencialmente con SSO. Para el SSO los usuarios de DokuWiki y Nextcloud tienen que coincidir, e.g. usando un servicio de autenticación común como LDAP, o con un plugin de autenticación apropiado en cada lado de la integración.",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Embeber una instancia existente de DokuWiki en Nextcloud, potencialmente con SSO. Para usar SSO los usuarios de DokuWiki y Nextcloud tienen que coincidir, p.ej. usando un servicio de autenticación común como LDAP, o con un plugin de autenticación apropiado de cualquier lado de la integración.",
     "DokuWiki Installation Path" : "Ruta de instalación de DokuWiki",
     "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Por favor ingrese la ubicación de la instancia de DokuWiki ya instalada. La misma puede ser una ruta absoluta relativa a la raíz del directorio web, o una URL completa que apunta a la ubicación de DokuWiki. Para que funcione correctamente, tienes que habilitar el protocolo XMLRPC en tu DokuWiki.",
     "DokuWiki Session Refresh Interval [s]" : "Intervalo de actualización de sesión de DokuWiki [s]",
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Por favor, ingrese el intervalo de refresco de sesión deseado aquí. El intervalo es medido en segundos y debe ser algo menor al tiempo de vida para la sesión en la instancia DockuWiki en uso.",
-    "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deshabilitar verificación SSL, e.g. para certificados autofirmados o por nombres de host no coincidentes conocidos, como 'localhost'.",
+    "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deshabilitar verificación SSL, p. ej. para certificados autofirmados o por nombres de host no coincidentes conocidos, como 'localhost'.",
     "Enable SSL verification." : "Habilite la verificación SSL.",
     "Unknown error :(" : "Error desconocido :(",
     "Error" : "Error",
-    "Links to wiki-pages are disabled in preview mode." : "Enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
+    "Links to wiki-pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
     "Link to Wiki-Page" : "Enlace a Página Wiki",
-    "Links to media-files are disabled in preview mode." : "Enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
+    "Links to media-files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

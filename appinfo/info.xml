@@ -24,7 +24,7 @@
   </dependencies>
   <navigations>
     <navigation>
-      <name>Doku Wiki</name>
+      <name>DokuWiki</name>
       <route>dokuwiki.page.index</route>
     </navigation>
   </navigations>

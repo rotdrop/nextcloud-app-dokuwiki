@@ -14,7 +14,7 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem: Die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte die Systemadministration kontaktieren!",
     "Error, caught an exception." : "Fehler, Ausnahme abgefangen.",
     "Caused by previous exception" : "Verursacht durch eine vorangegangene Ausnahme",
-    "Doku Wiki" : "Doku Wiki",
+    "Doku Wiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Binden Sie eine bestehende DokuWiki-Instanz in Nextcloud ein, möglichst mit SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Binden Sie eine bestehende DokuWiki-Instanz in Nextcloud ein, möglichst mit SSO. DokuWiki-Benutzer und Nextcloud-Nutzer müssen übereinstimmen, z. B. durch Nutzung eines gemeinsamen Authentifizierungs-Backends wie LDAP oder mit einem geeigneten Authentifizierungs-Plugin auf beiden Seiten der Integration.",
     "DokuWiki Installation Path" : "DokuWiki Installationspfad",

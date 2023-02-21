@@ -60,8 +60,8 @@ const loadHandler = function(frame, frameWrapper, callback) {
       el.addEventListener('click', function(event) {
         const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
-          t(appName, 'Links to wiki-pages are disabled in preview mode.'),
-          t(appName, 'Link to Wiki-Page') + ' "' + href + '"');
+          t(appName, 'Links to wiki pages are disabled in preview mode.'),
+          t(appName, 'Link to wiki page') + ' "' + href + '"');
         event.stopPropagation();
       }, true);
     });
@@ -69,8 +69,8 @@ const loadHandler = function(frame, frameWrapper, callback) {
       el.addEventListener('click', function(event) {
         const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
-          t(appName, 'Links to media-files are disabled in preview mode.'),
-          t(appName, 'Link to Wiki-Page') + ' "' + href + '"');
+          t(appName, 'Links to media files are disabled in preview mode.'),
+          t(appName, 'Link to wiki page') + ' "' + href + '"');
         event.stopPropagation();
       }, true);
     });

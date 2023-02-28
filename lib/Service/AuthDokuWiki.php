@@ -41,7 +41,7 @@ use OCA\DokuWiki\AppInfo\Application;
 /** Authenticator work-horse. */
 class AuthDokuWiki
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
 
   const RPCPATH = '/lib/exe/xmlrpc.php';
   const ON_ERROR_THROW = 'throw'; ///< Throw an exception on error

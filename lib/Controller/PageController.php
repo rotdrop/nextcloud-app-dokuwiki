@@ -35,7 +35,7 @@ use OCP\IL10N;
 use OCP\IConfig;
 use OCP\AppFramework\Services\IInitialState;
 
-use OCA\RotDrop\Toolkit\Traits;
+use OCA\DokuWiki\Toolkit\Traits;
 use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
 use OCA\DokuWiki\Service\AssetService;
 use OCA\DokuWiki\Constants;

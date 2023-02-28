@@ -20,7 +20,7 @@
 
 namespace OCA\DokuWiki;
 
-use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
+use OCA\DokuWiki\Toolkit\Traits\Constants as TraitsConstants;
 
 /** General constants for the app. */
 class Constants extends TraitsConstants

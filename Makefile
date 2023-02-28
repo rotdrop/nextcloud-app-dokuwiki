@@ -76,7 +76,7 @@ dev: dev-setup npm-dev lint # test
 .PHONY: dev
 
 #@private
-dev-setup: composer
+dev-setup: app-toolkit composer
 .PHONY: dev-setup
 
 #@private

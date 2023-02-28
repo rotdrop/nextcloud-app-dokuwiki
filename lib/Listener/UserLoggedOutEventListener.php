@@ -36,7 +36,7 @@ use OCA\DokuWiki\Service\AuthDokuWiki;
 /** Log the current user out of DokuWiki if it logs out of Nextcloud. */
 class UserLoggedOutEventListener implements IEventListener
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 

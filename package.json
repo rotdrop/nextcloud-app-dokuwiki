@@ -1,6 +1,6 @@
 {
   "name": "@rotdrop/nextcloud-app-dokuwiki",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "Support embedding an existing DokuWiki instance with SSO",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "license": "agpl",

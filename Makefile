@@ -22,8 +22,6 @@ SILENT = @
 # make these overridable from the command line
 RSYNC = $(shell which rsync 2> /dev/null)
 PHP = $(shell which php 2> /dev/null)
-PHP_SCOPER_VERSION = 0.18.1
-PHP_SCOPER = $(BUILD_TOOLS_DIR)/php-scoper.phar
 NPM = $(shell which npm 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
@@ -119,13 +117,11 @@ composer-suggest:
 	$(COMPOSER) suggest --all
 .PHONY: composer-suggest
 
-.PHONY: php-scoper-download
-php-scoper-download:
-	mkdir -p $(BUILD_TOOLS_DIR)
-	if ! [ -x $(PHP_SCOPER) ] || ! $(PHP_SCOPER) --version|grep -qsF $(PHP_SCOPER_VERSION); then\
-  curl -L -o $(PHP_SCOPER) -sS https://github.com/humbug/php-scoper/releases/download/$(PHP_SCOPER_VERSION)/php-scoper.phar;\
-  chmod +x $(PHP_SCOPER);\
-fi
+APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
+APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
+APP_TOOLKIT_NS = DokuWiki
+
+include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 
 CSS_FILES = $(shell find $(ABSSRCDIR)/style -name "*.css" -o -name "*.scss")
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue")
@@ -275,6 +271,7 @@ clean: ## Tidy up local environment
 distclean: clean ## Clean even more, calls clean
 	rm -rf vendor*
 	rm -rf node_modules
+	rm -rf lib/Toolkit/*
 .PHONY: distclean
 
 #@@ Almost everything but downloads

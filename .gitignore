@@ -10,3 +10,4 @@ stamp*
 composer.lock
 composer.json
 vendor
+lib/Toolkit/[A-Z]*

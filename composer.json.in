@@ -27,10 +27,5 @@
     "zebra-north/phpcs-short-types": "^1.0"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "autoload": {
-    "psr-4": {
-      "OCA\\RotDrop\\Toolkit\\": "lib/Toolkit/"
-    }
-  }
+  "prefer-stable": true
 }

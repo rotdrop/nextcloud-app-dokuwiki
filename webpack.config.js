@@ -82,7 +82,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       'style/**/*.scss',
     ],
     exclude: [
-      'src/toolkit/**',
+      // 'src/toolkit/**',
     ],
   }),
   new BundleAnalyzerPlugin({

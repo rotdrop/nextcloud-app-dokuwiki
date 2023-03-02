@@ -21,12 +21,6 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desgaitu SSL egiaztapena, adibidez norberak sinatutako ziurtagirietarako edo \"localhost\" bezalako ostalari-izen desegokietarako.",
     "Enable SSL verification." : "Gaitu SSL egiaztapena.",
     "Unknown error :(" : "Errore ezezaguna :(",
-    "Error" : "Errorea",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian autentifikazio bakarraren (SSO) bidez. SSOrentzat DokuWikiko erabiltzailek eta Nextcloudeko erabiltzaileek bat egin behar dute, adibidez. LDAP bezalako autentifikazio-backend komun bat erabiliz, edo integrazioaren bi aldeetako autentifikazio-plugin egoki baten bidez.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Mesedez, sartu dagoeneko instalatutako DokuWiki instantziaren kokapena. Hau web-nabigatzailearen erroarekiko bide absolutoa bat izan beharko litzateke, edo DokuWiki-ren web-kokapenera seinalatzen duen URL osoa. Gauzak funtzionatzeko, XMLRPC protokoloa gaitu behar duzu DokuWiki-n.",
-    "Links to wiki-pages are disabled in preview mode." : "Wiki-orrietarako estekak desgaituta daude aurrebista moduan.",
-    "Link to Wiki-Page" : "Esteka Wiki-orrira",
-    "Links to media-files are disabled in preview mode." : "Multimedia-fitxategietarako estekak desgaituta daude aurrebista moduan."
+    "Error" : "Errorea"
 },
 "nplurals=2; plural=(n != 1);");

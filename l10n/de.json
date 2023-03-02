@@ -17,10 +17,6 @@
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deaktiviere SSL Überprüfung, z.B. für selbst-signierte Zertifikate or bekannte abweichende Rechnernamen wie 'localhost'.",
     "Enable SSL verification." : "SSL-Überprüfung aktivieren.",
     "Unknown error :(" : "Unbekannter Fehler :(",
-    "Error" : "Fehler",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Binde eine existierende DokuWiki Instanz in Nextcloud ein, potentiell mit SSO. DokuWiki Benutzer und Nextcloud-Nutzer müssen übereinstimmen, z.B. durch Nutzung eines gemeinsamen Authentifizierungs-Backends wie LDAP oder mit einem geeigneten Authentifizierungs-Plugin auf beiden Seiten der Integration.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Geben Sie den Webseitenpfad der bereits installierten DokuWiki Instanz ein. Dies sollte entweder der absolute Pfad retiv zum Root des Webbrowsers sein oder einer komplette URL, welche auf Webseitenpfad zeigt. Damit das funktioniert, muss das XMLRPC Protokoll in DokuWiki aktiviert werden.",
-    "Links to wiki-pages are disabled in preview mode." : "Links zu Wikiseiten sind in der Vorschau deaktiviert."
+    "Error" : "Fehler"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

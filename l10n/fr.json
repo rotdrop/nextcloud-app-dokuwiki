@@ -25,12 +25,6 @@
     "Error" : "Erreur",
     "Links to wiki pages are disabled in preview mode." : "Les liens vers les pages de wiki sont désactivés en mode prévisualisation.",
     "Link to wiki page" : "Lien vers la page de wiki",
-    "Links to media files are disabled in preview mode." : "Les liens vers les fichiers média sont désactivés en mode prévisualisation.",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Embarquer une instance DokuWiki existante dans Nextcloud, éventuellement avec authentification unique. Pour cette dernière, les utilisateurs DokuWiki et Nextcloud doivent coïncider, par exemple en utilisant un moteur d'authentification commun comme LDAP, ou avec un plugin d'authentification approprié de part et d'autre de l'intégration.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Veuillez saisir l'emplacement de l'instance DokuWiki déjà installée. Celui-ci doit être un chemin complet relatif à la racine du serveur Web ou une URL complète pointant vers la localisation Web du DokuWiki. Afin que l'intégration fonctionne, vous devez activer le protocole XMLRPC dans votre DokuWiki.",
-    "Links to wiki-pages are disabled in preview mode." : "Liens vers les wiki-pages sont désactivés en mode prévisualisation.",
-    "Link to Wiki-Page" : "Lien vers Wiki-Page",
-    "Links to media-files are disabled in preview mode." : "Liens vers les media-files sont désactivés en mode prévisualisation."
+    "Links to media files are disabled in preview mode." : "Les liens vers les fichiers média sont désactivés en mode prévisualisation."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

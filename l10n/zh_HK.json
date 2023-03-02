@@ -25,12 +25,6 @@
     "Error" : "錯誤",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
     "Link to wiki page" : "連結至 wiki 頁面",
-    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。",
-    "Doku Wiki" : "DokuWiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "將現有的 DokuWiki 站台嵌入至 Nextcloud 中，可能使用 SSO。對於 SSO，DokuWiki 使用者與 Nextcloud 使用者必須一致，例如透過使用如 LDAP 這樣的通用身份驗證後端，或者在整合的任何一側使用適當的身份驗證外掛程式。",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "請輸入已安裝的 DokuWiki 站台的位置。這應該是相對於網路瀏覽器根目錄的絕對路徑，或是指向 DokuWiki 的完整 URL。為了讓此功能正常運作，您必須在 DokuWiki 中啟用 XMLRPC 協定。",
-    "Links to wiki-pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
-    "Link to Wiki-Page" : "連結至 Wiki 頁面",
-    "Links to media-files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
+    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

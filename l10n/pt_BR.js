@@ -21,12 +21,6 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, por exemplo para certificados autoassinados ou nomes de host incompatíveis conhecidos, como 'localhost'.",
     "Enable SSL verification." : "Ative a verificação SSL.",
     "Unknown error :(" : "Erro desconhecido :(",
-    "Error" : "Erro",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Incorpore uma instância existente do DokuWiki no Nextcloud, potencialmente com SSO. Para usuários SSO DokuWiki e usuários Nextcloud devem coincidir, por exemplo. usando um back-end de autenticação comum, como o LDAP, ou com um plug-in de autenticação apropriado em qualquer um dos lados da integração.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Insira o local da instância do DokuWiki já instalada. Isso deve ser um caminho absoluto relativo à raiz do navegador da web ou uma URL completa que aponta para o local da web do DokuWiki. Para fazer as coisas funcionarem, você precisa habilitar o protocolo XMLRPC em seu DokuWiki.",
-    "Links to wiki-pages are disabled in preview mode." : "Links para páginas wiki são desativados no modo de visualização.",
-    "Link to Wiki-Page" : "Link para Página-Wiki",
-    "Links to media-files are disabled in preview mode." : "Links para arquivos de mídia são desativados no modo de visualização."
+    "Error" : "Erro"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -25,12 +25,6 @@
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
     "Link to wiki page" : "Enlace a la página wiki",
-    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización.",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Embeber una instancia existente de DokuWiki en Nextcloud, potencialmente con SSO. Para usar SSO los usuarios de DokuWiki y Nextcloud tienen que coincidir, p.ej. usando un servicio de autenticación común como LDAP, o con un plugin de autenticación apropiado de cualquier lado de la integración.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Por favor ingrese la ubicación de la instancia de DokuWiki ya instalada. La misma puede ser una ruta absoluta relativa a la raíz del directorio web, o una URL completa que apunta a la ubicación de DokuWiki. Para que funcione correctamente, tienes que habilitar el protocolo XMLRPC en tu DokuWiki.",
-    "Links to wiki-pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
-    "Link to Wiki-Page" : "Enlace a Página Wiki",
-    "Links to media-files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
+    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

@@ -32,71 +32,137 @@ const cloudWebRoot = getCloudRootUrl() || '/';
 const globalState = getInitialState();
 
 const ajaxHttpStatus = {
+  // TRANSLATORS: Textual description of HTTP status code 200, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   200: t(appName, 'OK'),
+  // TRANSLATORS: Textual description of HTTP status code 201, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   201: t(appName, 'Created'),
+  // TRANSLATORS: Textual description of HTTP status code 202, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   202: t(appName, 'Accepted'),
+  // TRANSLATORS: Textual description of HTTP status code 203, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   203: t(appName, 'Non-Authoritative Information'),
+  // TRANSLATORS: Textual description of HTTP status code 204, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   204: t(appName, 'No Content'),
+  // TRANSLATORS: Textual description of HTTP status code 205, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   205: t(appName, 'Reset Content'),
+  // TRANSLATORS: Textual description of HTTP status code 206, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   206: t(appName, 'Partial Content'),
+  // TRANSLATORS: Textual description of HTTP status code 207, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   207: t(appName, 'Multi-Status (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 208, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   208: t(appName, 'Already Reported (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 226, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   226: t(appName, 'IM Used'),
+  // TRANSLATORS: Textual description of HTTP status code 300, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   300: t(appName, 'Multiple Choices'),
+  // TRANSLATORS: Textual description of HTTP status code 301, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   301: t(appName, 'Moved Permanently'),
+  // TRANSLATORS: Textual description of HTTP status code 302, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   302: t(appName, 'Found'),
+  // TRANSLATORS: Textual description of HTTP status code 303, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   303: t(appName, 'See Other'),
+  // TRANSLATORS: Textual description of HTTP status code 304, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   304: t(appName, 'Not Modified'),
+  // TRANSLATORS: Textual description of HTTP status code 305, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   305: t(appName, 'Use Proxy'),
+  // TRANSLATORS: Textual description of HTTP status code 306, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   306: t(appName, '(Unused)'),
+  // TRANSLATORS: Textual description of HTTP status code 307, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   307: t(appName, 'Temporary Redirect'),
+  // TRANSLATORS: Textual description of HTTP status code 308, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   308: t(appName, 'Permanent Redirect (experimental)'),
+  // TRANSLATORS: Textual description of HTTP status code 400, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   400: t(appName, 'Bad Request'),
+  // TRANSLATORS: Textual description of HTTP status code 401, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   401: t(appName, 'Unauthorized'),
+  // TRANSLATORS: Textual description of HTTP status code 402, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   402: t(appName, 'Payment Required'),
+  // TRANSLATORS: Textual description of HTTP status code 403, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   403: t(appName, 'Forbidden'),
+  // TRANSLATORS: Textual description of HTTP status code 404, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   404: t(appName, 'Not Found'),
+  // TRANSLATORS: Textual description of HTTP status code 405, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   405: t(appName, 'Method Not Allowed'),
+  // TRANSLATORS: Textual description of HTTP status code 406, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   406: t(appName, 'Not Acceptable'),
+  // TRANSLATORS: Textual description of HTTP status code 407, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   407: t(appName, 'Proxy Authentication Required'),
+  // TRANSLATORS: Textual description of HTTP status code 408, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   408: t(appName, 'Request Timeout'),
+  // TRANSLATORS: Textual description of HTTP status code 409, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   409: t(appName, 'Conflict'),
+  // TRANSLATORS: Textual description of HTTP status code 410, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   410: t(appName, 'Gone'),
+  // TRANSLATORS: Textual description of HTTP status code 411, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   411: t(appName, 'Length Required'),
+  // TRANSLATORS: Textual description of HTTP status code 412, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   412: t(appName, 'Precondition Failed'),
+  // TRANSLATORS: Textual description of HTTP status code 413, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   413: t(appName, 'Request Entity Too Large'),
+  // TRANSLATORS: Textual description of HTTP status code 414, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   414: t(appName, 'Request-URI Too Long'),
+  // TRANSLATORS: Textual description of HTTP status code 415, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   415: t(appName, 'Unsupported Media Type'),
+  // TRANSLATORS: Textual description of HTTP status code 416, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   416: t(appName, 'Requested Range Not Satisfiable'),
+  // TRANSLATORS: Textual description of HTTP status code 417, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   417: t(appName, 'Expectation Failed'),
+  // TRANSLATORS: Textual description of HTTP status code 418, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   418: t(appName, 'I\'m a teapot (RFC 2324)'),
+  // TRANSLATORS: Textual description of HTTP status code 420, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   420: t(appName, 'Enhance Your Calm (Twitter)'),
+  // TRANSLATORS: Textual description of HTTP status code 422, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   422: t(appName, 'Unprocessable Entity (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 423, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   423: t(appName, 'Locked (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 424, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   424: t(appName, 'Failed Dependency (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 425, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   425: t(appName, 'Reserved for WebDAV'),
+  // TRANSLATORS: Textual description of HTTP status code 426, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   426: t(appName, 'Upgrade Required'),
+  // TRANSLATORS: Textual description of HTTP status code 428, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   428: t(appName, 'Precondition Required'),
+  // TRANSLATORS: Textual description of HTTP status code 429, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   429: t(appName, 'Too Many Requests'),
+  // TRANSLATORS: Textual description of HTTP status code 431, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   431: t(appName, 'Request Header Fields Too Large'),
+  // TRANSLATORS: Textual description of HTTP status code 444, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   444: t(appName, 'No Response (Nginx)'),
+  // TRANSLATORS: Textual description of HTTP status code 449, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   449: t(appName, 'Retry With (Microsoft)'),
+  // TRANSLATORS: Textual description of HTTP status code 450, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   450: t(appName, 'Blocked by Windows Parental Controls (Microsoft)'),
+  // TRANSLATORS: Textual description of HTTP status code 451, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   451: t(appName, 'Unavailable For Legal Reasons'),
+  // TRANSLATORS: Textual description of HTTP status code 599, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   499: t(appName, 'Client Closed Request (Nginx)'),
+  // TRANSLATORS: Textual description of HTTP status code 500, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   500: t(appName, 'Internal Server Error'),
+  // TRANSLATORS: Textual description of HTTP status code 501, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   501: t(appName, 'Not Implemented'),
+  // TRANSLATORS: Textual description of HTTP status code 502, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   502: t(appName, 'Bad Gateway'),
+  // TRANSLATORS: Textual description of HTTP status code 503, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   503: t(appName, 'Service Unavailable'),
+  // TRANSLATORS: Textual description of HTTP status code 504, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   504: t(appName, 'Gateway Timeout'),
+  // TRANSLATORS: Textual description of HTTP status code 505, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   505: t(appName, 'HTTP Version Not Supported'),
+  // TRANSLATORS: Textual description of HTTP status code 506, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   506: t(appName, 'Variant Also Negotiates (Experimental)'),
+  // TRANSLATORS: Textual description of HTTP status code 507, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   507: t(appName, 'Insufficient Storage (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 508, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   508: t(appName, 'Loop Detected (WebDAV)'),
+  // TRANSLATORS: Textual description of HTTP status code 509, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   509: t(appName, 'Bandwidth Limit Exceeded (Apache)'),
+  // TRANSLATORS: Textual description of HTTP status code 510, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   510: t(appName, 'Not Extended'),
+  // TRANSLATORS: Textual description of HTTP status code 511, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   511: t(appName, 'Network Authentication Required'),
+  // TRANSLATORS: Textual description of HTTP status code 598, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   598: t(appName, 'Network read timeout error'),
+  // TRANSLATORS: Textual description of HTTP status code 599, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   599: t(appName, 'Network connect timeout error'),
 
   // Seemingly Nextcloud always ever only returns one of these:

@@ -27,12 +27,6 @@ OC.L10N.register(
     "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
     "Link to wiki page" : "Odkaz na wiki stránku",
-    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté.",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Začlenit existující instanci DokuWiki do Nextcloud, případně se sjednoceným přihlašováním (SSO). Pokud má být využíváno SSO je třeba, aby uživatelské účty v Nextcloud a DokuWiki byly shodné, např. použitím společné podpůrné vrstvy pro ověřování, jako LDAP, nebo s příslušným zásuvným modulem na obou stranách napojení.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Zadejte umístění už nainstalované instance DokuWiki. Toto by měl být buď úplný popis umístění počínaje kořenem stromu webu nebo úplná URL, která odkazuje na webové umístění DokuWiki. Aby vše fungovalo, je třeba v DokuWiki zapnout protokol XMLRPC.",
-    "Links to wiki-pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
-    "Link to Wiki-Page" : "Odkaz na Wiki stránku",
-    "Links to media-files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
+    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

@@ -6,7 +6,6 @@ OC.L10N.register(
     "DokuWiki Integration" : "Integracion DokuWiki",
     "Enable SSL verification." : "Activar la verificacion SSL.",
     "Unknown error :(" : "Error desconeguda :(",
-    "Error" : "Error",
-    "Doku Wiki" : "Doku Wiki"
+    "Error" : "Error"
 },
 "nplurals=2; plural=(n > 1);");

@@ -25,12 +25,6 @@
     "Error" : "Erro",
     "Links to wiki pages are disabled in preview mode." : "Os atalhos para páginas WIKI estão desabilitados em modo de pré-visualização.",
     "Link to wiki page" : "Atalho para a página wiki.",
-    "Links to media files are disabled in preview mode." : "Atalhos para ficheiros de media estão desabilitados em modo de pré-visualização.",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Integre uma instância DokuWiki no Nextcloud. potencialmente com SSO. Para fazer o mapeamento entre utilizadores DokuWiki com SSO e os utilizadores Nextcloud, deve haver um servidor de autenticação LDAP partilhado ou então usarem uma plugin de autenticação apropriada.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Introduza a localização da instalação DokuWiki existente. Deve ser o caminho completo ou então o caminho relativo para a raiz do navegador WEB, ou um URL completo para o acesso WEB do DokuWiki. Para que a integração funcione é necessário ativar o protocolo XML-RPC no DokuWiki.",
-    "Links to wiki-pages are disabled in preview mode." : "Atalhos para páginas WIKI estão desabilitados no modo de pré-visualização.",
-    "Link to Wiki-Page" : "Atalho para a página WIKI",
-    "Links to media-files are disabled in preview mode." : "Atalhos para ficheiros media estão desabilitados no modo de pré-visualização."
+    "Links to media files are disabled in preview mode." : "Atalhos para ficheiros de media estão desabilitados em modo de pré-visualização."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

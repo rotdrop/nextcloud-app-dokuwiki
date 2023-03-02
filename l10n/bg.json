@@ -25,12 +25,6 @@
     "Error" : "Грешка",
     "Links to wiki pages are disabled in preview mode." : "Връзките към страници в уикипедия /wiki/ са деактивирани в режим на предварителен преглед.",
     "Link to wiki page" : "Връзка към страница в уикипедия /wiki/",
-    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед.",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Вграждане на съществуващ екземпляр на DokuWiki в Nextcloud, по възможност със SSO. За SSO потребителите на DokuWiki и потребителите на Nextcloud трябва да съвпадат, например чрез използване на общ бекенд за удостоверяване като LDAP или с подходяща добавка за удостоверяване от двете страни на интеграцията.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Моля, въведете местоположението на вече инсталирания екземпляр на DokuWiki. Това трябва да бъде или абсолютен път спрямо основата на уеб браузъра, или пълен URL адрес, който сочи към уеб местоположението на DokuWiki. За да заработят нещата, трябва да активирате XMLRPC протокола във вашият DokuWiki.",
-    "Links to wiki-pages are disabled in preview mode." : "Връзките към страници в уикипедия /wiki/ са деактивирани в режим на предварителен преглед.",
-    "Link to Wiki-Page" : "Връзка към страница в Уикипедия /wiki/",
-    "Links to media-files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед."
+    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -8,9 +8,6 @@ OC.L10N.register(
     "Host-part of external URL seems to be empty" : "Доменное имя внешнего URL отсутствует",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Значение \"%1$s\" для параметра \"%2$s\" не может быть преобразована в логический тип boolean.",
     "Unknown error :(" : "Неизвестная ошибка :(",
-    "Error" : "Ошибка",
-    "Links to wiki-pages are disabled in preview mode." : "Ссылки на медиафайлы отключены в режиме предварительного просмотра.",
-    "Link to Wiki-Page" : "Ссылка на Вики-страницу",
-    "Links to media-files are disabled in preview mode." : "Ссылки на медиафайлы отключены в режиме предварительного просмотра."
+    "Error" : "Ошибка"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

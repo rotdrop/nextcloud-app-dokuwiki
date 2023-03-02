@@ -19,12 +19,6 @@
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL doğrulamasını devre dışı bırakın. Kendinden imzalı sertifikalar ya da 'localhost' gibi uygun olmayan sunucu adları için gerekir.",
     "Enable SSL verification." : "SSL doğrulaması kullanılsın",
     "Unknown error :(" : "Bilinmeyen bir sorun çıktı :(",
-    "Error" : "Hata",
-    "Doku Wiki" : "Doku Wiki",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend lik LDAP, or with an appropriate auth plugin on either side of the integration." : "Tek oturum açma olanağı ile var olan bir DokuWiki kopyasını Nextcloud içine ekleyin. Tek oturum açma özelliğinin kullanılabilmesi için DokuWiki kullanıcıları ve Nextcloud kullanıcıları aynı olmalıdır.  Bunun için LDAP gibi bir ortak kimlik doğrulama hizmeti ya da bütünleştirmenin iki tarafında da uygun bir kimlik doğrulama eklentisi kullanabilirsiniz.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an abolute path relative to the root of the web-browser, or a complete URL which points to the web-location of the DokuWiki. In order to make things work your have to enable the XMLRPC protocol in your DokuWiki." : "Lütfen kurulu olan DokuWiki kopyasının konumunu yazın. Bu değer, web tarayıcısının köküne göre mutlak bir yol ya da DokuWiki web konumunu gösteren bir tam adres olmalıdır. Sorun çıkmaması için DokuWiki kopyanızda XMLRPC iletişim kuralını etkinleştirmeniz gerekir.",
-    "Links to wiki-pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları devre dışı bırakılır.",
-    "Link to Wiki-Page" : "Wiki sayfası bağlantısı",
-    "Links to media-files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır."
+    "Error" : "Hata"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

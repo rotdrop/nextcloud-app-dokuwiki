@@ -24,7 +24,7 @@
       <SettingsInputText v-model="externalLocation"
                          :label="t(appName, 'DokuWiki Installation Path')"
                          title=""
-                         :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki.')"
+                         :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.')"
                          :disabled="loading > 0"
                          @update="saveTextInput(...arguments, 'externalLocation')"
       />

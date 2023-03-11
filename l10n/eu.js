@@ -14,6 +14,7 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Instalazio arazoa; \"%2$s\" motako \"%1$s\" beharrezko baliabidea ez dago zerbitzarian instalatuta, jarri harremanetan sistemaren administratzailearekin!",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
+    "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian autentifikazio bakarraren (SSO) bidez.",
     "DokuWiki Installation Path" : "DokuWiki-ren instalazio-bidea",
     "DokuWiki Session Refresh Interval [s]" : "DokuWiki saioa freskatzeko tartea [s]",

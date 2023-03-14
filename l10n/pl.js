@@ -1,8 +1,25 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz nic nie podano.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz podano „%s”.",
+    "Host-part of external URL seems to be empty" : "Host zewnętrznego URL wygląda na pusty",
     "true" : "prawda",
-    "false" : "nieprawda",
-    "Error" : "Błąd"
+    "false" : "fałsz",
+    "DokuWiki Integration" : "Integracja DokuWiki",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problem z instalacją: wymagany zasób „%1$s” typu „%2$s” nie jest zainstalowany na serwerze, skontaktuj się z administratorem!",
+    "Error, caught an exception." : "Błąd, złapano wyjątek.",
+    "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
+    "DokuWiki" : "DokuWiki",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Dodaj istniejącą instancję DokuWiki do Nextcloud, potencjalnie z SSO.",
+    "DokuWiki Installation Path" : "Ścieżka instalacji DokuWiki",
+    "DokuWiki Session Refresh Interval [s]" : "Interwał odświeżania sesji DokuWiki [s]",
+    "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Wyłącz weryfikację SSL, np. w przypadku certyfikatów samopodpisanych lub znanych nie pasujących nazw hosta jak „localhost”.",
+    "Enable SSL verification." : "Włącz weryfikację SSL.",
+    "Unknown error :(" : "Nieznany błąd :(",
+    "Error" : "Błąd",
+    "Links to wiki pages are disabled in preview mode." : "Linki do stron wiki są zablokowane w trybie przeglądania.",
+    "Link to wiki page" : "Link do strony wiki",
+    "Links to media files are disabled in preview mode." : "Linki do mediów są zablokowane w trybie przeglądania."
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

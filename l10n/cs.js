@@ -18,7 +18,6 @@ OC.L10N.register(
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Začleňte existující instanci DokuWiki do Nextcloud, případně  se sjednoceným přihlašováním (SSO).",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Začlenit existující instanci DokuWiki do Nextcloud, případně se sjednoceným přihlašováním (SSO). Pokud má být využíváno SSO je třeba, aby uživatelské účty v Nextcloud a DokuWiki byly shodné, např. použitím společné podpůrné vrstvy pro ověřování, jako LDAP, nebo s příslušným zásuvným modulem na obou stranách napojení.",
     "DokuWiki Installation Path" : "Popis umístění instalace DokuWiki",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Zadejte umístění už nainstalované instance DokuWiki. Toto by měl být buď úplný popis umístění počínaje kořenem stromu webu nebo úplná URL, která odkazuje na webové umístění DokuWiki. Aby vše fungovalo, je třeba v DokuWiki zapnout protokol XML-RPC.",
     "DokuWiki Session Refresh Interval [s]" : "Interval opětovného načítání DokuWiki relace (sekundy)",
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Zadejte sem požadovaný interval obnovy. Interval je měřen v sekundách a měl by být poněkud nižší než nastavená životnost relace pro využívanou instanci DokuWiki.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Vypnout ověřování SSL certifikátu, např. pro certifikáty podepsané samy sebou nebo pro známé neodpovídající názvy strojů, jako je „localhost“.",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
     "Link to wiki page" : "Odkaz na wiki stránku",
-    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
+    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté.",
+    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Zadejte umístění už nainstalované instance DokuWiki. Toto by měl být buď úplný popis umístění počínaje kořenem stromu webu nebo úplná URL, která odkazuje na webové umístění DokuWiki. Aby vše fungovalo, je třeba v DokuWiki zapnout protokol XML-RPC."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

@@ -18,7 +18,6 @@ OC.L10N.register(
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration.",
     "DokuWiki Installation Path" : "DokuWiki Installation Path",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki.",
     "DokuWiki Session Refresh Interval [s]" : "DokuWiki Session Refresh Interval [s]",
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'.",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
     "Link to wiki page" : "Link to wiki page",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
+    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki."
 },
 "nplurals=2; plural=(n != 1);");

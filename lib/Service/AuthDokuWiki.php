@@ -136,7 +136,7 @@ class AuthDokuWiki
       $this->dwProto = $urlParts['scheme'];
       $this->dwHost  = $urlParts['host'];
       $this->dwPort  = isset($urlParts['port']) ? ':'.$urlParts['port'] : '';
-      $this->dwPath  = $urlParts['path'];
+      $this->dwPath  = $urlParts['path'] ?? '';
     }
 
     /* Construct the xml client control class */

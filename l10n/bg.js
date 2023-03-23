@@ -27,7 +27,6 @@ OC.L10N.register(
     "Error" : "Грешка",
     "Links to wiki pages are disabled in preview mode." : "Връзките към страници в уикипедия /wiki/ са деактивирани в режим на предварителен преглед.",
     "Link to wiki page" : "Връзка към страница в уикипедия /wiki/",
-    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Моля, въведете местоположението на вече инсталирания екземпляр на DokuWiki. Това трябва да бъде или абсолютен път, или относителен път към основата на уеб браузъра, или пълен URL адрес, който сочи към уеб местоположението на DokuWiki. За да заработят нещата, трябва да активирате XMLRPC протокола във вашият DokuWiki."
+    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед."
 },
 "nplurals=2; plural=(n != 1);");

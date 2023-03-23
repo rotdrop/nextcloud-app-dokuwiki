@@ -25,7 +25,6 @@
     "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
     "Link to wiki page" : "Odkaz na wiki stránku",
-    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Zadejte umístění už nainstalované instance DokuWiki. Toto by měl být buď úplný popis umístění počínaje kořenem stromu webu nebo úplná URL, která odkazuje na webové umístění DokuWiki. Aby vše fungovalo, je třeba v DokuWiki zapnout protokol XML-RPC."
+    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

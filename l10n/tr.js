@@ -27,7 +27,6 @@ OC.L10N.register(
     "Error" : "Hata",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları devre dışı bırakılır.",
     "Link to wiki page" : "Wiki sayfası bağlantısı",
-    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Lütfen kurulu olan DokuWiki kopyasının konumunu yazın. Bu değer, web tarayıcısının köküne göre mutlak bir yol ya da DokuWiki web konumunu gösteren bir tam adres olmalıdır. Sorun çıkmaması için DokuWiki kopyanızda XML-RPC iletişim kuralını etkinleştirmeniz gerekir."
+    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır."
 },
 "nplurals=2; plural=(n > 1);");

@@ -24,7 +24,6 @@
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
     "Link to wiki page" : "Enlace a la página wiki",
-    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Por favor ingrese la ubicación de la instancia de DokuWiki ya instalada. La misma puede ser una ruta absoluta o relativa con respecto a la raíz del directorio web, o una URL completa que apunta a la ubicación de DokuWiki. Para que funcione correctamente, tienes que habilitar el protocolo XML-RPC en tu DokuWiki."
+    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

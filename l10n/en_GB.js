@@ -27,7 +27,6 @@ OC.L10N.register(
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
     "Link to wiki page" : "Link to wiki page",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
-    "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki." : "Please enter the location of the already installed DokuWiki instance. This should either be an absolute path or relative to the root of the web browser, or a complete URL which points to the web location of the DokuWiki. In order to make things work your have to enable the XML-RPC protocol in your DokuWiki."
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
 },
 "nplurals=2; plural=(n != 1);");

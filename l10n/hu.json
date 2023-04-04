@@ -16,6 +16,11 @@
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Egy meglévő DokuWiki-példány beágyazása a Nextcloudba, akár egyszeri bejelentkezéssel (SSO-val).",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Ágyazzon be egy meglévő DokuWiki-példányt a Nextcloudba, akár egyszeri bejelentkezéssel (SSO-val). Az SSO működéséhez a DokuWiki és a Nextcloud felhasználóknak egybe kell esniük, ez például egy közös hitelesítési háttérrendszerrel oldható meg, mint az LDAP, vagy egy megfelelő hitelesítési bővítménnyel az integráció egyik oldalán.",
     "DokuWiki Installation Path" : "DokuWiki telepítési útvonala",
+    "DokuWiki Session Refresh Interval [s]" : "DokuWiki munkamenet-megújítási intervalluma [s]",
+    "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Adja meg itt a kívánt munkamenet-megújítási intervallumot. Az intervallum másodpercben mért, és valamivel kisebbnek kell lennie, mint a DokuWiki-példányon beállított munkamenet-élettartam.",
+    "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL-ellenőrzés letiltása, például önaláírt tanúsítványok vagy nem egyező kiszolgálónevek (például „localhost”) használatához.",
+    "Enable SSL verification." : "SSL-ellenőrzés engedélyezése.",
+    "Unknown error :(" : "Ismeretlen hiba :(",
     "Error" : "Hiba"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

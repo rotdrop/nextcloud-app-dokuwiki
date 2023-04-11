@@ -14,13 +14,19 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, entre em contato com o administrador do sistema!",
     "Error, caught an exception." : "Erro, veja a exceção ",
     "Caused by previous exception" : "Causado por uma exceção anterior",
+    "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Incorpore uma instância existente do DokuWiki no Nextcloud, potencialmente com SSO.",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration.",
     "DokuWiki Installation Path" : "Caminho de Instalação do DokuWiki",
+    "Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki." : "Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.",
     "DokuWiki Session Refresh Interval [s]" : "Intervalo[s] de atualização da sessão do DokuWiki ",
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Insira aqui o intervalo de atualização de sessão desejado. O intervalo é medido em segundos e deve ser um pouco menor do que o tempo de vida da sessão configurada para a instância DokuWiki em uso.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, por exemplo para certificados autoassinados ou nomes de host incompatíveis conhecidos, como 'localhost'.",
     "Enable SSL verification." : "Ative a verificação SSL.",
     "Unknown error :(" : "Erro desconhecido :(",
-    "Error" : "Erro"
+    "Error" : "Erro",
+    "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
+    "Link to wiki page" : "Link to wiki page",
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

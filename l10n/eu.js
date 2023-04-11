@@ -16,12 +16,17 @@ OC.L10N.register(
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian autentifikazio bakarraren (SSO) bidez.",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian SSOarekin. SSOrako DokuWiki erabiltzaileek eta Nextcloud erabiltzaileek bat egin behar dute, adibidez. LDAP bezalako autentifikazio-sistema komun bat erabiliz, edo integrazioaren bi aldeetan autentifikazio-plugin egoki baten bidez.",
     "DokuWiki Installation Path" : "DokuWiki-ren instalazio-bidea",
+    "Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki." : "Sartu dagoeneko instalatutako DokuWiki instantziaren kokapena. Honek bide bat izan behar du, absolutua edo erlatiboa web zerbitzariaren erroarekiko, edo DokuWiki-ren web-kokapenera seinalatzen duen URL osoa. Gauzak funtzionatzeko, zure DokuWiki-n XML-RPC protokoloa gaitu behar duzu.",
     "DokuWiki Session Refresh Interval [s]" : "DokuWiki saioa freskatzeko tartea [s]",
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Idatzi saioa-freskatzeko nahi duzun  tartea hemen. Tartea segundotan neurtzen da eta erabiltzen ari den DokuWiki instantziarako konfiguratutako saioaren iraupena baino zertxobait txikiagoa izan behar du.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desgaitu SSL egiaztapena, adibidez norberak sinatutako ziurtagirietarako edo \"localhost\" bezalako ostalari-izen desegokietarako.",
     "Enable SSL verification." : "Gaitu SSL egiaztapena.",
     "Unknown error :(" : "Errore ezezaguna :(",
-    "Error" : "Errorea"
+    "Error" : "Errorea",
+    "Links to wiki pages are disabled in preview mode." : "Wiki orrietarako estekak desgaituta daude aurrebista moduan.",
+    "Link to wiki page" : "Esteka wiki orrira",
+    "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan."
 },
 "nplurals=2; plural=(n != 1);");

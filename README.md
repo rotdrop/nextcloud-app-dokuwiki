@@ -14,10 +14,10 @@ DokuWiki Integration for Nextcloud
     - [TL;DR](#tldr)
     - [NC Domain equals DW Domain](#nc-domain-equals-dw-domain)
     - [Different Domains, but same Web-Server](#different-domains-but-same-web-server)
-      - [Apache](#apache)
+      - [Example for Apache](#example-for-apache)
       - [Example for NGINX](#example-for-nginx)
     - [Different Domains, different Web-Server](#different-domains-different-web-server)
-      - [Example for Apache](#example-for-apache)
+      - [Example for Apache](#example-for-apache-1)
       - [Example for NGINX](#example-for-nginx-1)
 - [jQuery Popup](#jquery-popup)
 - [More Documentation should follow ...](#more-documentation-should-follow-)
@@ -103,7 +103,7 @@ adminstrator settings of the app.
 In this case the simplest thing is to just map the DokuWiki
 installation a second time by a simple `Alias` directive.
 
-#### Apache
+#### Example for Apache
 
 Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
 

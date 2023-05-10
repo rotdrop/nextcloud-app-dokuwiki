@@ -58,20 +58,22 @@ const loadHandler = function(frame, frameWrapper, callback) {
     // make sure that links in the preview pane are NOT followed.
     previewDiv.querySelectorAll('a[class^="wikilink"]').forEach(el => {
       el.addEventListener('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
         const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
           t(appName, 'Links to wiki pages are disabled in preview mode.'),
           t(appName, 'Link to wiki page') + ' "' + href + '"');
-        event.stopPropagation();
       }, true);
     });
     previewDiv.querySelectorAll('a[class^="media"]').forEach(el => {
       el.addEventListener('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
         const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
           t(appName, 'Links to media files are disabled in preview mode.'),
           t(appName, 'Link to wiki page') + ' "' + href + '"');
-        event.stopPropagation();
       }, true);
     });
   }

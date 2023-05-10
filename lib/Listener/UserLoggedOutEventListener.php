@@ -29,7 +29,9 @@ use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\AppFramework\IAppContainer;
+use OCP\IRequest;
 use Psr\Log\LoggerInterface as ILogger;
+use Psr\Log\LogLevel;
 
 use OCA\DokuWiki\Service\AuthDokuWiki;
 
@@ -37,6 +39,7 @@ use OCA\DokuWiki\Service\AuthDokuWiki;
 class UserLoggedOutEventListener implements IEventListener
 {
   use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Toolkit\Traits\ApiRequestTrait;
 
   const EVENT = HandledEvent::class;
 
@@ -56,8 +59,14 @@ class UserLoggedOutEventListener implements IEventListener
     if (!($event instanceof HandledEvent)) {
       return;
     }
+    /** @var HandledEvent $event */
 
     $this->logger = $this->appContainer->get(ILogger::class);
+
+    $request = $this->appContainer->get(IRequest::class);
+    if ($this->isNonInteractiveRequest($request, LogLevel::DEBUG)) {
+      return;
+    }
 
     try {
       $authenticator = $this->appContainer->get(AuthDokuWiki::class);

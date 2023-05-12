@@ -7,6 +7,11 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Внешний URL должен содержать \"http\" или \"https\", а указан \"%s\".",
     "Host-part of external URL seems to be empty" : "Доменное имя внешнего URL отсутствует",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Значение \"%1$s\" для параметра \"%2$s\" не может быть преобразована в логический тип boolean.",
+    "true" : "верно",
+    "false" : "ложь",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблема с установкой; требуемый ресурс \"%1$s\" типа \"%2$s\" не установлен на сервере, пожалуйста, свяжитесь с системным администратором!",
+    "Error, caught an exception." : "Ошибка, обнаружено исключение.",
+    "Caused by previous exception" : "Вызвано предыдущим исключением",
     "Unknown error :(" : "Неизвестная ошибка :(",
     "Error" : "Ошибка"
 },

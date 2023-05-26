@@ -25,6 +25,8 @@
     "Error" : "錯誤",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
     "Link to wiki page" : "連結至 wiki 頁面",
-    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
+    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。",
+    "Wiki-page %1$s has been renamed to %2$s." : "wiki 頁面 %1$s 已被重新命名為 %2$s。",
+    "Renaming of wiki-page %1$s to %2$s failed." : "將 wiki 頁面 %1$s重命名為 %2$s 失敗。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

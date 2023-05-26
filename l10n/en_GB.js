@@ -27,6 +27,8 @@ OC.L10N.register(
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
     "Link to wiki page" : "Link to wiki page",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
+    "Wiki-page %1$s has been renamed to %2$s." : "Wiki-page %1$s has been renamed to %2$s.",
+    "Renaming of wiki-page %1$s to %2$s failed." : "Renaming of wiki-page %1$s to %2$s failed."
 },
 "nplurals=2; plural=(n != 1);");

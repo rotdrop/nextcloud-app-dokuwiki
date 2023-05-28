@@ -28,6 +28,7 @@ OC.L10N.register(
     "Links to wiki pages are disabled in preview mode." : "Links zu Wiki-Seiten sind in der Vorschau deaktiviert.",
     "Link to wiki page" : "Link zur Wiki-Seite",
     "Links to media files are disabled in preview mode." : "Links zu Mediendateien sind in der Vorschau deaktiviert.",
+    "Wiki-page %1$s has been renamed to %2$s." : "Die Wiki-Seite %1$s wurde umbenannt in %2$s.",
     "Renaming of wiki-page %1$s to %2$s failed." : "Fehler bei der Umbenennung der Wiki-Seite %1$s zu %2$s."
 },
 "nplurals=2; plural=(n != 1);");

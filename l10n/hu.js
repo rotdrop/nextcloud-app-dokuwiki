@@ -27,6 +27,8 @@ OC.L10N.register(
     "Error" : "Hiba",
     "Links to wiki pages are disabled in preview mode." : "A wiki oldalakra mutató hivatkozások le vannak tiltva az előnézeti módban.",
     "Link to wiki page" : "Hivatkozás egy wiki oldalra",
-    "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban."
+    "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban.",
+    "Wiki-page %1$s has been renamed to %2$s." : "A(z) %1$s Wiki-oldal át lett nevezve erre: %2$s.",
+    "Renaming of wiki-page %1$s to %2$s failed." : "A(z) %1$s Wiki-oldal átnevezése erre sikertelen: %2$s."
 },
 "nplurals=2; plural=(n != 1);");

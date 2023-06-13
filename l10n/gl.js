@@ -6,7 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "O esquema de URL externo debe ser \"http\" ou \"https\", pero non se especificou nada.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "O esquema de URL externo debe ser un dos \"http\" ou \"https\", \"%s\" indicado.",
     "Host-part of external URL seems to be empty" : "A parte do host do URL externo parece estar baleira",
-    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor \"%1$s\" para configurar \"%2$s\" non se pode converter en booleano.",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor «%1$s» para o axuste «%2$s» non é posíbel convertelo a booleano.",
     "true" : "certo",
     "false" : "falso",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; o recurso necesario \"%1$s\" de tipo \"%2$s\" non está instalado no servidor, póñase en contacto co administrador do sistema!",

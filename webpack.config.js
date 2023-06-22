@@ -83,6 +83,8 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     ],
     exclude: [
       // 'src/toolkit/**',
+      'src/toolkit/util/file-download.js',
+      'src/toolkit/util/pangram.js',
     ],
   }),
   new BundleAnalyzerPlugin({

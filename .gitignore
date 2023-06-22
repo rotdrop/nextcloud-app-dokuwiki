@@ -12,3 +12,4 @@ composer.json
 vendor
 lib/Toolkit/[A-Z]*
 *-build-hash
+*~

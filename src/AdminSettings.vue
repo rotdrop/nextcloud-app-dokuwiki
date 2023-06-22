@@ -61,8 +61,8 @@
 </template>
 <script>
 import { appName } from './config.js'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
+import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
 import settingsSync from './toolkit/mixins/settings-sync'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'

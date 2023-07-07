@@ -12,6 +12,7 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; o recurso necesario «%1$s» de tipo «%2$s» non está instalado no servidor, póñase en contacto coa administración do sistema!",
     "Error, caught an exception." : "Erro, detectouse unha excepción.",
     "Caused by previous exception" : "Causado por unha excepción anterior",
+    "Enable SSL verification." : "Activar a verificación SSL.",
     "Error" : "Erro"
 },
 "nplurals=2; plural=(n != 1);");

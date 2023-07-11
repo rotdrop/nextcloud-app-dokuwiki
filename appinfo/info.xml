@@ -5,7 +5,7 @@
   <name>DokuWiki Integration</name>
   <summary>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.</summary>
   <description>Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration.</description>
-  <version>1.0.0</version>
+  <version>1.0.1-rc1</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
   <namespace>DokuWiki</namespace>

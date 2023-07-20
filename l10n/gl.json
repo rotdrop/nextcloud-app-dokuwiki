@@ -9,7 +9,7 @@
     "true" : "certo",
     "false" : "falso",
     "DokuWiki Integration" : "Integración de DokuWiki",
-    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; o recurso necesario «%1$s» de tipo «%2$s» non está instalado no servidor, póñase en contacto coa administración do sistema!",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; precísase o recurso «%1$s» de tipo «%2$s» mais non está instalado no servidor, póñase en contacto coa administración do sistema!",
     "Error, caught an exception." : "Erro, detectouse unha excepción.",
     "Caused by previous exception" : "Causado por unha excepción anterior",
     "DokuWiki" : "DokuWiki",

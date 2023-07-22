@@ -23,7 +23,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Introduza aquí o intervalo de actualización da sesión desexado. O intervalo mídese en segundos e debería ser algo máis pequeno que o tempo de vida da sesión configurado para a instancia de DokuWiki en uso.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desactivar a verificación SSL, p. ex. para certificados asinados por si mesmos ou nomes de máquina coñecidos que non coinciden, como «localhost».",
     "Enable SSL verification." : "Activar a verificación SSL.",
-    "Unknown error :(" : "Erro descoñecido :(",
+    "Unknown error :(" : "Produciuse un erro descoñecido :(",
     "Error" : "Erro",
     "Links to wiki pages are disabled in preview mode." : "As ligazóns a páxinas wiki están desactivadas no modo de vista previa.",
     "Link to wiki page" : "Ligazón á páxina wiki",

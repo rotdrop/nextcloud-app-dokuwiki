@@ -27,8 +27,6 @@ OC.L10N.register(
     "Error" : "Hata",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları devre dışı bırakılır.",
     "Link to wiki page" : "Wiki sayfası bağlantısı",
-    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır.",
-    "Wiki-page %1$s has been renamed to %2$s." : "%1$s Viki sayfasının adı %2$s olarak değiştirildi.",
-    "Renaming of wiki-page %1$s to %2$s failed." : "%1$s Viki sayfasının adı %2$s olarak değiştirilemedi."
+    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır."
 },
 "nplurals=2; plural=(n > 1);");

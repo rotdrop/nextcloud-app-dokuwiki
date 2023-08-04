@@ -27,8 +27,6 @@ OC.L10N.register(
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
     "Link to wiki page" : "Enlace a la página wiki",
-    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización.",
-    "Wiki-page %1$s has been renamed to %2$s." : "La página de Wiki %1$s ha sido renombrada a %2$s",
-    "Renaming of wiki-page %1$s to %2$s failed." : "El renombrado de la página wiki %1$s a %2$s falló."
+    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -27,8 +27,6 @@ OC.L10N.register(
     "Error" : "Erro",
     "Links to wiki pages are disabled in preview mode." : "As ligazóns a páxinas wiki están desactivadas no modo de vista previa.",
     "Link to wiki page" : "Ligazón á páxina wiki",
-    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa.",
-    "Wiki-page %1$s has been renamed to %2$s." : "A páxina Wiki %1$s foi renomeada a %2$s.",
-    "Renaming of wiki-page %1$s to %2$s failed." : "Produciuse un fallo ao cambiar o nome da páxina wiki %1$s a %2$s."
+    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa."
 },
 "nplurals=2; plural=(n != 1);");

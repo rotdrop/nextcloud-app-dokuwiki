@@ -1,11 +1,30 @@
 { "translations": {
     "Unknown admin setting: \"%1$s\"" : "Paràmetre d'administrador desconegut: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "El paràmetre de l'administrador \"%1$s\" és només de lectura",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "L'esquema d'URL extern ha de ser \"http\" o \"https\", però no s'ha especificat res.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "L'esquema d'URL extern ha de ser un dels \"http\" o \"https\", \"%s\" indicats.",
+    "Host-part of external URL seems to be empty" : "La part de l'amfitrió de l'URL extern sembla estar buida",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "El valor \"%1$s\" per al paràmetre \"%2$s\" no es pot convertir en enter o està fora de l'interval (el mínim és de %d segons).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "El valor \"%1$s\" per paràmetre \"%2$s\" no es pot convertir en booleà.",
     "true" : "cert",
     "false" : "fals",
+    "DokuWiki Integration" : "Integració DokuWiki",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema d'instal·lació; el recurs necessari \"%1$s\" del tipus \"%2$s\" no està instal·lat al servidor, poseu-vos en contacte amb l'administrador del sistema!",
     "Error, caught an exception." : "Error, s'ha detectat una excepció.",
     "Caused by previous exception" : "Causat per una excepció anterior",
-    "Error" : "Error"
+    "DokuWiki" : "DokuWiki",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Insereix una instància de DokuWiki existent a Nextcloud, potencialment amb SSO.",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Insereix una instància de DokuWiki existent a Nextcloud, potencialment amb SSO. Per als usuaris de SSO DokuWiki i els usuaris de Nextcloud han de coincidir, p. utilitzant un rerefons d'autenticació comú com LDAP, o amb un connector d'autenticació adequat a banda i banda de la integració.",
+    "DokuWiki Installation Path" : "Camí d'instal·lació de DokuWiki",
+    "Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki." : "Introduïu la ubicació de la instància de DokuWiki ja instal·lada. Hauria de ser un camí, absolut o relatiu a l'arrel del servidor web, o un URL complet que apunta a la ubicació web del DokuWiki. Per tal que les coses funcionin, heu d'habilitar el protocol XML-RPC al vostre DokuWiki.",
+    "DokuWiki Session Refresh Interval [s]" : "Interval d'actualització de la sessió DokuWiki [s]",
+    "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Introduïu aquí l'interval d'actualització de sessió desitjat. L'interval es mesura en segons i hauria de ser una mica més petit que el temps de vida de la sessió configurat per a la instància de DokuWiki en ús.",
+    "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desactiva la verificació SSL, p. ex. per a certificats autofirmats o noms d'amfitrió coneguts que no coincideixen com \"localhost\".",
+    "Enable SSL verification." : "Habilita la verificació SSL.",
+    "Unknown error :(" : "Error desconegut :(",
+    "Error" : "Error",
+    "Links to wiki pages are disabled in preview mode." : "Els enllaços a pàgines wiki estan desactivats en mode de vista prèvia.",
+    "Link to wiki page" : "Enllaç a la pàgina wiki",
+    "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

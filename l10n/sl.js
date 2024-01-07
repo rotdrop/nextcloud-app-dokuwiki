@@ -6,6 +6,8 @@ OC.L10N.register(
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Vrednost »%1$s« za nastavitev »%2$s« ni prevedljiva v logično vrednost.",
     "true" : "prav",
     "false" : "napak",
+    "User" : "Uporabnik",
+    "Password" : "Geslo",
     "Error, caught an exception." : "Zaznana je izjemna napaka.",
     "Error" : "Napaka"
 },

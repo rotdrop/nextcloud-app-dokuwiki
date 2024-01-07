@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "true" : "αληθές",
     "false" : "ψευδές",
+    "User" : "Χρήστης",
+    "Password" : "Συνθηματικό",
     "Error" : "Σφάλμα"
 },
 "nplurals=2; plural=(n != 1);");

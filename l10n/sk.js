@@ -1,6 +1,8 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "User" : "Používateľ",
+    "Password" : "Heslo",
     "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
     "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "Unknown error :(" : "Neznáma chyba :(",

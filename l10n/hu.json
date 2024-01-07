@@ -10,6 +10,7 @@
     "false" : "hamis",
     "DokuWiki Integration" : "DokuWiki integráció",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Telepítési probléma; a kért „%1$s” „%2$s” típusú erőforrás nincs a kiszolgálóra telepítve, lépjen kapcsolatba a rendszergazdával.",
+    "Password" : "Jelszó",
     "Error, caught an exception." : "Hiba, kivétel történt.",
     "Caused by previous exception" : "Az előző kivétel okozta",
     "DokuWiki" : "DokuWiki",

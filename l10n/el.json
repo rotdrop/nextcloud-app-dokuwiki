@@ -1,6 +1,8 @@
 { "translations": {
     "true" : "αληθές",
     "false" : "ψευδές",
+    "User" : "Χρήστης",
+    "Password" : "Συνθηματικό",
     "Error" : "Σφάλμα"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

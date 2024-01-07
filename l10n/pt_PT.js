@@ -12,6 +12,8 @@ OC.L10N.register(
     "false" : "falso",
     "DokuWiki Integration" : "Integração DokuWiki",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Erro de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, contacte o administrador do sistema.",
+    "User" : "Utilizador",
+    "Password" : "Password",
     "Error, caught an exception." : "Erro, detetada uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
     "DokuWiki" : "DokuWiki",

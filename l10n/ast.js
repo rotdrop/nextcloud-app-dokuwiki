@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "Password" : "Contraseña",
     "DokuWiki" : "DokuWiki",
     "Error" : "Error"
 },

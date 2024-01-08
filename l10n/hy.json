@@ -1,0 +1,6 @@
+{ "translations": {
+    "User" : "User",
+    "Password" : "գախտնաբառ",
+    "Error" : "Սխալ"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

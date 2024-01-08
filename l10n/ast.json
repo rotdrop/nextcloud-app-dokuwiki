@@ -1,4 +1,5 @@
 { "translations": {
+    "Password" : "Contraseña",
     "DokuWiki" : "DokuWiki",
     "Error" : "Error"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

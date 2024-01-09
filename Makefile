@@ -75,6 +75,11 @@ build: dev-setup npm-build lint # test
 dev: dev-setup npm-dev lint # test
 .PHONY: dev
 
+#@@ Build the distribution assets (minified, without debugging info)
+build-no-dev:
+	make COMPOSER_OPTIONS="$(COMPOSER_OPTIONS) --no-dev" build
+.PHONY: build-no-dev
+
 #@private
 dev-setup: app-toolkit composer
 .PHONY: dev-setup
@@ -164,7 +169,6 @@ endif
 $(WEBPACK_TARGETS): $(WEBPACK_DEPS) $(BUILD_FLAVOUR_FILE)
 	make webpack-clean
 	$(NPM) run $(shell cat $(BUILD_FLAVOUR_FILE)) || rm -f $(WEBPACK_TARGETS)
-	$(NPM) run lint
 
 #@private
 npm-dev: build-flavour-dev $(WEBPACK_TARGETS)

@@ -37,6 +37,8 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\App;
 
+use OCA\DokuWiki\Listener\Registration as ListenerRegistration;
+
 /*
  *
  **********************************************************

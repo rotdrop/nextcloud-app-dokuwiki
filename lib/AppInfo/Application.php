@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2023, 2023 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2023, 2023, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -36,31 +36,6 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\App;
-use OCP\IConfig;
-use OCP\AppFramework\Services\IInitialState;
-
-/*
- *
- **********************************************************
- *
- * Events and listeners
- *
- */
-
-use OCP\EventDispatcher\IEventDispatcher;
-use OCA\DokuWiki\Listener\Registration as ListenerRegistration;
-
-/*
- *
- **********************************************************
- *
- * Assets
- *
- */
-
-use OCA\DokuWiki\Service\AssetService;
-use OCA\DokuWiki\Controller\SettingsController;
-use OCA\DokuWiki\Constants;
 
 /*
  *
@@ -97,26 +72,6 @@ class Application extends App implements IBootstrap
   /** {@inheritdoc} */
   public function boot(IBootContext $context):void
   {
-    $context->injectFn(function(
-      IConfig $config,
-      IInitialState $initialState,
-      IEventDispatcher $dispatcher,
-      AssetService $assetService,
-    ) {
-      $refreshInterval = $config->getAppValue($this->appName, SettingsController::AUTHENTICATION_REFRESH_INTERVAL, 600);
-      $dispatcher->addListener(
-        \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
-        function() use ($initialState, $refreshInterval, $assetService) {
-          $initialState->provideInitialState(
-            Constants::INITIAL_STATE_SECTION, [
-              'appName' => $this->appName,
-              SettingsController::AUTHENTICATION_REFRESH_INTERVAL => $refreshInterval,
-            ],
-          );
-          \OCP\Util::addScript($this->appName, $assetService->getJSAsset('refresh')['asset']);
-        }
-      );
-    });
   }
 
   /** {@inheritdoc} */

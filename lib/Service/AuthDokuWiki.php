@@ -242,9 +242,9 @@ class AuthDokuWiki
    *
    * @param array $data
    *
-   * @return bool
+   * @return mixed
    */
-  public function xmlRequest(string $method, array $data = []):bool
+  public function xmlRequest(string $method, array $data = []):mixed
   {
     $t = null;
     try {

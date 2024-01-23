@@ -6,7 +6,7 @@
     "Host-part of external URL seems to be empty" : "A parte do servidor do URL externo semella estar baleira",
     "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "O valor «%1$s» para o axuste «%2$s» non é posíbel convertelo a número enteiro ou está fóra do intervalo (o mínimo son %d segundos).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor «%1$s» para o axuste «%2$s» non é posíbel convertelo a booleano.",
-    "true" : "certo",
+    "true" : "verdadeiro",
     "false" : "falso",
     "DokuWiki Integration" : "Integración de DokuWiki",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; precísase do recurso «%1$s» de tipo «%2$s» mais non está instalado no servidor, póñase en contacto coa administración do sistema!",

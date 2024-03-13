@@ -1,44 +1,45 @@
-<script>
-/**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @license AGPL-3.0-or-later
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-</script>
+<!--
+ - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @license AGPL-3.0-or-later
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as
+ - published by the Free Software Foundation, either version 3 of the
+ - License, or (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program. If not, see <http://www.gnu.org/licenses/>.
+ -->
 <template>
-  <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'DokuWiki Integration')">
-    <AppSettingsSection title="">
-      <SettingsInputText v-model="externalLocation"
-                         :label="t(appName, 'DokuWiki Installation Path')"
-                         title=""
-                         :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.')"
-                         :disabled="loading > 0"
-                         @update="saveTextInput(...arguments, 'externalLocation')"
+  <div :class="['templateroot', appName, ...cloudVersionClasses]">
+    <h1 class="title">
+      {{ t(appName, 'DokuWiki Integration') }}
+    </h1>
+    <NcSettingsSection name="">
+      <TextField :value.sync="externalLocation"
+                 :label="t(appName, 'DokuWiki Installation Path')"
+                 title=""
+                 :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.')"
+                 :disabled="loading > 0"
+                 @submit="saveTextInput('externalLocation')"
       />
-    </AppSettingsSection>
-    <AppSettingsSection title="">
-      <SettingsInputText v-model="authenticationRefreshInterval"
-                         title=""
-                         :label="t(appName, 'DokuWiki Session Refresh Interval [s]')"
-                         :hint="t(appName, 'Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.')"
-                         :disabled="loading > 0"
-                         @update="saveTextInput(...arguments, 'authenticationRefreshInterval')"
+    </NcSettingsSection>
+    <NcSettingsSection title="">
+      <TextField :value.sync="authenticationRefreshInterval"
+                 title=""
+                 :label="t(appName, 'DokuWiki Session Refresh Interval [s]')"
+                 :hint="t(appName, 'Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.')"
+                 :disabled="loading > 0"
+                 @submit="saveTextInput('authenticationRefreshInterval')"
       />
-    </AppSettingsSection>
-    <AppSettingsSection title="">
+    </NcSettingsSection>
+    <NcSettingsSection name="">
       <input id="enable-ssl-verify"
              v-model="enableSSLVerify"
              class="checkbox"
@@ -56,24 +57,26 @@
       <p class="hint">
         {{ t(appName, 'Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like \'localhost\'.') }}
       </p>
-    </AppSettingsSection>
-  </SettingsSection>
+    </NcSettingsSection>
+  </div>
 </template>
 <script>
-import { appName } from './config.js'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
-import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
-import settingsSync from './toolkit/mixins/settings-sync'
+import {
+  NcSettingsSection,
+} from '@nextcloud/vue'
+import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import settingsSync from './toolkit/mixins/settings-sync.js'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
   name: 'AdminSettings',
   components: {
-    AppSettingsSection,
-    SettingsSection,
-    SettingsInputText,
+    NcSettingsSection,
+    TextField,
   },
+  mixins: [
+    settingsSync,
+  ],
   data() {
     return {
       loading: 0,
@@ -83,9 +86,6 @@ export default {
       enableSSLVerify: null,
     }
   },
-  mixins: [
-    settingsSync,
-  ],
   computed: {
   },
   watch: {},
@@ -106,13 +106,16 @@ export default {
         --this.loading
       })
     },
-    async saveTextInput(value, settingsKey, force) {
+    async saveTextInput(settingsKey, value, force) {
+      if (value === undefined) {
+        value = this[settingsKey] || ''
+      }
       if (this.loading > 0) {
         // avoid ping-pong by reactivity
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
         return
       }
-      this.saveConfirmedSetting(value, 'admin', settingsKey, force);
+      this.saveConfirmedSetting(value, 'admin', settingsKey, force)
     },
     async saveSetting(setting) {
       if (this.loading > 0) {
@@ -138,23 +141,23 @@ export default {
     --cloud-theme-filter: var(--background-invert-if-dark);
   }
 }
-.flex-container {
-  display:flex;
-  &.flex-column {
-    flex-direction:column;
+.templateroot {
+  .flex-container {
+    display:flex;
+    &.flex-column {
+      flex-direction:column;
+    }
+    &.flex-row {
+      flex-direction:row;
+    }
+    &.flex-center {
+      align-items:center;
+    }
   }
-  &.flex-row {
-    flex-direction:row;
-  }
-  &.flex-center {
-    align-items:center;
-  }
-}
-.settings-section {
-  :deep(.app-settings-section) {
-    margin-bottom: 40px;
-  }
-  :deep(.settings-section__title) {
+  h1.title {
+    margin: 30px 30px 0px;
+    font-size:revert;
+    font-weight:revert;
     position: relative;
     padding-left:48px;
     height:32px;
@@ -173,10 +176,10 @@ export default {
       filter: var(--cloud-theme-filter);
     }
   }
-}
-.hint {
-  color: var(--color-text-lighter);
-  font-style: italic;
-  max-width: 400px;
+  .hint {
+    color: var(--color-text-lighter);
+    font-style: italic;
+    max-width: 400px;
+  }
 }
 </style>

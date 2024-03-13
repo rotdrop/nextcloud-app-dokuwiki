@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -37,21 +37,12 @@ class Admin implements IDelegatedSettings
   const TEMPLATE = 'admin-settings';
   const ASSET_NAME = 'admin-settings';
 
-  /** @var IConfig */
-  private $config;
-
-  /** @var AssetService */
-  private $assetService;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
-    IConfig $config,
-    AssetService $assetService,
+    private string $appName,
+    private IConfig $config,
+    private AssetService $assetService,
   ) {
-    $this->appName = $appName;
-    $this->config = $config;
-    $this->assetService = $assetService;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

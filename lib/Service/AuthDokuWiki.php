@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -65,18 +65,6 @@ class AuthDokuWiki
   /** @var string */
   private $appName;
 
-  /** @var IConfig */
-  private $config;
-
-  /** @var IRequest */
-  private $request;
-
-  /** @var \OCP\IURLGeneator */
-  private $urlGenerator;
-
-  /** @var \OCP\Authentication\LoginCredentials\IStore */
-  private $credentialsStore;
-
   private $dwProto = null;
   private $dwHost = null;
   private $dwPort = null;
@@ -103,20 +91,13 @@ class AuthDokuWiki
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     Application $app,
-    IConfig $config,
-    IRequest $request,
-    ICredentialsStore $credentialsStore,
-    IURLGenerator $urlGenerator,
-    ILogger $logger,
-    IL10N $l10n,
+    private IConfig $config,
+    private IRequest $request,
+    private ICredentialsStore $credentialsStore,
+    private IURLGenerator $urlGenerator,
+    protected ILogger $logger,
   ) {
     $this->appName = $app->getAppName();
-    $this->config = $config;
-    $this->request = $request;
-    $this->credentialsStore = $credentialsStore;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
 
     $this->errorReporting = self::ON_ERROR_RETURN;
 

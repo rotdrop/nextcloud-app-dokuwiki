@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -71,26 +71,16 @@ class SettingsController extends Controller
     ],
   ];
 
-  /** @var IConfig */
-  private $config;
-
-  /** @var IURLGenerator */
-  private $urlGenerator;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    LoggerInterface $logger,
-    IURLGenerator $urlGenerator,
-    IL10N $l10n,
-    IConfig $config,
+    protected LoggerInterface $logger,
+    private IURLGenerator $urlGenerator,
+    protected IL10N $l,
+    private IConfig $config,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->urlGenerator = $urlGenerator;
-    $this->l = $l10n;
-    $this->config = $config;
   }
   // phpcs:enable
 

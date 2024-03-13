@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -37,26 +37,15 @@ class AuthenticationController extends Controller
 {
   use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
 
-  /** @var Authenticator */
-  private $authenticator;
-
-  /** @var string */
-  private $userId;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    ?string $userId,
-    Authenticator $authenticator,
-    ILogger $logger,
-    IL10N $l10n,
+    private ?string $userId,
+    private Authenticator $authenticator,
+    protected ILogger $logger,
   ) {
     parent::__construct($appName, $request);
-    $this->userId = $userId;
-    $this->authenticator = $authenticator;
-    $this->logger = $logger;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

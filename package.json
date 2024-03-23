@@ -1,6 +1,6 @@
 {
   "name": "@rotdrop/nextcloud-app-dokuwiki",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Support embedding an existing DokuWiki instance with SSO",
   "keywords": [],
   "homepage": "https://github.com/rotdrop/nextcloud-app-text-dokuwiki.git",

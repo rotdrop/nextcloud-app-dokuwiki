@@ -43,6 +43,14 @@ use OCP\AppFramework\App;
  *
  */
 
+use OCA\DokuWiki\Listener\Registration as ListenerRegistration;
+
+/*
+ *
+ **********************************************************
+ *
+ */
+
 include_once __DIR__ . '/../../vendor/autoload.php';
 
 /**

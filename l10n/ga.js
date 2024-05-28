@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
     "Error" : "Earráid"
 },

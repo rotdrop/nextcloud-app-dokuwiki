@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "User" : "Användare",
     "Password" : "Lösenord",
     "Error" : "Fel"
 },

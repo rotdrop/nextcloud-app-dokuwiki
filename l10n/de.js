@@ -14,6 +14,8 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte den System-Administrator kontaktieren!",
     "User" : "Benutzer",
     "Password" : "Passwort",
+    "Login succeeded." : "Anmeldung erfolgreich.",
+    "Login failed." : "Anmeldung fehlgeschlagen.",
     "Error, caught an exception." : "Fehler, Ausnahme abgefangen.",
     "Caused by previous exception" : "Verursacht durch eine vorangegangene Ausnahme",
     "DokuWiki" : "DokuWiki",

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -61,16 +61,16 @@
     }
 
     &.trace {
-      display:none;
-      &.visible {
-        display: block;
-      }
       font-weight:bold;
       color:blue;
       margin: 0 2em 0 2em;
       max-width:100%;
       overflow:auto;
       /* white-space:nowrap; */
+      display:none;
+      &.visible {
+        display: block;
+      }
     }
 
     &.trace p {
@@ -82,14 +82,14 @@
       font-weight:bold;
     }
     .trace {
-      display:none;
-      &.visible {
-        display: block;
-      }
       color:blue;
       margin: 0 2em 0 2em;
       max-width:100%;
       overflow:auto;
+      display:none;
+      &.visible {
+        display: block;
+      }
     }
     ul.technical li {
       &.class, &.code, &.file, &.line {

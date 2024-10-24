@@ -1,6 +1,6 @@
 { "translations": {
-    "Unknown admin setting: \"%1$s\"" : "إعدادات المشرف مجهولة: \"%1$s\"",
-    "The admin setting \"%1$s\" is read-only" : "إعدادات المشرف \"%1$s\" للقراءة فقط",
+    "Unknown admin setting: \"%1$s\"" : "إعدادات المدير مجهولة: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "إعدادات المدير \"%1$s\" للقراءة فقط",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "مخطط العنوان الخارجي URL يجب أن يكون إمّا \"http\"  أو  \"https\"، لكن لم يتم تعيين أيّاً منها",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "مخطط العنوان الخارجي URL يجب أن يكون إمّا \"http\" أو \"https\"، \"%s\" مُعيّن.",
     "Host-part of external URL seems to be empty" : "خانة اسم المضيف في عنوان URLالخارجي تبدو فارغة",
@@ -9,7 +9,7 @@
     "true" : "صحيح",
     "false" : "خطأ",
     "DokuWiki Integration" : "مكاملة دوكو ويكي DocuWiki",
-    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "مشكلة في التنصيب؛ المورد المطلوب \"%1$s\" من نوع \"%2$s\"  لم يتم تنصيبه على المُخدّم، يرجى الاتصال مع مشرف النظام!",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "مشكلة في التنصيب؛ المورد المطلوب \"%1$s\" من نوع \"%2$s\"  لم يتم تنصيبه على المُخدّم، يرجى الاتصال مع مدير النظام!",
     "User" : "مستخدم",
     "Password" : "كلمة المرور",
     "Login succeeded." : "تمّ الدخول بنجاح.",

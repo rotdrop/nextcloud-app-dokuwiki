@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "Unknown error :(" : "Nežinoma klaida :(",
     "Error" : "Klaida"

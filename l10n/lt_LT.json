@@ -1,4 +1,5 @@
 { "translations": {
+    "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "Unknown error :(" : "Nežinoma klaida :(",
     "Error" : "Klaida"

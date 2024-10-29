@@ -5,6 +5,7 @@ OC.L10N.register(
     "The admin setting \"%1$s\" is read-only" : " 管理者設定\"%1$s\"は読み取り専用です",
     "User" : "ユーザー",
     "Password" : "パスワード",
+    "Enable SSL verification." : "SSL検証を有効にする。",
     "Error" : "エラー"
 },
 "nplurals=1; plural=0;");

@@ -16,6 +16,7 @@ OC.L10N.register(
     "Login failed." : "Ошибка входа.",
     "Error, caught an exception." : "Ошибка, обнаружено исключение.",
     "Caused by previous exception" : "Вызвано предыдущим исключением",
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Встроить существующий экземпляр DokuWiki в Nextcloud, возможно с SSO. Для SSO пользователи DokuWiki и Nextcloud должны совпадать, например, используя общий бэкэнд аутентификации, такой как LDAP, или с соответствующим плагином аутентификации на обеих сторонах интеграции.",
     "Unknown error :(" : "Неизвестная ошибка :(",
     "Error" : "Ошибка"
 },

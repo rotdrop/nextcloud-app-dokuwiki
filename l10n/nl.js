@@ -6,6 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schema van externe URL moet een van \"http\" of \"https\" zijn, maar er is niets opgegeven.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Schema van externe URL moet een van \"http\" of \"https\", \"1%s\" zijn.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "De waarde \"%1$s\" voor de instelling \"%2$s\" is niet om te zetten naar een booleaanse waarde.",
+    "User" : "Gebruiker",
     "Password" : "Wachtwoord",
     "Error" : "Fout"
 },

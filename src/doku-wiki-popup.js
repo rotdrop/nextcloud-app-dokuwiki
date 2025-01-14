@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020, 2021, 2022, 2023, 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
@@ -139,7 +139,12 @@ const wikiPopup = function(options, openCallback, closeCallback) {
         height: 'auto',
         modal: options.modal,
         closeOnEscape: false,
-        dialogClass: webPrefix + '-page-popup ' + options.cssClass,
+        classes: {
+          'ui-dialog': [
+            webPrefix + '-page-popup',
+            options.cssClass,
+          ].join(' '),
+        },
         resizable: false,
         open() {
           const dialogHolder = $(this);

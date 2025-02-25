@@ -8,7 +8,7 @@
     "DokuWiki Integration" : "DokuWiki integration",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; den nødvendige ressource \"%1$s\" af typen \"%2$s\" er ikke installeret på serveren, kontakt systemadministratoren!",
     "User" : "ruger",
-    "Password" : "Password",
+    "Password" : "Adgangskode",
     "Login succeeded." : "Login lykkedes.",
     "Login failed." : "Login mislykkedes.",
     "Error, caught an exception." : "Fejl, fangede en undtagelse.",

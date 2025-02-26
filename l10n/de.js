@@ -11,7 +11,7 @@ OC.L10N.register(
     "true" : "wahr",
     "false" : "falsch",
     "DokuWiki Integration" : "DokuWiki Einbindung",
-    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte den System-Administrator kontaktieren!",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte die Systemadministration kontaktieren!",
     "User" : "Benutzer",
     "Password" : "Passwort",
     "Login succeeded." : "Anmeldung erfolgreich.",

@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
- - @copyright 2022, 2023, 2024 Claus-Justus Heine
+ - @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@
       >
         <a href="#"
            class="file-picker button icon-folder"
-           @click.prevent.stop="!disabled && openFilePicker(...arguments)"
+           @click.prevent.stop="() => !disabled && openFilePicker()"
         >
           {{ pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : '') }}
         </a>
@@ -45,19 +45,20 @@
     </div>
   </div>
 </template>
-<script>
-// import { appName } from '../config.js'
+<script lang="ts">
+import { appName } from '../config.ts'
 import { set as vueSet } from 'vue'
 import {
   getFilePickerBuilder,
   showError,
   showInfo,
   TOAST_PERMANENT_TIMEOUT,
+  FilePickerType,
 } from '@nextcloud/dialogs'
 import SettingsInputText from '../components/SettingsInputText.vue'
+import { translate as t } from '@nextcloud/l10n'
 import '@nextcloud/dialogs/style.css'
-
-const appName = APP_NAME // e.g. by webpack DefinePlugin
+import type { PropType } from 'vue'
 
 export default {
   name: 'FilePrefixPicker',
@@ -66,7 +67,7 @@ export default {
   },
   props: {
     value: {
-      type: Object,
+      type: Object as PropType<{ baseName: string, dirName: string }>,
       default() {
         return {
           baseName: this.pathInfo.baseName,
@@ -111,13 +112,15 @@ export default {
   },
   emits: [
     'input',
-    // 'update:modelValue', Vue 3
+    'update',
+    'error:invalid-dir-name',
+    'update:dirName',
   ],
   data() {
     return {
       pathInfo: {
-        dirName: null,
-        baseName: null,
+        dirName: '',
+        baseName: '',
       },
     }
   },
@@ -127,7 +130,7 @@ export default {
     },
   },
   watch: {
-    pathName(newValue, oldValue) {
+    pathName() {
       this.$emit('input', this.pathInfo) // Vue 2
     },
   },
@@ -148,8 +151,7 @@ export default {
       const picker = getFilePickerBuilder(this.filePickerTitle)
         .startAt(this.pathInfo.dirName)
         .setMultiSelect(false)
-        .setModal(true)
-        .setType(1)
+        .setType(FilePickerType.Choose)
         .setMimeTypeFilter(['httpd/unix-directory'])
         .allowDirectories()
         .build()
@@ -173,11 +175,11 @@ export default {
         }
       }
     },
-    unclippedPopup(content, html) {
+    unclippedPopup(content: string, html = true) {
       return {
         content,
         preventOverflow: true,
-        html: true,
+        html,
         // shown: true,
         // triggers: [],
         csstag: ['vue-tooltip-unclipped-popup'],

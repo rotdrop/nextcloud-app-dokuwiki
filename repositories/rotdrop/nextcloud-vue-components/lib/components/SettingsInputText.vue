@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2019, 2022, 2023, 2024 Julius Härtl <jus@bitgrid.net>
+ - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025 Julius Härtl <jus@bitgrid.net>
  - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Julius Härtl <jus@bitgrid.net>
@@ -31,7 +31,7 @@
              :value="inputVal"
              :disabled="disabled"
              :placeholder="placeholder"
-             @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
+             @input="onInput"
       >
       <input type="submit"
              class="icon-confirm"
@@ -43,7 +43,7 @@
              :id="id + '-visibility-toggle'"
              v-model="inputIsVisible"
              class="visibility-toggle"
-             type="checkbox"
+             type="checkbox">
              :disabled="disabled"
       >
       <label v-if="type === 'password'"
@@ -57,9 +57,7 @@
     </p>
   </form>
 </template>
-
-<script>
-
+<script lang="ts">
 const cloudVersion = OC.config.versionstring.split('.')
 const cloudVersionClasses = [
   'cloud-version',
@@ -112,8 +110,18 @@ export default {
     },
   },
   watch: {
-    value(newVal) {
+    value() {
       this.inputVal = this.value
+    },
+  },
+  mounted() {
+    console.info(this.$attrs)
+  },
+  methods: {
+    onInput(event: Event) {
+      const value = (event.target as HTMLInputElement).value
+      this.$emit('input', value)
+      this.inputVal = value
     },
   },
 }

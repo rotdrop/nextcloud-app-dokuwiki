@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
- - @copyright 2022, 2024 Claus-Justus Heine
+ - @copyright 2022, 2024, 2025 Claus-Justus Heine
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -70,7 +70,8 @@
     >
   </div>
 </template>
-<script>
+<script lang="ts">
+import { appName } from '../config.ts'
 import {
   NcActions,
   NcActionButton,
@@ -78,8 +79,17 @@ import {
   NcColorPicker,
 } from '@nextcloud/vue'
 import { nextTick, set as vueSet } from 'vue'
+import type { PropType } from 'vue'
+import { translate as t } from '@nextcloud/l10n'
+import type { Color as RGBColorType } from '@nextcloud/vue'
 
-const appName = APP_NAME // e.g. by webpack DefinePlugin
+type NcColorPickerType = typeof NcColorPicker
+
+const isRGBColor = (arg: any): arg is RGBColorType => !!arg && !Array.isArray(arg) && typeof arg === 'object' && (arg.r || arg.g || arg.b || arg.color) !== undefined
+
+export type {
+  RGBColorType,
+}
 
 export default {
   name: 'ColorPickerExtension',
@@ -92,8 +102,8 @@ export default {
   inheritAttrs: false,
   props: {
     value: {
-      type: String,
-      default: '',
+      type: Object as PropType<RGBColorType>,
+      default: undefined,
     },
     label: {
       type: String,
@@ -119,45 +129,66 @@ export default {
   data() {
     return {
       pickerVisible: false,
-      factoryColorPalette: undefined,
-      colorPickerPalette: undefined,
+      factoryColorPalette: undefined as undefined|RGBColorType[],
+      colorPickerPalette: undefined as undefined|RGBColorType[],
       savedState: {
-        rgbColor: undefined,
-        colorPickerPalette: undefined,
+        rgbColor: undefined as undefined|RGBColorType,
+        colorPickerPalette: undefined as undefined|RGBColorType[],
       },
       loading: true,
-      id: this._uid,
+      id: undefined as undefined|number,
+      colorValue: undefined as undefined|RGBColorType,
     }
   },
   computed: {
     cssVariables() {
       return {
-        '--button-background-color': this.rgbColor,
+        '--button-background-color': this.rgbColor.color,
         '--button-foreground-color': this.rgbToGrayScale(this.rgbColor) > 0.5 ? 'black' : 'white',
       }
     },
     colorPaletteIsDefault() {
-      return this.loading || this.colorPickerPalette.toString() === this.factoryColorPalette.toString()
+      return this.loading || ('' + this.colorPickerPalette) === ('' + this.factoryColorPalette)
     },
     colorPaletteHasChanged() {
-      return !this.loading && this.colorPickerPalette.toString() !== this.savedState.colorPickerPalette.toString()
+      return !this.loading && ('' + this.colorPickerPalette) !== ('' + this.savedState.colorPickerPalette)
     },
     /**
      * Writable computable property which updates this.value through
      * sending an event to the parent.
      */
     rgbColor: {
-      set(newValue) {
+      set(newValue: RGBColorType|string|number[]|undefined) {
         if (this.loading) {
           return
         }
-        newValue = newValue.toLowerCase()
-        this.$emit('update:value', newValue)
-        this.$emit('input', newValue)
+        if (newValue === undefined || isRGBColor(newValue)) {
+          this.colorValue = newValue
+        } else {
+          let r: number, g: number, b: number
+          const name = t(appName, 'Custom Color')
+          if (Array.isArray(newValue)) {
+            r = newValue[0]
+            g = newValue[1]
+            b = newValue[2]
+          } else {
+            const colorString = (newValue.startsWith('#') ? newValue.substring(1) : newValue) + '000000'
+            r = parseInt(colorString.substring(0, 2), 16)
+            g = parseInt(colorString.substring(2, 4), 16)
+            b = parseInt(colorString.substring(4, 6), 16)
+          }
+          const ctor = this.factoryColorPalette![0].constructor
+          this.colorValue = new ctor(r, g, b, name)
+        }
+        this.$emit('update:value', this.colorValue)
+        this.$emit('input', this.colorValue)
       },
       get() {
         return this.value
       },
+    },
+    wrappedComponent() {
+      return this.$refs!.colorPicker as NcColorPickerType
     },
   },
   watch: {
@@ -187,12 +218,13 @@ export default {
   created() {
     // console.info('VALUE', this.value, this.rgbColor, this.oldRgbColor)
     // console.info('LOADING IN CREATED', this.loading)
+    this.id = this._uid
   },
   mounted() {
     // This seemingly stupid construct of having
     // this.colorPickerPalette === undefined at start enables us to peek
     // the default palette from the NC color picker widget.
-    this.factoryColorPalette = [...this.$refs.colorPicker.palette]
+    this.factoryColorPalette = [...this.wrappedComponent.palette]
     this.info('FACTORY PALETTE', this.factoryColorPalette)
     vueSet(
       this,
@@ -211,33 +243,34 @@ export default {
     })
   },
   methods: {
-    info(...args) {
+    info(...args: any[]) {
       console.info(this.$options.name, ...args)
     },
-    submitCustomColor(color) {
+    submitCustomColor(color: RGBColorType) {
       this.prependColorToPalette(color)
     },
-    submitColorChoice(color) {
+    submitColorChoice() {
       this.pickerVisible = false
-      this.oldRgbColor = this.rgbColor
+      this.savedState.rgbColor = this.rgbColor
     },
     handleOpen() {
     },
     revertColorPalette() {
-      this.colorPickerPalette.splice(0, Infinity, ...this.oldColorPalette)
+      this.colorPickerPalette!.splice(0, Infinity, ...this.savedState.colorPickerPalette!)
     },
     resetColorPalette() {
-      this.colorPickerPalette.splice(0, Infinity, ...this.factoryColorPalette)
+      this.colorPickerPalette!.splice(0, Infinity, ...this.factoryColorPalette!)
     },
-    prependColorToPalette(color, destinationStorage) {
+    prependColorToPalette(rgbColor: RGBColorType, destinationStorage?: any) {
       if (destinationStorage === undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         destinationStorage = this
       }
-      color = color.toLowerCase()
-      if (!destinationStorage.colorPickerPalette.includes(color)) {
+      const rgb = rgbColor.color
+      if ((destinationStorage.colorPickerPalette as RGBColorType[]).findIndex(rgbColor => rgbColor.color === rgb) >= 0) {
         const palette = [...destinationStorage.colorPickerPalette]
         palette.pop()
-        palette.splice(0, 0, color)
+        palette.splice(0, 0, rgbColor)
         vueSet(destinationStorage, 'colorPickerPalette', palette)
       }
     },
@@ -246,19 +279,19 @@ export default {
      * switch the trigger-button color between black and white,
      * depending on the grey-value of the color.
      *
-     * @param {Array} rgb RGB color array.
+     * @param color RGB color
      *
-     * @return {number} Grey-value corresponding to rgb.
+     * @return Grey-value corresponding to rgb.
      */
-    rgbToGrayScale(rgb) {
-      const r = Number('0x' + rgb.substring(1, 3))
-      const g = Number('0x' + rgb.substring(3, 5))
-      const b = Number('0x' + rgb.substring(5, 7))
-      return (0.3 * r + 0.59 * g + 0.11 * b) / 255.0
+    rgbToGrayScale(color: RGBColorType) {
+      // const r = Number('0x' + rgb.substring(1, 3))
+      // const g = Number('0x' + rgb.substring(3, 5))
+      // const b = Number('0x' + rgb.substring(5, 7))
+      return (0.3 * color.r + 0.59 * color.g + 0.11 * color.b) / 255.0
     },
     saveState() {
       this.savedState.rgbColor = this.rgbColor
-      this.savedState.colorPickerPalette = [...this.colorPickerPalette]
+      this.savedState.colorPickerPalette = [...this.colorPickerPalette!]
       this.prependColorToPalette(this.rgbColor, this.savedState)
     },
   },
@@ -267,25 +300,25 @@ export default {
 <style scoped lang="scss">
 .color-picker-container {
   .trigger-button {
+    background-color: var(--button-background-color);
+    color: var(--button-foreground-color);
     margin-right:0;
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     &:not(:focus,:hover) {
       border-right:0;
     }
-    background-color: var(--button-background-color);
-    color: var(--button-foreground-color);
   }
   .confirm-button {
+    min-height: 44px; // in order to match NcButton
     border-top-left-radius:0;
     border-bottom-left-radius:0;
-    &:not(:focus,:hover) {
-      border-left:2px solid var(--color-background-dark);
-    }
-    min-height: 44px; // in order to match NcButton
     border: 2px solid var(--color-border-dark);
     &:hover:not(:disabled) {
       border: 2px solid var(--color-primary-element);
+    }
+    &:not(:focus,:hover) {
+      border-left:2px solid var(--color-background-dark);
     }
   }
 }

@@ -40,7 +40,7 @@ import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
  * }
  * ```
  *
- * @return {string}
+ * @returns {string}
  */
 const generateUrl = function(url, urlParams, urlOptions) {
   // const str = '/image/{joinTable}/{ownerId}';

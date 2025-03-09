@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -40,7 +40,7 @@ import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
  * }
  * ```
  *
- * @returns {string}
+ * @return {string}
  */
 const generateUrl = function(url, urlParams, urlOptions) {
   // const str = '/image/{joinTable}/{ownerId}';

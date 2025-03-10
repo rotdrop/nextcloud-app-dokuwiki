@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
 const fs = require('fs');
@@ -23,10 +24,10 @@ const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
 webpackConfig.entry = {
-  'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
-  popup: path.join(__dirname, 'src', 'doku-wiki-popup.js'),
-  refresh: path.join(__dirname, 'src', 'refresh.js'),
-  app: path.join(__dirname, 'src', 'index.js'),
+  'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
+  popup: path.join(__dirname, 'src', 'doku-wiki-popup.ts'),
+  refresh: path.join(__dirname, 'src', 'refresh.ts'),
+  app: path.join(__dirname, 'src', 'index.ts'),
 };
 
 webpackConfig.output = {
@@ -143,11 +144,51 @@ webpackConfig.module.rules = [
   {
     test: /\.vue$/,
     loader: 'vue-loader',
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      'vue-material-design-icons',
+      'emoji-mart-vue-fast',
+      '@rotdrop/nextcloud-vue-components',
+      '@nextcloud/vue',
+      '@nextcloud/app-logreader/src',
+      '@nextcloud/app-calendar/src',
+    ]),
   },
   {
     test: /\.js$/,
     loader: 'babel-loader',
-    exclude: /node_modules/,
+    // automatically detect necessary packages to
+    // transpile in the node_modules folder
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@nextcloud/dialogs',
+      '@nextcloud/event-bus',
+      'davclient.js',
+      'nextcloud-vue-collections',
+      'p-finally',
+      'p-limit',
+      'p-locate',
+      'p-queue',
+      'p-timeout',
+      'p-try',
+      'semver',
+      'striptags',
+      'toastify-js',
+      'v-tooltip',
+      'yocto-queue',
+    ]),
+  },
+  {
+    test: /\.tsx?$/,
+    use: [
+      'babel-loader',
+      {
+        // Fix TypeScript syntax errors in Vue
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+    exclude: BabelLoaderExcludeNodeModulesExcept([]),
   },
 ];
 

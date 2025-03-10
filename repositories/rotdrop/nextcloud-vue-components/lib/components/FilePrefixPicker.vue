@@ -40,14 +40,20 @@
                          :placeholder="placeholder"
                          :readonly="readonly === 'basename'"
                          :disabled="disabled"
-                         @update="$emit('update', pathInfo)"
+                         @update="emit('update', pathInfo)"
       />
     </div>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import { appName } from '../config.ts'
-import { set as vueSet } from 'vue'
+import {
+  set as vueSet,
+  ref,
+  computed,
+  watch,
+  onBeforeMount,
+} from 'vue'
 import {
   getFilePickerBuilder,
   showError,
@@ -58,134 +64,102 @@ import {
 import SettingsInputText from '../components/SettingsInputText.vue'
 import { translate as t } from '@nextcloud/l10n'
 import '@nextcloud/dialogs/style.css'
-import type { PropType } from 'vue'
 
-export default {
-  name: 'FilePrefixPicker',
-  components: {
-    SettingsInputText,
-  },
-  props: {
-    value: {
-      type: Object as PropType<{ baseName: string, dirName: string }>,
-      default() {
-        return {
-          baseName: this.pathInfo.baseName,
-          dirName: this.pathInfo.dirName,
-        }
-      },
-    },
-    baseName: {
-      type: String,
-      default: undefined,
-    },
-    dirName: {
-      type: String,
-      default: undefined,
-    },
-    onlyDirName: {
-      type: Boolean,
-      default: false,
-    },
-    hint: {
-      type: String,
-      default: undefined,
-    },
-    placeholder: {
-      type: String,
-      default: undefined,
-    },
-    readonly: {
-      type: [Boolean, String],
-      default: undefined,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    filePickerTitle: {
-      type: String,
-      default() {
-        return this.onlyDirName ? t(appName, 'Choose a folder') : t(appName, 'Choose a prefix-folder')
-      },
-    },
-  },
-  emits: [
+const props = withDefaults(
+  defineProps<{
+    value?: { baseName: string, dirName: string },
+    baseName?: string,
+    dirName?: string,
+    onlyDirName?: boolean
+    hint: string,
+    placeholder?: string,
+    readonly?: boolean|string,
+    disabled?: boolean,
+    filePickerTitle?: string,
+  }>(), {
+    value: () => { return { baseName: '', dirName: '' } },
+    baseName: undefined,
+    dirName: undefined,
+    onlyDirName: false,
+    hint: undefined,
+    placeholder: undefined,
+    readonly: undefined,
+    disabled: undefined,
+    filePickerTitle: undefined,
+  }
+)
+
+const emit = defineEmits([
     'input',
     'update',
     'error:invalid-dir-name',
     'update:dirName',
-  ],
-  data() {
-    return {
-      pathInfo: {
-        dirName: '',
-        baseName: '',
-      },
-    }
-  },
-  computed: {
-    pathName() {
-      return (this.pathInfo.dirName ? this.pathInfo.dirName + '/' : '') + (this.onlyDirName ? '' : this.pathInfo.baseName)
-    },
-  },
-  watch: {
-    pathName() {
-      this.$emit('input', this.pathInfo) // Vue 2
-    },
-  },
-  created() {
-    this.pathInfo = this.value
-    if (!this.pathInfo.baseName && this.baseName) {
-      vueSet(this.pathInfo, 'baseName', this.baseName)
-    }
-    if (!this.pathInfo.dirName && this.dirName) {
-      vueSet(this.pathInfo, 'dirName', this.dirName)
-    }
-    if (!this.pathInfo.dirName) {
-      vueSet(this.pathInfo, 'dirName', '/')
-    }
-  },
-  methods: {
-    async openFilePicker() {
-      const picker = getFilePickerBuilder(this.filePickerTitle)
-        .startAt(this.pathInfo.dirName)
-        .setMultiSelect(false)
-        .setType(FilePickerType.Choose)
-        .setMimeTypeFilter(['httpd/unix-directory'])
-        .allowDirectories()
-        .build()
+])
 
-      let dir = await picker.pick() || '/'
-      if (dir.startsWith('//')) { // new in Nextcloud 25?
-        dir = dir.slice(1)
-      }
-      if (!dir.startsWith('/')) {
-        showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
-        this.$emit('error:invalid-dir-name', dir)
-      } else {
-        if (dir === '/') {
-          dir = ''
-        }
-        showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this.pathInfo.baseName }))
-        this.$emit('update:dirName', dir, this.pathInfo.baseName)
-        vueSet(this.pathInfo, 'dirName', dir)
-        if (this.onlyDirName) {
-          this.$emit('update', this.pathInfo)
-        }
-      }
-    },
-    unclippedPopup(content: string, html = true) {
-      return {
-        content,
-        preventOverflow: true,
-        html,
-        // shown: true,
-        // triggers: [],
-        csstag: ['vue-tooltip-unclipped-popup'],
-      }
-    },
-  },
+const pathInfo = ref({ dirName: '', baseName: '' })
+
+const pathName = computed(() =>
+  (pathInfo.value.dirName ? pathInfo.value.dirName + '/' : '') + (props.onlyDirName ? '' : pathInfo.value.baseName)
+)
+
+const filePickerTitle = computed(() =>
+  props.filePickerTitle
+  || props.onlyDirName ? t(appName, 'Choose a folder') : t(appName, 'Choose a prefix-folder')
+)
+
+watch(pathName, () => emit('input', pathInfo.value)) // Vue 2
+
+onBeforeMount(() => {
+  pathInfo.value = props.value
+  if (!pathInfo.value.baseName && props.baseName) {
+    vueSet(pathInfo, 'baseName', props.baseName)
+  }
+  if (!pathInfo.value.dirName && props.dirName) {
+    vueSet(pathInfo, 'dirName', props.dirName)
+  }
+  if (!pathInfo.value.dirName) {
+    vueSet(pathInfo, 'dirName', '/')
+  }
+})
+
+const openFilePicker = async () => {
+  const picker = getFilePickerBuilder(filePickerTitle.value)
+    .startAt(pathInfo.value.dirName)
+    .setMultiSelect(false)
+    .setType(FilePickerType.Choose)
+    .setMimeTypeFilter(['httpd/unix-directory'])
+    .allowDirectories()
+    .build()
+
+  let dir = await picker.pick() || '/'
+  if (dir.startsWith('//')) { // new in Nextcloud 25?
+    dir = dir.slice(1)
+  }
+  if (!dir.startsWith('/')) {
+    showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
+    emit('error:invalid-dir-name', dir)
+  } else {
+    if (dir === '/') {
+      dir = ''
+    }
+    showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: pathInfo.value.baseName }))
+        emit('update:dirName', dir, pathInfo.value.baseName)
+    vueSet(pathInfo.value, 'dirName', dir)
+    if (props.onlyDirName) {
+      emit('update', pathInfo.value)
+    }
+  }
+}
+
+const unclippedPopup = (content: string, html = true) => {
+  return {
+    content,
+    preventOverflow: true,
+    html,
+    // shown: true,
+    // triggers: [],
+    csstag: ['vue-tooltip-unclipped-popup'],
+  }
 }
 </script>
 <style lang="scss">

@@ -20,10 +20,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.js';
+import { appName } from './config.ts';
 import { loadHandler } from './doku-wiki.js';
 import { failData as ajaxFailData } from './toolkit/util/ajax.js';
-import generateUrl from './toolkit/util/generate-url.js';
+import { generateUrl } from './toolkit/util/generate-url.js';
 import jQuery from './toolkit/util/jquery.js';
 
 import '../style/doku-wiki.scss';

@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -60,7 +60,7 @@
     </NcSettingsSection>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   NcSettingsSection,
 } from '@nextcloud/vue'

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -19,8 +19,6 @@
  */
 
 .oc-dialog {
-
-  @import 'error-dialogs.scss';
 
   &.maximize-width {
     .oc-dialog-content {
@@ -42,6 +40,119 @@
       max-width:calc(100vw - 20px);
       width:calc(100vw - 60px);
     }
+  }
+
+  .error {
+    &.missing,
+    &.syntax.contents,
+    &.contents,
+    &.general,
+    &.debug.contents {
+      display:block;
+      /* font-weight:bold;*/
+      color:blue;
+      margin:0 2em 0 2em;
+      max-width:100%;
+      overflow:auto;
+      /* white-space:nowrap; */
+    }
+
+    &.caption,
+    &.heading {
+      font-weight:bold;
+    }
+
+    &.general {
+      max-width:60em;
+    }
+
+    &.caption {
+      font-size:110%;
+      color:blue;
+      font-style:italic;
+    }
+
+    &.debug.contents p {
+      /* white-space:nowrap;   */
+    }
+
+    &.exception {
+
+      &.name {
+        display:block;
+        font-weight:bold;
+        color:red;
+        margin-left:2em;
+      }
+
+      &.trace {
+        font-weight:bold;
+        color:blue;
+        margin: 0 2em 0 2em;
+        max-width:100%;
+        overflow:auto;
+        /* white-space:nowrap; */
+        display:none;
+        &.visible {
+          display: block;
+        }
+      }
+
+      &.trace p {
+        /* white-space:nowrap; */
+      }
+
+      /* Exception extracted from Nextcloud HTML response */
+      h3 {
+        font-weight:bold;
+      }
+      .trace {
+        color:blue;
+        margin: 0 2em 0 2em;
+        max-width:100%;
+        overflow:auto;
+        display:none;
+        &.visible {
+          display: block;
+        }
+      }
+      ul.technical li {
+        &.class, &.code, &.file, &.line {
+          display:inline;
+        }
+        &.message {
+          color:red;
+          font-weight:bold;
+        }
+      }
+
+    }
+
+    a {
+      font-weight:bold;
+      text-decoration:underline;
+      color:red !important;
+    }
+
+    a:hover {
+      font-weight:bold;
+      font-style:italic;
+      text-decoration:underline;
+      color:red !important;
+    }
+
+    &.specialrole {
+      text-align:center;
+      font-weight:bold;
+      color:red;
+      font-size:200%;
+      margin-top:2em;
+    }
+  }
+
+  .#{$dokuWikiAppName}.error-page .error-wide {
+    margin-left: 0px !important;
+    width:auto!important;
   }
 
   .exception.error {

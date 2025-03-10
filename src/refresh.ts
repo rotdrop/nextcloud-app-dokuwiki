@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
@@ -23,7 +23,7 @@
 import { getCurrentUser } from '@nextcloud/auth';
 import axios from '@nextcloud/axios';
 import onDocumentLoaded from './toolkit/util/on-document-loaded.js';
-import generateUrl from './toolkit/util/generate-url.js';
+import { generateUrl } from './toolkit/util/generate-url.js';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
 
 const state = getInitialState();

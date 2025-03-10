@@ -21,25 +21,34 @@
  */
 
 import { appName } from './config.ts';
+import { translate as t } from '@nextcloud/l10n';
 
 import '../style/doku-wiki.scss';
 
 const webPrefix = appName;
 
+interface LoadHandlerArgs {
+  frame: HTMLIFrameElement,
+  frameWrapper: HTMLElement,
+  callback?: (frame: HTMLIFrameElement, frameWrapper: HTMLElement) => void,
+}
+
 /**
  * Called after the DokuWiki has been loaded by the iframe. We make
  * sure that external links are opened in another tab/window.
  *
- * @param {object} frame TBD.
+ * @param data Destructuring object.
  *
- * @param {object} frameWrapper TBD.
+ * @param data.frame TBD.
  *
- * @param {Function} callback TBD.
+ * @param data.frameWrapper TBD.
+ *
+ * @param data.callback TBD.
  *
  */
-const loadHandler = function(frame, frameWrapper, callback) {
+const loadHandler = function({ frame, frameWrapper, callback }: LoadHandlerArgs) {
 
-  const frameDocument = frame.contentWindow.document;
+  const frameDocument = frame.contentWindow!.document;
 
   frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
   frameDocument.querySelectorAll('li:empty').forEach(el => el.remove());
@@ -56,11 +65,15 @@ const loadHandler = function(frame, frameWrapper, callback) {
   const previewDiv = frameDocument.querySelector('div.preview');
   if (previewDiv) {
     // make sure that links in the preview pane are NOT followed.
-    previewDiv.querySelectorAll('a[class^="wikilink"]').forEach(el => {
+    previewDiv.querySelectorAll('a[class^="wikilink"]').forEach((el) => {
       el.addEventListener('click', function(event) {
+        if (!event.target) {
+          return;
+        }
         event.stopPropagation();
         event.preventDefault();
-        const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
+        const target = event.target as HTMLAnchorElement;
+        const href = target.getAttribute('href')!.replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
           t(appName, 'Links to wiki pages are disabled in preview mode.'),
           t(appName, 'Link to wiki page') + ' "' + href + '"');
@@ -68,9 +81,13 @@ const loadHandler = function(frame, frameWrapper, callback) {
     });
     previewDiv.querySelectorAll('a[class^="media"]').forEach(el => {
       el.addEventListener('click', function(event) {
+        if (!event.target) {
+          return;
+        }
         event.stopPropagation();
         event.preventDefault();
-        const href = event.target.getAttribute('href').replace(/^\/[^?]+\?id=(.*)$/, '$1');
+        const target = event.target as HTMLAnchorElement;
+        const href = target.getAttribute('href')!.replace(/^\/[^?]+\?id=(.*)$/, '$1');
         OC.dialogs.alert(
           t(appName, 'Links to media files are disabled in preview mode.'),
           t(appName, 'Link to wiki page') + ' "' + href + '"');
@@ -83,7 +100,9 @@ const loadHandler = function(frame, frameWrapper, callback) {
   }
 
   const loader = document.getElementById(webPrefix + 'Loader');
-  loader.classList.add('fading');
+  if (loader) {
+    loader.classList.add('fading');
+  }
   frame.classList.remove('faded');
   callback(frame, frameWrapper);
 };

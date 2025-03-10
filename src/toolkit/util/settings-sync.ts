@@ -22,33 +22,39 @@ import Vue from 'vue';
 import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
+import { translate as t } from '@nextcloud/l10n';
+
+interface FetchSettingsArgs {
+  section: 'admin'|'personal',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  settings: Record<string, any>,
+}
 
 /**
- * @param {string} settingsSection AJAX call goes to `apps/${appName}/settings/${settingsSection}`.
+ * @param data The destructuring object
  *
- * @param {object} storageObject The object which receives the
- * settings keys as properties. If not given defaults to this.
+ * @param data.section AJAX call goes to `apps/${appName}/settings/${section}`.
  *
- * @return {boolean} Success status, false
- on error, true on success.
+ * @param data.settings The object which receives the
+ * settings keys as properties.
+ *
+ * @return Success status, false on error, true on success.
  */
-async function fetchSettings(settingsSection, storageObject) {
-  if (storageObject === undefined) {
-    storageObject = this;
-  }
+async function fetchSettings({ section, settings }: FetchSettingsArgs) {
   try {
-    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection), {});
-    // Object.assign(storageObject, response.data);
+    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section), {});
+    // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
-      if (Object.prototype.hasOwnProperty.call(storageObject, key)) {
+      if (Object.prototype.hasOwnProperty.call(settings, key)) {
         // eslint-disable-next-line import/no-named-as-default-member
-        Vue.set(storageObject, key, value);
+        Vue.set(settings, key, value);
       } else {
-        storageObject[key] = value;
+        settings[key] = value;
       }
     }
     return true;
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
@@ -64,29 +70,36 @@ async function fetchSettings(settingsSection, storageObject) {
   }
 }
 
+interface FetchSettingArgs {
+  settingsKey: string,
+  section: 'admin'|'personal',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  settings: Record<string, any>,
+}
+
 /**
- * @param {string} settingsKey TDB.
+ * @param data The destructuring object.
  *
- * @param {string} settingsSection TDB.
+ * @param data.settingsKey TDB.
  *
- * @param {object} storageObject TBD.
+ * @param data.section TDB.
  *
- * @return {boolean} TBD.
+ * @param data.settings TBD.
+ *
+ * @return Result.
  */
-async function fetchSetting(settingsKey, settingsSection, storageObject) {
-  if (storageObject === undefined) {
-    storageObject = this;
-  }
+async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs) {
   try {
-    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), {});
-    if (Object.prototype.hasOwnProperty.call(storageObject, settingsKey)) {
+    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
+    if (Object.prototype.hasOwnProperty.call(settings, settingsKey)) {
       // eslint-disable-next-line import/no-named-as-default-member
-      Vue.set(storageObject, settingsKey, response.data.value);
+      Vue.set(settings, settingsKey, response.data.value);
     } else {
-      storageObject[settingsKey] = response.data.value;
+      settings[settingsKey] = response.data.value;
     }
     return true;
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
@@ -105,31 +118,45 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
   }
 }
 
+interface SaveSimpleSettingArgs {
+  settingsKey: string,
+  section: 'admin'|'personal',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string) => any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  settings: Record<string, any>,
+}
+
 /**
- * @param {string} settingsKey TDB.
+ * @param data The destructuring object.
  *
- * @param {string} settingsSection TDB.
+ * @param data.settingsKey TDB.
  *
- * @param {Function} onSuccess Success callback, invoked with the
+ * @param data.section TDB.
+ *
+ * @param data.onSuccess Success callback, invoked with the
  * response data and the arguments of this function.
  *
- * @return {boolean} TBD.
+ * @param data.settings TBD.
+ *
+ * @return Result.
  */
-async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
-  const value = this[settingsKey];
+async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: SaveSimpleSettingArgs) {
+  const value = settings[settingsKey];
   try {
-    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value });
+    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value });
     const responseData = response.data;
-    let displayValue;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let displayValue: undefined|string|boolean|any[]|Record<string, any>;
     if (responseData) {
       if (responseData.newValue !== undefined) {
-        this[settingsKey] = responseData.newValue;
-        displayValue = this[settingsKey];
+        settings[settingsKey] = responseData.newValue;
+        displayValue = settings[settingsKey];
       }
       if (responseData.humanValue !== undefined) {
         const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
-        this[humanKey] = responseData.humanValue;
-        displayValue = this[humanKey];
+        settings[humanKey] = responseData.humanValue;
+        displayValue = settings[humanKey];
       }
       if (Array.isArray(displayValue)) {
         displayValue = displayValue.toString();
@@ -139,15 +166,16 @@ async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
       displayValue = t(appName, 'true');
     }
     if (displayValue && displayValue !== '') {
-      showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, value: displayValue }));
+      showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, value: displayValue as string }));
     } else {
       showInfo(t(appName, 'Setting "{settingsKey}" has been unset successfully.', { settingsKey }));
     }
     if (typeof onSuccess === 'function') {
-      onSuccess(responseData, value, settingsSection, settingsKey);
+      onSuccess(responseData, value, section, settingsKey);
     }
     return true;
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
@@ -167,7 +195,6 @@ async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
     } else {
       showError(t(appName, 'Unable to unset "{settingsKey}": {message}', {
         settingsKey,
-        value: this[settingsKey] || t(appName, 'false'),
         message,
       }), {
         timeout: TOAST_PERMANENT_TIMEOUT,
@@ -177,49 +204,69 @@ async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
   }
 }
 
+interface SaveConfirmedSettingArgs {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any,
+  section: 'admin'|'personal',
+  settingsKey: string,
+  force?: boolean,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string, force?: boolean) => any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  settings: Record<string, any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resetData?: () => any,
+}
+
 /**
- * @param {string} value TBD.
+ * @param data The destructuring object.
  *
- * @param {string} settingsSection TDB.
+ * @param data.value TBD.
  *
- * @param {string} settingsKey TDB.
+ * @param data.section TDB.
  *
- * @param {boolean} force TDB.
+ * @param data.settingsKey TDB.
  *
- * @param {Function} onSuccess Success callback, invoked with the
+ * @param data.force TDB.
+ *
+ * @param data.onSuccess Success callback, invoked with the
  * response data and the arguments of this function.
  *
- * @return {boolean} TBD.
+ * @param data.settings TBD.
+ *
+ * @param data.resetData TBD.
+ *
+ * @return TBD.
  */
-async function saveConfirmedSetting(value, settingsSection, settingsKey, force, onSuccess) {
-  const self = this;
+async function saveConfirmedSetting({ value, section, settingsKey, force, onSuccess, settings, resetData }: SaveConfirmedSettingArgs) {
   try {
-    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value, force });
+    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value, force });
     const responseData = response.data;
     if (responseData.status === 'unconfirmed') {
       OC.dialogs.confirm(
         responseData.feedback,
         t(appName, 'Confirmation Required'),
-        function(answer) {
+        function(answer: boolean) {
           if (answer) {
-            self.saveConfirmedSetting(value, settingsSection, settingsKey, true);
+            saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
           } else {
             showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
-            self.getData();
+            resetData && resetData();
           }
         },
         true);
     } else {
-      let displayValue;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let displayValue: any;
       if (responseData) {
         if (responseData.newValue !== undefined) {
-          this[settingsKey] = responseData.newValue;
-          displayValue = this[settingsKey];
+          settings[settingsKey] = responseData.newValue;
+          displayValue = settings[settingsKey];
         }
         if (responseData.humanValue !== undefined) {
           const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
-          this[humanKey] = responseData.humanValue;
-          displayValue = this[humanKey];
+          settings[humanKey] = responseData.humanValue;
+          displayValue = settings[humanKey];
           if (Array.isArray(displayValue)) {
             displayValue = displayValue.toString();
           }
@@ -231,11 +278,12 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force, 
         showInfo(t(appName, 'Setting "{setting}" has been unset successfully.', { setting: settingsKey }));
       }
       if (typeof onSuccess === 'function') {
-        onSuccess(responseData, value, settingsSection, settingsKey, force);
+        onSuccess(responseData, value, section, settingsKey, force);
       }
     }
     return true;
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
@@ -249,21 +297,10 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force, 
     }), {
       timeout: TOAST_PERMANENT_TIMEOUT,
     });
-    self.getData();
+    resetData && resetData();
     return false;
   }
 }
-
-const mixins = {
-  methods: {
-    fetchSetting,
-    fetchSettings,
-    saveConfirmedSetting,
-    saveSimpleSetting,
-  },
-};
-
-export default mixins;
 
 export {
   fetchSetting,

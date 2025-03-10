@@ -6,8 +6,6 @@
     "./node_modules/@nextcloud/**.ts",
     "./node_modules/@types/**.ts",
     "./node_modules/axios/**.ts",
-    "./node_modules/moment/**.ts",
-    "./node_modules/pinia/**.ts",
     "./node_modules/vue-router/**.ts",
     "./node_modules/vue/**.ts",
     "./node_modules/webpack/**.ts",
@@ -18,7 +16,7 @@
     "./src/*.vue"
   ],
   "compilerOptions": {
-    "types": ["jest", "node", "vue", "vue-router", "moment"],
+    "types": ["jest", "jquery", "jqeryui", "node", "vue", "vue-router"],
     "lib": [ "ES2024", "DOM", "DOM.Iterable" ],
     "outDir": "./dist/",
     "target": "ESNext",

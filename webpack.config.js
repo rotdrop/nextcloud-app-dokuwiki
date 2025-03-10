@@ -46,7 +46,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     APP_NAME: JSON.stringify(appName),
   }),
   new ESLintPlugin({
-    extensions: ['js', 'vue'],
+    extensions: ['ts', 'js', 'vue'],
     exclude: [
       'node_modules',
     ],
@@ -149,8 +149,22 @@ webpackConfig.module.rules = [
       'emoji-mart-vue-fast',
       '@rotdrop/nextcloud-vue-components',
       '@nextcloud/vue',
-      '@nextcloud/app-logreader/src',
-      '@nextcloud/app-calendar/src',
+    ]),
+  },
+  {
+    test: /\.tsx?$/,
+    use: [
+      'babel-loader',
+      {
+        // Fix TypeScript syntax errors in Vue
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@rotdrop/nextcloud-vue-components',
     ]),
   },
   {
@@ -175,20 +189,6 @@ webpackConfig.module.rules = [
       'v-tooltip',
       'yocto-queue',
     ]),
-  },
-  {
-    test: /\.tsx?$/,
-    use: [
-      'babel-loader',
-      {
-        // Fix TypeScript syntax errors in Vue
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-        },
-      },
-    ],
-    exclude: BabelLoaderExcludeNodeModulesExcept([]),
   },
 ];
 

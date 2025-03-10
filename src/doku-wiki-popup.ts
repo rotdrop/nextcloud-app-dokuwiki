@@ -21,10 +21,11 @@
  */
 
 import { appName } from './config.ts';
-import { loadHandler } from './doku-wiki.js';
+import { loadHandler } from './doku-wiki.ts';
 import { failData as ajaxFailData } from './toolkit/util/ajax.js';
 import { generateUrl } from './toolkit/util/generate-url.js';
 import jQuery from './toolkit/util/jquery.js';
+import { translate as t } from '@nextcloud/l10n';
 
 import '../style/doku-wiki.scss';
 import '../style/doku-wiki-popup.scss';
@@ -36,41 +37,53 @@ require('jquery-ui/ui/widgets/dialog');
 const $ = jQuery;
 const webPrefix = appName;
 
+interface EnhancedJQTextArea extends JQuery {
+  oldwidth?: string,
+  oldheight?: string,
+  resize_timeout?: ReturnType<typeof setTimeout>,
+}
+
+interface EnhancedHTMLIFrameElement extends HTMLIFrameElement {
+  contentHeight?: number,
+  heightTimer?: ReturnType<typeof setInterval>,
+  heightChecker?: () => void,
+}
+
 /**
  * Unfortunately, the textare element does not fire a resize
  * event. This function emulates one.
  *
- * @param {object} textarea jQuery descriptor for the textarea element
+ * @param textarea jQuery descriptor for the textarea element
  *
- * @param {number} delay Optional, defaults to 50. If true, fire the event
+ * @param delay Optional, defaults to 50. If true, fire the event
  * immediately, if set, then this is a delay in ms.
  */
-const textareaResize = function(textarea, delay) {
+const textareaResize = function(textarea: EnhancedJQTextArea, delay?: number) {
   if (delay === undefined) {
     delay = 50; // ms
   }
   textarea.off('mouseup mousemove');
   textarea.on('mouseup mousemove', function() {
-    if (textarea.oldwidth === null) {
-      textarea.oldwidth = textarea.style.width;
+    if (textarea.oldwidth === undefined) {
+      textarea.oldwidth = textarea[0].style.width;
     }
-    if (textarea.oldheight === null) {
-      textarea.oldheight = textarea.style.height;
+    if (textarea.oldheight === undefined) {
+      textarea.oldheight = textarea[0].style.height;
     }
-    if (textarea.style.width !== textarea.oldwidth
-        || textarea.style.height !== textarea.oldheight) {
+    if (textarea[0].style.width !== textarea.oldwidth
+        || textarea[0].style.height !== textarea.oldheight) {
       if (delay > 0) {
         if (textarea.resize_timeout) {
           clearTimeout(textarea.resize_timeout);
         }
         textarea.resize_timeout = setTimeout(function() {
-          $(textarea).resize();
+          textarea.trigger('resize');
         }, delay);
       } else {
-        $(textarea).resize();
+        textarea.trigger('resize');
       }
-      textarea.oldwidth = textarea.style.width;
-      textarea.oldheight = textarea.style.height;
+      textarea.oldwidth = textarea[0].style.width;
+      textarea.oldheight = textarea[0].style.height;
     }
   });
 };
@@ -80,23 +93,28 @@ const textareaResize = function(textarea, delay) {
  * is sent to an Ajax callback which generates a suitable iframe
  * which then finally holds the wiki contents.
  *
- * @param {object} options Object with the following components:
- * {
- *   wikiPage: 'page',
- *   popupTitle: 'title',
- *   modal: true/false
- * }
+ * @param options Object object
  *
- * @param {Function} openCallback Optional callback to be call on
+ * @param options.wikiPage TBD.
+ *
+ * @param options.popupTitle TBD.
+ *
+ * @param options.modal TBD.
+ *
+ * @param options.cssClass TBD.
+ *
+ * @param openCallback Optional callback to be call on
  * open. The callback will get the element holding the dialog content
  * as argument and the dialog widget itself. The callback is called
  * BEFORE the iframe is loaded.
  *
- * @param {Function} closeCallback TBD.
- *
- * @return {boolean}
+ * @param closeCallback TBD.
  */
-const wikiPopup = function(options, openCallback, closeCallback) {
+const wikiPopup = function(
+  options: { wikiPage: string, popupTitle?: string, modal: boolean, cssClass: string },
+  openCallback: (dialogHolder: JQuery, dialogWidget: JQuery) => void,
+  closeCallback: () => void,
+) {
   const parameters = {
     wikiPage: options.wikiPage,
     popupTitle: options.popupTitle,
@@ -121,13 +139,14 @@ const wikiPopup = function(options, openCallback, closeCallback) {
       }
       OC.dialogs.alert(info, t('dokluwikiembed', 'Error'));
     })
-    .done(function(htmlContent, textStatus, request) {
+    .done(function(htmlContent, _textStatus, _request) {
       const containerId = webPrefix + '_popup';
       const dialogHolder = $('<div id="' + containerId + '"></div>');
 
       dialogHolder.html(htmlContent);
       $('body').append(dialogHolder);
       // dialogHolder = $(containerSel);
+      // @ts-expect-error 2339
       dialogHolder.dialog({
         title: options.popupTitle,
         position: {
@@ -148,9 +167,10 @@ const wikiPopup = function(options, openCallback, closeCallback) {
         resizable: false,
         open() {
           const dialogHolder = $(this);
+          // @ts-expect-error 2339
           const dialogWidget = dialogHolder.dialog('widget');
           const frameWrapper = dialogHolder.find('#' + webPrefix + 'FrameWrapper');
-          const frame = dialogHolder.find('#' + webPrefix + 'Frame');
+          const frame = dialogHolder.find('#' + webPrefix + 'Frame') as JQuery<HTMLIFrameElement>;
           const titleHeight = dialogWidget.find('.ui-dialog-titlebar').outerHeight();
 
           dialogWidget.draggable('option', 'containment', '#content');
@@ -160,7 +180,8 @@ const wikiPopup = function(options, openCallback, closeCallback) {
           }
 
           frame.on('load', function() {
-            const self = this;
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            const self = this as EnhancedHTMLIFrameElement;
             const contents = $(self).contents();
 
             // Remove some more stuff. The popup is meant for a
@@ -172,7 +193,7 @@ const wikiPopup = function(options, openCallback, closeCallback) {
             // <HACK REASON="determine the height of the iframe contents">
             dialogHolder.height('');
 
-            const scrollHeight = self.contentWindow.document.body.scrollHeight;
+            const scrollHeight = self.contentWindow?.document.body.scrollHeight || 0;
             frame.css({
               height: scrollHeight + 'px',
               overflow: 'hidden',
@@ -187,77 +208,80 @@ const wikiPopup = function(options, openCallback, closeCallback) {
 
             self.contentHeight = -1;
 
-            loadHandler(frame[0], frameWrapper[0], function() {
-              // dialogHolder.dialog('option', 'height', 'auto');
-              // dialogHolder.dialog('option', 'width', 'auto');
-              const newHeight = dialogWidget.height() - titleHeight;
-              dialogHolder.height(newHeight);
+            loadHandler({
+              frame: frame[0],
+              frameWrapper: frameWrapper[0],
+              callback: () => {
+                // dialogHolder.dialog('option', 'height', 'auto');
+                // dialogHolder.dialog('option', 'width', 'auto');
+                const newHeight = dialogWidget.height() - titleHeight;
+                dialogHolder.height(newHeight);
 
-              const editForm = contents.find('form#dw__editform');
-              const editArea = editForm.find('textarea');
-              if (editArea.length > 0) {
-                const wysiwygArea = editForm.find('.prosemirror_wrapper');
-                const wysiwygToggle = editForm.find('.button.plugin_prosemirror_useWYSIWYG');
-                wysiwygArea.css({
-                  overflow: 'auto',
-                });
-                editForm.css({
-                  float: 'right',
-                });
-                // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
+                const editForm = contents.find('form#dw__editform');
+                const editArea = editForm.find('textarea');
+                if (editArea.length > 0) {
+                  const wysiwygArea = editForm.find('.prosemirror_wrapper');
+                  const wysiwygToggle = editForm.find('.button.plugin_prosemirror_useWYSIWYG');
+                  wysiwygArea.css({
+                    overflow: 'auto',
+                  });
+                  editForm.css({
+                    float: 'right',
+                  });
+                  // wysiwygArea.css('max-height', dialogHolder.height() + 'px');
 
-                self.heightChecker = function() {
-                  if (self.contentWindow === undefined) {
-                    if (self.heightTimer !== undefined) {
-                      clearInterval(self.heightTimer);
-                      self.heightTimer = undefined;
+                  self.heightChecker = function() {
+                    if (self.contentWindow === undefined) {
+                      if (self.heightTimer !== undefined) {
+                        clearInterval(self.heightTimer);
+                        self.heightTimer = undefined;
+                      }
+                      return;
                     }
-                    return;
-                  }
-                  const height = self.contentWindow.document.body.scrollHeight;
-                  if (height !== self.contentHeight) {
-                    console.debug('new height', height, self.contentHeight, frame.css('height'));
-                    self.contentHeight = height;
-                    frame.css({ height: height + 'px' });
+                    const height = self.contentWindow?.document.body.scrollHeight || 0;
+                    if (height !== self.contentHeight) {
+                      console.debug('new height', height, self.contentHeight, frame.css('height'));
+                      self.contentHeight = height;
+                      frame.css({ height: height + 'px' });
+                      dialogHolder.dialog('option', 'height', 'auto');
+                      dialogHolder.dialog('option', 'width', 'auto');
+                      const newHeight = dialogWidget.height() - titleHeight;
+                      dialogHolder.height(newHeight);
+                    }
+                  };
+                  self.heightTimer = setInterval(self.heightChecker, 100);
+
+                  wysiwygToggle.on('click', function() {
+                    if (editArea.is(':visible')) {
+                      // const editAreaHeight = editArea.height();
+                      // wysiwygArea.height(editAreaHeight+28); // button height
+                    } else {
+                      wysiwygArea.css({ height: '' });
+                    }
+                  });
+
+                  // Unfortunately, there is no resize event on
+                  // textareas. We simulate one
+                  textareaResize(editArea);
+
+                  editArea.on('resize', function() {
+                    const scrollHeight = self.contentWindow?.document.body.scrollHeight || 0;
+                    frame.css({
+                      height: scrollHeight + 'px',
+                      overflow: 'hidden',
+                    });
                     dialogHolder.dialog('option', 'height', 'auto');
                     dialogHolder.dialog('option', 'width', 'auto');
                     const newHeight = dialogWidget.height() - titleHeight;
                     dialogHolder.height(newHeight);
-                  }
-                };
-                self.heightTimer = setInterval(self.heightChecker, 100);
-
-                wysiwygToggle.on('click', function() {
-                  if (editArea.is(':visible')) {
-                    // const editAreaHeight = editArea.height();
-                    // wysiwygArea.height(editAreaHeight+28); // button height
-                  } else {
-                    wysiwygArea.css({ height: '' });
-                  }
-                });
-
-                // Unfortunately, there is no resize event on
-                // textareas. We simulate one
-                textareaResize(editArea);
-
-                editArea.on('resize', function() {
-                  const scrollHeight = self.contentWindow.document.body.scrollHeight;
-                  frame.css({
-                    height: scrollHeight + 'px',
-                    overflow: 'hidden',
                   });
-                  dialogHolder.dialog('option', 'height', 'auto');
-                  dialogHolder.dialog('option', 'width', 'auto');
-                  const newHeight = dialogWidget.height() - titleHeight;
-                  dialogHolder.height(newHeight);
-                });
-              } else {
-                if (self.heightTimer !== undefined) {
-                  clearInterval(self.heightTimer);
-                  self.heightTimer = undefined;
+                } else {
+                  if (self.heightTimer !== undefined) {
+                    clearInterval(self.heightTimer);
+                    self.heightTimer = undefined;
+                  }
                 }
-              }
-
+              },
             });
           });
         },
@@ -276,7 +300,6 @@ const wikiPopup = function(options, openCallback, closeCallback) {
       });
       return false;
     });
-  return true;
 };
 
 export { wikiPopup };

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -43,7 +43,7 @@ import {
  * }
  * ```
  *
- * @returns {string}
+ * @return {string}
  */
 export const generateUrl = function(url, urlParams, urlOptions) {
   // const str = '/image/{joinTable}/{ownerId}';

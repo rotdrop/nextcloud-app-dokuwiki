@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2024 Claus-Justus Heine
+ * @copyright 2024, 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -48,7 +48,7 @@ class LoadAdditionalScriptsEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(private IAppContainer $appContainer)
+  public function __construct(protected IAppContainer $appContainer)
   {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing

@@ -86,7 +86,7 @@ const settings = ref({
   authenticationRefreshInterval: 0,
 })
 
-// slurp in all personal settings
+// slurp in all settings
 const getData = async () => {
   ++loading.value
   return fetchSettings({ section: 'admin', settings }).finally(() => {

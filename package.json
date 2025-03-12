@@ -41,6 +41,7 @@
     "@rotdrop/nextcloud-vue-components": "file:repositories/rotdrop/nextcloud-vue-components",
     "@types/jquery": "^3.5.32",
     "@types/jqueryui": "^1.12.24",
+    "axios": "^1.8.3",
     "babel-jest": "^29.6.4",
     "babel-loader": "^9.1.0",
     "babel-loader-exclude-node-modules-except": "^1.2.1",

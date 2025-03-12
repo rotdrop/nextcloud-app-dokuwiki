@@ -39,7 +39,9 @@ declare module '@nextcloud/vue' {
       menuButton: Vue,
     },
   };
-  const NcActionCheckbox: Vue;
+  const NcActionCheckbox: Vue & {
+    'onUpdate:checked': (value: boolean) => any,
+  };
   const NcButton: Vue;
 
   export declare class Color {

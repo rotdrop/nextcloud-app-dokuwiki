@@ -18,11 +18,19 @@
  */
 
 import { appName } from '../../config.ts';
-import Vue from 'vue';
-import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
+import { set as vueSet } from 'vue';
+import {
+  showError,
+  showSuccess,
+  showInfo,
+  TOAST_PERMANENT_TIMEOUT,
+  getDialogBuilder,
+  DialogSeverity,
+} from '@nextcloud/dialogs';
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import { translate as t } from '@nextcloud/l10n';
+import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 
 interface FetchSettingsArgs {
   section: 'admin'|'personal',
@@ -45,19 +53,13 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section), {});
     // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
-      if (Object.prototype.hasOwnProperty.call(settings, key)) {
-        // eslint-disable-next-line import/no-named-as-default-member
-        Vue.set(settings, key, value);
-      } else {
-        settings[key] = value;
-      }
+      vueSet(settings, key, value);
     }
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
+  } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data) {
+    if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data;
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
@@ -91,18 +93,12 @@ interface FetchSettingArgs {
 async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs) {
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
-    if (Object.prototype.hasOwnProperty.call(settings, settingsKey)) {
-      // eslint-disable-next-line import/no-named-as-default-member
-      Vue.set(settings, settingsKey, response.data.value);
-    } else {
-      settings[settingsKey] = response.data.value;
-    }
+    vueSet(settings, settingsKey, response.data.value);
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
+  } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data) {
+    if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data;
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
@@ -174,11 +170,10 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
       onSuccess(responseData, value, section, settingsKey);
     }
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
+  } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data) {
+    if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data;
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
@@ -238,23 +233,44 @@ interface SaveConfirmedSettingArgs {
  *
  * @return TBD.
  */
-async function saveConfirmedSetting({ value, section, settingsKey, force, onSuccess, settings, resetData }: SaveConfirmedSettingArgs) {
+const saveConfirmedSetting = async({
+  value,
+  section,
+  settingsKey,
+  force,
+  onSuccess,
+  settings,
+  resetData
+}: SaveConfirmedSettingArgs): Promise<boolean> => {
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value, force });
     const responseData = response.data;
     if (responseData.status === 'unconfirmed') {
-      OC.dialogs.confirm(
-        responseData.feedback,
-        t(appName, 'Confirmation Required'),
-        function(answer: boolean) {
-          if (answer) {
-            saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
+      let confirmed: boolean|undefined
+      return getDialogBuilder(t(appName, 'Confirmation Required'))
+        .setText(responseData.feedback)
+        .setSeverity(DialogSeverity.Info)
+        .addButton({
+          label: t('core', 'No'),
+          type: 'secondary',
+          callback() { confirmed = false },
+        })
+        .addButton({
+          label: t('core', 'Yes'),
+          type: 'primary',
+          callback() { confirmed = true },
+        })
+        .build()
+        .show()
+        .then(async () => {
+          if (confirmed) {
+            return saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
           } else {
             showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
-            resetData && resetData();
+            resetData && await resetData();
+            return false;
           }
-        },
-        true);
+        });
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let displayValue: any;
@@ -282,11 +298,10 @@ async function saveConfirmedSetting({ value, section, settingsKey, force, onSucc
       }
     }
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
+  } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data) {
+    if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data;
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');

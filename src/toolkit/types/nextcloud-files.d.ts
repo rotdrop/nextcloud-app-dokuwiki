@@ -1,4 +1,8 @@
 /**
+ * Orchestra member, musicion and project management application.
+ *
+ * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
+ *
  * @author Claus-Justus Heine
  * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
@@ -17,20 +21,26 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-declare global {
-  var OC: {
-    config: {
-      versionstring: string,
-    }
-    dialogs: {
-      confirm: (text: string, title: string, callback: (answer: boolean) => any, modal: boolean) => void,
-      alert: (text: string, title: string) => void,
-    },
-  };
-  var OCA: {
-    Files: {
-      [key: string]: any,
-    },
+import type { LegacyFileInfo } from '@nextcloud/files';
+
+declare module '@nextcloud/files' {
+
+  /**
+   * Incomplete interface for OC.Files.FileInfo which is actually a
+     constructor for this thing. See core/src/files/fileinfo.js
+   */
+  export interface LegacyFileInfo {
+    id: number,
+    mimetype: string,
+    path: string,
+    name: string,
+    type: 'dir'|'file',
+    permissions: number,
+    mountType: string,
+    isDirectory: () => boolean,
+    canEdit: () => boolean,
+    get: (key: string) => any,
+    // ... and a couple of other properties
   }
 }
 

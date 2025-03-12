@@ -233,32 +233,32 @@ interface SaveConfirmedSettingArgs {
  *
  * @return TBD.
  */
-const saveConfirmedSetting = async({
+const saveConfirmedSetting = async ({
   value,
   section,
   settingsKey,
   force,
   onSuccess,
   settings,
-  resetData
+  resetData,
 }: SaveConfirmedSettingArgs): Promise<boolean> => {
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value, force });
     const responseData = response.data;
     if (responseData.status === 'unconfirmed') {
-      let confirmed: boolean|undefined
+      let confirmed: boolean|undefined;
       return getDialogBuilder(t(appName, 'Confirmation Required'))
         .setText(responseData.feedback)
         .setSeverity(DialogSeverity.Info)
         .addButton({
           label: t('core', 'No'),
           type: 'secondary',
-          callback() { confirmed = false },
+          callback() { confirmed = false; },
         })
         .addButton({
           label: t('core', 'Yes'),
           type: 'primary',
-          callback() { confirmed = true },
+          callback() { confirmed = true; },
         })
         .build()
         .show()
@@ -315,7 +315,7 @@ const saveConfirmedSetting = async({
     resetData && resetData();
     return false;
   }
-}
+};
 
 export {
   fetchSetting,

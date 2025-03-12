@@ -21,15 +21,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import axios from 'axios';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import type { AxiosResponse } from 'axios';
 
-export interface AxiosErrorResponse<T = any, D = any> extends Omit<AxiosError<T, D>, 'response'> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface AxiosErrorResponse<T = unknown, D = any> extends Omit<AxiosError<T, D>, 'response'> {
   response: AxiosResponse<T, D>,
 }
 
-export const isAxiosError = (error: any): error is AxiosError => axios.isAxiosError(error);
+export const isAxiosError = (error: unknown): error is AxiosError => axios.isAxiosError(error);
 
-export const isAxiosErrorResponse = (error: any): error is AxiosErrorResponse =>
-  isAxiosError(error) && !!error.response
+export const isAxiosErrorResponse = (error: unknown): error is AxiosErrorResponse =>
+  isAxiosError(error) && !!error.response;

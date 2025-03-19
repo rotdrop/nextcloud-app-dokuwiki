@@ -23,6 +23,7 @@
             ref="externalFrame"
             :src="iframeLocation"
             :name="appName"
+            v-bind="props.iFrameAttributes"
             @load="loadHandler"
     />
   </div>
@@ -49,9 +50,11 @@ interface InitialState {
 const props = withDefaults(defineProps<{
   wikiPage?: string,
   query?: Record<string, string>,
+  iFrameAttributes?: Record<string, string>,
 }>(), {
   wikiPage: '',
   query: () => ({}),
+  iFrameAttributes: () => ({}),
 })
 
 const emit = defineEmits(['iframe-loaded'])

@@ -28,7 +28,6 @@ OC.L10N.register(
     "Unknown error :(" : "Error desconegut :(",
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Els enllaços a pàgines wiki estan desactivats en mode de vista prèvia.",
-    "Link to wiki page" : "Enllaç a la pàgina wiki",
     "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia."
 },
 "nplurals=2; plural=(n != 1);");

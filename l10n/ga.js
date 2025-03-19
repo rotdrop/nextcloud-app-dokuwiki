@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Earráid anaithnid :(",
     "Error" : "Earráid",
     "Links to wiki pages are disabled in preview mode." : "Díchumasaítear naisc le leathanaigh vicí sa mhód réamhamhairc.",
-    "Link to wiki page" : "Nasc chuig leathanach vicí",
     "Links to media files are disabled in preview mode." : "Tá naisc le comhaid meán díchumasaithe i mód réamhamhairc."
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

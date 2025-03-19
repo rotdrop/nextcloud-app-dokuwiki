@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "錯誤不詳 :(",
     "Error" : "錯誤",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
-    "Link to wiki page" : "連結至 wiki 頁面",
     "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
 },
 "nplurals=1; plural=0;");

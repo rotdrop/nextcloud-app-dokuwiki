@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Neznáma chyba :(",
     "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "Odkazy na stránky wiki sú v režime ukážky zakázané.",
-    "Link to wiki page" : "Odkaz na wiki stránku",
     "Links to media files are disabled in preview mode." : "Odkazy na súbory médií sú v režime ukážky zakázané."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

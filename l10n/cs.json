@@ -28,7 +28,6 @@
     "Unknown error :(" : "Neznámá chyba :(",
     "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
-    "Link to wiki page" : "Odkaz na wiki stránku",
     "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

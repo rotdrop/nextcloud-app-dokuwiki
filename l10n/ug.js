@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "نامەلۇم خاتالىق :(",
     "Error" : "خاتالىق",
     "Links to wiki pages are disabled in preview mode." : "ئالدىن كۆرۈش شەكلىدە wiki بېتىگە ئۇلىنىش چەكلەنگەن.",
-    "Link to wiki page" : "Wiki بېتىگە ئۇلىنىش",
     "Links to media files are disabled in preview mode." : "مېدىيا ھۆججىتىگە ئۇلىنىش ئالدىن كۆرۈش شەكلىدە چەكلەنگەن."
 },
 "nplurals=2; plural=(n != 1);");

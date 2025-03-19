@@ -11,7 +11,6 @@ OC.L10N.register(
     "DokuWiki Session Refresh Interval [s]" : "DokuWiki-istunnon päivitysväli [s]",
     "Enable SSL verification." : "Käytä SSL-vahvistusta.",
     "Unknown error :(" : "Tuntematon virhe :(",
-    "Error" : "Virhe",
-    "Link to wiki page" : "Linkki wikisivulle"
+    "Error" : "Virhe"
 },
 "nplurals=2; plural=(n != 1);");

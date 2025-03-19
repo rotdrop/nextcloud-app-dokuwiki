@@ -28,7 +28,6 @@
     "Unknown error :(" : "Error desconocido :(",
     "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
-    "Link to wiki page" : "Enlace a la página wiki",
     "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

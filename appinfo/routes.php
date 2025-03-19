@@ -13,6 +13,9 @@ return [
       'name' => 'page#index',
       'url' => '/{wikiPage}',
       'verb' => 'GET',
+      'defaults' => [
+        'wikiPage' => '',
+      ],
     ],
     // settings
     [

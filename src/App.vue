@@ -17,7 +17,7 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <NcContent :app-name="appName">
+  <NcContent :app-name="appId">
     <NcAppContent :class="{ 'icon-loading': loading }">
       <RouterView v-show="!loading"
                   :loading.sync="loading"
@@ -27,9 +27,10 @@
   </NcContent>
 </template>
 <script setup lang="ts">
-import { appName } from './config.ts'
+import { appName as appId } from './config.ts'
 import {
   NcAppContent,
+  // NcAppNavigation,
   NcContent,
 } from '@nextcloud/vue'
 import {

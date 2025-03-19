@@ -19,9 +19,5 @@
  * License along with Nextcloud DokuWiki. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-
-script($appName, $assets['js']['asset']);
-style($appName, $assets['css']['asset']);
-
 ?>
-<div id="<?php p($appName) ?>-app"></div>
+<!-- nothing -->

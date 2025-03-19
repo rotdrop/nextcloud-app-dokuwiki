@@ -36,7 +36,7 @@ __webpack_nonce__ = btoa(getRequestToken() || '')
 __webpack_public_path__ = generateFilePath(appName, '', '');
 
 export default new Vue({
-  el: '#' + appName + '-app',
+  el: '#content',
   render: h => h(App),
   router,
 });

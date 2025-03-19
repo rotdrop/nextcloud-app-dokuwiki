@@ -32,6 +32,7 @@ use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
+use OCP\Util;
 use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\DokuWiki\Constants;
@@ -78,19 +79,10 @@ class PageController extends Controller
     $this->authenticator->refresh(); // maybe attempt re-login
     $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
 
-    $templateParameters = [
-      'appName' => $this->appName,
-      'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::ASSET),
-        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET),
-      ],
-    ];
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET)['asset']);
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET)['asset']);
 
-    $response = new TemplateResponse(
-      $this->appName,
-      self::TEMPLATE,
-      $templateParameters,
-    );
+    $response = new TemplateResponse($this->appName, self::TEMPLATE, []);
 
     $policy = new ContentSecurityPolicy();
     $policy->addAllowedChildSrcDomain('*');

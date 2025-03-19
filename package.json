@@ -57,6 +57,7 @@
     "svgo-loader": "^3.0.1",
     "typescript": "^5.2.2",
     "vue": "^2.7.15",
+    "vue-router": "^3.6.5",
     "webpack": "^5.69.0",
     "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "*",

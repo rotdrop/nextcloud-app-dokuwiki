@@ -26,18 +26,17 @@ namespace OCA\DokuWiki\Listener;
 use Throwable;
 
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent as HandledEvent;
+use OCP\AppFramework\IAppContainer;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
-use Psr\Log\LoggerInterface as ILogger;
 use Psr\Log\LogLevel;
-use OCP\IConfig;
-use OCP\AppFramework\Services\IInitialState;
+use Psr\Log\LoggerInterface as ILogger;
 
-use OCA\DokuWiki\Service\AssetService;
-use OCA\DokuWiki\Controller\SettingsController;
 use OCA\DokuWiki\Constants;
+use OCA\DokuWiki\Controller\SettingsController;
+use OCA\DokuWiki\Service\AssetService;
+use OCA\DokuWiki\Service\InitialStateService;
 
 /** Load additional scripts while running interactively. */
 class LoadAdditionalScriptsEventListener implements IEventListener
@@ -74,23 +73,13 @@ class LoadAdditionalScriptsEventListener implements IEventListener
     }
 
     try {
-      /** @var IConfig $config */
-      $config = $this->appContainer->get(IConfig::class);
+      /** @var InitialStateService $initialStateService */
+      $initialStateService = $this->appContainer->get(InitialStateService::class);
 
-      /** @var IInitialState $initialState */
-      $initialState = $this->appContainer->get(IInitialState::class);
+      $initialStateService->provide();
 
       /** @var string $appName */
       $appName = $this->appContainer->get('appName');
-
-      $refreshInterval = $config->getAppValue($appName, SettingsController::AUTHENTICATION_REFRESH_INTERVAL, 600);
-
-      $initialState->provideInitialState(
-        Constants::INITIAL_STATE_SECTION, [
-          'appName' => $appName,
-          SettingsController::AUTHENTICATION_REFRESH_INTERVAL => $refreshInterval,
-        ],
-      );
 
       /** @var AssetService $assetService */
       $assetService = $this->appContainer->get(AssetService::class);

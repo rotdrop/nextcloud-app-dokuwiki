@@ -11,16 +11,8 @@ return [
   'routes' => [
     [
       'name' => 'page#index',
-      'url' => '/page/index',
+      'url' => '/{wikiPage}',
       'verb' => 'GET',
-    ],
-    [
-      'name' => 'page#frame',
-      'url' => '/page/frame/{renderAs}',
-      'verb' => 'POST',
-      'default' => [
-        'renderAs' => 'blank',
-      ],
     ],
     // settings
     [

@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -23,22 +23,22 @@
 
 namespace OCA\DokuWiki\Controller;
 
-use OCP\IRequest;
+use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
-use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IRequest;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
-use OCP\IL10N;
-use OCP\IConfig;
-use OCP\AppFramework\Services\IInitialState;
 
-use OCA\DokuWiki\Toolkit\Traits;
-use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
-use OCA\DokuWiki\Service\AssetService;
 use OCA\DokuWiki\Constants;
+use OCA\DokuWiki\Service\AssetService;
+use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
+use OCA\DokuWiki\Service\InitialStateService;
+use OCA\DokuWiki\Toolkit\Traits;
 
 /** Main entry point for web frontend. */
 class PageController extends Controller
@@ -46,18 +46,18 @@ class PageController extends Controller
   use Traits\LoggerTrait;
   use Traits\ResponseTrait;
 
-  const TEMPLATE = 'doku-wiki';
+  const TEMPLATE = 'app';
   const ASSET = 'app';
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    private Authenticator $authenticator,
     private AssetService $assetService,
+    private Authenticator $authenticator,
     private IConfig $config,
     private IURLGenerator $urlGenerator,
-    private IInitialState $initialState,
+    private InitialStateService $initialStateService,
     protected ILogger $logger,
   ) {
     parent::__construct($appName, $request);
@@ -73,68 +73,30 @@ class PageController extends Controller
    */
   public function index():Response
   {
-    return $this->frame('user');
-  }
+    $this->initialStateService->provide();
 
-  /**
-   * @param string $renderAs
-   *
-   * @return Response
-   *
-   * @NoAdminRequired
-   */
-  public function frame(string $renderAs = 'blank'):Response
-  {
-    try {
-      $this->initialState->provideInitialState(
-        Constants::INITIAL_STATE_SECTION,
-        [
-          'appName' => $this->appName,
-          SettingsController::AUTHENTICATION_REFRESH_INTERVAL => $this->config->getAppValue(SettingsController::AUTHENTICATION_REFRESH_INTERVAL, 600),
-        ]
-      );
+    $this->authenticator->refresh(); // maybe attempt re-login
+    $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
 
-      $wikiURL      = $this->authenticator->wikiURL();
-      $wikiPage     = $this->request->getParam('wikiPage', '');
-      $cssClass     = $this->request->getParam('cssClass', 'fullscreen');
-      $attributes   =  $this->request->getParam('iframeAttributes', '');
+    $templateParameters = [
+      'appName' => $this->appName,
+      'assets' => [
+        Constants::JS => $this->assetService->getJSAsset(self::ASSET),
+        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET),
+      ],
+    ];
 
-      $this->authenticator->refresh(); // maybe attempt re-login
-      $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
+    $response = new TemplateResponse(
+      $this->appName,
+      self::TEMPLATE,
+      $templateParameters,
+    );
 
-      $templateParameters = [
-        'appName' => $this->appName,
-        'wikiURL' => $wikiURL,
-        'wikiPath' => '/doku.php?id=' . $wikiPage,
-        'cssClass' => $cssClass,
-        'iframeAttributes' => $attributes,
-        'urlGenerator' => $this->urlGenerator,
-        'assets' => [
-          Constants::JS => $this->assetService->getJSAsset(self::ASSET),
-          Constants::CSS => $this->assetService->getCSSAsset(self::ASSET),
-        ],
-      ];
+    $policy = new ContentSecurityPolicy();
+    $policy->addAllowedChildSrcDomain('*');
+    $policy->addAllowedFrameDomain('*');
+    $response->setContentSecurityPolicy($policy);
 
-      $response = new TemplateResponse(
-        $this->appName,
-        self::TEMPLATE,
-        $templateParameters,
-        $renderAs);
-
-      $policy = new ContentSecurityPolicy();
-      $policy->addAllowedChildSrcDomain('*');
-      $policy->addAllowedFrameDomain('*');
-      $response->setContentSecurityPolicy($policy);
-
-      return $response;
-
-    } catch (\Throwable $t) {
-      if ($renderAs == 'blank') {
-        $this->logException($t);
-        return self::grumble($this->exceptionChainData($t));
-      } else {
-        throw $t;
-      }
-    }
+    return $response;
   }
 }

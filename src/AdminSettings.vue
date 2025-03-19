@@ -21,7 +21,7 @@
     <h1 class="title">
       {{ t(appName, 'DokuWiki Integration') }}
     </h1>
-    <NcSettingsSection name="">
+    <NcSettingsSection :name="''">
       <TextField :value.sync="settings.externalLocation"
                  :label="t(appName, 'DokuWiki Installation Path')"
                  title=""
@@ -30,7 +30,7 @@
                  @submit="saveTextInput('externalLocation')"
       />
     </NcSettingsSection>
-    <NcSettingsSection title="">
+    <NcSettingsSection :name="''">
       <TextField :value.sync="settings.authenticationRefreshInterval"
                  title=""
                  :label="t(appName, 'DokuWiki Session Refresh Interval [s]')"
@@ -39,7 +39,7 @@
                  @submit="saveTextInput('authenticationRefreshInterval')"
       />
     </NcSettingsSection>
-    <NcSettingsSection name="">
+    <NcSettingsSection :name="''">
       <input id="enable-ssl-verify"
              v-model="settings.enableSSLVerify"
              class="checkbox"
@@ -74,13 +74,14 @@ import {
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
 import {
+  reactive,
   ref,
   computed,
 } from 'vue'
 
 const loading = ref(0)
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
-const settings = ref({
+const settings = reactive({
   externalLocation: '',
   enableSSLVerify: false,
   authenticationRefreshInterval: 0,
@@ -90,7 +91,7 @@ const settings = ref({
 const getData = async () => {
   ++loading.value
   return fetchSettings({ section: 'admin', settings }).finally(() => {
-    console.info('THIS', this)
+    console.info('SETTINGS', settings)
     --loading.value
   })
 }

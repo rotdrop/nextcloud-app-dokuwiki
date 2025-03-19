@@ -1,5 +1,5 @@
 /**
- * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
+ * DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
@@ -22,31 +22,11 @@
 
 import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
+import dialogAlert from './toolkit/util/dialog-alert.ts';
 
 import '../style/doku-wiki.scss';
 
-const webPrefix = appName;
-
-interface LoadHandlerArgs {
-  frame: HTMLIFrameElement,
-  frameWrapper: HTMLElement,
-  callback?: (frame: HTMLIFrameElement, frameWrapper: HTMLElement) => void,
-}
-
-/**
- * Called after the DokuWiki has been loaded by the iframe. We make
- * sure that external links are opened in another tab/window.
- *
- * @param data Destructuring object.
- *
- * @param data.frame TBD.
- *
- * @param data.frameWrapper TBD.
- *
- * @param data.callback TBD.
- *
- */
-const loadHandler = function({ frame, frameWrapper, callback }: LoadHandlerArgs) {
+const tuneContents = function(frame: HTMLIFrameElement) {
 
   const frameDocument = frame.contentWindow!.document;
 
@@ -74,9 +54,10 @@ const loadHandler = function({ frame, frameWrapper, callback }: LoadHandlerArgs)
         event.preventDefault();
         const target = event.target as HTMLAnchorElement;
         const href = target.getAttribute('href')!.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-        OC.dialogs.alert(
-          t(appName, 'Links to wiki pages are disabled in preview mode.'),
-          t(appName, 'Link to wiki page') + ' "' + href + '"');
+        dialogAlert({
+          title: t(appName, 'Link to wiki page "{href}"', { href }),
+          text: t(appName, 'Links to wiki pages are disabled in preview mode.'),
+        });
       }, true);
     });
     previewDiv.querySelectorAll('a[class^="media"]').forEach(el => {
@@ -88,23 +69,52 @@ const loadHandler = function({ frame, frameWrapper, callback }: LoadHandlerArgs)
         event.preventDefault();
         const target = event.target as HTMLAnchorElement;
         const href = target.getAttribute('href')!.replace(/^\/[^?]+\?id=(.*)$/, '$1');
-        OC.dialogs.alert(
-          t(appName, 'Links to media files are disabled in preview mode.'),
-          t(appName, 'Link to wiki page') + ' "' + href + '"');
+        dialogAlert({
+          title: t(appName, 'Link to wiki page "{href}"', { href }),
+          text: t(appName, 'Links to media files are disabled in preview mode.'),
+        });
       }, true);
     });
   }
-
-  if (typeof callback === 'undefined') {
-    callback = function() {};
-  }
-
-  const loader = document.getElementById(webPrefix + 'Loader');
-  if (loader) {
-    loader.classList.add('fading');
-  }
-  frame.classList.remove('faded');
-  callback(frame, frameWrapper);
 };
 
-export { loadHandler };
+/**
+ * Fills height of window (more precise than height: 100%;)
+ *
+ * @param frame The frame to be  resized.
+ */
+const fillHeight = function(frame: HTMLIFrameElement) {
+  const height = window.innerHeight - frame.getBoundingClientRect().top;
+  frame.style.height = height + 'px';
+  const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
+  if (outerDelta) {
+    frame.style.height = (height - outerDelta) + 'px';
+  }
+};
+
+/**
+ * Fills width of window (more precise than width: 100%;)
+ *
+ * @param frame The frame to be resized.
+ */
+const fillWidth = function(frame: HTMLIFrameElement) {
+  const width = window.innerWidth - frame.getBoundingClientRect().left;
+  frame.style.width = width + 'px';
+  const outerDelta = frame.getBoundingClientRect().width - frame.clientWidth;
+  if (outerDelta > 0) {
+    frame.style.width = (width - outerDelta) + 'px';
+  }
+};
+
+/**
+ * Fills height and width of RC window.
+ * More precise than height/width: 100%.
+ *
+ * @param frame TBD.
+ */
+const resizeIframe = function(frame: HTMLIFrameElement) {
+  fillHeight(frame);
+  fillWidth(frame);
+};
+
+export { tuneContents, resizeIframe as resizeHandler };

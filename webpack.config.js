@@ -25,9 +25,8 @@ const productionMode = process.env.NODE_ENV === 'production';
 
 webpackConfig.entry = {
   'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
-  popup: path.join(__dirname, 'src', 'doku-wiki-popup.ts'),
   refresh: path.join(__dirname, 'src', 'refresh.ts'),
-  app: path.join(__dirname, 'src', 'index.ts'),
+  app: path.join(__dirname, 'src', 'app.ts'),
 };
 
 webpackConfig.output = {

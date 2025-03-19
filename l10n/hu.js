@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Ismeretlen hiba :(",
     "Error" : "Hiba",
     "Links to wiki pages are disabled in preview mode." : "A wiki oldalakra mutató hivatkozások le vannak tiltva az előnézeti módban.",
-    "Link to wiki page" : "Hivatkozás egy wiki oldalra",
     "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban."
 },
 "nplurals=2; plural=(n != 1);");

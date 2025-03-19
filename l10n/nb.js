@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Ukjent feil :(",
     "Error" : "Feil",
     "Links to wiki pages are disabled in preview mode." : "Lenker til wiki-sider er deaktivert i forhåndsvisningsmodus.",
-    "Link to wiki page" : "Link til wiki-siden",
     "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus."
 },
 "nplurals=2; plural=(n != 1);");

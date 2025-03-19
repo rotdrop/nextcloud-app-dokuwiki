@@ -27,7 +27,6 @@ OC.L10N.register(
     "Unknown error :(" : "Erro desconhecido :(",
     "Error" : "Erro",
     "Links to wiki pages are disabled in preview mode." : "Os atalhos para páginas WIKI estão desabilitados em modo de pré-visualização.",
-    "Link to wiki page" : "Atalho para a página wiki.",
     "Links to media files are disabled in preview mode." : "Atalhos para ficheiros de media estão desabilitados em modo de pré-visualização."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

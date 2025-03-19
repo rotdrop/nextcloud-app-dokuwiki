@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Unbekannter Fehler :(",
     "Error" : "Fehler",
     "Links to wiki pages are disabled in preview mode." : "Links zu Wiki-Seiten sind in der Vorschau deaktiviert.",
-    "Link to wiki page" : "Link zur Wiki-Seite",
     "Links to media files are disabled in preview mode." : "Links zu Mediendateien sind in der Vorschau deaktiviert."
 },
 "nplurals=2; plural=(n != 1);");

@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Bilinmeyen bir sorun çıktı :(",
     "Error" : "Hata",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları kullanımdan kaldırılır.",
-    "Link to wiki page" : "Wiki sayfası bağlantısı",
     "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları kullanımdan kaldırılır."
 },
 "nplurals=2; plural=(n > 1);");

@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "Errore ezezaguna :(",
     "Error" : "Errorea",
     "Links to wiki pages are disabled in preview mode." : "Wiki orrietarako estekak desgaituta daude aurrebista moduan.",
-    "Link to wiki page" : "Esteka wiki orrira",
     "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan."
 },
 "nplurals=2; plural=(n != 1);");

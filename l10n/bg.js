@@ -27,7 +27,6 @@ OC.L10N.register(
     "Unknown error :(" : "Неизвестна грешка :(",
     "Error" : "Грешка",
     "Links to wiki pages are disabled in preview mode." : "Връзките към страници в уикипедия /wiki/ са деактивирани в режим на предварителен преглед.",
-    "Link to wiki page" : "Връзка към страница в уикипедия /wiki/",
     "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед."
 },
 "nplurals=2; plural=(n != 1);");

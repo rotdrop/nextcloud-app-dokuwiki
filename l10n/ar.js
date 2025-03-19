@@ -30,7 +30,6 @@ OC.L10N.register(
     "Unknown error :(" : "خطأ غير محدد :(",
     "Error" : "خطأ",
     "Links to wiki pages are disabled in preview mode." : "الروابط إلى صفحات الويكي تكون غير مفعّلة في حالة المعاينة preview.",
-    "Link to wiki page" : "رابط إلى صفحة ويكي",
     "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

@@ -51,10 +51,12 @@ const props = withDefaults(defineProps<{
   wikiPage?: string,
   query?: Record<string, string>,
   iFrameAttributes?: Record<string, string>,
+  compact?: boolean,
 }>(), {
   wikiPage: '',
   query: () => ({}),
   iFrameAttributes: () => ({}),
+  compact: false,
 })
 
 const emit = defineEmits(['iframe-loaded'])
@@ -92,7 +94,7 @@ const loadHandler = () => {
   const iframe = externalFrame.value!
   const iframeWindow = iframe.contentWindow!
   console.info('DOKUWIKI: GOT LOAD EVENT')
-  tuneContents(iframe)
+  tuneContents(iframe, props.compact)
   resizeHandler(iframe)
   if (!gotLoadEvent) {
     loaderContainer.value!.classList.add('fading')

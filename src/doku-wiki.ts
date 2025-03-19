@@ -26,9 +26,15 @@ import dialogAlert from './toolkit/util/dialog-alert.ts';
 
 import '../style/doku-wiki.scss';
 
-const tuneContents = function(frame: HTMLIFrameElement) {
+const tuneContents = function(frame: HTMLIFrameElement, compact?: boolean) {
 
-  const frameDocument = frame.contentWindow!.document;
+  const frameDocument = frame.contentWindow!.document!;
+
+  if (compact) {
+    frameDocument.querySelectorAll('#dokuwiki__header div.pad').forEach(el => el.remove());
+    frameDocument.querySelectorAll<HTMLElement>('#dokuwiki_header').forEach(el => { el.style.padding = '2.5em 0px 0px'; });
+    frameDocument.querySelectorAll('#dokuwiki__footer').forEach(el => el.remove());
+  }
 
   frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
   frameDocument.querySelectorAll('li:empty').forEach(el => el.remove());

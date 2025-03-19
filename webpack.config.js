@@ -48,6 +48,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     extensions: ['ts', 'js', 'vue'],
     exclude: [
       'node_modules',
+      'src/toolkit/util/jquery.js',
     ],
   }),
   new HtmlWebpackPlugin({

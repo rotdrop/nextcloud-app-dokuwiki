@@ -34,7 +34,7 @@ if (!(refreshInterval >= 30)) {
   refreshInterval = 30;
 }
 
-let refreshTimer = null;
+let refreshTimer: undefined|ReturnType<typeof setTimeout>;
 const url = generateUrl('authentication/refresh');
 
 const refreshHandler = async function() {
@@ -50,6 +50,6 @@ onDocumentLoaded(() => {
   } else {
     console.info('cloud-user appears unset.');
     clearTimeout(refreshTimer);
-    refreshTimer = false;
+    refreshTimer = undefined;
   }
 });

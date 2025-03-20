@@ -25,8 +25,7 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Молимо вас да овде унесете жељени интервал освежавања сесије. Интервал се мерии у секундама и требало би да буде мало мањи од конфигурисаног времена живота сесије DokuWiki инстанце која се користи.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Искључи SSL потврђивање, нпр. за самостално потписане сертификате или позната имена хостова која се не подударају са сертификатом, као што је ’localhost.",
     "Enable SSL verification." : "Укључи SSL потврђивање.",
-    "Unknown error :(" : "Непозната грешка :(",
-    "Error" : "Грешка",
+    "Link to wiki page \"{href}\"" : "Линк на вики страницу „{href}”",
     "Links to wiki pages are disabled in preview mode." : "Линкови на вики странице су искључени у режиму прегледа.",
     "Links to media files are disabled in preview mode." : "Линкови на фајлове медија су искључени у режиму прегледа."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"

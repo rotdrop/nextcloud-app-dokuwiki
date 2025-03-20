@@ -1,6 +1,5 @@
 { "translations": {
     "User" : "Người dùng",
-    "Password" : "Mật khẩu",
-    "Error" : "Lỗi"
+    "Password" : "Mật khẩu"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

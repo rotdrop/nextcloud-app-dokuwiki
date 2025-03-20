@@ -1,6 +1,5 @@
 { "translations": {
     "User" : "Utente",
-    "Password" : "Crae",
-    "Error" : "Errore"
+    "Password" : "Crae"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

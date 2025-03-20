@@ -2,7 +2,6 @@ OC.L10N.register(
     "dokuwiki",
     {
     "User" : "User",
-    "Password" : "ಗುಪ್ತಪದ",
-    "Error" : "﻿ತಪ್ಪಾಗಿದೆ"
+    "Password" : "ಗುಪ್ತಪದ"
 },
 "nplurals=2; plural=(n > 1);");

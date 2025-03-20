@@ -2,7 +2,6 @@ OC.L10N.register(
     "dokuwiki",
     {
     "User" : "User",
-    "Password" : "Password",
-    "Error" : "Error"
+    "Password" : "Password"
 },
 "nplurals=2; plural=(n!=1);");

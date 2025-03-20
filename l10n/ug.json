@@ -25,8 +25,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "لازىملىق ئولتۇرۇش-يېڭىلاش ئارىلىقىنى بۇ يەرگە كىرگۈزۈڭ. ئارىلىق سېكۇنتتا ئۆلچەم قىلىنغان بولۇپ ، ئىشلىتىلىۋاتقان DokuWiki مىسالى ئۈچۈن تەڭشەلگەن ئولتۇرۇش ۋاقتىدىن بىر ئاز كىچىك بولۇشى كېرەك.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL دەلىللەشنى چەكلەڭ. ئۆزى ئىمزا قويغان گۇۋاھنامە ياكى «localhost» غا ئوخشاش خاتا ماس كېلىدىغان ساھىبجاماللارغا ماس كېلىدۇ.",
     "Enable SSL verification." : "SSL دەلىللەشنى قوزغىتىڭ.",
-    "Unknown error :(" : "نامەلۇم خاتالىق :(",
-    "Error" : "خاتالىق",
     "Links to wiki pages are disabled in preview mode." : "ئالدىن كۆرۈش شەكلىدە wiki بېتىگە ئۇلىنىش چەكلەنگەن.",
     "Links to media files are disabled in preview mode." : "مېدىيا ھۆججىتىگە ئۇلىنىش ئالدىن كۆرۈش شەكلىدە چەكلەنگەن."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

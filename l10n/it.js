@@ -10,7 +10,6 @@ OC.L10N.register(
     "User" : "Utente",
     "Password" : "Password",
     "Error, caught an exception." : "Errore, catturata un'eccezione.",
-    "Caused by previous exception" : "Causata dalla precedente eccezione",
-    "Error" : "Errore"
+    "Caused by previous exception" : "Causata dalla precedente eccezione"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

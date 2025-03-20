@@ -27,8 +27,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "請在此輸入所需的工作階段重新整理間隔。時間間隔以秒為單位，應該略小於為正在使用的 DokuWiki 站台設定的工作階段生命週期。",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "停用 SSL 驗證，例如對於自簽憑證或已知的不相符主機名稱，如「localhost」。",
     "Enable SSL verification." : "啟用 SSL 驗證。",
-    "Unknown error :(" : "錯誤不詳 :(",
-    "Error" : "錯誤",
+    "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
     "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
 },

@@ -2,7 +2,6 @@ OC.L10N.register(
     "dokuwiki",
     {
     "User" : "Përdorues",
-    "Password" : "Fjalëkalimi",
-    "Error" : "Gabim"
+    "Password" : "Fjalëkalimi"
 },
 "nplurals=2; plural=(n != 1);");

@@ -25,8 +25,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Idatzi saioa-freskatzeko nahi duzun  tartea hemen. Tartea segundotan neurtzen da eta erabiltzen ari den DokuWiki instantziarako konfiguratutako saioaren iraupena baino zertxobait txikiagoa izan behar du.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desgaitu SSL egiaztapena, adibidez norberak sinatutako ziurtagirietarako edo \"localhost\" bezalako ostalari-izen desegokietarako.",
     "Enable SSL verification." : "Gaitu SSL egiaztapena.",
-    "Unknown error :(" : "Errore ezezaguna :(",
-    "Error" : "Errorea",
     "Links to wiki pages are disabled in preview mode." : "Wiki orrietarako estekak desgaituta daude aurrebista moduan.",
     "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

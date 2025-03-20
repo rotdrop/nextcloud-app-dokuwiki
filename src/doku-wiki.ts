@@ -24,8 +24,6 @@ import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
 import dialogAlert from './toolkit/util/dialog-alert.ts';
 
-import '../style/doku-wiki.scss';
-
 const tuneContents = function(frame: HTMLIFrameElement, compact?: boolean) {
 
   const frameDocument = frame.contentWindow!.document!;

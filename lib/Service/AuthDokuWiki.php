@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -61,6 +61,33 @@ class AuthDokuWiki
   const AUTH_UPLOAD = 8;
   const AUTH_DELETE = 16;
   const AUTH_ADMIN = 255;
+
+  private const RPC_AUTH_METHODS = [
+    // current API methods
+    'core.login',
+    'core.logoff',
+    // legacy methods
+    'dokuwiki.login',
+    'dokuwiki.logoff',
+    // sticky login plugin
+    'plugin.remoteauth.stickyLogin',
+  ];
+
+  private const RPC_LOGIN_METHODS = [
+    // sticky login plugin
+    'plugin.remoteauth.stickyLogin',
+    // current API methods
+    'core.login',
+    // legacy methods
+    'dokuwiki.login',
+  ];
+
+  private const RPC_LOGOUT_METHODS = [
+    // current API methods
+    'core.logoff',
+    // legacy methods
+    'dokuwiki.logoff',
+  ];
 
   /** @var string */
   private $appName;
@@ -239,7 +266,7 @@ class AuthDokuWiki
         try {
           $credentials = $this->loginCredentials();
           if ($this->doLogin($credentials['userId'], $credentials['password'])) {
-            $this->logInfo("Re-login succeeded");
+            $this->logInfo("Re-login succeeded, cookies " . print_r($this->cookies, true));
             foreach ($this->cookies as $cookie) {
               if ($cookie['value'] == 'deleted') {
                 continue;
@@ -281,7 +308,7 @@ class AuthDokuWiki
         $this->httpCode = -1;
         $this->httpStatus = '';
       }
-      return $this->handleError('XMLRPC request failed: ' . $response->faultString());
+      return $this->handleError('XMLRPC request failed: ' . $response->faultString() . ' CODE ' . $this->httpCode . ' STATUS ' . $this->httpStatus);
     }
     $this->httpCode = 200;
     $this->httpStatus = 'OK';
@@ -289,10 +316,7 @@ class AuthDokuWiki
     // ok, we got a valid response
     $decodedResponse = (new XmlRpc\Encoder)->decode($response->value());
 
-    if ($method == "dokuwiki.login" ||
-        $method == "dokuwiki.stickylogin" ||
-        $method == "plugin.remoteauth.stickyLogin" ||
-        $method == "dokuwiki.logoff") {
+    if (in_array($method, self::RPC_AUTH_METHODS)) {
       // Response _should_ be a single integer: if 0, login
       // unsuccessful, if 1: got it.
       if ($decodedResponse == 1) {
@@ -376,26 +400,22 @@ class AuthDokuWiki
    *
    * @return bool true if successful, false otherwise.
    */
-  private function doLogin($username, $password)
+  private function doLogin($username, $password):bool
   {
     $this->cleanCookies();
-    $result = $this->xmlRequest("plugin.remoteauth.stickyLogin", [ $username, $password ]);
-    if ($result !== true) {
-      // Fall back to "normal" login if long-life token could not be aquired.
-      $result = $this->xmlRequest("dokuwiki.login", [ $username, $password ]);
-      if ($result !== true) {
-        return false;
+    foreach (self::RPC_LOGIN_METHODS as $method) {
+      $result = $this->xmlRequest($method, [ $username, $password ]);
+      if ($result === true) {
+        foreach ($this->cookies as $cookie) {
+          if ($cookie['value'] == 'deleted') {
+            continue;
+          }
+          $this->xmlRpcClient->setCookie($cookie['name'], $cookie['value']);
+        }
+        return true;
       }
     }
-
-    foreach ($this->cookies as $cookie) {
-      if ($cookie['value'] == 'deleted') {
-        continue;
-      }
-      $this->xmlRpcClient->setCookie($cookie['name'], $cookie['value']);
-    }
-
-    return true;
+    return false;
   }
 
   /**
@@ -403,11 +423,16 @@ class AuthDokuWiki
    * call. For this to work we have to send the DokuWiki cookies
    * alongside the XMLRPC request.
    *
-   * @return mixed
+   * @return bool
    */
-  public function logout():mixed
+  public function logout():bool
   {
-    return $this->doXmlRequest("dokuwiki.logoff");
+    foreach (self::RPC_LOGOUT_METHODS as $method) {
+      if ($this->doXmlRequest($method) === true) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -418,7 +443,7 @@ class AuthDokuWiki
    */
   public function version():mixed
   {
-    return $this->doXmlRequest("dokuwiki.getVersion");
+    return $this->xmlRequest("dokuwiki.getVersion");
   }
 
   /**
@@ -429,7 +454,7 @@ class AuthDokuWiki
    */
   public function refresh():mixed
   {
-    return $this->getPage('');
+    return $this->version();
   }
 
   /**

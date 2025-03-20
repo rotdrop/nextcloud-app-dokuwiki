@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -23,12 +23,12 @@
 
 namespace OCA\DokuWiki\Controller;
 
-use OCP\IRequest;
+use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Controller;
-use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
+use OCP\IRequest;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
 
@@ -57,14 +57,16 @@ class AuthenticationController extends Controller
    *
    * @NoAdminRequired
    */
-  public function refresh():void
+  public function refresh():DataResponse
   {
     $response = $this->authenticator->refresh();
     if (false === $response) {
       $this->logError("DokuWiki refresh for user ".($this->userId)." failed.");
+      return new DataResponse([], Http::STATUS_INTERNAL_SERVER_ERROR);
     } else {
       $this->authenticator->emitAuthHeaders();
       $this->logDebug("DokuWiki refresh ".($this->userId)." probably succeeded");
+      return new DataResponse([ 'data' => $response ], Http::STATUS_OK);
     }
   }
 }

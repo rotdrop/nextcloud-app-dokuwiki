@@ -25,8 +25,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Vennligst skriv inn ønsket økt-oppdateringsintervall her. Intervallet måles i sekunder og bør være noe mindre enn den konfigurerte øktlevetiden for DokuWiki-forekomsten som er i bruk.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deaktiver SSL-verifisering, f.eks. for selvsignerte sertifikater eller kjente mismatchende vertsnavn som \"localhost\".",
     "Enable SSL verification." : "Aktiver SSL-verifisering.",
-    "Unknown error :(" : "Ukjent feil :(",
-    "Error" : "Feil",
     "Links to wiki pages are disabled in preview mode." : "Lenker til wiki-sider er deaktivert i forhåndsvisningsmodus.",
     "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -1,6 +1,5 @@
 { "translations": {
     "User" : "Përdorues",
-    "Password" : "Fjalëkalimi",
-    "Error" : "Gabim"
+    "Password" : "Fjalëkalimi"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

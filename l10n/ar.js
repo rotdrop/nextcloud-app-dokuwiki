@@ -27,8 +27,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "رجاءً أدخل مقدار فترة إنعاش جلسة العمل هنا. تُحتسب الفترة بالثواني و يجب أن تكون أصغر من فترة طول جلسة العمل المسجلة في إعداد الدوكو ويكي. ",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "أوقف التحقق باستخدام SSL لأسباب قد يكون من بينها: شهادات مصادقة ذاتياً أو أسماء مضيف غير مطابقة مثل 'localhost'.",
     "Enable SSL verification." : "تمكين التحقق باستخدام SSL.",
-    "Unknown error :(" : "خطأ غير محدد :(",
-    "Error" : "خطأ",
+    "Link to wiki page \"{href}\"" : "رابط لصفحة الويكي \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "الروابط إلى صفحات الويكي تكون غير مفعّلة في حالة المعاينة preview.",
     "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة."
 },

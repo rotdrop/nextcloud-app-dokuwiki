@@ -25,8 +25,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Adja meg itt a kívánt munkamenet-megújítási intervallumot. Az intervallum másodpercben mért, és valamivel kisebbnek kell lennie, mint a DokuWiki-példányon beállított munkamenet-élettartam.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL-ellenőrzés letiltása, például önaláírt tanúsítványok vagy nem egyező kiszolgálónevek (például „localhost”) használatához.",
     "Enable SSL verification." : "SSL-ellenőrzés engedélyezése.",
-    "Unknown error :(" : "Ismeretlen hiba :(",
-    "Error" : "Hiba",
     "Links to wiki pages are disabled in preview mode." : "A wiki oldalakra mutató hivatkozások le vannak tiltva az előnézeti módban.",
     "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

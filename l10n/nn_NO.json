@@ -1,5 +1,4 @@
 { "translations": {
-    "User" : "Bruker",
-    "Error" : "Feil"
+    "User" : "Bruker"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,6 +1,5 @@
 { "translations": {
     "User" : "მომხმარებელი",
-    "Password" : "პაროლ",
-    "Error" : "შეცდომა"
+    "Password" : "პაროლ"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

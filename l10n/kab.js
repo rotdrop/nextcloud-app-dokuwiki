@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "true" : "idetti",
     "false" : "ucciḍ",
-    "User" : "Aseqdac",
-    "Error" : "Erreur"
+    "User" : "Aseqdac"
 },
 "nplurals=2; plural=(n != 1);");

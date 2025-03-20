@@ -21,8 +21,6 @@ OC.L10N.register(
     "DokuWiki Session Refresh Interval [s]" : "Interwał odświeżania sesji DokuWiki [s]",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Wyłącz weryfikację SSL, np. w przypadku certyfikatów samopodpisanych lub znanych nie pasujących nazw hosta jak „localhost”.",
     "Enable SSL verification." : "Włącz weryfikację SSL.",
-    "Unknown error :(" : "Nieznany błąd :(",
-    "Error" : "Błąd",
     "Links to wiki pages are disabled in preview mode." : "Linki do stron wiki są zablokowane w trybie przeglądania.",
     "Links to media files are disabled in preview mode." : "Linki do mediów są zablokowane w trybie przeglądania."
 },

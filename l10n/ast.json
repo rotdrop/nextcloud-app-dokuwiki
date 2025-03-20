@@ -10,8 +10,6 @@
     "DokuWiki Installation Path" : "Camín de la instalación de DokuWiki",
     "DokuWiki Session Refresh Interval [s]" : "Intervalu d'anovamientu de la sesión de DokuWiki [s]",
     "Enable SSL verification." : "Activar la verificación SSL.",
-    "Unknown error :(" : "Error desconocíu :(",
-    "Error" : "Error",
     "Links to wiki pages are disabled in preview mode." : "Los enllaces a les páxines wiki tán desactivaos nel mou de previsualización.",
     "Links to media files are disabled in preview mode." : "Los enllaces a los ficheros multimedia tán desactivaos nel mou de previsualización."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -12,7 +12,6 @@ OC.L10N.register(
     "Login succeeded." : "로그인 성공",
     "Login failed." : "로그인 실패",
     "Error, caught an exception." : "오류, 예외 발견",
-    "Caused by previous exception" : "이전 예외로 인해 발생함",
-    "Error" : "오류"
+    "Caused by previous exception" : "이전 예외로 인해 발생함"
 },
 "nplurals=1; plural=0;");

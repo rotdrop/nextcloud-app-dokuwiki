@@ -16,7 +16,6 @@ OC.L10N.register(
     "Login failed." : "Η σύνδεση απέτυχε.",
     "Error, caught an exception." : "Σφάλμα, εντοπίστηκε εξαίρεση.",
     "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση",
-    "Enable SSL verification." : "Ενεργοποίηση επαλήθευσης SSL.",
-    "Error" : "Σφάλμα"
+    "Enable SSL verification." : "Ενεργοποίηση επαλήθευσης SSL."
 },
 "nplurals=2; plural=(n != 1);");

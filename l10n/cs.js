@@ -27,8 +27,6 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Zadejte sem požadovaný interval obnovy. Interval je měřen v sekundách a měl by být poněkud nižší než nastavená životnost relace pro využívanou instanci DokuWiki.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Vypnout ověřování SSL certifikátu, např. pro certifikáty podepsané samy sebou nebo pro známé neodpovídající názvy strojů, jako je „localhost“.",
     "Enable SSL verification." : "Zapnout ověřování SSL.",
-    "Unknown error :(" : "Neznámá chyba :(",
-    "Error" : "Chyba",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
     "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
 },

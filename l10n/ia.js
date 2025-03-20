@@ -1,7 +1,6 @@
 OC.L10N.register(
     "dokuwiki",
     {
-    "User" : "User",
-    "Error" : "Error"
+    "User" : "User"
 },
 "nplurals=2; plural=(n != 1);");

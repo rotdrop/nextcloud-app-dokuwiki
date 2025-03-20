@@ -1,6 +1,5 @@
 { "translations": {
     "User" : "Pengguna",
-    "Password" : "Kata sandi",
-    "Error" : "Galat"
+    "Password" : "Kata sandi"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -4,11 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.4] - unreleased
+## [1.1.0-rc1] - unreleased
 
-### Fixed
+### Added
 
-- support Nextcloud 28-30
+- support Nextcloud 29-31
+
+- promote the current wiki page path in the browser url, that way a
+  page reload will not lead to the wiki start page, but instead also
+  reload the current wiki view.
+
+### Changed
+
+- drop support for Nextcloud <= v28
+
+- translations, thanks to the language team
+
+- drop jQuery, convert everything to vue
 
 ## [1.0.3] - 2024-03-23
 

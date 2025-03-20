@@ -77,10 +77,6 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       'style/**/*.scss',
     ],
     exclude: [
-      // 'src/toolkit/**',
-      'src/toolkit/util/file-download.js',
-      'src/toolkit/util/pangram.js',
-      'src/toolkit/util/file-node-helper.js',
     ],
   }),
   new BundleAnalyzerPlugin({

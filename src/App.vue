@@ -67,6 +67,20 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
   }
 }
 
+router.onReady(async () => {
+  if (!currentRoute.name) {
+    const routerLocation: RouterLocation = {
+      name: 'home',
+      params: {},
+      query: { ...currentRoute.query },
+    }
+    try {
+      await router.replace(routerLocation)
+    } catch (error) {
+      console.info('NAVIGATION ABORTED', { error })
+    }
+  }
+})
 </script>
 <style scoped lang="scss">
 </style>

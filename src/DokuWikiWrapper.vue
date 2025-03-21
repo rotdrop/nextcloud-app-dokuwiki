@@ -104,7 +104,7 @@ const loadHandler = () => {
     return
   }
   tuneContents(iframe)
-  if (!props.compact) {
+  if (props.compact) {
     removeEnvelope(iframe)
   }
   maximizeIFrame(iframe)

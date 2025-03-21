@@ -38,7 +38,11 @@ import {
   ref,
   watch,
 } from 'vue'
-import { tuneContents, resizeHandler } from './doku-wiki.ts'
+import {
+  tuneContents,
+  maximize as maximizeIFrame,
+  removeEnvelope,
+} from './doku-wiki.ts'
 import { getInitialState } from './toolkit/services/InitialStateService.js'
 
 interface InitialState {
@@ -70,6 +74,8 @@ const requestedLocation = computed(() => {
 const iframeLocation = ref(requestedLocation.value)
 const currentLocation = ref(requestedLocation.value)
 
+const frameId = computed(() => appName + '-frame')
+
 watch(() => props.wikiPage, () => {
   if (requestedLocation.value !== currentLocation.value) {
     console.info('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
@@ -91,22 +97,28 @@ const loaderContainer = ref<null | HTMLElement>(null)
 const externalFrame = ref<null | HTMLIFrameElement>(null)
 
 const loadHandler = () => {
-  const iframe = externalFrame.value!
-  const iframeWindow = iframe.contentWindow!
-  console.info('DOKUWIKI: GOT LOAD EVENT')
-  tuneContents(iframe, props.compact)
-  resizeHandler(iframe)
+  console.debug('DOKUWIKI: GOT LOAD EVENT')
+  const iframe = externalFrame.value
+  const iFrameWindow = iframe?.contentWindow
+  if (!iframe || !iFrameWindow) {
+    return
+  }
+  tuneContents(iframe)
+  if (!props.compact) {
+    removeEnvelope(iframe)
+  }
+  maximizeIFrame(iframe)
   if (!gotLoadEvent) {
     loaderContainer.value!.classList.add('fading')
   }
   gotLoadEvent = true
   console.info('IFRAME IS NOW', {
     iframe,
-    location: iframeWindow.location,
+    location: iFrameWindow.location,
   })
-  currentLocation.value = iframeWindow.location.href
-  const search = iframeWindow.location.search
-  const urlPath = iframeWindow.location.pathname.replace(/^.*doku\.php\/?/, '')
+  currentLocation.value = iFrameWindow.location.href
+  const search = iFrameWindow.location.search
+  const urlPath = iFrameWindow.location.pathname.replace(/^.*doku\.php\/?/, '')
   const query = Object.fromEntries((new URLSearchParams(search)).entries())
   const wikiPath: string[] = []
   if (query.id) {
@@ -123,12 +135,14 @@ const loadHandler = () => {
     wikiPath,
     urlPath,
     query,
-    window: iframe.contentWindow,
+    iFrame: iframe,
+    window: iFrameWindow,
+    document: iframe.contentDocument,
   })
 }
 
 const resizeHandlerWrapper = () => {
-  resizeHandler(externalFrame.value!)
+  maximizeIFrame(externalFrame.value!)
 }
 
 const loadTimerHandler = () => {
@@ -150,16 +164,48 @@ onBeforeMount(() => {
   iframeLocation.value = requestedLocation.value
 })
 
-const frameId = computed(() => appName + '-frame')
+let listenerInstalled = false
+
+watch(() => props.compact, (value) => {
+  if (value) {
+    removeEnvelope(externalFrame.value || undefined)
+    if (listenerInstalled) {
+      window.removeEventListener('resize', resizeHandlerWrapper)
+      listenerInstalled = false
+    }
+  } else {
+    if (!listenerInstalled) {
+      window.addEventListener('resize', resizeHandlerWrapper)
+      listenerInstalled = true
+    }
+    // if this mutation really happens we trigger an iframe reload by
+    // touching its src attribute
+    const iFrame = externalFrame.value
+    if (iFrame) {
+      if (iframeLocation.value !== requestedLocation.value) {
+        iframeLocation.value = requestedLocation.value
+      } else if (iFrame.contentWindow) {
+        iFrame.contentWindow.location.href = requestedLocation.value
+      }
+    }
+  }
+})
+
 onMounted(() => {
-  window.addEventListener('resize', resizeHandlerWrapper)
+  if (!props.compact && !listenerInstalled) {
+    window.addEventListener('resize', resizeHandlerWrapper)
+    listenerInstalled = true
+  }
   if (!loadTimer) {
     loadTimer = setTimeout(loadTimerHandler, loadTimeout)
   }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', resizeHandlerWrapper)
+  if (listenerInstalled) {
+    window.removeEventListener('resize', resizeHandlerWrapper)
+    listenerInstalled = false
+  }
 })
 
 </script>

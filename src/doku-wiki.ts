@@ -24,14 +24,23 @@ import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
 import dialogAlert from './toolkit/util/dialog-alert.ts';
 
-const tuneContents = function(frame: HTMLIFrameElement, compact?: boolean) {
+export const removeEnvelope = (frame?: HTMLIFrameElement) => {
+  const frameDocument = frame?.contentWindow?.document;
 
-  const frameDocument = frame.contentWindow!.document!;
+  if (!frameDocument) {
+    return;
+  }
+  frameDocument.querySelectorAll('#dokuwiki__header div.pad').forEach(el => el.remove());
+  frameDocument.querySelectorAll<HTMLElement>('#dokuwiki_header').forEach(el => { el.style.padding = '2.5em 0px 0px'; });
+  frameDocument.querySelectorAll('#dokuwiki__footer').forEach(el => el.remove());
+};
 
-  if (compact) {
-    frameDocument.querySelectorAll('#dokuwiki__header div.pad').forEach(el => el.remove());
-    frameDocument.querySelectorAll<HTMLElement>('#dokuwiki_header').forEach(el => { el.style.padding = '2.5em 0px 0px'; });
-    frameDocument.querySelectorAll('#dokuwiki__footer').forEach(el => el.remove());
+export const tuneContents = (frame?: HTMLIFrameElement) => {
+
+  const frameDocument = frame?.contentWindow?.document;
+
+  if (!frameDocument) {
+    return;
   }
 
   frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
@@ -116,9 +125,7 @@ const fillWidth = function(frame: HTMLIFrameElement) {
  *
  * @param frame TBD.
  */
-const resizeIframe = function(frame: HTMLIFrameElement) {
+export const maximize = function(frame: HTMLIFrameElement) {
   fillHeight(frame);
   fillWidth(frame);
 };
-
-export { tuneContents, resizeIframe as resizeHandler };

@@ -19,13 +19,15 @@
 <template>
   <div :class="appName + '-container'">
     <div ref="loaderContainer" class="loader-container" />
-    <iframe :id="frameId"
-            ref="externalFrame"
-            :src="iframeLocation"
-            :name="appName"
-            v-bind="props.iFrameAttributes"
-            @load="loadHandler"
-    />
+    <div :class="appName + '-frame-wrapper'">
+      <iframe :id="frameId"
+              ref="externalFrame"
+              :src="iframeLocation"
+              :name="appName"
+              v-bind="props.iFrameAttributes"
+              @load="loadHandler"
+      />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -106,8 +108,9 @@ const loadHandler = () => {
   tuneContents(iframe)
   if (props.compact) {
     removeEnvelope(iframe)
+  } else {
+    maximizeIFrame(iframe)
   }
-  maximizeIFrame(iframe)
   if (!gotLoadEvent) {
     loaderContainer.value!.classList.add('fading')
   }

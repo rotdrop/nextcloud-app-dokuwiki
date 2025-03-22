@@ -18,7 +18,7 @@
  -->
 <template>
   <NcContent :app-name="appId">
-    <NcAppContent :class="{ 'icon-loading': loading }">
+    <NcAppContent :class="[appId + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading"
                   :loading.sync="loading"
                   @iframe-loaded="onIFrameLoaded($event)"
@@ -83,4 +83,11 @@ router.onReady(async () => {
 })
 </script>
 <style scoped lang="scss">
+main {
+  // strange: all divs have the same height, there is no horizontal
+  // scrollbar, but still FF likes to emit a vertical scrollbar.
+  //
+  // DO NOT ALLOW THIS!
+  overflow: hidden !important;
+}
 </style>

@@ -17,12 +17,18 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="appName + '-container'">
-    <div ref="loaderContainer" class="loader-container" />
-    <div :class="appName + '-frame-wrapper'">
+  <div ref="container"
+       :class="appName + '-container'"
+  >
+    <div ref="loaderContainer"
+         class="loader-container"
+    />
+    <div ref="frameWrapper"
+         :class="appName + '-frame-wrapper'"
+    >
       <iframe :id="frameId"
               ref="externalFrame"
-              :src="iframeLocation"
+              :src="iFrameLocation"
               :name="appName"
               v-bind="props.iFrameAttributes"
               @load="loadHandler"
@@ -34,15 +40,15 @@
 import { appName } from './config.ts'
 import {
   computed,
+  getCurrentInstance,
   onMounted,
-  onUnmounted,
   onBeforeMount,
+  onBeforeUnmount,
   ref,
   watch,
 } from 'vue'
 import {
   tuneContents,
-  maximize as maximizeIFrame,
   removeEnvelope,
 } from './doku-wiki.ts'
 import { getInitialState } from './toolkit/services/InitialStateService.js'
@@ -57,23 +63,33 @@ const props = withDefaults(defineProps<{
   wikiPage?: string,
   query?: Record<string, string>,
   iFrameAttributes?: Record<string, string>,
-  compact?: boolean,
+  fullScreen?: boolean,
 }>(), {
   wikiPage: '',
   query: () => ({}),
   iFrameAttributes: () => ({}),
-  compact: false,
+  fullScreen: true,
 })
 
-const emit = defineEmits(['iframe-loaded'])
+const emit = defineEmits(['iframe-loaded', 'update-loading', 'iframe-resize'])
 
 const initialState = getInitialState() as InitialState
+
+const loading = ref(true)
+
+watch(loading, (value) => emit('update-loading', value))
 
 const requestedLocation = computed(() => {
   const queryString = (new URLSearchParams({ id: props.wikiPage, ...props.query })).toString().replace('%3A', ':')
   return initialState.wikiURL + '/doku.php?' + queryString
 })
-const iframeLocation = ref(requestedLocation.value)
+/**
+ * Value of src attribute of iframe.
+ */
+const iFrameLocation = ref(requestedLocation.value)
+/**
+ * Actual location which in general is different from the src attribute.
+ */
 const currentLocation = ref(requestedLocation.value)
 
 const frameId = computed(() => appName + '-frame')
@@ -81,13 +97,12 @@ const frameId = computed(() => appName + '-frame')
 watch(() => props.wikiPage, () => {
   if (requestedLocation.value !== currentLocation.value) {
     console.info('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
-    iframeLocation.value = requestedLocation.value
+    loading.value = true
+    iFrameLocation.value = requestedLocation.value
   } else {
     console.info('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
   }
 })
-
-let gotLoadEvent = false
 
 const loadTimeout = 1000 // 1 second
 
@@ -95,28 +110,56 @@ let timerCount = 0
 
 let loadTimer: undefined|ReturnType<typeof setTimeout>
 
-const loaderContainer = ref<null | HTMLElement>(null)
-const externalFrame = ref<null | HTMLIFrameElement>(null)
+const container = ref<null|HTMLDivElement>(null)
+const loaderContainer = ref<null|HTMLDivElement>(null)
+const frameWrapper = ref<null|HTMLDivElement>(null)
+const externalFrame = ref<null|HTMLIFrameElement>(null)
+let iFrameBody: undefined|HTMLBodyElement
+
+const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
+  if (!externalFrame.value) {
+    return
+  }
+  const iFrame = externalFrame.value
+  iFrame.style.width = width + 'px'
+  iFrame.style.height = height + 'px'
+}
+
+const resizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.target === iFrameBody) {
+      emit('iframe-resize', entry)
+      continue
+    }
+    if (props.fullScreen && entry.target === container.value) {
+      setIFrameSize(entry.contentRect)
+    }
+  }
+})
 
 const loadHandler = () => {
   console.debug('DOKUWIKI: GOT LOAD EVENT')
-  const iframe = externalFrame.value
-  const iFrameWindow = iframe?.contentWindow
-  if (!iframe || !iFrameWindow) {
+  const iFrame = externalFrame.value
+  const iFrameWindow = iFrame?.contentWindow
+  if (!iFrame || !iFrameWindow) {
     return
   }
-  tuneContents(iframe)
-  if (props.compact) {
-    removeEnvelope(iframe)
+  loading.value = true // if not already set ...
+  const iFrameDocument = iFrame.contentDocument
+  tuneContents(iFrame)
+  if (!props.fullScreen) {
+    removeEnvelope(iFrame)
   } else {
-    maximizeIFrame(iframe)
+    setIFrameSize(container.value!.getBoundingClientRect())
   }
-  if (!gotLoadEvent) {
-    loaderContainer.value!.classList.add('fading')
+  iFrameBody = iFrameDocument?.body as undefined|HTMLBodyElement
+  console.info('IFRAME BODY', { iFrameBody })
+  if (iFrameBody) {
+    resizeObserver.observe(iFrameBody)
   }
-  gotLoadEvent = true
+  loaderContainer.value!.classList.toggle('fading', true)
   console.info('IFRAME IS NOW', {
-    iframe,
+    iFrame,
     location: iFrameWindow.location,
   })
   currentLocation.value = iFrameWindow.location.href
@@ -138,19 +181,16 @@ const loadHandler = () => {
     wikiPath,
     urlPath,
     query,
-    iFrame: iframe,
+    iFrame,
     window: iFrameWindow,
-    document: iframe.contentDocument,
+    document: iFrameDocument,
   })
-}
-
-const resizeHandlerWrapper = () => {
-  maximizeIFrame(externalFrame.value!)
+  loading.value = false
 }
 
 const loadTimerHandler = () => {
   loadTimer = undefined
-  if (gotLoadEvent) {
+  if (!loading.value) {
     return
   }
   timerCount++
@@ -164,29 +204,20 @@ const loadTimerHandler = () => {
 }
 
 onBeforeMount(() => {
-  iframeLocation.value = requestedLocation.value
+  loading.value = true
+  iFrameLocation.value = requestedLocation.value
 })
 
-let listenerInstalled = false
-
-watch(() => props.compact, (value) => {
-  if (value) {
+watch(() => props.fullScreen, (value) => {
+  if (!value) {
     removeEnvelope(externalFrame.value || undefined)
-    if (listenerInstalled) {
-      window.removeEventListener('resize', resizeHandlerWrapper)
-      listenerInstalled = false
-    }
   } else {
-    if (!listenerInstalled) {
-      window.addEventListener('resize', resizeHandlerWrapper)
-      listenerInstalled = true
-    }
     // if this mutation really happens we trigger an iframe reload by
     // touching its src attribute
     const iFrame = externalFrame.value
     if (iFrame) {
-      if (iframeLocation.value !== requestedLocation.value) {
-        iframeLocation.value = requestedLocation.value
+      if (iFrameLocation.value !== requestedLocation.value) {
+        iFrameLocation.value = requestedLocation.value
       } else if (iFrame.contentWindow) {
         iFrame.contentWindow.location.href = requestedLocation.value
       }
@@ -195,31 +226,32 @@ watch(() => props.compact, (value) => {
 })
 
 onMounted(() => {
-  if (!props.compact && !listenerInstalled) {
-    window.addEventListener('resize', resizeHandlerWrapper)
-    listenerInstalled = true
-  }
+  console.info('DW WRAPPER INSTANCE', { instance: getCurrentInstance() })
   if (!loadTimer) {
     loadTimer = setTimeout(loadTimerHandler, loadTimeout)
   }
+  resizeObserver.observe(container.value!)
 })
 
-onUnmounted(() => {
-  if (listenerInstalled) {
-    window.removeEventListener('resize', resizeHandlerWrapper)
-    listenerInstalled = false
-  }
+onBeforeUnmount(() => {
+  resizeObserver.disconnect()
+})
+
+defineExpose({
+  currentLocation,
+  wikiIFrame: externalFrame,
 })
 
 </script>
 <style scoped lang="scss">
-.app-container {
+.#{$dokuWikiAppName}-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
   align-content: stretch;
+  height: 100%;
   &.error {
     .loader-container {
       display:none; // do not further annoy the user
@@ -232,7 +264,7 @@ onUnmounted(() => {
     z-index:10;
     width:100%;
     height:100%;
-    position:fixed;
+    position:absolute;
     transition: visibility 1s, opacity 1s;
     &.fading {
       opacity: 0;
@@ -249,8 +281,10 @@ onUnmounted(() => {
     border-radius: var(--border-radius-pill);
     background-color: var(--color-background-dark);
   }
-  iframe {
+  * {
     flex-grow: 10;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 </style>

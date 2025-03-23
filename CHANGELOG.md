@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - promote the current wiki page path in the browser url, that way a
   page reload will not lead to the wiki start page, but instead also
-  reload the current wiki view.
+  reload the current wiki view. Also, a load event of the iframe will
+  push to the browser history. This way a user can just navigate as if
+  using DokuWiki stand-alone.
 
 ### Changed
 

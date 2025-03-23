@@ -51,23 +51,18 @@ import {
   removeEnvelope,
 } from './doku-wiki.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
-
-interface InitialState {
-  appName: typeof appName,
-  authenticationRefreshInterval: number,
-  wikiURL: string,
-}
+import type { InitialState } from './types/initial-state.d.ts'
 
 const props = withDefaults(defineProps<{
-  wikiPage?: string,
-  query?: Record<string, string>,
-  iFrameAttributes?: Record<string, string>,
   fullScreen?: boolean,
+  iFrameAttributes?: Record<string, string>,
+  query?: Record<string, string>,
+  wikiPage?: string,
 }>(), {
-  wikiPage: '',
-  query: () => ({}),
-  iFrameAttributes: () => ({}),
   fullScreen: true,
+  iFrameAttributes: () => ({}),
+  query: () => ({}),
+  wikiPage: '',
 })
 
 interface IFrameLoadedEventData {

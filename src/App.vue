@@ -49,7 +49,7 @@ const currentRoute = useRoute()
 
 const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string, string> }) => {
   loading.value = false
-  console.info('GOT EVENT', { event })
+  console.debug('GOT EVENT', { event })
   if (event.query.id) {
     delete event.query.id
   }
@@ -63,10 +63,13 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
   try {
     await router.push(routerLocation)
   } catch (error) {
-    console.info('NAVIGATION ABORTED', { error })
+    console.debug('NAVIGATION ABORTED', { error })
   }
 }
 
+// The initial route is not named and consequently does not load the
+// wrapper component, so just replace it by the one and only named
+// route.
 router.onReady(async () => {
   if (!currentRoute.name) {
     const routerLocation: RouterLocation = {
@@ -77,7 +80,7 @@ router.onReady(async () => {
     try {
       await router.replace(routerLocation)
     } catch (error) {
-      console.info('NAVIGATION ABORTED', { error })
+      console.debug('NAVIGATION ABORTED', { error })
     }
   }
 })

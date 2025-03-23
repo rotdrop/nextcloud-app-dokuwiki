@@ -22,7 +22,7 @@
 
 import { getCurrentUser } from '@nextcloud/auth';
 import axios from '@nextcloud/axios';
-import onDocumentLoaded from './toolkit/util/on-document-loaded.js';
+import onDocumentLoaded from './toolkit/util/on-document-loaded.ts';
 import { generateUrl } from './toolkit/util/generate-url.js';
 import getInitialState from './toolkit/util/initial-state.ts';
 import type { InitialState } from './types/initial-state.d.ts';

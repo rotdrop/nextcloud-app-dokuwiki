@@ -40,7 +40,6 @@
 import { appName } from './config.ts'
 import {
   computed,
-  getCurrentInstance,
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
@@ -51,7 +50,7 @@ import {
   tuneContents,
   removeEnvelope,
 } from './doku-wiki.ts'
-import { getInitialState } from './toolkit/services/InitialStateService.js'
+import getInitialState from './toolkit/util/initial-state.ts'
 
 interface InitialState {
   appName: typeof appName,
@@ -71,9 +70,22 @@ const props = withDefaults(defineProps<{
   fullScreen: true,
 })
 
-const emit = defineEmits(['iframe-loaded', 'update-loading', 'iframe-resize'])
+interface IFrameLoadedEventData {
+  wikiPath: string[],
+  urlPath: string,
+  query: Record<string, string>,
+  iFrame: HTMLIFrameElement,
+  window: Window,
+  document: Document,
+}
 
-const initialState = getInitialState() as InitialState
+const emit = defineEmits<{
+  (event: 'iframe-loaded', eventData: IFrameLoadedEventData): void,
+  (event: 'iframe-resize', eventData: ResizeObserverEntry): void,
+  (event: 'update-loading', loading: boolean): void,
+}>()
+
+const initialState = getInitialState<InitialState>()
 
 const loading = ref(true)
 
@@ -81,7 +93,7 @@ watch(loading, (value) => emit('update-loading', value))
 
 const requestedLocation = computed(() => {
   const queryString = (new URLSearchParams({ id: props.wikiPage, ...props.query })).toString().replace('%3A', ':')
-  return initialState.wikiURL + '/doku.php?' + queryString
+  return initialState?.wikiURL + '/doku.php?' + queryString
 })
 /**
  * Value of src attribute of iframe.
@@ -96,11 +108,11 @@ const frameId = computed(() => appName + '-frame')
 
 watch(() => props.wikiPage, () => {
   if (requestedLocation.value !== currentLocation.value) {
-    console.info('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
+    console.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
     loading.value = true
     iFrameLocation.value = requestedLocation.value
   } else {
-    console.info('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+    console.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
   }
 })
 
@@ -153,12 +165,12 @@ const loadHandler = () => {
     setIFrameSize(container.value!.getBoundingClientRect())
   }
   iFrameBody = iFrameDocument?.body as undefined|HTMLBodyElement
-  console.info('IFRAME BODY', { iFrameBody })
+  console.debug('IFRAME BODY', { iFrameBody })
   if (iFrameBody) {
     resizeObserver.observe(iFrameBody)
   }
   loaderContainer.value!.classList.toggle('fading', true)
-  console.info('IFRAME IS NOW', {
+  console.debug('IFRAME IS NOW', {
     iFrame,
     location: iFrameWindow.location,
   })
@@ -183,7 +195,7 @@ const loadHandler = () => {
     query,
     iFrame,
     window: iFrameWindow,
-    document: iFrameDocument,
+    document: iFrameDocument!,
   })
   loading.value = false
 }
@@ -196,7 +208,7 @@ const loadTimerHandler = () => {
   timerCount++
   const rcfContents = externalFrame.value!.contentWindow!.document
   if (rcfContents.querySelector('#layout')) {
-    console.info('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+    console.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
     externalFrame.value!.dispatchEvent(new Event('load'))
   } else {
     loadTimer = setTimeout(loadTimerHandler, loadTimeout)
@@ -226,7 +238,6 @@ watch(() => props.fullScreen, (value) => {
 })
 
 onMounted(() => {
-  console.info('DW WRAPPER INSTANCE', { instance: getCurrentInstance() })
   if (!loadTimer) {
     loadTimer = setTimeout(loadTimerHandler, loadTimeout)
   }
@@ -252,11 +263,6 @@ defineExpose({
   align-items: stretch;
   align-content: stretch;
   height: 100%;
-  &.error {
-    .loader-container {
-      display:none; // do not further annoy the user
-    }
-  }
   .loader-container {
     background-image: url('../img/loader.gif');
     background-repeat: no-repeat;
@@ -270,16 +276,6 @@ defineExpose({
       opacity: 0;
       visibility: hidden;
     }
-  }
-  #errorMsg {
-    align-self: center;
-    padding:2em 2em;
-    font-weight: bold;
-    font-size:120%;
-    max-width: 80%;
-    border: 2px solid var(--color-border-maxcontrast);
-    border-radius: var(--border-radius-pill);
-    background-color: var(--color-background-dark);
   }
   * {
     flex-grow: 10;

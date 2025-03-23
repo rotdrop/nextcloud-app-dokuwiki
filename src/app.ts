@@ -38,5 +38,6 @@ __webpack_public_path__ = generateFilePath(appName, '', '');
 export default new Vue({
   el: '#content',
   render: h => h(App),
+  // @ts-expect-error: 2769, passing the router es extension should be allowed.
   router,
 });

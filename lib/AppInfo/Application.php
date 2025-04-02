@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2023, 2023, 2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -32,10 +32,10 @@ namespace OCA\DokuWiki\AppInfo;
  *
  */
 
+use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\AppFramework\Bootstrap\IBootContext;
-use OCP\AppFramework\App;
 
 use OCA\DokuWiki\Listener\Registration as ListenerRegistration;
 

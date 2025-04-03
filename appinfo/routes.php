@@ -17,6 +17,12 @@ return [
         'wikiPage' => '',
       ],
     ],
+    [
+      'name' => 'page#index',
+      'url' => '/',
+      'verb' => 'GET',
+      'postfix' => 'stupid',
+    ],
     // settings
     [
       'name' => 'settings#set_admin',

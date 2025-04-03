@@ -38,6 +38,7 @@
 </template>
 <script setup lang="ts">
 import { appName } from './config.ts'
+import { translate as t } from '@nextcloud/l10n'
 import {
   computed,
   onMounted,
@@ -74,10 +75,16 @@ interface IFrameLoadedEventData {
   document: Document,
 }
 
+interface ErrorEventData {
+  error: Error,
+  hint: string,
+}
+
 const emit = defineEmits<{
   (event: 'iframe-loaded', eventData: IFrameLoadedEventData): void,
   (event: 'iframe-resize', eventData: ResizeObserverEntry): void,
   (event: 'update-loading', loading: boolean): void,
+  (event: 'error', eventData: ErrorEventData): void,
 }>()
 
 const initialState = getInitialState<InitialState>()
@@ -144,6 +151,24 @@ const resizeObserver = new ResizeObserver((entries) => {
   }
 })
 
+const emitError = (error: unknown) => {
+  loaderContainer.value!.classList.toggle('fading', true)
+  emit('error', {
+    // @ts-expect-error Seems to inspect too old a spec.
+    error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
+    hint: t(
+      appName,
+      `Unable to access the contents of the wrapped DokuWiki instance.
+This may be caused by cross-domain access restrictions.
+Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped DokuWiki instance ({iFrameUrl}) are served from the same domain.`,
+      {
+        nextcloudUrl: window.location.protocol + '//' + window.location.host,
+        iFrameUrl: initialState?.wikiURL || '',
+      },
+    ),
+  })
+}
+
 const loadHandler = () => {
   console.debug('DOKUWIKI: GOT LOAD EVENT')
   const iFrame = externalFrame.value
@@ -152,8 +177,15 @@ const loadHandler = () => {
     return
   }
   loading.value = true // if not already set ...
-  const iFrameDocument = iFrame.contentDocument
-  tuneContents(iFrame)
+  let iFrameDocument: Document|null
+  try {
+    iFrameDocument = iFrame.contentDocument
+    tuneContents(iFrame)
+  } catch (error: unknown) {
+    console.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    emitError(error)
+    return
+  }
   if (!props.fullScreen) {
     removeEnvelope(iFrame)
   } else {
@@ -201,12 +233,17 @@ const loadTimerHandler = () => {
     return
   }
   timerCount++
-  const rcfContents = externalFrame.value!.contentWindow!.document
-  if (rcfContents.querySelector('#layout')) {
-    console.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
-    externalFrame.value!.dispatchEvent(new Event('load'))
-  } else {
-    loadTimer = setTimeout(loadTimerHandler, loadTimeout)
+  try {
+    const iFrameContents = externalFrame.value!.contentWindow!.document
+    if (iFrameContents.querySelector('#layout')) {
+      console.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+      externalFrame.value!.dispatchEvent(new Event('load'))
+    } else {
+      loadTimer = setTimeout(loadTimerHandler, loadTimeout)
+    }
+  } catch (error: unknown) {
+    console.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    emitError(error)
   }
 }
 

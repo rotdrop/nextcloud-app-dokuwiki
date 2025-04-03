@@ -19,20 +19,37 @@
 <template>
   <NcContent :app-name="appId">
     <NcAppContent :class="[appId + '-content-container', { 'icon-loading': loading }]">
-      <RouterView v-show="!loading"
+      <RouterView v-show="!loading && !error"
                   :loading.sync="loading"
                   @iframe-loaded="onIFrameLoaded($event)"
+                  @error="onError"
       />
+      <NcEmptyContent v-if="error">
+        <template #name>
+          <h2>{{ t(appName, 'DokiWiki Wrapper for Nextcloud') }}</h2>
+        </template>
+        <template #icon>
+          <DynamicSvgIcon :data="appIcon" size="64" />
+        </template>
+        <template #description>
+          <div class="error-message">
+            {{ error }}
+          </div>
+        </template>
+      </NcEmptyContent>
     </NcAppContent>
   </NcContent>
 </template>
 <script setup lang="ts">
 import { appName as appId } from './config.ts'
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcAppContent,
-  // NcAppNavigation,
   NcContent,
+  NcEmptyContent,
 } from '@nextcloud/vue'
+import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
+import appIcon from '../img/app.svg?raw'
 import {
   ref,
 } from 'vue'
@@ -43,9 +60,16 @@ import {
 import type { Location as RouterLocation } from 'vue-router'
 
 const loading = ref(true)
+const error = ref<string|undefined>(undefined)
 
 const router = useRouter()
 const currentRoute = useRoute()
+
+const onError = (event: { error: Error, hint: string }) => {
+  console.error('DokuWiki caught error event', { event })
+  error.value = event.hint
+  loading.value = false
+}
 
 const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string, string> }) => {
   loading.value = false
@@ -92,5 +116,17 @@ main {
   //
   // DO NOT ALLOW THIS!
   overflow: hidden !important;
+}
+.empty-content::v-deep {
+  h2 ~ p {
+    text-align: center;
+    width: 72ex;
+  }
+  .hint {
+    color: var(--color-text-lighter);
+  }
+  .empty-content__icon {
+    margin-top: 16px;
+  }
 }
 </style>

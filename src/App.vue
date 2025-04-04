@@ -26,7 +26,7 @@
       />
       <NcEmptyContent v-if="error">
         <template #name>
-          <h2>{{ t(appName, 'DokiWiki Wrapper for Nextcloud') }}</h2>
+          <h2>{{ t(appName, 'DokuWiki Wrapper for Nextcloud') }}</h2>
         </template>
         <template #icon>
           <DynamicSvgIcon :data="appIcon" size="64" />

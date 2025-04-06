@@ -27,6 +27,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Bitte geben Sie hier das gewünschte Intervall für die Sitzungsaktualisierung ein. Das Intervall wird in Sekunden gemessen und sollte etwas kleiner als die konfigurierte Session-Life-Time für die verwendete DokuWiki-Instanz sein.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deaktiviere SSL Überprüfung, z. B. für selbst-signierte Zertifikate oder bekannte abweichende Rechnernamen wie 'localhost'.",
     "Enable SSL verification." : "SSL-Überprüfung aktivieren.",
+    "DokuWiki Wrapper for Nextcloud" : "DokuWiki-Wrapper für Nextcloud",
     "Link to wiki page \"{href}\"" : "Link zur Wiki-Seite \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Links zu Wiki-Seiten sind in der Vorschau deaktiviert.",
     "Links to media files are disabled in preview mode." : "Links zu Mediendateien sind in der Vorschau deaktiviert."

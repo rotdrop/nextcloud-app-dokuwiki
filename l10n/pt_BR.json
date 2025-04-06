@@ -25,6 +25,7 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Insira aqui o intervalo de atualização de sessão desejado. O intervalo é medido em segundos e deve ser um pouco menor do que o tempo de vida da sessão configurada para a instância DokuWiki em uso.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, por exemplo para certificados autoassinados ou nomes de host incompatíveis conhecidos, como 'localhost'.",
     "Enable SSL verification." : "Ative a verificação SSL.",
+    "DokuWiki Wrapper for Nextcloud" : "Wrapper do DokuWiki para o Nextcloud",
     "Link to wiki page \"{href}\"" : "Link para a página wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
     "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."

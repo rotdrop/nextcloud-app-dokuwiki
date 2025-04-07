@@ -39,7 +39,7 @@ use OCA\DokuWiki\Service\AssetService;
 use OCA\DokuWiki\Service\InitialStateService;
 
 /** Load additional scripts while running interactively. */
-class LoadAdditionalScriptsEventListener implements IEventListener
+class BeforeTemplateRenderedEventListener implements IEventListener
 {
   use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
   use \OCA\DokuWiki\Toolkit\Traits\ApiRequestTrait;

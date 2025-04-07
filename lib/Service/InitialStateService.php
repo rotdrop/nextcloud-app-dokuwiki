@@ -49,6 +49,7 @@ class InitialStateService
   public function provide():void
   {
     $refreshInterval = $this->config->getAppValue(
+      $this->appName,
       SettingsController::AUTHENTICATION_REFRESH_INTERVAL,
       SettingsController::AUTHENTICATION_REFRESH_INTERVAL_DEFAULT,
     );

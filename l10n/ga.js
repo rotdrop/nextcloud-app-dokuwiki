@@ -27,6 +27,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Cuir isteach an t-eatramh seisiúin-athnuachan atá uait anseo le do thoil. Déantar an t-eatramh a thomhas i soicindí agus ba chóir go mbeadh sé beagán níos lú ná an t-am a bheidh socraithe don seisiún DokuWiki atá in úsáid.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Díchumasaigh fíorú SSL, e.g. le haghaidh deimhnithe féin-shínithe nó óstainmneacha mímheaitseála aitheanta amhail ‘localhost’.",
     "Enable SSL verification." : "Cumasaigh fíorú SSL.",
+    "DokuWiki Wrapper for Nextcloud" : "Fillteán DokuWiki do Nextcloud",
     "Link to wiki page \"{href}\"" : "Nasc le leathanach vicí \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Díchumasaítear naisc le leathanaigh vicí sa mhód réamhamhairc.",
     "Links to media files are disabled in preview mode." : "Tá naisc le comhaid meán díchumasaithe i mód réamhamhairc."

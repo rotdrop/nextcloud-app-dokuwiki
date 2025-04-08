@@ -28,7 +28,7 @@ import getInitialState from './toolkit/util/initial-state.ts';
 import Console from './toolkit/util/console.ts';
 import type { InitialState } from './types/initial-state.d.ts';
 
-const logger = new Console('Dokuwiki Wrapper');
+const logger = new Console('DokuwikiWrapper::refresh');
 
 const state = getInitialState<InitialState>();
 let refreshInterval = state?.authenticationRefreshInterval || -1;

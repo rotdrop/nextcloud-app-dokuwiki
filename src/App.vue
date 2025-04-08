@@ -60,7 +60,7 @@ import {
 import Console from './toolkit/util/console.ts'
 import type { Location as RouterLocation } from 'vue-router'
 
-const logger = new Console('DokuWiki Wrapper')
+const logger = new Console('DokuWikiWrapper')
 
 const loading = ref(true)
 const error = ref<string | undefined>(undefined)
@@ -69,7 +69,7 @@ const router = useRouter()
 const currentRoute = useRoute()
 
 const onError = (event: { error: Error, hint: string }) => {
-  logger.error('DokuWiki caught error event', { event })
+  logger.error('Caught an error event', { event })
   error.value = event.hint
   loading.value = false
 }
@@ -130,6 +130,9 @@ main {
   }
   .empty-content__icon {
     margin-top: 16px;
+  }
+  .error-message {
+    font-weight: bold;
   }
 }
 </style>

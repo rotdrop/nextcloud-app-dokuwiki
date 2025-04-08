@@ -55,7 +55,9 @@ import getInitialState from './toolkit/util/initial-state.ts'
 import Console from './toolkit/util/console.ts'
 import type { InitialState } from './types/initial-state.d.ts'
 
-const logger = new Console('DokuWiki Wrapper')
+const wrappedApp = 'DokuWiki'
+
+const logger = new Console(wrappedApp + 'Wrapper')
 
 const props = withDefaults(defineProps<{
   fullScreen?: boolean,
@@ -160,10 +162,11 @@ const emitError = (error: unknown) => {
     error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
     hint: t(
       appName,
-      `Unable to access the contents of the wrapped DokuWiki instance.
+      `Unable to access the contents of the wrapped {wrappedApp} instance.
 This may be caused by cross-domain access restrictions.
-Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped DokuWiki instance ({iFrameUrl}) are served from the same domain.`,
+Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain.`,
       {
+        wrappedApp,
         nextcloudUrl: window.location.protocol + '//' + window.location.host,
         iFrameUrl: initialState?.wikiURL || '',
       },
@@ -172,7 +175,7 @@ Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped DokuW
 }
 
 const loadHandler = () => {
-  logger.debug('DOKUWIKI: GOT LOAD EVENT')
+  logger.debug('GOT LOAD EVENT')
   const iFrame = externalFrame.value
   const iFrameWindow = iFrame?.contentWindow
   if (!iFrame || !iFrameWindow) {
@@ -184,7 +187,7 @@ const loadHandler = () => {
     iFrameDocument = iFrame.contentDocument
     tuneContents(iFrame)
   } catch (error: unknown) {
-    logger.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    logger.error('UNABLE TO ACCESS IFRAME CONTENTS', { error })
     emitError(error)
     return
   }
@@ -238,13 +241,13 @@ const loadTimerHandler = () => {
   try {
     const iFrameContents = externalFrame.value!.contentWindow!.document
     if (iFrameContents.querySelector('#layout')) {
-      logger.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+      logger.debug('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
       externalFrame.value!.dispatchEvent(new Event('load'))
     } else {
       loadTimer = setTimeout(loadTimerHandler, loadTimeout)
     }
   } catch (error: unknown) {
-    logger.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    logger.error('UNABLE TO ACCESS IFRAME CONTENTS', { error })
     emitError(error)
   }
 }

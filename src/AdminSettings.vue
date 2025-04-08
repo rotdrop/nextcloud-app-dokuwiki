@@ -78,6 +78,9 @@ import {
   ref,
   computed,
 } from 'vue'
+import Console from './toolkit/util/console.ts'
+
+const logger = new Console('DokuWikiWrapper')
 
 const loading = ref(0)
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
@@ -91,7 +94,7 @@ const settings = reactive({
 const getData = async () => {
   ++loading.value
   return fetchSettings({ section: 'admin', settings }).finally(() => {
-    console.info('SETTINGS', settings)
+    logger.info('SETTINGS', settings)
     --loading.value
   })
 }
@@ -103,7 +106,7 @@ const saveTextInput = async (settingsKey: string, value?: string | number | bool
   }
   if (loading.value > 0) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
     return
   }
   return saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings, resetData: getData })
@@ -112,7 +115,7 @@ const saveTextInput = async (settingsKey: string, value?: string | number | bool
 const saveSetting = async (settingsKey: string) => {
   if (loading.value > 0) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
     return
   }
   saveSimpleSetting({ settingsKey, section: 'admin', settings })

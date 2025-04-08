@@ -52,7 +52,10 @@ import {
   removeEnvelope,
 } from './doku-wiki.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
+import Console from './toolkit/util/console.ts'
 import type { InitialState } from './types/initial-state.d.ts'
+
+const logger = new Console('DokuWiki Wrapper')
 
 const props = withDefaults(defineProps<{
   fullScreen?: boolean,
@@ -110,11 +113,11 @@ const frameId = computed(() => appName + '-frame')
 
 watch(() => props.wikiPage, () => {
   if (requestedLocation.value !== currentLocation.value) {
-    console.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
+    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
     loading.value = true
     iFrameLocation.value = requestedLocation.value
   } else {
-    console.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
   }
 })
 
@@ -154,7 +157,6 @@ const resizeObserver = new ResizeObserver((entries) => {
 const emitError = (error: unknown) => {
   loaderContainer.value!.classList.toggle('fading', true)
   emit('error', {
-    // @ts-expect-error Seems to inspect too old a spec.
     error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
     hint: t(
       appName,
@@ -170,7 +172,7 @@ Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped DokuW
 }
 
 const loadHandler = () => {
-  console.debug('DOKUWIKI: GOT LOAD EVENT')
+  logger.debug('DOKUWIKI: GOT LOAD EVENT')
   const iFrame = externalFrame.value
   const iFrameWindow = iFrame?.contentWindow
   if (!iFrame || !iFrameWindow) {
@@ -182,7 +184,7 @@ const loadHandler = () => {
     iFrameDocument = iFrame.contentDocument
     tuneContents(iFrame)
   } catch (error: unknown) {
-    console.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    logger.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
     emitError(error)
     return
   }
@@ -192,12 +194,12 @@ const loadHandler = () => {
     setIFrameSize(container.value!.getBoundingClientRect())
   }
   iFrameBody = iFrameDocument?.body as undefined|HTMLBodyElement
-  console.debug('IFRAME BODY', { iFrameBody })
+  logger.debug('IFRAME BODY', { iFrameBody })
   if (iFrameBody) {
     resizeObserver.observe(iFrameBody)
   }
   loaderContainer.value!.classList.toggle('fading', true)
-  console.debug('IFRAME IS NOW', {
+  logger.debug('IFRAME IS NOW', {
     iFrame,
     location: iFrameWindow.location,
   })
@@ -236,13 +238,13 @@ const loadTimerHandler = () => {
   try {
     const iFrameContents = externalFrame.value!.contentWindow!.document
     if (iFrameContents.querySelector('#layout')) {
-      console.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+      logger.debug('DOKUWIKI: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
       externalFrame.value!.dispatchEvent(new Event('load'))
     } else {
       loadTimer = setTimeout(loadTimerHandler, loadTimeout)
     }
   } catch (error: unknown) {
-    console.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    logger.error('DokuWiki: UNABLE TO ACCESS IFRAME CONTENTS', { error })
     emitError(error)
   }
 }

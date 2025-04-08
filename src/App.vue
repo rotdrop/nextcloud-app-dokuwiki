@@ -57,23 +57,26 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router/composables'
+import Console from './toolkit/util/console.ts'
 import type { Location as RouterLocation } from 'vue-router'
 
+const logger = new Console('DokuWiki Wrapper')
+
 const loading = ref(true)
-const error = ref<string|undefined>(undefined)
+const error = ref<string | undefined>(undefined)
 
 const router = useRouter()
 const currentRoute = useRoute()
 
 const onError = (event: { error: Error, hint: string }) => {
-  console.error('DokuWiki caught error event', { event })
+  logger.error('DokuWiki caught error event', { event })
   error.value = event.hint
   loading.value = false
 }
 
 const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string, string> }) => {
   loading.value = false
-  console.debug('GOT EVENT', { event })
+  logger.debug('GOT EVENT', { event })
   if (event.query.id) {
     delete event.query.id
   }
@@ -87,7 +90,7 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
   try {
     await router.push(routerLocation)
   } catch (error) {
-    console.debug('NAVIGATION ABORTED', { error })
+    logger.debug('NAVIGATION ABORTED', { error })
   }
 }
 
@@ -104,7 +107,7 @@ router.onReady(async () => {
     try {
       await router.replace(routerLocation)
     } catch (error) {
-      console.debug('NAVIGATION ABORTED', { error })
+      logger.debug('NAVIGATION ABORTED', { error })
     }
   }
 })

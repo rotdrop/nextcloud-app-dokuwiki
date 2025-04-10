@@ -37,7 +37,7 @@
     "@nextcloud/l10n": "^3.2.0",
     "@nextcloud/router": "^2.2.1",
     "@nextcloud/vue": "^8.17.1",
-    "@nextcloud/webpack-vue-config": "^6.0.0",
+    "@nextcloud/webpack-vue-config": "~6.2.0",
     "@rotdrop/nextcloud-vue-components": "file:repositories/rotdrop/nextcloud-vue-components",
     "@types/jquery": "^3.5.32",
     "@types/jqueryui": "^1.12.24",

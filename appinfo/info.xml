@@ -19,8 +19,8 @@
   -->
   <bugs>https://github.com/rotdrop/nextcloud-app-dokuwiki</bugs>
   <dependencies>
-    <nextcloud min-version="29" max-version="31"/>
-    <php min-version="8.1" max-version="8.4" />
+    <nextcloud min-version="30" max-version="30"/>
+    <php min-version="8.1" max-version="8.3" />
   </dependencies>
   <navigations>
     <navigation>

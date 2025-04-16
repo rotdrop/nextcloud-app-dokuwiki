@@ -25,6 +25,7 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Tu zadajte požadovaný interval obnovenia relácie. Interval sa meria v sekundách a mal by byť o niečo menší ako nakonfigurovaná životnosť relácie pre používanú inštanciu DokuWiki.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Zakázať overenie SSL, napr. pre certifikáty s vlastným podpisom alebo známe nezhodné názvy hostiteľov, ako napríklad „localhost“.",
     "Enable SSL verification." : "Zapnúť verifikáciu SSL.",
+    "DokuWiki Wrapper for Nextcloud" : "DokuWiki Wrapper pre Nextcloud",
     "Link to wiki page \"{href}\"" : "Odkaz na wiki stránku \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Odkazy na stránky wiki sú v režime ukážky zakázané.",
     "Links to media files are disabled in preview mode." : "Odkazy na súbory médií sú v režime ukážky zakázané."

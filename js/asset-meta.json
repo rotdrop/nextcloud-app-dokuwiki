@@ -1,12 +1,12 @@
 {
   "publicPath": "",
   "js": [
-    "js/admin-settings-72d91abbb084b9ce58f3.js",
+    "js/admin-settings-2574fd4b68de6467a07f.js",
     "js/refresh-612b5c8463f0fefd9406.js",
-    "js/app-5a89fab9468279dac740.js"
+    "js/app-1fbc531d48f28ef92dd0.js"
   ],
   "css": [
-    "css/admin-settings-08831456f50ac0d5d35e.css",
-    "css/app-be51fd0ea77ab6cc91da.css"
+    "css/admin-settings-36de8a31fdd6df8dd164.css",
+    "css/app-33a136be1b287c5ade87.css"
   ]
 }

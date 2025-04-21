@@ -12,8 +12,13 @@
   "require": {
     "phpxmlrpc/phpxmlrpc": "^4"
   },
+  "provide": {
+    "symfony/console": "*",
+    "symfony/event-dispatcher": "*",
+    "symfony/process": "*"
+  },
   "require-dev": {
-    "phpmd/phpmd" : "@stable",
+    "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "3.*",
     "zebra-north/phpcs-short-types": "^1.0"
   },

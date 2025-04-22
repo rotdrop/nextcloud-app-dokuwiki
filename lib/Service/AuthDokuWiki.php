@@ -308,7 +308,7 @@ class AuthDokuWiki
         $this->httpCode = -1;
         $this->httpStatus = '';
       }
-      return $this->handleError('XMLRPC request failed: ' . $response->faultString() . ' CODE ' . $this->httpCode . ' STATUS ' . $this->httpStatus);
+      return $this->handleError('XMLRPC request "' . $method. '" failed: ' . $response->faultString() . ' CODE ' . $this->httpCode . ' STATUS ' . $this->httpStatus);
     }
     $this->httpCode = 200;
     $this->httpStatus = 'OK';
@@ -404,7 +404,12 @@ class AuthDokuWiki
   {
     $this->cleanCookies();
     foreach (self::RPC_LOGIN_METHODS as $method) {
-      $result = $this->xmlRequest($method, [ $username, $password ]);
+      try {
+        $result = $this->doXmlRequest($method, [ $username, $password ]);
+      } catch (\Throwable $t) {
+        $this->logException($t);
+        $result = false;
+      }
       if ($result === true) {
         foreach ($this->cookies as $cookie) {
           if ($cookie['value'] == 'deleted') {

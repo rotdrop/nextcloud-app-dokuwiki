@@ -3,7 +3,7 @@
         'name' => 'rotdrop/dokuwiki-nextcloud',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '074d6b109a893e750a9a97cb988ffcb1fdb001b1',
+        'reference' => '09fd5865bc73320b3353dbaa190f69f429749fdc',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'rotdrop/dokuwiki-nextcloud' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '074d6b109a893e750a9a97cb988ffcb1fdb001b1',
+            'reference' => '09fd5865bc73320b3353dbaa190f69f429749fdc',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

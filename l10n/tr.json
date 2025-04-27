@@ -25,6 +25,8 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Buraya istediğiniz oturum yenileme sıklığını saniye olarak yazın. Sıklık değeri, kullanılan DokuWiki kopyasında yapılandırılmış oturum ömründen biraz daha küçük olmalıdır.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL doğrulamasını kullanımdan kaldırın. Kendinden imzalı sertifikalar ya da 'localhost' gibi uygun olmayan sunucu adları için gerekir.",
     "Enable SSL verification." : "SSL doğrulaması kullanılsın",
+    "DokuWiki Wrapper for Nextcloud" : "Nextcloud için DokuWiki sarmalayıcısı",
+    "Link to wiki page \"{href}\"" : "Wiki sayfası bağlantısı \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları kullanımdan kaldırılır.",
     "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları kullanımdan kaldırılır."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"

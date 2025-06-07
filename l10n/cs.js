@@ -15,7 +15,7 @@ OC.L10N.register(
     "User" : "Uživatel",
     "Password" : "Heslo",
     "Login succeeded." : "Přihlášení úspěšné.",
-    "Login failed." : "Přihlášení neúpěšné.",
+    "Login failed." : "Přihlášení neúspěšné.",
     "Error, caught an exception." : "Chyba: zachycena výjimka",
     "Caused by previous exception" : "Způsobeno předchozí výjimkou",
     "DokuWiki" : "DokuWiki",

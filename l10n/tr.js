@@ -28,6 +28,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL doğrulamasını devre dışı bırakın. Kendinden imzalı sertifikalar ya da 'localhost' gibi uygun olmayan sunucu adları için gerekir.",
     "Enable SSL verification." : "SSL doğrulaması kullanılsın",
     "DokuWiki Wrapper for Nextcloud" : "Nextcloud için DokuWiki sarmalayıcısı",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} sarmalanmış kopyasının içeriğine erişilemedi.\nBu durum, etki alanları arası erişim kısıtlamalarından kaynaklanabilir.\nLütfen Nextcloud kopyanızın ({nextcloudUrl}) ve sarmalanmış {wrappedApp} kopyanızın ({iFrameUrl}) aynı etki alanından sunulduğundan emin olun.",
     "Link to wiki page \"{href}\"" : "Wiki sayfası bağlantısı \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları devre dışı bırakılır.",
     "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları devre dışı bırakılır."

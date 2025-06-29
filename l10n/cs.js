@@ -28,6 +28,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Vypnout ověřování SSL certifikátu, např. pro certifikáty podepsané samy sebou nebo pro známé neodpovídající názvy strojů, jako je „localhost“.",
     "Enable SSL verification." : "Zapnout ověřování SSL.",
     "DokuWiki Wrapper for Nextcloud" : "Obalovací vrstva kolem DokuWiki pro Nextcloud",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény.",
     "Link to wiki page \"{href}\"" : "Odkaz na wiki stránku „{href}“",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
     "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."

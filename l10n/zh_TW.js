@@ -28,6 +28,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "停用 SSL 驗證，例如對於自簽憑證或已知的不相符主機名稱，如「localhost」。",
     "Enable SSL verification." : "啟用 SSL 驗證。",
     "DokuWiki Wrapper for Nextcloud" : "Nextcloud 的 Dokuwiki Wrapper",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。",
     "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
     "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"

@@ -6,6 +6,7 @@ OC.L10N.register(
     "Password" : "Salasana",
     "Login succeeded." : "Kirjautuminen onnistui.",
     "Login failed." : "Kirjautuminen epäonnistui.",
+    "%1$s (renamed)" : "%1$s (nimetty uudelleen)",
     "DokuWiki" : "DokuWiki",
     "DokuWiki Installation Path" : "DokuWikin asennuspolku",
     "DokuWiki Session Refresh Interval [s]" : "DokuWiki-istunnon päivitysväli [s]",

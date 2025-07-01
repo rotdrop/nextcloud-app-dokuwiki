@@ -18,6 +18,9 @@ OC.L10N.register(
     "Login failed." : "Falha no login.",
     "Error, caught an exception." : "Erro, capturou uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
+    "%1$s (renamed)" : "%1$s (renomeado)",
+    "renamed file" : "arquivo renomeado",
+    "Unable to sanitize filename \"%s\"." : "Não foi possível limpar o nome do arquivo \"%s\".",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Incorpore uma instância existente do DokuWiki no Nextcloud, possivelmente com SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Incorpore uma instância existente do DokuWiki no Nextcloud, possivelmente com SSO. Para o SSO, os usuários do DokuWiki e os usuários do Nextcloud precisam coincidir, p. ex., usando um back-end de autenticação comum, como LDAP, ou com um plug-in de autenticação apropriado em ambos os lados da integração.",
@@ -28,6 +31,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, p. ex., para certificados autoassinados ou nomes de host incompatíveis conhecidos, como 'localhost'.",
     "Enable SSL verification." : "Ativar a verificação SSL.",
     "DokuWiki Wrapper for Nextcloud" : "Wrapper do DokuWiki para o Nextcloud",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Não é possível acessar o conteúdo da instância {wrappedApp} embrulhada.\nIsso pode ser causado por restrições de acesso entre domínios.\nVerifique se a instância do Nextcloud ({nextcloudUrl}) e a instância do {wrappedApp} embrulhada ({iFrameUrl}) são servidas a partir do mesmo domínio.",
     "Link to wiki page \"{href}\"" : "Link para a página wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Os links para páginas wiki são desativados no modo de visualização.",
     "Links to media files are disabled in preview mode." : "Os links para arquivos de mídia são desativados no modo de visualização."

@@ -14,6 +14,8 @@
     "Password" : "گذرواژه",
     "Error, caught an exception." : "Error, caught an exception.",
     "Caused by previous exception" : "Caused by previous exception",
+    "%1$s (renamed)" : "%1$s (تغییر نام داده شد)",
+    "renamed file" : "فایل تغییر نام داده شد",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration.",

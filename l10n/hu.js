@@ -18,6 +18,8 @@ OC.L10N.register(
     "Login failed." : "Belépés sikertelen.",
     "Error, caught an exception." : "Hiba, kivétel történt.",
     "Caused by previous exception" : "Az előző kivétel okozta",
+    "%1$s (renamed)" : "%1$s (átnevezve)",
+    "renamed file" : "átnevezett fájl",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Egy meglévő DokuWiki-példány beágyazása a Nextcloudba, akár egyszeri bejelentkezéssel (SSO-val).",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Ágyazzon be egy meglévő DokuWiki-példányt a Nextcloudba, akár egyszeri bejelentkezéssel (SSO-val). Az SSO működéséhez a DokuWiki és a Nextcloud felhasználóknak egybe kell esniük, ez például egy közös hitelesítési háttérrendszerrel oldható meg, mint az LDAP, vagy egy megfelelő hitelesítési bővítménnyel az integráció egyik oldalán.",

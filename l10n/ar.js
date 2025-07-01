@@ -18,6 +18,7 @@ OC.L10N.register(
     "Login failed." : "فشل عملية الدخول.",
     "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
     "Caused by previous exception" : "ناتج عن استنثاء سابق",
+    "renamed file" : "ملف معاد تسميته",
     "DokuWiki" : "دوكو ويكي",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "ضمّن الدوكو ويكي في نكست كلاود باستخدام النفاذ الموحد SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "ضمّن دوكو ويكي الشغالة حالياً في نيكست كلاود،  و ذلك باستخدام النفاذ الموحد SSO. مُعرّفات الدخول لمستخدمي دوكو ويكي عن طريق النفاذ الموحد و مستخدمي نكست كلاود يجب أن تكون متطابقة. على سبيل المثال، باستخدام خلفية مشتركة للتحقّق من الشخصية مثل LDAP، أو باستخدام قابسة التحقّق plugin المناسبة من أحد الطرفين المتكاملين.  ",

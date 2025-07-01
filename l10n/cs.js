@@ -18,6 +18,7 @@ OC.L10N.register(
     "Login failed." : "Přihlášení neúspěšné.",
     "Error, caught an exception." : "Chyba: zachycena výjimka",
     "Caused by previous exception" : "Způsobeno předchozí výjimkou",
+    "renamed file" : "přejmenovaný soubor",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Začleňte existující instanci DokuWiki do Nextcloud, případně  se sjednoceným přihlašováním (SSO).",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Začlenit existující instanci DokuWiki do Nextcloud, případně se sjednoceným přihlašováním (SSO). Pokud má být využíváno SSO je třeba, aby uživatelské účty v Nextcloud a DokuWiki byly shodné, např. použitím společné podpůrné vrstvy pro ověřování, jako LDAP, nebo s příslušným zásuvným modulem na obou stranách napojení.",

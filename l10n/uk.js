@@ -9,6 +9,8 @@ OC.L10N.register(
     "Password" : "Пароль",
     "Login succeeded." : "Успішно авторизовано.",
     "Login failed." : "Не вдалося авторизуватися.",
+    "%1$s (renamed)" : "%1$s (перейменовано)",
+    "renamed file" : "перейменовано файл",
     "Links to wiki pages are disabled in preview mode." : "У попередньому перегляді посилання на вікі-сторінки не доступні.",
     "Links to media files are disabled in preview mode." : "У попередньому перегляді посилання на медіа-файли не доступні."
 },

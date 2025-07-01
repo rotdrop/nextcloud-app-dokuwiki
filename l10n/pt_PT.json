@@ -16,6 +16,8 @@
     "Login failed." : "Falha no início de sessão.",
     "Error, caught an exception." : "Erro, detetada uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
+    "%1$s (renamed)" : "%1$s (renomeado)",
+    "renamed file" : "ficheiro renomeado",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Integre uma instância DokuWiki existente no Nextcloud, potencialmente com SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Integre uma instância DokuWiki no Nextcloud. potencialmente com SSO. Para fazer o mapeamento entre utilizadores DokuWiki com SSO e os utilizadores Nextcloud, deve haver um servidor de autenticação LDAP partilhado ou então usarem uma plugin de autenticação apropriada.",

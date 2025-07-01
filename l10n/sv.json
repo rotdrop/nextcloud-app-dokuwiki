@@ -1,5 +1,7 @@
 { "translations": {
     "User" : "Användare",
-    "Password" : "Lösenord"
+    "Password" : "Lösenord",
+    "%1$s (renamed)" : "%1$s (omdöpt)",
+    "renamed file" : "omdöpt fil"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

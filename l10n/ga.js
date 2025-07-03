@@ -20,6 +20,7 @@ OC.L10N.register(
     "Caused by previous exception" : "De bharr eisceachta roimhe seo",
     "%1$s (renamed)" : "%1$s (athainmnithe)",
     "renamed file" : "comhad athainmnithe",
+    "Unable to sanitize filename \"%s\"." : "Ní féidir ainm comhaid \"%s\" a shláintiú.",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Leabaigh sampla DokuWiki atá ann cheana féin i Nextcloud, le SSO b’fhéidir.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Leabaigh sampla DokuWiki atá ann cheana féin i Nextcloud, le SSO b’fhéidir. Maidir le húsáideoirí SSO DokuWiki agus caithfidh úsáideoirí Nextcloud dul i gcomhthráth, e.g. trí úsáid a bhaint as inneall fíordheimhnithe comónta cosúil le LDAP, nó le breiseán údaraithe cuí ar gach taobh den chomhtháthú.",
@@ -30,6 +31,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Díchumasaigh fíorú SSL, e.g. le haghaidh deimhnithe féin-shínithe nó óstainmneacha mímheaitseála aitheanta amhail ‘localhost’.",
     "Enable SSL verification." : "Cumasaigh fíorú SSL.",
     "DokuWiki Wrapper for Nextcloud" : "Fillteán DokuWiki do Nextcloud",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Ní féidir rochtain a fháil ar ábhar an tsampla fillte {wrappedApp}.\nD’fhéadfadh srianta rochtana tras-fhearainn a bheith ina gcúis leis seo.\nSeiceáil le do thoil go bhfuil do chás Nextcloud ({nextcloudUrl}) agus an tsampla fillte {wrappedApp} ({iFrameUrl}) á bhfreastal ón bhfearann ​​​​céanna.",
     "Link to wiki page \"{href}\"" : "Nasc le leathanach vicí \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Díchumasaítear naisc le leathanaigh vicí sa mhód réamhamhairc.",
     "Links to media files are disabled in preview mode." : "Tá naisc le comhaid meán díchumasaithe i mód réamhamhairc."

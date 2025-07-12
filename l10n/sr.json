@@ -18,6 +18,7 @@
     "Caused by previous exception" : "Изазвао је претходни изузетак",
     "%1$s (renamed)" : "%1$s (преименован)",
     "renamed file" : "преименован фајл",
+    "Unable to sanitize filename \"%s\"." : "Није могло да се пречисти име фајла „%s”.",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Уградите постојећу DokuWiki инстанцу у Nextcloud, потенцијално са SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Уградите постојећу DokuWiki инстанцу у Nextcloud, потенцијално са SSO. Да би се  SSO DokuWiki корисници и Nextcloud корисници подударали, нпр. употребом заједничког позадинског механизма за аутентификацију, као што је LDAP, или одговарајућег додататка аутентификације са обе стране интеграције.",
@@ -28,6 +29,7 @@
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Искључи SSL потврђивање, нпр. за самостално потписане сертификате или позната имена хостова која се не подударају са сертификатом, као што је ’localhost.",
     "Enable SSL verification." : "Укључи SSL потврђивање.",
     "DokuWiki Wrapper for Nextcloud" : "DokuWiki омотач за Nextcloud",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Не може да се приступи садржају обмотане {wrappedApp} инстанце.\nУзрок овога може да буде ограничење приступа другим доменима.\nМолимо вас да проверите да ли се ваша Nextcloud инстанца\n({nextcloudUrl}) и обмотана {wrappedApp} инстанца ({iFrameUrl})\nсервирају са истог домена.",
     "Link to wiki page \"{href}\"" : "Линк на вики страницу „{href}”",
     "Links to wiki pages are disabled in preview mode." : "Линкови на вики странице су искључени у режиму прегледа.",
     "Links to media files are disabled in preview mode." : "Линкови на фајлове медија су искључени у режиму прегледа."

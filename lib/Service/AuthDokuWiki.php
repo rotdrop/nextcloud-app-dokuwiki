@@ -257,7 +257,7 @@ class AuthDokuWiki
     $t = null;
     try {
       $result = $this->doXmlRequest($method, $data);
-    } catch (\Throwable $t1) {
+    } catch (Throwable $t1) {
       $t = $t1;
       $result = false;
     }
@@ -275,7 +275,7 @@ class AuthDokuWiki
             }
             return $this->doXmlRequest($method, $data);
           }
-        } catch (\Throwable $t1) {
+        } catch (Throwable $t1) {
           $t = $t1;
         }
       }
@@ -365,7 +365,7 @@ class AuthDokuWiki
         'userId' => $credentials->getUID(),
         'password' => $credentials->getPassword(),
       ];
-    } catch (\Throwable $t) {
+    } catch (Throwable $t) {
       return $this->handleError("Unable to obtain login-credentials", $t);
     }
   }
@@ -406,7 +406,7 @@ class AuthDokuWiki
     foreach (self::RPC_LOGIN_METHODS as $method) {
       try {
         $result = $this->doXmlRequest($method, [ $username, $password ]);
-      } catch (\Throwable $t) {
+      } catch (Throwable $t) {
         $this->logException($t);
         $result = false;
       }

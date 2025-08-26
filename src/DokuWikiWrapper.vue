@@ -37,7 +37,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { appName } from './config.ts'
+import { appName, wrappedApp } from './config.ts'
 import { translate as t } from '@nextcloud/l10n'
 import {
   computed,
@@ -52,12 +52,8 @@ import {
   removeEnvelope,
 } from './doku-wiki.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
-import Console from './toolkit/util/console.ts'
+import logger from './logger.ts'
 import type { InitialState } from './types/initial-state.d.ts'
-
-const wrappedApp = 'DokuWiki'
-
-const logger = new Console(wrappedApp + 'Wrapper')
 
 const props = withDefaults(defineProps<{
   fullScreen?: boolean,

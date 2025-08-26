@@ -24,6 +24,9 @@ export type {
   AppName,
 };
 
+const wrappedApp = 'DokuWiki';
+
 export {
   appName,
+  wrappedApp,
 };

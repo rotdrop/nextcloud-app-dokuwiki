@@ -57,10 +57,8 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router/composables'
-import Console from './toolkit/util/console.ts'
 import type { Location as RouterLocation } from 'vue-router'
-
-const logger = new Console('DokuWikiWrapper')
+import logger from './logger.ts'
 
 const loading = ref(true)
 const error = ref<string | undefined>(undefined)

@@ -25,10 +25,8 @@ import axios from '@nextcloud/axios';
 import onDocumentLoaded from './toolkit/util/on-document-loaded.ts';
 import { generateUrl } from './toolkit/util/generate-url.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
-import Console from './toolkit/util/console.ts';
+import logger from './logger.ts';
 import type { InitialState } from './types/initial-state.d.ts';
-
-const logger = new Console('DokuwikiWrapper::refresh');
 
 const state = getInitialState<InitialState>();
 let refreshInterval = state?.authenticationRefreshInterval || -1;

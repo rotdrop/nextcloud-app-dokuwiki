@@ -222,7 +222,7 @@ class AuthDokuWiki
         }
         return false;
       default:
-        throw new Exception("Invalid error handling method: ".$this->errorReporting);
+        throw new Exception('Invalid error handling method: '.$this->errorReporting);
     }
     return false;
   }
@@ -266,7 +266,7 @@ class AuthDokuWiki
         try {
           $credentials = $this->loginCredentials();
           if ($this->doLogin($credentials['userId'], $credentials['password'])) {
-            $this->logInfo("Re-login succeeded, cookies " . print_r($this->cookies, true));
+            $this->logInfo('Re-login succeeded, cookies ' . print_r($this->cookies, true));
             foreach ($this->cookies as $cookie) {
               if ($cookie['value'] == 'deleted') {
                 continue;
@@ -279,7 +279,7 @@ class AuthDokuWiki
           $t = $t1;
         }
       }
-      return $this->handleError("xmlRequest($method) failed ($this->httpCode)", $t);
+      return $this->handleError('xmlRequest($method) failed ($this->httpCode)', $t);
     }
     return $result;
   }
@@ -333,11 +333,11 @@ class AuthDokuWiki
           $cookieInfo['path'] = \OC::$WEBROOT == '' ? '/' : \OC::$WEBROOT;
           $this->cookies[] = $cookieInfo;
         }
-        $this->logDebug("XMLRPC method \"$method\" executed with success. Got cookies "
+        $this->logDebug('XMLRPC method "$method" executed with success. Got cookies '
                         . print_r($this->cookies, true));
         return true;
       } else {
-        $this->logDebug("XMLRPC method \"$method\" to \"" . ($this->wikiURL() . self::RPCPATH) . "\" failed. Got Cookies "
+        $this->logDebug('XMLRPC method "$method" to "' . ($this->wikiURL() . self::RPCPATH) . '" failed. Got Cookies '
                         . print_r($response->cookies(), true));
         return false;
       }

@@ -501,6 +501,22 @@ class AuthDokuWiki
   }
 
   /**
+   * Rather a support function in case some other app wants to create
+   * some automatic wiki-pages (e.g. overview stuff and the like,
+   * maybe a changelog here and a readme there.
+   *
+   * @param string $oldName
+   *
+   * @param string $newName
+   *
+   * @return mixed
+   */
+  public function renamePage(string $oldName, string $newName):mixed
+  {
+    return $this->xmlRequest('plugin.move.renamePage', [ $oldName, $newName ]);
+  }
+
+  /**
    * @param string $pagename
    *
    * @return mixed

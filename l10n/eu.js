@@ -18,6 +18,8 @@ OC.L10N.register(
     "Login failed." : "Saioa hasteak huts egin du.",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
+    "%1$s (renamed)" : "%1$s (berrizendatua)",
+    "renamed file" : "fitxategia berrizendatu da",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian autentifikazio bakarraren (SSO) bidez.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Txertatu lehendik dagoen DokuWiki instantzia Nextcloud-en, agian SSOarekin. SSOrako DokuWiki erabiltzaileek eta Nextcloud erabiltzaileek bat egin behar dute, adibidez. LDAP bezalako autentifikazio-sistema komun bat erabiliz, edo integrazioaren bi aldeetan autentifikazio-plugin egoki baten bidez.",

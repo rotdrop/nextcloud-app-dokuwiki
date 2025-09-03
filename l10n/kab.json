@@ -1,6 +1,7 @@
 { "translations": {
     "true" : "idetti",
     "false" : "ucciḍ",
-    "User" : "Aseqdac"
+    "User" : "Aseqdac",
+    "Password" : "Awal n uɛeddi"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

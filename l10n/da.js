@@ -15,6 +15,8 @@ OC.L10N.register(
     "Login failed." : "Login mislykkedes.",
     "Error, caught an exception." : "Fejl, fangede en undtagelse.",
     "Caused by previous exception" : "Årsag til tidligere undtagelse",
+    "%1$s (renamed)" : "%1$s (omdøbt)",
+    "renamed file" : "omdøbt fil",
     "DokuWiki" : "DokuWiki"
 },
 "nplurals=2; plural=(n != 1);");

@@ -20,6 +20,7 @@ OC.L10N.register(
     "Caused by previous exception" : "Causé par une exception précédente",
     "%1$s (renamed)" : "%1$s (renommé)",
     "renamed file" : "fichier renommé",
+    "Unable to sanitize filename \"%s\"." : "Impossible de nettoyer le nom de fichier « %s ».",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Intégrer une instance DokuWiki existante dans Nextcloud, avec SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Embarquer une instance DokuWiki existante dans Nextcloud, éventuellement avec authentification unique. Pour cette dernière, les utilisateurs DokuWiki et Nextcloud doivent coïncider, par exemple en utilisant un moteur d'authentification commun comme LDAP, ou avec un plugin d'authentification approprié de part et d'autre de l'intégration.",

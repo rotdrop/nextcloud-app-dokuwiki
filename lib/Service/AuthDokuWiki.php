@@ -31,7 +31,7 @@ use PhpXmlRpc\PhpXmlRpc as XmlRpcData;
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 use OCP\Authentication\LoginCredentials\ICredentials;
 use OCP\IRequest;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
@@ -118,7 +118,7 @@ class AuthDokuWiki
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     Application $app,
-    private IConfig $config,
+    private IAppConfig $appConfig,
     private IRequest $request,
     private ICredentialsStore $credentialsStore,
     private IURLGenerator $urlGenerator,
@@ -128,9 +128,9 @@ class AuthDokuWiki
 
     $this->errorReporting = self::ON_ERROR_RETURN;
 
-    $this->enableSSLVerify = $this->config->getAppValue('enableSSLVerfiy', true);
+    $this->enableSSLVerify = $this->appConfig->getValueBool($this->appName, 'enableSSLVerfiy', true);
 
-    $location = $this->config->getAppValue($this->appName, 'externalLocation');
+    $location = $this->appConfig->getValueString($this->appName, 'externalLocation');
 
     if (!empty($location)) {
 
@@ -149,8 +149,8 @@ class AuthDokuWiki
 
     /* Construct the xml client control class */
     $this->xmlRpcClient = new XmlRpc\Client($this->wikiURL() . self::RPCPATH);
-    $this->xmlRpcClient->setSSLVerifyHost($this->enableSSLVerify);
-    $this->xmlRpcClient->setSSLVerifyPeer($this->enableSSLVerify);
+    $this->xmlRpcClient->setOption(XmlRpc\Client::OPT_VERIFY_HOST, $this->enableSSLVerify ? 2 : 0);
+    $this->xmlRpcClient->setOption(XmlRpc\Client::OPT_VERIFY_PEER, $this->enableSSLVerify);
 
     $this->cookies = [];
 

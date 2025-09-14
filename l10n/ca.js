@@ -14,8 +14,6 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema d'instal·lació; el recurs necessari \"%1$s\" del tipus \"%2$s\" no està instal·lat al servidor, poseu-vos en contacte amb l'administrador del sistema!",
     "User" : "Usuari",
     "Password" : "Contrasenya",
-    "Error, caught an exception." : "Error, s'ha detectat una excepció.",
-    "Caused by previous exception" : "Causat per una excepció anterior",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Insereix una instància de DokuWiki existent a Nextcloud, potencialment amb SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Insereix una instància de DokuWiki existent a Nextcloud, potencialment amb SSO. Per als usuaris de SSO DokuWiki i els usuaris de Nextcloud han de coincidir, p. utilitzant un rerefons d'autenticació comú com LDAP, o amb un connector d'autenticació adequat a banda i banda de la integració.",
@@ -26,6 +24,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desactiva la verificació SSL, p. ex. per a certificats autofirmats o noms d'amfitrió coneguts que no coincideixen com \"localhost\".",
     "Enable SSL verification." : "Habilita la verificació SSL.",
     "Links to wiki pages are disabled in preview mode." : "Els enllaços a pàgines wiki estan desactivats en mode de vista prèvia.",
-    "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia."
+    "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia.",
+    "Error, caught an exception." : "Error, s'ha detectat una excepció.",
+    "Caused by previous exception" : "Causat per una excepció anterior"
 },
 "nplurals=2; plural=(n != 1);");

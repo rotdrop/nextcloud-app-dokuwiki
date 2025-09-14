@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Heslo",
     "Login succeeded." : "Přihlášení úspěšné.",
     "Login failed." : "Přihlášení neúspěšné.",
-    "Error, caught an exception." : "Chyba: zachycena výjimka",
-    "Caused by previous exception" : "Způsobeno předchozí výjimkou",
     "%1$s (renamed)" : "%1$s (přejmenované)",
     "renamed file" : "přejmenovaný soubor",
     "Unable to sanitize filename \"%s\"." : "Nedaří se zbavit název souboru „%s“ nežádoucích součástí.",
@@ -34,6 +32,8 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény.",
     "Link to wiki page \"{href}\"" : "Odkaz na wiki stránku „{href}“",
     "Links to wiki pages are disabled in preview mode." : "V režimu náhledu jsou odkazy na wiki stránky vypnuté.",
-    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté."
+    "Links to media files are disabled in preview mode." : "V režimu náhledu jsou odkazy na soubory médií vypnuté.",
+    "Error, caught an exception." : "Chyba: zachycena výjimka",
+    "Caused by previous exception" : "Způsobeno předchozí výjimkou"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

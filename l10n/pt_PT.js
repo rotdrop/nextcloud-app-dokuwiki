@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Password",
     "Login succeeded." : "Sessão iniciada com sucesso.",
     "Login failed." : "Falha no início de sessão.",
-    "Error, caught an exception." : "Erro, detetada uma exceção.",
-    "Caused by previous exception" : "Causado por uma exceção anterior",
     "%1$s (renamed)" : "%1$s (renomeado)",
     "renamed file" : "ficheiro renomeado",
     "DokuWiki" : "DokuWiki",
@@ -29,6 +27,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, nomeadamente para certificados que não foram emitidos por CA ou para nomes de servidores diferentes como \"localhost\". ",
     "Enable SSL verification." : "Ativa a verificação de SSL.",
     "Links to wiki pages are disabled in preview mode." : "Os atalhos para páginas WIKI estão desabilitados em modo de pré-visualização.",
-    "Links to media files are disabled in preview mode." : "Atalhos para ficheiros de media estão desabilitados em modo de pré-visualização."
+    "Links to media files are disabled in preview mode." : "Atalhos para ficheiros de media estão desabilitados em modo de pré-visualização.",
+    "Error, caught an exception." : "Erro, detetada uma exceção.",
+    "Caused by previous exception" : "Causado por uma exceção anterior"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Pasahitza",
     "Login succeeded." : "Saioa hasi da.",
     "Login failed." : "Saioa hasteak huts egin du.",
-    "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
-    "Caused by previous exception" : "Aurreko salbuespen batek sortua",
     "%1$s (renamed)" : "%1$s (berrizendatua)",
     "renamed file" : "fitxategia berrizendatu da",
     "DokuWiki" : "DokuWiki",
@@ -30,6 +28,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desgaitu SSL egiaztapena, adibidez norberak sinatutako ziurtagirietarako edo \"localhost\" bezalako ostalari-izen desegokietarako.",
     "Enable SSL verification." : "Gaitu SSL egiaztapena.",
     "Links to wiki pages are disabled in preview mode." : "Wiki orrietarako estekak desgaituta daude aurrebista moduan.",
-    "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan."
+    "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan.",
+    "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
+    "Caused by previous exception" : "Aurreko salbuespen batek sortua"
 },
 "nplurals=2; plural=(n != 1);");

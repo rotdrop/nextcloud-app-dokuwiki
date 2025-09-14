@@ -14,8 +14,8 @@ OC.L10N.register(
     "Password" : "Συνθηματικό",
     "Login succeeded." : "Η σύνδεση πέτυχε.",
     "Login failed." : "Η σύνδεση απέτυχε.",
+    "Enable SSL verification." : "Ενεργοποίηση επαλήθευσης SSL.",
     "Error, caught an exception." : "Σφάλμα, εντοπίστηκε εξαίρεση.",
-    "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση",
-    "Enable SSL verification." : "Ενεργοποίηση επαλήθευσης SSL."
+    "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση"
 },
 "nplurals=2; plural=(n != 1);");

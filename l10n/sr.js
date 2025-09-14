@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Лозинка",
     "Login succeeded." : "Пријава је успела.",
     "Login failed." : "Није успела пријава.",
-    "Error, caught an exception." : "Грешка, ухваћен је изузетак.",
-    "Caused by previous exception" : "Изазвао је претходни изузетак",
     "%1$s (renamed)" : "%1$s (преименован)",
     "renamed file" : "преименован фајл",
     "Unable to sanitize filename \"%s\"." : "Није могло да се пречисти име фајла „%s”.",
@@ -34,6 +32,8 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Не може да се приступи садржају обмотане {wrappedApp} инстанце.\nУзрок овога може да буде ограничење приступа другим доменима.\nМолимо вас да проверите да ли се ваша Nextcloud инстанца\n({nextcloudUrl}) и обмотана {wrappedApp} инстанца ({iFrameUrl})\nсервирају са истог домена.",
     "Link to wiki page \"{href}\"" : "Линк на вики страницу „{href}”",
     "Links to wiki pages are disabled in preview mode." : "Линкови на вики странице су искључени у режиму прегледа.",
-    "Links to media files are disabled in preview mode." : "Линкови на фајлове медија су искључени у режиму прегледа."
+    "Links to media files are disabled in preview mode." : "Линкови на фајлове медија су искључени у режиму прегледа.",
+    "Error, caught an exception." : "Грешка, ухваћен је изузетак.",
+    "Caused by previous exception" : "Изазвао је претходни изузетак"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

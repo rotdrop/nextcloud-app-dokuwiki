@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Jelszó",
     "Login succeeded." : "Belépés sikeres.",
     "Login failed." : "Belépés sikertelen.",
-    "Error, caught an exception." : "Hiba, kivétel történt.",
-    "Caused by previous exception" : "Az előző kivétel okozta",
     "%1$s (renamed)" : "%1$s (átnevezve)",
     "renamed file" : "átnevezett fájl",
     "DokuWiki" : "DokuWiki",
@@ -30,6 +28,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "SSL-ellenőrzés letiltása, például önaláírt tanúsítványok vagy nem egyező kiszolgálónevek (például „localhost”) használatához.",
     "Enable SSL verification." : "SSL-ellenőrzés engedélyezése.",
     "Links to wiki pages are disabled in preview mode." : "A wiki oldalakra mutató hivatkozások le vannak tiltva az előnézeti módban.",
-    "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban."
+    "Links to media files are disabled in preview mode." : "A médiafájlokra mutató hivatkozások le vannak tiltva az előnézeti módban.",
+    "Error, caught an exception." : "Hiba, kivétel történt.",
+    "Caused by previous exception" : "Az előző kivétel okozta"
 },
 "nplurals=2; plural=(n != 1);");

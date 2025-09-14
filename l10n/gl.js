@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Contrasinal",
     "Login succeeded." : "Acceso satisfactorio",
     "Login failed." : "Produciuse un fallo no acceso:",
-    "Error, caught an exception." : "Erro, detectouse unha excepción.",
-    "Caused by previous exception" : "Causado por unha excepción anterior",
     "%1$s (renamed)" : "%1$s (renomeado)",
     "renamed file" : "ficheiro renomeado",
     "Unable to sanitize filename \"%s\"." : "Non foi posíbel sanear o nome do ficheiro «%s»",
@@ -31,6 +29,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desactivar a verificación SSL, p. ex. para certificados asinados por si mesmos ou nomes de máquina coñecidos que non coinciden, como «localhost».",
     "Enable SSL verification." : "Activar a verificación SSL.",
     "Links to wiki pages are disabled in preview mode." : "As ligazóns a páxinas wiki están desactivadas no modo de vista previa.",
-    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa."
+    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa.",
+    "Error, caught an exception." : "Erro, detectouse unha excepción.",
+    "Caused by previous exception" : "Causado por unha excepción anterior"
 },
 "nplurals=2; plural=(n != 1);");

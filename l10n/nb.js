@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "PassordP",
     "Login succeeded." : "Innlogging lyktes.",
     "Login failed." : "Innlogging feilet.",
-    "Error, caught an exception." : "Feil, fanget et unntak.",
-    "Caused by previous exception" : "Forårsaket av tidligere unntak",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Bygg inn en eksisterende DokuWiki-forekomst i Nextcloud, potensielt med SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Bygg inn en eksisterende DokuWiki-forekomst i Nextcloud, potensielt med SSO. For SSO må DokuWiki-brukere og Nextcloud-brukere falle sammen, f.eks. ved å bruke en felles autentiseringsbackend som LDAP, eller med en passende autentiseringsplugin på hver side av integrasjonen.",
@@ -28,6 +26,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deaktiver SSL-verifisering, f.eks. for selvsignerte sertifikater eller kjente mismatchende vertsnavn som \"localhost\".",
     "Enable SSL verification." : "Aktiver SSL-verifisering.",
     "Links to wiki pages are disabled in preview mode." : "Lenker til wiki-sider er deaktivert i forhåndsvisningsmodus.",
-    "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus."
+    "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus.",
+    "Error, caught an exception." : "Feil, fanget et unntak.",
+    "Caused by previous exception" : "Forårsaket av tidligere unntak"
 },
 "nplurals=2; plural=(n != 1);");

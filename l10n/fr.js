@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Mot de passe",
     "Login succeeded." : "Connexion réussie.",
     "Login failed." : "Échec de la connexion",
-    "Error, caught an exception." : "Erreur, une exception a été déclarée.",
-    "Caused by previous exception" : "Causé par une exception précédente",
     "%1$s (renamed)" : "%1$s (renommé)",
     "renamed file" : "fichier renommé",
     "Unable to sanitize filename \"%s\"." : "Impossible de nettoyer le nom de fichier « %s ».",
@@ -33,6 +31,8 @@ OC.L10N.register(
     "DokuWiki Wrapper for Nextcloud" : "Wrapper DokuWiki pour NextCloud",
     "Link to wiki page \"{href}\"" : "Lien vers la page wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Les liens vers les pages de wiki sont désactivés en mode prévisualisation.",
-    "Links to media files are disabled in preview mode." : "Les liens vers les fichiers média sont désactivés en mode prévisualisation."
+    "Links to media files are disabled in preview mode." : "Les liens vers les fichiers média sont désactivés en mode prévisualisation.",
+    "Error, caught an exception." : "Erreur, une exception a été déclarée.",
+    "Caused by previous exception" : "Causé par une exception précédente"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

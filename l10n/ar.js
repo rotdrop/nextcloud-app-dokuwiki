@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "كلمة المرور",
     "Login succeeded." : "تمّ الدخول بنجاح.",
     "Login failed." : "فشل عملية الدخول.",
-    "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
-    "Caused by previous exception" : "ناتج عن استنثاء سابق",
     "renamed file" : "ملف معاد تسميته",
     "DokuWiki" : "دوكو ويكي",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "ضمّن الدوكو ويكي في نكست كلاود باستخدام النفاذ الموحد SSO.",
@@ -31,6 +29,8 @@ OC.L10N.register(
     "DokuWiki Wrapper for Nextcloud" : "لِفَافَة DockuWiki لنكست كلاود",
     "Link to wiki page \"{href}\"" : "رابط لصفحة الويكي \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "الروابط إلى صفحات الويكي تكون غير مفعّلة في حالة المعاينة preview.",
-    "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة."
+    "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة.",
+    "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
+    "Caused by previous exception" : "ناتج عن استنثاء سابق"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

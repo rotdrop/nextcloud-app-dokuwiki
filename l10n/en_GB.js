@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Password",
     "Login succeeded." : "Login succeeded.",
     "Login failed." : "Login failed.",
-    "Error, caught an exception." : "Error, caught an exception.",
-    "Caused by previous exception" : "Caused by previous exception",
     "%1$s (renamed)" : "%1$s (renamed)",
     "renamed file" : "renamed file",
     "Unable to sanitize filename \"%s\"." : "Unable to sanitize filename \"%s\".",
@@ -34,6 +32,8 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain.",
     "Link to wiki page \"{href}\"" : "Link to wiki page \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
+    "Error, caught an exception." : "Error, caught an exception.",
+    "Caused by previous exception" : "Caused by previous exception"
 },
 "nplurals=2; plural=(n != 1);");

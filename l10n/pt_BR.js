@@ -16,8 +16,6 @@ OC.L10N.register(
     "Password" : "Senha",
     "Login succeeded." : "Login bem-sucedido.",
     "Login failed." : "Falha no login.",
-    "Error, caught an exception." : "Erro, capturou uma exceção.",
-    "Caused by previous exception" : "Causado por uma exceção anterior",
     "%1$s (renamed)" : "%1$s (renomeado)",
     "renamed file" : "arquivo renomeado",
     "Unable to sanitize filename \"%s\"." : "Não foi possível limpar o nome do arquivo \"%s\".",
@@ -34,6 +32,8 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Não é possível acessar o conteúdo da instância {wrappedApp} embrulhada.\nIsso pode ser causado por restrições de acesso entre domínios.\nVerifique se a instância Nextcloud ({nextcloudUrl}) e a instância {wrappedApp} embrulhada ({iFrameUrl}) são servidas a partir do mesmo domínio.",
     "Link to wiki page \"{href}\"" : "Link para a página wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Os links para páginas wiki são desativados no modo de visualização.",
-    "Links to media files are disabled in preview mode." : "Os links para arquivos de mídia são desativados no modo de visualização."
+    "Links to media files are disabled in preview mode." : "Os links para arquivos de mídia são desativados no modo de visualização.",
+    "Error, caught an exception." : "Erro, capturou uma exceção.",
+    "Caused by previous exception" : "Causado por uma exceção anterior"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

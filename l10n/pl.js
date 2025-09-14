@@ -13,8 +13,6 @@ OC.L10N.register(
     "Password" : "Hasło",
     "Login succeeded." : "Logowanie powiodło się.",
     "Login failed." : "Logowanie nie powiodło się.",
-    "Error, caught an exception." : "Błąd, złapano wyjątek.",
-    "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
     "%1$s (renamed)" : "%1$s (zmieniona nazwa)",
     "renamed file" : "zmieniona nazwa pliku",
     "DokuWiki" : "DokuWiki",
@@ -24,6 +22,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Wyłącz weryfikację SSL, np. w przypadku certyfikatów samopodpisanych lub znanych nie pasujących nazw hosta jak „localhost”.",
     "Enable SSL verification." : "Włącz weryfikację SSL.",
     "Links to wiki pages are disabled in preview mode." : "Linki do stron wiki są zablokowane w trybie przeglądania.",
-    "Links to media files are disabled in preview mode." : "Linki do mediów są zablokowane w trybie przeglądania."
+    "Links to media files are disabled in preview mode." : "Linki do mediów są zablokowane w trybie przeglądania.",
+    "Error, caught an exception." : "Błąd, złapano wyjątek.",
+    "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

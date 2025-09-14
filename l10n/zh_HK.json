@@ -14,8 +14,6 @@
     "Password" : "密碼",
     "Login succeeded." : "登入成功。",
     "Login failed." : "登入失敗。",
-    "Error, caught an exception." : "錯誤，捕捉到例外。",
-    "Caused by previous exception" : "由先前的例外造成",
     "%1$s (renamed)" : "%1$s（已重新命名）",
     "renamed file" : "已重新命名的檔案",
     "Unable to sanitize filename \"%s\"." : "無法清理檔案名 \"%s\"。",
@@ -32,6 +30,8 @@
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法訪問包裹 {wrappedApp} 實例的內容。\n這可能是由於跨域訪問限制造成的。\n請檢查您的 Nextcloud 實例（{nextcloudUrl}）和包裹 {wrappedApp} 實例（{iFrameUrl}）是否來自同一域。",
     "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
-    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
+    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。",
+    "Error, caught an exception." : "錯誤，捕捉到例外。",
+    "Caused by previous exception" : "由先前的例外造成"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

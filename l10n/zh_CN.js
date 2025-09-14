@@ -9,12 +9,12 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安装问题：所需的“%2$s”类型的资源文件“%1$s”并未在服务器上安装，请联系系统管理员！",
     "User" : "用户",
     "Password" : "密码",
-    "Error, caught an exception." : "错误，捕获到异常",
-    "Caused by previous exception" : "由之前的异常造成",
     "%1$s (renamed)" : "%1$s（已重命名）",
     "renamed file" : "已重命名文件",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "将现有的 DokuWiki 实例嵌入 Nextcloud 中，可能使用 SSO。 对于 SSO，DokuWiki 用户和 Nextcloud 用户必须一致，例如 通过使用常见的身份验证后端（如 LDAP），或在集成的任一侧使用适当的身份验证插件。",
     "Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki." : "请输入已安装的 DokuWiki 实例的位置。 这应该是相对于 Web 服务器根目录的绝对路径或相对路径，或者是指向 DokuWiki Web 位置的完整 URL。 为了使事情正常进行，您必须在 DokuWiki 中启用 XML-RPC 协议。",
-    "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "请在此处输入所需的会话刷新间隔。 间隔以秒为单位测量，并且应该比正在使用的 DokuWiki 实例配置的会话生命周期小一些。"
+    "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "请在此处输入所需的会话刷新间隔。 间隔以秒为单位测量，并且应该比正在使用的 DokuWiki 实例配置的会话生命周期小一些。",
+    "Error, caught an exception." : "错误，捕获到异常",
+    "Caused by previous exception" : "由之前的异常造成"
 },
 "nplurals=1; plural=0;");

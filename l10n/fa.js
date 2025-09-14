@@ -14,8 +14,6 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
     "User" : "کاربر",
     "Password" : "گذرواژه",
-    "Error, caught an exception." : "Error, caught an exception.",
-    "Caused by previous exception" : "Caused by previous exception",
     "%1$s (renamed)" : "%1$s (تغییر نام داده شد)",
     "renamed file" : "فایل تغییر نام داده شد",
     "DokuWiki" : "DokuWiki",
@@ -28,6 +26,8 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'.",
     "Enable SSL verification." : "Enable SSL verification.",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
+    "Error, caught an exception." : "Error, caught an exception.",
+    "Caused by previous exception" : "Caused by previous exception"
 },
 "nplurals=2; plural=(n > 1);");

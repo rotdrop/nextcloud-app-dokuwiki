@@ -14,6 +14,8 @@ OC.L10N.register(
     "Password" : "Συνθηματικό",
     "Login succeeded." : "Η σύνδεση πέτυχε.",
     "Login failed." : "Η σύνδεση απέτυχε.",
+    "%1$s (renamed)" : "%1$s (μετονομάστηκε)",
+    "renamed file" : "μετονομασμένο αρχείο",
     "Enable SSL verification." : "Ενεργοποίηση επαλήθευσης SSL.",
     "Error, caught an exception." : "Σφάλμα, εντοπίστηκε εξαίρεση.",
     "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση"

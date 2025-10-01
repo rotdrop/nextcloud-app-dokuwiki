@@ -16,6 +16,7 @@ OC.L10N.register(
     "Password" : "PassordP",
     "Login succeeded." : "Innlogging lyktes.",
     "Login failed." : "Innlogging feilet.",
+    "%1$s (renamed)" : "%1$s (har fått nytt navn)",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Bygg inn en eksisterende DokuWiki-forekomst i Nextcloud, potensielt med SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Bygg inn en eksisterende DokuWiki-forekomst i Nextcloud, potensielt med SSO. For SSO må DokuWiki-brukere og Nextcloud-brukere falle sammen, f.eks. ved å bruke en felles autentiseringsbackend som LDAP, eller med en passende autentiseringsplugin på hver side av integrasjonen.",

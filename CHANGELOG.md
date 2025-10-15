@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-10-15
+
+### Fixed
+
+- sync between outer router and the window location of the iframe
+
+### Changed
+
+- support Nextcloud 30-32 in appinfo/info.xml
+
 ## [1.1.1] - 2025-04-22
 
 ### Fixed

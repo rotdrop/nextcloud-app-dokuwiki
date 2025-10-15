@@ -37,7 +37,7 @@ const options: RouterOptions = {
   routes: [
     {
       path: '/:wikiPage',
-      component: () => import('../DokuWikiWrapperReactivity.vue'),
+      component: () => import('../DokuWikiWrapperRouteReactivity.vue'),
       name: 'home',
     },
   ],

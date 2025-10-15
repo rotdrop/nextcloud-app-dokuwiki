@@ -33,12 +33,13 @@ import {
   onBeforeRouteUpdate,
   useRoute,
 } from 'vue-router/composables'
+import type { Route } from 'vue-router'
 import logger from './logger.ts'
 
 const currentRoute = useRoute()
 
 const routeWikiPage = ref<string>('')
-const routeQuery = ref<Record<string, string>>({})
+const routeQuery = ref<Route['query']>({})
 
 const onRouteChange = (to: Route) => {
   routeWikiPage.value = to.params.wikiPage ?? ''

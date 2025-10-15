@@ -54,11 +54,12 @@ import {
 import getInitialState from './toolkit/util/initial-state.ts'
 import logger from './logger.ts'
 import type { InitialState } from './types/initial-state.d.ts'
+import { type Route } from 'vue-router'
 
 const props = withDefaults(defineProps<{
   fullScreen?: boolean,
   iFrameAttributes?: Record<string, string>,
-  query?: Record<string, string>,
+  query?: Route['query'],
   wikiPage?: string,
 }>(), {
   fullScreen: true,

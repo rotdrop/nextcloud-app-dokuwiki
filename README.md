@@ -38,14 +38,7 @@ embedding iframe.
 
 # Installation
 
-- ~install from the app-store~ (not yet)
-- install from a (pre-)release tar-ball by extracting it into your app folder
-- clone the git repository in to your app folder and run make
-  - `make help` will list all targets
-  - `make dev` comiles without minification or other assset-size optimizations
-  - `make build` will generate optimized assets
-  - there are several build-dependencies like compose, node, tar
-    ... just try and install all missing tools ;)
+See ![file_list](./INSTALL.md).
 
 # Single Sign On
 

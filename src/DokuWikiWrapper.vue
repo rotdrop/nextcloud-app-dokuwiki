@@ -95,7 +95,7 @@ const loading = ref(true)
 watch(loading, (value) => emit('update-loading', value))
 
 const requestedLocation = computed(() => {
-  const queryString = (new URLSearchParams({ id: props.wikiPage, ...props.query })).toString().replace('%3A', ':')
+  const queryString = (new URLSearchParams({ id: props.wikiPage, ...props.query })).toString().replace(/%3A/g, ':')
   return initialState?.wikiURL + '/doku.php?' + queryString
 })
 /**
@@ -109,16 +109,6 @@ const currentLocation = ref(requestedLocation.value)
 
 const frameId = computed(() => appName + '-frame')
 
-watch(() => props.wikiPage, () => {
-  if (requestedLocation.value !== currentLocation.value) {
-    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
-    loading.value = true
-    iFrameLocation.value = requestedLocation.value
-  } else {
-    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
-  }
-})
-
 const loadTimeout = 1000 // 1 second
 
 let timerCount = 0
@@ -130,6 +120,25 @@ const loaderContainer = ref<null|HTMLDivElement>(null)
 const frameWrapper = ref<null|HTMLDivElement>(null)
 const externalFrame = ref<null|HTMLIFrameElement>(null)
 let iFrameBody: undefined|HTMLBodyElement
+
+watch(requestedLocation, () => {
+  if (requestedLocation.value !== currentLocation.value) {
+    loading.value = true
+    iFrameLocation.value = requestedLocation.value
+    const iFrame = externalFrame.value
+    if (iFrame?.contentWindow) {
+      iFrame.contentWindow.location.href = requestedLocation.value
+    }
+    logger.debug('TRIGGER IFRAME REFRESH', {
+      requested: requestedLocation.value,
+      current: currentLocation.value,
+      iFrameLocation: iFrameLocation.value,
+      iFrame: externalFrame.value,
+    })
+  } else {
+    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+  }
+})
 
 const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
   if (!externalFrame.value) {

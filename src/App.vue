@@ -85,10 +85,19 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
     },
     query: { ...event.query },
   }
-  try {
-    await router.push(routerLocation)
-  } catch (error) {
-    logger.debug('NAVIGATION ABORTED', { error })
+  if (currentRoute.params.wikiPage !== routerLocation.params!.wikiPage
+      || JSON.stringify(currentRoute.query) !== JSON.stringify(routerLocation.query)) {
+    logger.debug('PUSHING ROUTE', {
+      currentRoute,
+      routerLocation,
+    })
+    try {
+      await router.push(routerLocation)
+    } catch (error) {
+      logger.debug('NAVIGATION ABORTED', { error })
+    }
+  } else {
+    logger.debug('ROUTE UNCHANGED, DOING NOTHING')
   }
 }
 
@@ -97,6 +106,7 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
 // route.
 router.onReady(async () => {
   if (!currentRoute.name) {
+    logger.info('CURRENT ROUTE', { currentRoute })
     const routerLocation: RouterLocation = {
       name: 'home',
       params: {},

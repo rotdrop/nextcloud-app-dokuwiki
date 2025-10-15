@@ -37,12 +37,8 @@ const options: RouterOptions = {
   routes: [
     {
       path: '/:wikiPage',
-      component: () => import('../DokuWikiWrapper.vue'),
+      component: () => import('../DokuWikiWrapperReactivity.vue'),
       name: 'home',
-      props: route => ({
-        wikiPage: route.params.wikiPage,
-        query: Object.fromEntries(Object.entries(route.query || {}).filter(([key]) => key !== 'id')),
-      }),
     },
   ],
   scrollBehavior(to, _from, savedPosition) {

@@ -128,7 +128,7 @@ class AuthDokuWiki
 
     $this->errorReporting = self::ON_ERROR_RETURN;
 
-    $this->enableSSLVerify = $this->appConfig->getValueBool($this->appName, 'enableSSLVerfiy', true);
+    $this->enableSSLVerify = $this->appConfig->getValueBool($this->appName, 'enableSSLVerify', true);
 
     $location = $this->appConfig->getValueString($this->appName, 'externalLocation');
 

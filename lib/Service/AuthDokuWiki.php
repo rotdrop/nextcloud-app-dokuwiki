@@ -279,7 +279,7 @@ class AuthDokuWiki
           $t = $t1;
         }
       }
-      return $this->handleError('xmlRequest($method) failed ($this->httpCode)', $t);
+      return $this->handleError('xmlRequest(' . $method . ') failed (' . $this->httpCode . ')', $t);
     }
     return $result;
   }

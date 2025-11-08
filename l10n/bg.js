@@ -12,6 +12,7 @@ OC.L10N.register(
     "false" : "невярно",
     "DokuWiki Integration" : "Интеграция на DokuWiki",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
+    "User" : "Потребител",
     "Password" : "Парола",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Вграждане на съществуващ екземпляр на DokuWiki в Nextcloud, по възможност със SSO.",

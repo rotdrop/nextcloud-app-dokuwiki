@@ -68,7 +68,7 @@ const props = withDefaults(defineProps<{
   wikiPage: '',
 })
 
-interface IFrameLoadedEventData {
+export interface IFrameLoadedEventData {
   wikiPath: string[],
   urlPath: string,
   query: Record<string, string>,

@@ -16,6 +16,8 @@ OC.L10N.register(
     "Password" : "پارول",
     "Login succeeded." : "كىرىش مۇۋەپپەقىيەتلىك بولدى.",
     "Login failed." : "كىرىش مەغلۇب بولدى.",
+    "%1$s (renamed)" : "%1$s (قايتا ئسىملاندى)",
+    "renamed file" : "قايتا ئىسىملانغان ھۆججەت",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "ھازىر بار بولغان DokuWiki مىسالىنى Nextcloud غا قىستۇرۇڭ ، SSO بىلەن بولۇشى مۇمكىن.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "ھازىر بار بولغان DokuWiki مىسالىنى Nextcloud غا قىستۇرۇڭ ، SSO بولۇشى مۇمكىن. SSO DokuWiki ئىشلەتكۈچىلىرى ۋە Nextcloud ئىشلەتكۈچىلىرى ماس كېلىشى كېرەك ، مەسىلەن. LDAP غا ئوخشاش ئورتاق دەلىللەش ئارقا سۇپىسىنى ئىشلىتىش ياكى بىرلەشتۈرۈشنىڭ ئىككى تەرىپىگە مۇۋاپىق بولغان ئاپتوماتىك قىستۇرما ئىشلىتىش ئارقىلىق.",

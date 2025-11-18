@@ -3,6 +3,9 @@ OC.L10N.register(
     {
     "Unknown admin setting: \"%1$s\"" : "Tundmatu haldusseadistus: „%1$s“",
     "The admin setting \"%1$s\" is read-only" : "Haldusseadistus „%1$s“ on vaid lugemisõigustes",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga mitte midagi sellist pole sisestatud.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga oli hoopis „%s“.",
+    "Host-part of external URL seems to be empty" : "Välise võrguaadressi serveriosa tundub olema tühi.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "„%2$s“ seadistuse väärtus „%1$s“ pole teisendatav tõeväärtuse andmetüübiks.",
     "true" : "tõene",
     "false" : "väär",

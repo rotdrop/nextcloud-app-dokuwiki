@@ -12,6 +12,8 @@
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
     "User" : "Потребител",
     "Password" : "Парола",
+    "%1$s (renamed)" : "%1$s (преименуван)",
+    "renamed file" : "преименуван файл",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Вграждане на съществуващ екземпляр на DokuWiki в Nextcloud, по възможност със SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Вграждане на съществуващ екземпляр на DokuWiki в Nextcloud, по възможност със SSO. За SSO потребителите на DokuWiki и потребителите на Nextcloud трябва да съвпадат, например чрез използване на общ бекенд за удостоверяване като LDAP или с подходяща добавка за удостоверяване от двете страни на интеграцията.",

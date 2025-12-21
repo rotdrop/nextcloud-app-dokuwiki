@@ -14,6 +14,8 @@
     "Password" : "Heslo",
     "Login succeeded." : "Prihlásenie bolo úspešné.",
     "Login failed." : "Prihlásenie zlyhalo.",
+    "%1$s (renamed)" : "%1$s (premenovaný)",
+    "renamed file" : "premenovaný súbor",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Vložte existujúcu inštanciu DokuWiki do Nextcloud, potenciálne s SSO.",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Vložte existujúcu inštanciu DokuWiki do Nextcloud, potenciálne s SSO. Pre SSO sa užívatelia DokuWiki a Nextcloud musia zhodovať, napr. pomocou bežného overovacieho backendu, ako je LDAP, alebo s vhodným auth pluginom na oboch stranách integrácie.",

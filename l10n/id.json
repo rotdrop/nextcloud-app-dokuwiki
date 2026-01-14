@@ -1,5 +1,7 @@
 { "translations": {
     "User" : "Pengguna",
-    "Password" : "Kata sandi"
+    "Password" : "Kata sandi",
+    "%1$s (renamed)" : "%1$s (diganti nama)",
+    "renamed file" : "file diganti nama"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -13,6 +13,8 @@ module.exports = {
     'src/toolkit/util/axios-file-download.ts',
     'src/toolkit/util/file-node-helper.ts',
     'src/toolkit/util/nextcloud-sidebar-root.ts',
+    'src/toolkit/services/entity-factory.ts',
+    'src/toolkit/services/entity-repository.ts',
   ],
   rules: {
     'no-tabs': ['error', { allowIndentationTabs: false }],

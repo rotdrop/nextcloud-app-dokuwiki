@@ -6,6 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga mitte midagi sellist pole sisestatud.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga oli hoopis „%s“.",
     "Host-part of external URL seems to be empty" : "Välise võrguaadressi serveriosa tundub olema tühi.",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "„%2$s“ seadistuse „%1$s“ väärtus pole kas teisendatav täisarvuks või ta on väljaspool lubatud piire (vähemalt %d sekundit).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "„%2$s“ seadistuse väärtus „%1$s“ pole teisendatav tõeväärtuse andmetüübiks.",
     "true" : "tõene",
     "false" : "väär",

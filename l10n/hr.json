@@ -1,6 +1,8 @@
 { "translations": {
     "User" : "@string/user_icon",
     "Password" : "Zaporka",
+    "Login succeeded." : "Prijava je uspjela.",
+    "Login failed." : "Prijava nije uspjela.",
     "%1$s (renamed)" : "%1$s (preimenovano)",
     "renamed file" : "preimenovana datoteka"
 },"pluralForm" :"nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"

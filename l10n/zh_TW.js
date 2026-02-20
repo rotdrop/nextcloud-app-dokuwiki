@@ -37,8 +37,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。",
     "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
-    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。",
-    "Error, caught an exception." : "錯誤，捕捉到例外。",
-    "Caused by previous exception" : "由先前的例外造成"
+    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
 },
 "nplurals=1; plural=0;");

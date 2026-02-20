@@ -28,8 +28,6 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desgaitu SSL egiaztapena, adibidez norberak sinatutako ziurtagirietarako edo \"localhost\" bezalako ostalari-izen desegokietarako.",
     "Enable SSL verification." : "Gaitu SSL egiaztapena.",
     "Links to wiki pages are disabled in preview mode." : "Wiki orrietarako estekak desgaituta daude aurrebista moduan.",
-    "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan.",
-    "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
-    "Caused by previous exception" : "Aurreko salbuespen batek sortua"
+    "Links to media files are disabled in preview mode." : "Multimedia fitxategietarako estekak desgaituta daude aurrebista moduan."
 },
 "nplurals=2; plural=(n != 1);");

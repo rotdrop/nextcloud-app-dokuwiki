@@ -29,8 +29,6 @@ OC.L10N.register(
     "DokuWiki Wrapper for Nextcloud" : "لِفَافَة DockuWiki لنكست كلاود",
     "Link to wiki page \"{href}\"" : "رابط لصفحة الويكي \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "الروابط إلى صفحات الويكي تكون غير مفعّلة في حالة المعاينة preview.",
-    "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة.",
-    "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
-    "Caused by previous exception" : "ناتج عن استنثاء سابق"
+    "Links to media files are disabled in preview mode." : "الروابط إلى ملفات الميديا تكون غير مفعلة في حالة المعاينة."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

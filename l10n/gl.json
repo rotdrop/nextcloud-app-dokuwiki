@@ -35,8 +35,6 @@
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non é posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio.",
     "Link to wiki page \"{href}\"" : "Ligazón á páxina wiki «{href}»",
     "Links to wiki pages are disabled in preview mode." : "As ligazóns a páxinas wiki están desactivadas no modo de vista previa.",
-    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa.",
-    "Error, caught an exception." : "Erro, detectouse unha excepción.",
-    "Caused by previous exception" : "Causado por unha excepción anterior"
+    "Links to media files are disabled in preview mode." : "As ligazóns a ficheiros multimedia están desactivadas no modo de vista previa."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

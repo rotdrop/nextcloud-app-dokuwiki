@@ -27,8 +27,6 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Deaktiver SSL-verifisering, f.eks. for selvsignerte sertifikater eller kjente mismatchende vertsnavn som \"localhost\".",
     "Enable SSL verification." : "Aktiver SSL-verifisering.",
     "Links to wiki pages are disabled in preview mode." : "Lenker til wiki-sider er deaktivert i forhåndsvisningsmodus.",
-    "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus.",
-    "Error, caught an exception." : "Feil, fanget et unntak.",
-    "Caused by previous exception" : "Forårsaket av tidligere unntak"
+    "Links to media files are disabled in preview mode." : "Lenker til mediefiler er deaktivert i forhåndsvisningsmodus."
 },
 "nplurals=2; plural=(n != 1);");

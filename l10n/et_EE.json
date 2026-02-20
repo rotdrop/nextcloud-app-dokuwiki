@@ -29,8 +29,6 @@
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis.",
     "Link to wiki page \"{href}\"" : "Link „{href}“ viki lehele",
     "Links to wiki pages are disabled in preview mode." : "Vikilehtede lingid on eelvaates välja lülitatud.",
-    "Links to media files are disabled in preview mode." : "Meediafailide lingid on eelvaates välja lülitatud.",
-    "Error, caught an exception." : "Viga",
-    "Caused by previous exception" : "Põhjustatud eelmise vea poolt"
+    "Links to media files are disabled in preview mode." : "Meediafailide lingid on eelvaates välja lülitatud."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

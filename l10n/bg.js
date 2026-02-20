@@ -26,8 +26,6 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Деактивиране на SSL потвърждение, напр. за самоподписани сертификати или известни несъответстващи имена на хостове като „localhost“.",
     "Enable SSL verification." : "Активиране на SSL потвърждение.",
     "Links to wiki pages are disabled in preview mode." : "Връзките към страници в уикипедия /wiki/ са деактивирани в режим на предварителен преглед.",
-    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед.",
-    "Error, caught an exception." : "Грешка, засечено е изключение.",
-    "Caused by previous exception" : "Причинено от предишно изключение"
+    "Links to media files are disabled in preview mode." : "Връзките към медийни файлове са деактивирани в режим на преглед."
 },
 "nplurals=2; plural=(n != 1);");

@@ -17,8 +17,6 @@ OC.L10N.register(
     "Login failed." : "Prijava nije uspjela.",
     "%1$s (renamed)" : "%1$s (preimenovano)",
     "renamed file" : "preimenovana datoteka",
-    "Unable to sanitize filename \"%s\"." : "Nije moguće prilagoditi naziv datoteke „%s”.",
-    "Error, caught an exception." : "Error, caught an exception.",
-    "Caused by previous exception" : "Caused by previous exception"
+    "Unable to sanitize filename \"%s\"." : "Nije moguće prilagoditi naziv datoteke „%s”."
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

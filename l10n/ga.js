@@ -37,8 +37,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Ní féidir rochtain a fháil ar ábhar an tsampla fillte {wrappedApp}.\nD’fhéadfadh srianta rochtana tras-fhearainn a bheith ina gcúis leis seo.\nSeiceáil le do thoil go bhfuil do chás Nextcloud ({nextcloudUrl}) agus an tsampla fillte {wrappedApp} ({iFrameUrl}) á bhfreastal ón bhfearann ​​​​céanna.",
     "Link to wiki page \"{href}\"" : "Nasc le leathanach vicí \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Díchumasaítear naisc le leathanaigh vicí sa mhód réamhamhairc.",
-    "Links to media files are disabled in preview mode." : "Tá naisc le comhaid meán díchumasaithe i mód réamhamhairc.",
-    "Error, caught an exception." : "Earráid, ghlac eisceacht.",
-    "Caused by previous exception" : "De bharr eisceachta roimhe seo"
+    "Links to media files are disabled in preview mode." : "Tá naisc le comhaid meán díchumasaithe i mód réamhamhairc."
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

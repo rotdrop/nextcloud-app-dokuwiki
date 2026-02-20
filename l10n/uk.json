@@ -30,8 +30,6 @@
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Неможливо отримати доступ до вмісту обгорткового екземпляра {wrappedApp}.\nЦе може бути спричинено обмеженнями міждоменного доступу.\nПеревірте, чи ваш екземпляр Nextcloud ({nextcloudUrl}) та обгортковий екземпляр {wrappedApp} ({iFrameUrl}) обслуговуються з одного домену.",
     "Link to wiki page \"{href}\"" : "Посилання на вікі-сторінку \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "У попередньому перегляді посилання на вікі-сторінки не доступні.",
-    "Links to media files are disabled in preview mode." : "У попередньому перегляді посилання на медіа-файли не доступні.",
-    "Error, caught an exception." : "Помилка, спіймано виняток.",
-    "Caused by previous exception" : "Викликано попереднім винятком"
+    "Links to media files are disabled in preview mode." : "У попередньому перегляді посилання на медіа-файли не доступні."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

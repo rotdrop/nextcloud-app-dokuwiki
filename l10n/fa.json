@@ -24,8 +24,6 @@
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'.",
     "Enable SSL verification." : "Enable SSL verification.",
     "Links to wiki pages are disabled in preview mode." : "Links to wiki pages are disabled in preview mode.",
-    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode.",
-    "Error, caught an exception." : "Error, caught an exception.",
-    "Caused by previous exception" : "Caused by previous exception"
+    "Links to media files are disabled in preview mode." : "Links to media files are disabled in preview mode."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

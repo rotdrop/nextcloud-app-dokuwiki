@@ -32,8 +32,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "No fue posible acceder a los contenidos de la instancia {wrappedApp} envuelta.\nEsto podría se causado por restricciones entre dominios.\nPor favor, verifique que su instancia Nextcloud ({nextcloudUrl}) y la instancia {wrappedApp} ({iFrameUrl}) están siendo servidas desde el mismo dominio.",
     "Link to wiki page \"{href}\"" : "Enlace a la página del wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Los enlaces a las páginas wiki están deshabilitados en el modo de previsualización.",
-    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización.",
-    "Error, caught an exception." : "Error, se encontró una excepción.",
-    "Caused by previous exception" : "Causado por la excepción anterior"
+    "Links to media files are disabled in preview mode." : "Los enlaces a archivos multimedia están deshabilitados en el modo de previsualización."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

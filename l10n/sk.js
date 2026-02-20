@@ -30,8 +30,6 @@ OC.L10N.register(
     "DokuWiki Wrapper for Nextcloud" : "DokuWiki Wrapper pre Nextcloud",
     "Link to wiki page \"{href}\"" : "Odkaz na wiki stránku \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Odkazy na stránky wiki sú v režime ukážky zakázané.",
-    "Links to media files are disabled in preview mode." : "Odkazy na súbory médií sú v režime ukážky zakázané.",
-    "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
-    "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou"
+    "Links to media files are disabled in preview mode." : "Odkazy na súbory médií sú v režime ukážky zakázané."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

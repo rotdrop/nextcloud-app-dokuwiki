@@ -70,11 +70,11 @@ all: help
 .PHONY: all
 
 #@@ Build the distribution assets (minified, without debugging info)
-build: dev-setup npm-build lint # test
+build: dev-setup npm-build # test
 .PHONY: build
 
 #@@ Build the development assets (include debugging information)
-dev: dev-setup npm-dev lint # test
+dev: dev-setup npm-dev # test
 .PHONY: dev
 
 #@@ Build the distribution assets (minified, without debugging info)

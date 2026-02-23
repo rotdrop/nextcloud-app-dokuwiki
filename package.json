@@ -16,11 +16,7 @@
   "main": "src/doku-wiki-popup.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --mode production --config webpack.config.js",
-    "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js",
-    "lint": "eslint --ext .js,.ts,.vue src",
-    "lint:fix": "eslint --ext .js,.ts,.vue src --fix",
-    "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix"
+    "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"

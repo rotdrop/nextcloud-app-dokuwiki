@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,27 +19,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+declare(strict_types=1);
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
-use OCA\RotDrop\Toolkit\Service\AppInfoService;
+use BadMethodCallException;
 
 /**
- * Trait which extracts the app-name from the info.xml file for cases where it
- * cannot be supplied by the cloud.
+ * Define an unused-on-purpose method e.g. to silence PHPUnit "No expectations
+ * configured" warnings.
  */
-trait AppNameTrait
+trait UnusedMethodTrait
 {
+  public const UNUSED_METHOD_NOT_TO_BE_CALLED_NAME = 'unusedMethodNotToBeCalled';
+
   /**
-   * @param string $classDir The value of __DIR__ of the consuming class.
+   * E.g. for use in \PHPUnit\Framework\TestCase::expects().
    *
-   * @return null|string The app-name from the info.xml file or null if that
-   * cannot be found.
-   *
-   * @todo Remove unused parameter.
+   * @return void
    */
-  protected static function getAppInfoAppName(string $classDir): ?string
+  public function unusedMethodNotToBeCalled(): void
   {
-    return AppInfoService::getAppInfoAppName();
+    throw new BadMethodCallException('This method must not be called');
   }
 }

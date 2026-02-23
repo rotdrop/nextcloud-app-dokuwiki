@@ -1,7 +1,7 @@
 module.exports = {
-  // extends: [
-  //   '@nextcloud',
-  // ],
+  extends: [
+    '@nextcloud/eslint-config/typescript',
+  ],
   // some unused toolkit files
   ignorePatterns: [
     'src/toolkit/util/file-node-helper.js',

@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -29,7 +29,7 @@
           <h2>{{ t(appName, 'DokuWiki Wrapper for Nextcloud') }}</h2>
         </template>
         <template #icon>
-          <DynamicSvgIcon :data="appIcon" size="64" />
+          <DynamicSvgIcon :data="appIcon" :size="64" />
         </template>
         <template #description>
           <div class="error-message">
@@ -48,6 +48,7 @@ import {
   NcContent,
   NcEmptyContent,
 } from '@nextcloud/vue'
+import { appName } from './config.ts'
 import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
 import appIcon from '../img/app.svg?raw'
 import {
@@ -56,7 +57,7 @@ import {
 import {
   useRoute,
   useRouter,
-} from 'vue-router/composables'
+} from 'vue-router'
 import type { Location as RouterLocation } from 'vue-router'
 import logger from './logger.ts'
 
@@ -128,7 +129,7 @@ main {
   // DO NOT ALLOW THIS!
   overflow: hidden !important;
 }
-.empty-content::v-deep {
+:deep(.empty-content) {
   h2 ~ p {
     text-align: center;
     width: 72ex;

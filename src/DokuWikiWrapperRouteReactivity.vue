@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -32,8 +32,11 @@ import {
 import {
   onBeforeRouteUpdate,
   useRoute,
-} from 'vue-router/composables'
-import type { Route } from 'vue-router'
+} from 'vue-router'
+import type {
+  RouteLocationNormalizedGeneric,
+  RouteLocationNormalizedLoadedGeneric,
+} from 'vue-router'
 import logger from './logger.ts'
 
 const currentRoute = useRoute()
@@ -41,7 +44,7 @@ const currentRoute = useRoute()
 const routeWikiPage = ref<string>('')
 const routeQuery = ref<Route['query']>({})
 
-const onRouteChange = (to: Route) => {
+const onRouteChange = (to: RouteLocationNormalizedGeneric) => {
   routeWikiPage.value = to.params.wikiPage ?? ''
   routeQuery.value = Object.fromEntries(Object.entries(to.query || {}).filter(([key]) => key !== 'id'))
 }

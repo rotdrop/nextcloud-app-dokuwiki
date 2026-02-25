@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
@@ -21,22 +21,13 @@
  */
 
 import { appName } from './config.ts';
-import { generateFilePath } from '@nextcloud/router';
-import { translate as t, translatePlural as n } from '@nextcloud/l10n';
+import './webpack-setup.ts';
+import { createApp } from 'vue';
 
-import Vue from 'vue';
 import AdminSettings from './AdminSettings.vue';
 
-import { Tooltip } from '@nextcloud/vue';
+import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
 
-Vue.directive('tooltip', Tooltip);
-
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
-
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
-export default new Vue({
-  el: '#' + appName + '-admin-settings',
-  render: h => h(AdminSettings),
-});
+const app = createApp(AdminSettings);
+app.directive('tooltip', Tooltip);
+app.mount(`#${appName}-admin-settings`);

@@ -28,7 +28,7 @@ use Throwable;
 use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface as ILogger;
 use Psr\Log\LogLevel;
@@ -44,7 +44,7 @@ class UserLoggedOutEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(protected IAppContainer $appContainer)
+  public function __construct(protected ContainerInterface $appContainer)
   {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing

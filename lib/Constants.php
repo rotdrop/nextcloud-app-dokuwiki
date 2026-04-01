@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2023 Claus-Justus Heine
+ * @copyright 2023, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,10 +20,10 @@
 
 namespace OCA\DokuWiki;
 
-use OCA\DokuWiki\Toolkit\Traits\Constants as TraitsConstants;
+use OCA\DokuWiki\Toolkit\Constants as ToolkitConstants;
 
 /** General constants for the app. */
-class Constants extends TraitsConstants
+class Constants extends ToolkitConstants
 {
   public const INITIAL_STATE_SECTION = 'config';
 }

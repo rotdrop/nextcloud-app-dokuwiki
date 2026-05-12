@@ -57,8 +57,8 @@ import {
 import {
   useRoute,
   useRouter,
+  type RouteLocationRaw as RouterLocation,
 } from 'vue-router'
-import type { RouteLocationRaw as RouterLocation } from 'vue-router'
 import logger from './logger.ts'
 
 const loading = ref(true)

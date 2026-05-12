@@ -20,7 +20,6 @@
   <DokuWikiWrapper v-bind="$attrs"
                    :wiki-page="routeWikiPage"
                    :query="routeQuery"
-                   v-on="$listeners"
   />
 </template>
 <script setup lang="ts">
@@ -35,17 +34,16 @@ import {
 } from 'vue-router'
 import type {
   RouteLocationNormalizedGeneric,
-  RouteLocationNormalizedLoadedGeneric,
 } from 'vue-router'
 import logger from './logger.ts'
 
 const currentRoute = useRoute()
 
 const routeWikiPage = ref<string>('')
-const routeQuery = ref<Route['query']>({})
+const routeQuery = ref<RouteLocationNormalizedGeneric['query']>({})
 
 const onRouteChange = (to: RouteLocationNormalizedGeneric) => {
-  routeWikiPage.value = to.params.wikiPage ?? ''
+  routeWikiPage.value = to.params.wikiPage as string ?? ''
   routeQuery.value = Object.fromEntries(Object.entries(to.query || {}).filter(([key]) => key !== 'id'))
 }
 

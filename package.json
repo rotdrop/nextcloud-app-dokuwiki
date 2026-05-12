@@ -64,7 +64,7 @@
     "webpack-node-externals": "^3.0.0",
     "webpack-visualizer-plugin2": "^2.0.0",
     "xml-loader": "^1.2.1",
-    "xml2js": "^0.6.2"
+    "xml2js": "*"
   },
   "engines": {
     "node": "^24.0.0",

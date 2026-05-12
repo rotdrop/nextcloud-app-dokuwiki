@@ -58,7 +58,7 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router'
-import type { Location as RouterLocation } from 'vue-router'
+import type { RouteLocationRaw as RouterLocation } from 'vue-router'
 import logger from './logger.ts'
 
 const loading = ref(true)
@@ -105,7 +105,7 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
 // The initial route is not named and consequently does not load the
 // wrapper component, so just replace it by the one and only named
 // route.
-router.onReady(async () => {
+router.isReady().then(async () => {
   if (!currentRoute.name) {
     logger.info('CURRENT ROUTE', { currentRoute })
     const routerLocation: RouterLocation = {
@@ -117,6 +117,11 @@ router.onReady(async () => {
       await router.replace(routerLocation)
     } catch (error) {
       logger.debug('NAVIGATION ABORTED', { error })
+      const hint = t(appName, 'The initial navigation failed. This is likely a bug in this app.')
+      onError({
+        error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
+        hint,
+      })
     }
   }
 })

@@ -32,7 +32,7 @@ const options: RouterOptions = {
   linkActiveClass: 'active',
   routes: [
     {
-      path: '/:wikiPage',
+      path: '/:wikiPage?',
       component: () => import('../DokuWikiWrapperRouteReactivity.vue'),
       name: 'home',
     },

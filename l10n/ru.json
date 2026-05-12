@@ -14,8 +14,6 @@
     "Login failed." : "Ошибка входа.",
     "%1$s (renamed)" : "%1$s (переименовано)",
     "renamed file" : "переименованный файл",
-    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Встроить существующий экземпляр DokuWiki в Nextcloud, возможно с SSO. Для SSO пользователи DokuWiki и Nextcloud должны совпадать, например, используя общий бэкэнд аутентификации, такой как LDAP, или с соответствующим плагином аутентификации на обеих сторонах интеграции.",
-    "Error, caught an exception." : "Ошибка, обнаружено исключение.",
-    "Caused by previous exception" : "Вызвано предыдущим исключением"
+    "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Встроить существующий экземпляр DokuWiki в Nextcloud, возможно с SSO. Для SSO пользователи DokuWiki и Nextcloud должны совпадать, например, используя общий бэкэнд аутентификации, такой как LDAP, или с соответствующим плагином аутентификации на обеих сторонах интеграции."
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

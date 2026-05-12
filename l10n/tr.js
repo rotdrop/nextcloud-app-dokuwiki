@@ -11,6 +11,11 @@ OC.L10N.register(
     "true" : "doğru",
     "false" : "yanlış",
     "DokuWiki Integration" : "DokuWiki bütünleştirmesi",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "\"%1$s\" ve \"%2$s\" sorgu parametrelerinden biri belirtilmelidir.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "\"%2$s\" tarafından tanımlanmış \"%1$s\" birimi bulunamadı.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "\"%s\" kopyasının tanımlayıcı değerleri belirlenemedi.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Birimde \"%2$s\" türündeki \"%1$s\" derlemesi null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "\"%s\" kopyasının serileştirmesi hesaplanamadı.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Kurulum sorunu. Gerekli olan \"%2$s\" türündeki \"%1$s\" kaynağı sunucu üzerine kurulmamış.\nLütfen sistem yöneticisi ile görüşün!",
     "User" : "Kullanıcı adı",
     "Password" : "Parola",
@@ -32,8 +37,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} sarmalanmış kopyasının içeriğine erişilemedi.\nBu durum, etki alanları arası erişim kısıtlamalarından kaynaklanabilir.\nLütfen Nextcloud kopyanızın ({nextcloudUrl}) ve sarmalanmış {wrappedApp} kopyanızın ({iFrameUrl}) aynı etki alanından sunulduğundan emin olun.",
     "Link to wiki page \"{href}\"" : "Wiki sayfası bağlantısı \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Ön izleme kipinde wiki sayfası bağlantıları kullanılmaz.",
-    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları kullanılmaz.",
-    "Error, caught an exception." : "Hata, bir sorunla karşılaşıldı.",
-    "Caused by previous exception" : "Önceki sorundan kaynaklandı"
+    "Links to media files are disabled in preview mode." : "Ön izleme kipinde ortam dosyası bağlantıları kullanılmaz."
 },
 "nplurals=2; plural=(n > 1);");

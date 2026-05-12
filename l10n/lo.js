@@ -12,8 +12,6 @@ OC.L10N.register(
     "Login failed." : "ເຂົ້າສູ່ລະບົບລົ້ມເຫຼວ.",
     "%1$s (renamed)" : "%1$s (ປ່ຽນຊື່ແລ້ວ)",
     "renamed file" : "ໄຟລ໌ທີ່ປ່ຽນຊື່ແລ້ວ",
-    "Unable to sanitize filename \"%s\"." : "ບໍ່ສາມາດກວດສອບຄວາມຖືກຕ້ອງຂອງຊື່ໄຟລ໌ \"%s\" ໄດ້.",
-    "Error, caught an exception." : "ຂໍ້ຜິດພາດ, ພົບຂໍ້ຍົກເວັ້ນ.",
-    "Caused by previous exception" : "ເກີດຈາກຂໍ້ຍົກເວັ້ນກ່ອນໜ້າ"
+    "Unable to sanitize filename \"%s\"." : "ບໍ່ສາມາດກວດສອບຄວາມຖືກຕ້ອງຂອງຊື່ໄຟລ໌ \"%s\" ໄດ້."
 },
 "nplurals=1; plural=0;");

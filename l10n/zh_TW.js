@@ -11,6 +11,12 @@ OC.L10N.register(
     "true" : "true",
     "false" : "false",
     "DokuWiki Integration" : "DokuWiki 整合",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "必須且只能指定查詢參數「%1$s」或「%2$s」的其中一個。",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "找不到以「%2$s」辨識的實體「%1$s」。",
+    "Unable to register types with DBAL." : "無法使用 DBAL 註冊類型。",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "無法確認「%s」站台的識別字串。",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "類型為「%2$s」的實體中，集合「%1$s」為空值。",
+    "Unable to compute a serialization for an instance of \"%s\"." : "無法為「%s」的站台計算序列化。",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安裝問題；伺服器上沒有安裝必要的類型為「%2$s」的資源「%1$s」，請聯絡系統管理員！",
     "User" : "使用者",
     "Password" : "密碼",
@@ -32,8 +38,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。",
     "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",
     "Links to wiki pages are disabled in preview mode." : "在預覽模式下停用指向 wiki 頁面的連結。",
-    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。",
-    "Error, caught an exception." : "錯誤，捕捉到例外。",
-    "Caused by previous exception" : "由先前的例外造成"
+    "Links to media files are disabled in preview mode." : "在預覽模式下停用指向媒體檔案的連結。"
 },
 "nplurals=1; plural=0;");

@@ -32,8 +32,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Imeshindwa kufikia maudhui ya mfano uliofungwa wa {wrappedApp}.\nHii inaweza kusababishwa na vikwazo vya ufikiaji wa vikoa tofauti.\nTafadhali hakikisha kuwa mfano wako wa Nextcloud ({nextcloudUrl}) na mfano uliofungwa wa {wrappedApp} ({iFrameUrl}) vinatolewa kutoka kwa kikoa sawa.",
     "Link to wiki page \"{href}\"" : " Unganisha kwenye ukurasa wa wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : " Viungo vya kurasa za wiki vimezimwa katika hali ya onyesho la kukagua.",
-    "Links to media files are disabled in preview mode." : "Viungo vya faili za midia vimezimwa katika hali ya onyesho la kukagua.",
-    "Error, caught an exception." : "Hitilafu, imepata mbadala",
-    "Caused by previous exception" : "Imesababishwa na mbadala uliopita"
+    "Links to media files are disabled in preview mode." : "Viungo vya faili za midia vimezimwa katika hali ya onyesho la kukagua."
 },
 "nplurals=2; plural=(n != 1);");

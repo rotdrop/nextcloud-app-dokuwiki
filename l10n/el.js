@@ -32,8 +32,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα.",
     "Link to wiki page \"{href}\"" : "Σύνδεσμος προς τη σελίδα wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Οι σύνδεσμοι προς σελίδες wiki είναι απενεργοποιημένοι σε λειτουργία προεπισκόπησης.",
-    "Links to media files are disabled in preview mode." : "Οι σύνδεσμοι προς αρχεία πολυμέσων είναι απενεργοποιημένοι σε λειτουργία προεπισκόπησης.",
-    "Error, caught an exception." : "Σφάλμα, εντοπίστηκε εξαίρεση.",
-    "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση"
+    "Links to media files are disabled in preview mode." : "Οι σύνδεσμοι προς αρχεία πολυμέσων είναι απενεργοποιημένοι σε λειτουργία προεπισκόπησης."
 },
 "nplurals=2; plural=(n != 1);");

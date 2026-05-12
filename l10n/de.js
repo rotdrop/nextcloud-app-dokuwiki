@@ -11,6 +11,12 @@ OC.L10N.register(
     "true" : "wahr",
     "false" : "falsch",
     "DokuWiki Integration" : "DokuWiki Einbindung",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Genau einer der Abfrageparameter \"%1$s\" und \"%2$s\" muss angegeben werden.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Die Entität \"%1$s\", die durch \"%2$s\" identifiziert wird, konnte nicht gefunden werden.",
+    "Unable to register types with DBAL." : "Typen können nicht bei DBAL registriert werden",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Die Bezeichnerwerte für eine Instanz von \"%s\" konnten nicht ermittelt werden.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Sammlung \"%1$s\" in der Entität vom Typ \"%2$s\" ist null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Eine Serialisierung für eine Instanz von \"%s\" kann nicht berechnet werden.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte die Systemadministration kontaktieren!",
     "User" : "Benutzer",
     "Password" : "Passwort",
@@ -32,8 +38,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden.",
     "Link to wiki page \"{href}\"" : "Link zur Wiki-Seite \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Links zu Wiki-Seiten sind in der Vorschau deaktiviert.",
-    "Links to media files are disabled in preview mode." : "Links zu Mediendateien sind in der Vorschau deaktiviert.",
-    "Error, caught an exception." : "Fehler, Ausnahme abgefangen.",
-    "Caused by previous exception" : "Verursacht durch eine vorangegangene Ausnahme"
+    "Links to media files are disabled in preview mode." : "Links zu Mediendateien sind in der Vorschau deaktiviert."
 },
 "nplurals=2; plural=(n != 1);");

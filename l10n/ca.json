@@ -22,8 +22,6 @@
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desactiva la verificació SSL, p. ex. per a certificats autofirmats o noms d'amfitrió coneguts que no coincideixen com \"localhost\".",
     "Enable SSL verification." : "Habilita la verificació SSL.",
     "Links to wiki pages are disabled in preview mode." : "Els enllaços a pàgines wiki estan desactivats en mode de vista prèvia.",
-    "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia.",
-    "Error, caught an exception." : "Error, s'ha detectat una excepció.",
-    "Caused by previous exception" : "Causat per una excepció anterior"
+    "Links to media files are disabled in preview mode." : "Els enllaços als fitxers multimèdia estan desactivats en mode de vista prèvia."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

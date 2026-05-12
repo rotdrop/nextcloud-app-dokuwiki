@@ -1,0 +1,7 @@
+{ "translations": {
+    "User" : "Хэрэглэгч",
+    "Password" : "нууц үг",
+    "%1$s (renamed)" : "%1$s (нэр өөрчлөгдсөн)",
+    "renamed file" : "нэр өөрчлөгдсөн файл"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

@@ -32,8 +32,6 @@ OC.L10N.register(
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "ئورالغان {wrappedApp} مىسالىنىڭ مەزمۇنىغا كىرەلمىدى.\nبۇنىڭ سەۋەبى تور دائىرىسى ئارا كىرىش چەكلىمىسى بولۇشى مۇمكىن.\nNextcloud مىسالىڭىز ({nextcloudUrl}) بىلەن ئورالغان {wrappedApp} مىسالىڭىز ({iFrameUrl}) نىڭ ئوخشاش تور دائىرىسىدىن ئەۋەتىلگەنلىكىنى تەكشۈرۈڭ.",
     "Link to wiki page \"{href}\"" : "ۋىكى بېتى \"{href}\" نىڭ ئۇلىنىشى",
     "Links to wiki pages are disabled in preview mode." : "ئالدىن كۆرۈش شەكلىدە wiki بېتىگە ئۇلىنىش چەكلەنگەن.",
-    "Links to media files are disabled in preview mode." : "مېدىيا ھۆججىتىگە ئۇلىنىش ئالدىن كۆرۈش شەكلىدە چەكلەنگەن.",
-    "Error, caught an exception." : "خاتالىق ، بۇنىڭ سىرتىدا.",
-    "Caused by previous exception" : "ئالدىنقى مۇستەسنالىقتىن كېلىپ چىققان"
+    "Links to media files are disabled in preview mode." : "مېدىيا ھۆججىتىگە ئۇلىنىش ئالدىن كۆرۈش شەكلىدە چەكلەنگەن."
 },
 "nplurals=2; plural=(n != 1);");

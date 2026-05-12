@@ -30,8 +30,6 @@
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Tidak dapat mengakses konten instance {wrappedApp} yang dibungkus.\nHal ini mungkin disebabkan oleh pembatasan akses lintas domain.\nSilakan periksa bahwa instance Nextcloud Anda ({nextcloudUrl}) dan instance {wrappedApp} yang dibungkus ({iFrameUrl}) disajikan dari domain yang sama.",
     "Link to wiki page \"{href}\"" : "Tautan ke halaman wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Tautan ke halaman wiki dinonaktifkan dalam mode pratinjau.",
-    "Links to media files are disabled in preview mode." : "Tautan ke file media dinonaktifkan dalam mode pratinjau.",
-    "Error, caught an exception." : "Kesalahan, terjadi pengecualian.",
-    "Caused by previous exception" : "Disebabkan oleh pengecualian sebelumnya"
+    "Links to media files are disabled in preview mode." : "Tautan ke file media dinonaktifkan dalam mode pratinjau."
 },"pluralForm" :"nplurals=1; plural=0;"
 }

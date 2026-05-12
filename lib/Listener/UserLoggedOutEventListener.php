@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2025 Claus-Justus Heine
+ * @copyright 2020-2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -25,13 +25,13 @@ namespace OCA\DokuWiki\Listener;
 
 use Throwable;
 
-use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
-use Psr\Log\LoggerInterface as ILogger;
+use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
+use Psr\Log\LoggerInterface;
 
 use OCA\DokuWiki\Service\AuthDokuWiki;
 
@@ -44,7 +44,7 @@ class UserLoggedOutEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(protected IAppContainer $appContainer)
+  public function __construct(protected ContainerInterface $appContainer)
   {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
@@ -57,7 +57,7 @@ class UserLoggedOutEventListener implements IEventListener
     }
     /** @var HandledEvent $event */
 
-    $this->logger = $this->appContainer->get(ILogger::class);
+    $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     $request = $this->appContainer->get(IRequest::class);
     if ($this->isNonInteractiveRequest($request, LogLevel::DEBUG)) {

@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -36,64 +36,67 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName, wrappedApp } from './config.ts'
+import type { RouteQueryAndHash } from 'vue-router'
+import type { InitialState } from './types/initial-state.d.ts'
+
 import { translate as t } from '@nextcloud/l10n'
 import {
   computed,
-  onMounted,
   onBeforeMount,
   onBeforeUnmount,
+  onMounted,
   ref,
   watch,
 } from 'vue'
+import { appName, wrappedApp } from './config.ts'
 import {
-  tuneContents,
   removeEnvelope,
+  tuneContents,
 } from './doku-wiki.ts'
-import getInitialState from './toolkit/util/initial-state.ts'
 import logger from './logger.ts'
-import type { InitialState } from './types/initial-state.d.ts'
-import { type Route } from 'vue-router'
+import getInitialState from './toolkit/util/initial-state.ts'
+
+export interface IFrameLoadedEventData {
+  wikiPath: string[]
+  urlPath: string
+  query: Record<string, string>
+  iFrame: HTMLIFrameElement
+  window: Window
+  document: Document
+}
+
+interface ErrorEventData {
+  error: Error
+  hint: string
+}
 
 const props = withDefaults(defineProps<{
-  fullScreen?: boolean,
-  iFrameAttributes?: Record<string, string>,
-  query?: Route['query'],
-  wikiPage?: string,
+  fullScreen?: boolean
+  iFrameAttributes?: Record<string, string>
+  query?: RouteQueryAndHash['query']
+  wikiPage?: string
 }>(), {
+  // eslint-disable-next-line vue/no-boolean-default
   fullScreen: true,
   iFrameAttributes: () => ({}),
   query: () => ({}),
   wikiPage: '',
 })
 
-export interface IFrameLoadedEventData {
-  wikiPath: string[],
-  urlPath: string,
-  query: Record<string, string>,
-  iFrame: HTMLIFrameElement,
-  window: Window,
-  document: Document,
-}
-
-interface ErrorEventData {
-  error: Error,
-  hint: string,
-}
-
 const emit = defineEmits<{
-  (event: 'iframe-loaded', eventData: IFrameLoadedEventData): void,
-  (event: 'iframe-resize', eventData: ResizeObserverEntry): void,
-  (event: 'update-loading', loading: boolean): void,
-  (event: 'error', eventData: ErrorEventData): void,
+  (event: 'iframeLoaded', eventData: IFrameLoadedEventData): void
+  (event: 'iframeResize', eventData: ResizeObserverEntry): void
+  (event: 'updateLoading', loading: boolean): void
+  (event: 'error', eventData: ErrorEventData): void
 }>()
 
 const initialState = getInitialState<InitialState>()
 
 const loading = ref(true)
 
-watch(loading, (value) => emit('update-loading', value))
+watch(loading, (value) => emit('updateLoading', value))
 
 const requestedLocation = computed(() => {
   const queryString = (new URLSearchParams({ id: props.wikiPage, ...props.query })).toString().replace(/%3A/g, ':')
@@ -114,13 +117,13 @@ const loadTimeout = 1000 // 1 second
 
 let timerCount = 0
 
-let loadTimer: undefined|ReturnType<typeof setTimeout>
+let loadTimer: undefined | ReturnType<typeof setTimeout>
 
-const container = ref<null|HTMLDivElement>(null)
-const loaderContainer = ref<null|HTMLDivElement>(null)
-const frameWrapper = ref<null|HTMLDivElement>(null)
-const externalFrame = ref<null|HTMLIFrameElement>(null)
-let iFrameBody: undefined|HTMLBodyElement
+const container = ref<null | HTMLDivElement>(null)
+const loaderContainer = ref<null | HTMLDivElement>(null)
+const frameWrapper = ref<null | HTMLDivElement>(null)
+const externalFrame = ref<null | HTMLIFrameElement>(null)
+let iFrameBody: undefined | HTMLBodyElement
 
 watch(requestedLocation, () => {
   if (requestedLocation.value !== currentLocation.value) {
@@ -153,7 +156,7 @@ const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.target === iFrameBody) {
-      emit('iframe-resize', entry)
+      emit('iframeResize', entry)
       continue
     }
     if (props.fullScreen && entry.target === container.value) {
@@ -188,7 +191,7 @@ const loadHandler = () => {
     return
   }
   loading.value = true // if not already set ...
-  let iFrameDocument: Document|null
+  let iFrameDocument: Document | null
   try {
     iFrameDocument = iFrame.contentDocument
     tuneContents(iFrame)
@@ -202,7 +205,7 @@ const loadHandler = () => {
   } else {
     setIFrameSize(container.value!.getBoundingClientRect())
   }
-  iFrameBody = iFrameDocument?.body as undefined|HTMLBodyElement
+  iFrameBody = iFrameDocument?.body as undefined | HTMLBodyElement
   logger.debug('IFRAME BODY', { iFrameBody })
   if (iFrameBody) {
     resizeObserver.observe(iFrameBody)
@@ -215,7 +218,7 @@ const loadHandler = () => {
   currentLocation.value = iFrameWindow.location.href
   const search = iFrameWindow.location.search
   const urlPath = iFrameWindow.location.pathname.replace(/^.*doku\.php\/?/, '')
-  const query = Object.fromEntries((new URLSearchParams(search)).entries())
+  const query = Object.fromEntries((new URLSearchParams(search)).entries()) as (Record<string, string>)
   const wikiPath: string[] = []
   if (query.id) {
     wikiPath.splice(0, 0, ...(query.id.split(/:/)))
@@ -227,7 +230,7 @@ const loadHandler = () => {
   // rewrite + useslash: doku.php/A/B/C
   //
   // In all cases the id=A:B:C is understood.
-  emit('iframe-loaded', {
+  emit('iframeLoaded', {
     wikiPath,
     urlPath,
     query,
@@ -297,6 +300,7 @@ defineExpose({
 })
 
 </script>
+
 <style scoped lang="scss">
 .#{$dokuWikiAppName}-container {
   display: flex;

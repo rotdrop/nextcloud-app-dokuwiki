@@ -2,7 +2,7 @@
  * DokuWikiEmbedded -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
@@ -20,13 +20,14 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import type { InitialState } from './types/initial-state.d.ts';
+
 import { getCurrentUser } from '@nextcloud/auth';
 import axios from '@nextcloud/axios';
-import onDocumentLoaded from './toolkit/util/on-document-loaded.ts';
+import logger from './logger.ts';
 import { generateUrl } from './toolkit/util/generate-url.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
-import logger from './logger.ts';
-import type { InitialState } from './types/initial-state.d.ts';
+import onDocumentLoaded from './toolkit/util/on-document-loaded.ts';
 
 const state = getInitialState<InitialState>();
 let refreshInterval = state?.authenticationRefreshInterval || -1;

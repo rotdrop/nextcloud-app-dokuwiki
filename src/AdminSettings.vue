@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -17,12 +17,12 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['templateroot', appName, ...cloudVersionClasses]">
+  <div class="templateroot" :class="[appName, ...cloudVersionClasses]">
     <h1 class="title">
       {{ t(appName, 'DokuWiki Integration') }}
     </h1>
-    <NcSettingsSection :name="''">
-      <TextField :value.sync="settings.externalLocation"
+    <NcSettingsSection name="">
+      <TextField v-model:value="settings.externalLocation"
                  :label="t(appName, 'DokuWiki Installation Path')"
                  title=""
                  :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.')"
@@ -30,8 +30,8 @@
                  @submit="saveTextInput('externalLocation')"
       />
     </NcSettingsSection>
-    <NcSettingsSection :name="''">
-      <TextField :value.sync="settings.authenticationRefreshInterval"
+    <NcSettingsSection name="">
+      <TextField v-model:value="settings.authenticationRefreshInterval"
                  title=""
                  :label="t(appName, 'DokuWiki Session Refresh Interval [s]')"
                  :hint="t(appName, 'Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.')"
@@ -39,7 +39,7 @@
                  @submit="saveTextInput('authenticationRefreshInterval')"
       />
     </NcSettingsSection>
-    <NcSettingsSection :name="''">
+    <NcSettingsSection name="">
       <input id="enable-ssl-verify"
              v-model="settings.enableSSLVerify"
              class="checkbox"
@@ -60,25 +60,24 @@
     </NcSettingsSection>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
-import {
-  NcSettingsSection,
-} from '@nextcloud/vue'
 import { translate as t } from '@nextcloud/l10n'
+import { NcSettingsSection } from '@nextcloud/vue'
+import {
+  computed,
+  reactive,
+  ref,
+} from 'vue'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import { appName } from './config.ts'
+import logger from './logger.ts'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
 import {
   fetchSettings,
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import {
-  reactive,
-  ref,
-  computed,
-} from 'vue'
-import logger from './logger.ts'
 
 const loading = ref(0)
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
@@ -119,6 +118,7 @@ const saveSetting = async (settingsKey: string) => {
   saveSimpleSetting({ settingsKey, section: 'admin', settings })
 }
 </script>
+
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-icon-info: var(--icon-info-000);

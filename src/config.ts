@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -18,6 +18,7 @@
  */
 
 import type { AppName } from '../build/ts-types/app-config.ts';
+
 import { appName } from '../build/ts-types/app-config.ts';
 
 export type {

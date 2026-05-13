@@ -18,23 +18,23 @@
  -->
 <template>
   <DokuWikiWrapper v-bind="$attrs"
-                   :wiki-page="routeWikiPage"
+                   :wikiPage="routeWikiPage"
                    :query="routeQuery"
   />
 </template>
+
 <script setup lang="ts">
-import DokuWikiWrapper from './DokuWikiWrapper.vue'
 import {
   onBeforeMount,
   ref,
 } from 'vue'
 import {
+  type RouteLocationNormalizedGeneric,
+
   onBeforeRouteUpdate,
   useRoute,
 } from 'vue-router'
-import type {
-  RouteLocationNormalizedGeneric,
-} from 'vue-router'
+import DokuWikiWrapper from './DokuWikiWrapper.vue'
 import logger from './logger.ts'
 
 const currentRoute = useRoute()

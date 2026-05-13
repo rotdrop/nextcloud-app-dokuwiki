@@ -2,7 +2,7 @@
  * DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * DokuWikiEmbedded is free software: you can redistribute it and/or
@@ -20,8 +20,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
+import { appName } from './config.ts';
 import dialogAlert from './toolkit/util/dialog-alert.ts';
 
 export const removeEnvelope = (frame?: HTMLIFrameElement) => {
@@ -30,9 +30,11 @@ export const removeEnvelope = (frame?: HTMLIFrameElement) => {
   if (!frameDocument) {
     return;
   }
-  frameDocument.querySelectorAll('#dokuwiki__header div.pad').forEach(el => el.remove());
-  frameDocument.querySelectorAll<HTMLElement>('#dokuwiki_header').forEach(el => { el.style.padding = '2.5em 0px 0px'; });
-  frameDocument.querySelectorAll('#dokuwiki__footer').forEach(el => el.remove());
+  frameDocument.querySelectorAll('#dokuwiki__header div.pad').forEach((el) => el.remove());
+  frameDocument.querySelectorAll<HTMLElement>('#dokuwiki_header').forEach((el) => {
+    el.style.padding = '2.5em 0px 0px';
+  });
+  frameDocument.querySelectorAll('#dokuwiki__footer').forEach((el) => el.remove());
 };
 
 export const tuneContents = (frame?: HTMLIFrameElement) => {
@@ -43,13 +45,13 @@ export const tuneContents = (frame?: HTMLIFrameElement) => {
     return;
   }
 
-  frameDocument.querySelectorAll('.logout').forEach(el => el.remove());
-  frameDocument.querySelectorAll('li:empty').forEach(el => el.remove());
-  frameDocument.querySelectorAll('form.btn_logout').forEach(el => el.remove());
-  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.user').forEach(el => el.remove());
-  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.action.profile').forEach(el => el.remove());
+  frameDocument.querySelectorAll('.logout').forEach((el) => el.remove());
+  frameDocument.querySelectorAll('li:empty').forEach((el) => el.remove());
+  frameDocument.querySelectorAll('form.btn_logout').forEach((el) => el.remove());
+  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.user').forEach((el) => el.remove());
+  frameDocument.querySelectorAll(':scope #dokuwiki__usertools li.action.profile').forEach((el) => el.remove());
 
-  frameDocument.querySelectorAll('a').forEach(el => {
+  frameDocument.querySelectorAll('a').forEach((el) => {
     if (el.hostname && el.hostname !== window.location.hostname) {
       el.setAttribute('target', '_blank');
     }
@@ -73,7 +75,7 @@ export const tuneContents = (frame?: HTMLIFrameElement) => {
         });
       }, true);
     });
-    previewDiv.querySelectorAll('a[class^="media"]').forEach(el => {
+    previewDiv.querySelectorAll('a[class^="media"]').forEach((el) => {
       el.addEventListener('click', function(event) {
         if (!event.target) {
           return;

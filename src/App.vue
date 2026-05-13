@@ -17,11 +17,11 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <NcContent :app-name="appId">
-    <NcAppContent :class="[appId + '-content-container', { 'icon-loading': loading }]">
+  <NcContent :appName="appName">
+    <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading && !error"
-                  :loading.sync="loading"
-                  @iframe-loaded="onIFrameLoaded($event)"
+                  v-model:loading="loading"
+                  @iframeLoaded="onIFrameLoaded($event)"
                   @error="onError"
       />
       <NcEmptyContent v-if="error">
@@ -40,25 +40,26 @@
     </NcAppContent>
   </NcContent>
 </template>
+
 <script setup lang="ts">
-import { appName as appId } from './config.ts'
 import { translate as t } from '@nextcloud/l10n'
 import {
   NcAppContent,
   NcContent,
   NcEmptyContent,
 } from '@nextcloud/vue'
-import { appName } from './config.ts'
-import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
-import appIcon from '../img/app.svg?raw'
 import {
   ref,
 } from 'vue'
 import {
+  type RouteLocationRaw as RouterLocation,
+
   useRoute,
   useRouter,
-  type RouteLocationRaw as RouterLocation,
 } from 'vue-router'
+import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
+import appIcon from '../img/app.svg?raw'
+import { appName } from './config.ts'
 import logger from './logger.ts'
 
 const loading = ref(true)
@@ -87,7 +88,7 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
     query: { ...event.query },
   }
   if (currentRoute.params.wikiPage !== routerLocation.params!.wikiPage
-      || JSON.stringify(currentRoute.query) !== JSON.stringify(routerLocation.query)) {
+    || JSON.stringify(currentRoute.query) !== JSON.stringify(routerLocation.query)) {
     logger.debug('PUSHING ROUTE', {
       currentRoute,
       routerLocation,
@@ -126,6 +127,7 @@ router.isReady().then(async () => {
   }
 })
 </script>
+
 <style scoped lang="scss">
 main {
   // strange: all divs have the same height, there is no horizontal

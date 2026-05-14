@@ -34,6 +34,7 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "請在此輸入所需的工作階段重新整理間隔。時間間隔以秒為單位，應該略小於為正在使用的 DokuWiki 站台設定的工作階段生命週期。",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "停用 SSL 驗證，例如對於自簽憑證或已知的不相符主機名稱，如「localhost」。",
     "Enable SSL verification." : "啟用 SSL 驗證。",
+    "The initial navigation failed. This is likely a bug in this app." : "初始導航失敗。這很可能是此應用程式的臭蟲。",
     "DokuWiki Wrapper for Nextcloud" : "Nextcloud 的 Dokuwiki Wrapper",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。",
     "Link to wiki page \"{href}\"" : "連結到 wiki 頁面「{href}」",

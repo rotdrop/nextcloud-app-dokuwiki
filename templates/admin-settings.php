@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -27,4 +27,4 @@ script($appName, $assets['js']['asset']);
 style($appName, $assets['css']['asset']);
 
 ?>
-<div id="<?php p($appName); ?>-admin-settings"></div>
+<div id="<?= $appName ?>-admin-settings"></div>

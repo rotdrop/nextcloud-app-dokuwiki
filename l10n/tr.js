@@ -13,6 +13,7 @@ OC.L10N.register(
     "DokuWiki Integration" : "DokuWiki bütünleştirmesi",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "\"%1$s\" ve \"%2$s\" sorgu parametrelerinden biri belirtilmelidir.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "\"%2$s\" tarafından tanımlanmış \"%1$s\" birimi bulunamadı.",
+    "Unable to register types with DBAL." : "DBAL ile türler kaydedilemedi.",
     "Unable to determine the identifier values for an instance of \"%s\"." : "\"%s\" kopyasının tanımlayıcı değerleri belirlenemedi.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Birimde \"%2$s\" türündeki \"%1$s\" derlemesi null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "\"%s\" kopyasının serileştirmesi hesaplanamadı.",

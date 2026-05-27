@@ -14,7 +14,7 @@
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Objekto, kurio tipas yra „%2$s“, kolekcija „%1$s“ yra nulinė.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Nepavyko apskaičiuoti serializacijos „%s“ egzemplioriui.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Diegimo problema; serveryje neįdiegtas reikalingas resursas „%1$s“ tipo „%2$s“, susisiekite su sistemos administratoriumi!",
-    "User" : "Naudotojas",
+    "User" : "Vartotojas",
     "Password" : "Slaptažodis",
     "Login succeeded." : "Prisijungti pavyko.",
     "Login failed." : "Prisijungti nepavyko.",

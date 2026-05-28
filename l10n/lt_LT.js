@@ -3,8 +3,12 @@ OC.L10N.register(
     {
     "Unknown admin setting: \"%1$s\"" : "Nežinomas administratoriaus nustatymas: „%1$s“",
     "The admin setting \"%1$s\" is read-only" : "Administratoriaus nustatymas „%1$s“ skirtas tik skaitymui",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Išorinio URL schema turi būti „http“ arba „https“, bet nieko nenurodyta.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Išorinio URL schema turi būti „http“ arba „https“, nurodyta „%s“.",
+    "Host-part of external URL seems to be empty" : "Išorinio URL prieglobos dalis atrodo tuščia",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Reikšmės „%1$s“ nustatymui „%2$s“ negalima konvertuoti į loginę reikšmę.",
     "true" : "teisinga",
+    "false" : "klaidinga",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Turi būti nurodytas tiksliai vienas iš užklausos parametrų „%1$s“ ir „%2$s“.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Nepavyko rasti objekto „%1$s“, identifikuoto „%2$s“.",
     "Unable to register types with DBAL." : "Nepavyko užregistruoti tipų naudojant DBAL.",
@@ -12,12 +16,14 @@ OC.L10N.register(
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Objekto, kurio tipas yra „%2$s“, kolekcija „%1$s“ yra nulinė.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Nepavyko apskaičiuoti serializacijos „%s“ egzemplioriui.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Diegimo problema; serveryje neįdiegtas reikalingas resursas „%1$s“ tipo „%2$s“, susisiekite su sistemos administratoriumi!",
-    "User" : "Naudotojas",
+    "User" : "Vartotojas",
     "Password" : "Slaptažodis",
     "Login succeeded." : "Prisijungti pavyko.",
     "Login failed." : "Prisijungti nepavyko.",
     "%1$s (renamed)" : "%1$s (pervadinta)",
     "renamed file" : "pervadintas failas",
-    "Unable to sanitize filename \"%s\"." : "Nepavyko išvalyti failo pavadinimo „%s“."
+    "Unable to sanitize filename \"%s\"." : "Nepavyko išvalyti failo pavadinimo „%s“.",
+    "Enable SSL verification." : "Įgalinti SSL patvirtinimą.",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nepavyksta pasiekti įdėto {wrappedApp} elemento turinio.\nTai gali būti dėl prieigos tarp domenų apribojimų.\nPatikrinkite, ar jūsų „Nextcloud“ egzempliorius ({nextcloudUrl}) ir įdėtas {wrappedApp} elementas ({iFrameUrl}) teikiami iš to paties domeno."
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

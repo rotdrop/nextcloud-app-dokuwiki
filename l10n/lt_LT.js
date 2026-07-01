@@ -6,7 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Išorinio URL schema turi būti „http“ arba „https“, bet nieko nenurodyta.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Išorinio URL schema turi būti „http“ arba „https“, nurodyta „%s“.",
     "Host-part of external URL seems to be empty" : "Išorinio URL prieglobos dalis atrodo tuščia",
-    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Reikšmė „%1$s“ nustatymui „%2$s“ arba nekonvertuojama į sveikąjį skaičių, arba yra už diapazono ribų (mažiausiai %d sekundės).",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Reikšmė „%1$s“ nustatymui „%2$s“ arba nekonvertuojama į sveikąjį skaičių, arba yra už rėžių ribų (mažiausiai %d sekundės).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Reikšmės „%1$s“ nustatymui „%2$s“ negalima konvertuoti į loginę reikšmę.",
     "true" : "teisinga",
     "false" : "klaidinga",

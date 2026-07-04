@@ -35,6 +35,7 @@ OC.L10N.register(
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Desative a verificação SSL, nomeadamente para certificados que não foram emitidos por CA ou para nomes de servidores diferentes como \"localhost\". ",
     "Enable SSL verification." : "Ativa a verificação de SSL.",
     "The initial navigation failed. This is likely a bug in this app." : "A navegação inicial falhou. Isso é provavelmente um problema neste aplicativo.",
+    "DokuWiki Wrapper for Nextcloud" : "Wrapper do DokuWiki para o Nextcloud",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Não é possível acessar o conteúdo da instância {wrappedApp} embrulhada.\nIsso pode ser causado por restrições de acesso entre domínios.\nVerifique se a instância Nextcloud ({nextcloudUrl}) e a instância {wrappedApp} embrulhada ({iFrameUrl}) são servidas a partir do mesmo domínio.",
     "Link to wiki page \"{href}\"" : "Link para a página wiki \"{href}\"",
     "Links to wiki pages are disabled in preview mode." : "Os atalhos para páginas WIKI estão desabilitados em modo de pré-visualização.",

@@ -89,6 +89,11 @@ const configOptions = [
     'src/toolkit/util/axios-file-download.ts',
     'src/toolkit/util/file-node-helper.ts',
     'src/toolkit/util/nextcloud-sidebar-root.ts',
+    'src/toolkit/types/type-traits.ts',
+    'src/toolkit/util/string-literals.ts',
+    'src/toolkit/util/vue-devtools.ts',
+    'src/toolkit/services/entity-repository.ts',
+    'src/toolkit/services/entity-factory.ts',
   ]),
   {
     files: ['**/*.vue'],

@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2024, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -23,14 +23,15 @@
 
 namespace OCA\DokuWiki\Controller;
 
-use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
+use OCP\IConfig;
+use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-use OCP\IL10N;
-use OCP\IConfig;
+use Psr\Log\LoggerInterface;
 
 /**
  * Settings-controller for both, personal and admin, settings.
@@ -93,9 +94,10 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\DokuWiki\Settings\Admin)
    * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\DokuWiki\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/settings/admin/{setting}')]
   public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
   {
     if (!isset(self::ADMIN_SETTINGS[$setting])) {
@@ -196,9 +198,18 @@ class SettingsController extends Controller
    * @param string $setting
    *
    * @return DataResponse
-   *
-   * @AuthorizedAdminSetting(settings=OCA\DokuWiki\Settings\Admin)
    */
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\DokuWiki\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/admin/{setting}',
+    requirements: [ 'setting' => '^.+$' ],
+  )]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/admin',
+    postfix: '.all',
+  )]
   public function getAdmin(?string $setting = null):DataResponse
   {
     if ($setting === null) {

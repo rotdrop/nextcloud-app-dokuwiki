@@ -3,7 +3,7 @@
  * Nextcloud DokuWiki -- Embed DokuWiki into NextCloud with SSO.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2025 Claus-Justus Heine
+ * @copyright 2020-2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud DokuWiki is free software: you can redistribute it and/or
@@ -24,6 +24,7 @@
 namespace OCA\DokuWiki\Controller;
 
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
@@ -68,11 +69,20 @@ class PageController extends Controller
 
   /**
    * @return Response
-   *
-   * @NoAdminRequired
-   * @NoCSRFRequired
    */
-  public function index():Response
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\NoCSRFRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/{wikiPage}',
+    defaults: [ 'wikipage' => '', ]
+  )]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/',
+    postfix: '.root',
+  )]
+  public function index(): Response
   {
     $this->initialStateService->provide();
 

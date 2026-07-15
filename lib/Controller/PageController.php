@@ -75,7 +75,7 @@ class PageController extends Controller
   #[CoreAttributes\FrontpageRoute(
     verb: 'GET',
     url: '/{wikiPage}',
-    defaults: [ 'wikipage' => '', ]
+    defaults: [ 'wikiPage' => '', ]
   )]
   #[CoreAttributes\FrontpageRoute(
     verb: 'GET',

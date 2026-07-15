@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw as RouterLocation } from 'vue-router'
+
 import { translate as t } from '@nextcloud/l10n'
 import {
   NcAppContent,
@@ -52,8 +54,6 @@ import {
   ref,
 } from 'vue'
 import {
-  type RouteLocationRaw as RouterLocation,
-
   useRoute,
   useRouter,
 } from 'vue-router'

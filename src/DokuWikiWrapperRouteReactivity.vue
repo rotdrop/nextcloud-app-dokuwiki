@@ -24,13 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationNormalizedGeneric } from 'vue-router'
+
 import {
   onBeforeMount,
   ref,
 } from 'vue'
 import {
-  type RouteLocationNormalizedGeneric,
-
   onBeforeRouteUpdate,
   useRoute,
 } from 'vue-router'

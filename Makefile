@@ -26,7 +26,9 @@ PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
-PHPUNIT = ./vendor/bin/phpunit
+PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
+PHPCS =  ./vendor-bin/phpcs/vendor/bin/phpcs
+PHPMD = ./vendor-bin//phpmd/vendor/bin/phpmd
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -113,11 +115,11 @@ include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
-	vendor/bin/phpcs -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
+	$(PHPCS) -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
 
 #@@ Run phpmd on the PHP code
 phpmd: composer
-	vendor/bin/phpmd lib/,appinfo/,templates/ text $(SRCDIR)/.phpmd.xml
+	$(PHPMD) --ruleset $(SRCDIR)/.phpmd.xml --format text lib/ appinfo/ templates/
 
 # what has to be copied to the appstore archive
 APPSTORE_FILES =\

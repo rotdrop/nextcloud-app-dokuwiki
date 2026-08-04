@@ -52,14 +52,13 @@ onBeforeMount(() => {
   onRouteChange(currentRoute)
 })
 
-onBeforeRouteUpdate((to, from, next) => {
+onBeforeRouteUpdate((to, from) => {
   logger.debug('ON BEFORE ROUTE UPDATE', {
     to: { ...to },
     from: { ...from },
     windowState: { ...(window?.history?.state || {}) },
   })
   onRouteChange(to)
-  next()
 })
 
 </script>

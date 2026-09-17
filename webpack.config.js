@@ -6,8 +6,8 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const webpack = require('webpack');
 const webpackConfig = require('@nextcloud/webpack-vue-config');
+const webpack = require('webpack');
 const DeadCodePlugin = require('webpack-deadcode-plugin');
 const Visualizer = require('webpack-visualizer-plugin2');
 const xml2js = require('xml2js');
@@ -23,11 +23,20 @@ xml2js.parseString(fs.readFileSync(infoFile), function(err, result) {
 const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
-webpackConfig.entry = {
-  'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
-  refresh: path.join(__dirname, 'src', 'refresh.ts'),
-  app: path.join(__dirname, 'src', 'app.ts'),
+const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
+const entryPoints = {
+  'admin-settings': 'admin-settings',
+  refresh: 'refresh',
+  app: 'app',
 };
+
+webpackConfig.entry = Object.keys(entryPoints).reduce((acc, key) => {
+  acc[key] = [
+    path.join(__dirname, 'src', `${webpackSetup}.ts`),
+    path.join(__dirname, 'src', `${entryPoints[key]}.ts`),
+  ];
+  return acc;
+}, {});
 
 webpackConfig.output = {
   // path: path.resolve(__dirname, 'js'),
@@ -63,6 +72,11 @@ const svgoOptions = {
 webpackConfig.plugins = webpackConfig.plugins.concat([
   new webpack.DefinePlugin({
     APP_NAME: JSON.stringify(appName),
+  }),
+  new webpack.EnvironmentPlugin({
+    PROD: productionMode,
+    DEV: !productionMode,
+    MODE: process.env.NODE_ENV,
   }),
   new ESLintPlugin({
     extensions: ['ts', 'js', 'vue'],

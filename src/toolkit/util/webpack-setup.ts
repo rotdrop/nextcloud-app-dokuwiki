@@ -21,7 +21,7 @@
 
 import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 import { generateFilePath } from '@nextcloud/router';
-import { appName } from './config.ts';
+import { appName } from '../../config.ts';
 
 declare global {
   var __webpack_public_path__: string;

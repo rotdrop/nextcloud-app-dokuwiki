@@ -22,7 +22,7 @@
       {{ t(appName, 'DokuWiki Integration') }}
     </h1>
     <NcSettingsSection name="">
-      <TextField v-model:value="settings.externalLocation"
+      <TextField v-model="settings.externalLocation"
                  :label="t(appName, 'DokuWiki Installation Path')"
                  title=""
                  :hint="t(appName, 'Please enter the location of the already installed DokuWiki instance. This should either be a path, absolute or relative to the root of the web server, or a complete URL pointing to the web location of the DokuWiki. In order to make things work, your have to enable the XML-RPC protocol in your DokuWiki.')"
@@ -31,7 +31,7 @@
       />
     </NcSettingsSection>
     <NcSettingsSection name="">
-      <TextField v-model:value="settings.authenticationRefreshInterval"
+      <TextField v-model="settings.authenticationRefreshInterval"
                  title=""
                  :label="t(appName, 'DokuWiki Session Refresh Interval [s]')"
                  :hint="t(appName, 'Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use.')"
@@ -125,12 +125,6 @@ const saveSetting = async (settingsKey: string) => {
   --cloud-icon-checkmark: var(--icon-checkmark-000);
   --cloud-icon-alert: var(--icon-alert-outline-000);
   --cloud-theme-filter: none;
-  &.cloud-version-major-25 {
-    --cloud-icon-info: var(--icon-info-dark);
-    --cloud-icon-checkmark: var(--icon-checkmark-dark);
-    --cloud-icon-alert: var(--icon-alert-outline-dark);
-    --cloud-theme-filter: var(--background-invert-if-dark);
-  }
 }
 .templateroot {
   .flex-container {

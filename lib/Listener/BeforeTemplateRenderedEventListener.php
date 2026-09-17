@@ -84,8 +84,8 @@ class BeforeTemplateRenderedEventListener implements IEventListener
       /** @var AssetService $assetService */
       $assetService = $this->appContainer->get(AssetService::class);
 
-      \OCP\Util::addScript($appName, $assetService->getJSAsset('refresh')['asset']);
-      $this->logDebug('Loaded ' . $assetService->getJSAsset('refresh')['asset']);
+      \OCP\Util::addScript($appName, $assetService->getJSAsset('refresh'));
+      $this->logDebug('Loaded ' . $assetService->getJSAsset('refresh'));
     } catch (Throwable $t) {
       $this->logException($t, 'Unable add the refresh java script while running interactively.');
     }

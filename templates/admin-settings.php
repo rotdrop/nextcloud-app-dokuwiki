@@ -23,8 +23,8 @@
 
 namespace OCA\DokuWiki;
 
-script($appName, $assets['js']['asset']);
-style($appName, $assets['css']['asset']);
+script($appName, $assets['js']);
+style($appName, $assets['css']);
 
 ?>
 <div id="<?= $appName ?>-admin-settings"></div>

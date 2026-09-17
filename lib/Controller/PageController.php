@@ -89,8 +89,8 @@ class PageController extends Controller
     $this->authenticator->refresh(); // maybe attempt re-login
     $this->authenticator->emitAuthHeaders(); // emit auth headers s.t. web-client sets cookies
 
-    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET)['asset']);
-    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET)['asset']);
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET));
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET));
 
     $response = new TemplateResponse($this->appName, self::TEMPLATE, []);
 

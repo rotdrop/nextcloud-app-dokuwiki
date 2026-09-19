@@ -1,12 +1,12 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
+const webpackConfig = require('@nextcloud/webpack-vue-config');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const webpackConfig = require('@nextcloud/webpack-vue-config');
 const webpack = require('webpack');
 const DeadCodePlugin = require('webpack-deadcode-plugin');
 const Visualizer = require('webpack-visualizer-plugin2');
@@ -24,16 +24,16 @@ const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
 const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
-const entryPoints = {
-  'admin-settings': 'admin-settings',
-  refresh: 'refresh',
-  app: 'app',
-};
+const entryPoints = [
+  'admin-settings',
+  'refresh',
+  'app',
+];
 
-webpackConfig.entry = Object.keys(entryPoints).reduce((acc, key) => {
+webpackConfig.entry = entryPoints.reduce((acc, key) => {
   acc[key] = [
     path.join(__dirname, 'src', `${webpackSetup}.ts`),
-    path.join(__dirname, 'src', `${entryPoints[key]}.ts`),
+    path.join(__dirname, 'src', `${key}.ts`),
   ];
   return acc;
 }, {});
@@ -103,7 +103,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     {
       pluginOutputPostfix: productionMode ? null : 'min',
     },
-    productionMode ? /\.css$/ : /^$/
+    productionMode ? /\.css$/ : /^$/,
   ),
   new DeadCodePlugin({
     patterns: [

@@ -23,9 +23,7 @@
     <div ref="loaderContainer"
          class="loader-container"
     />
-    <div ref="frameWrapper"
-         :class="appName + '-frame-wrapper'"
-    >
+    <div :class="appName + '-frame-wrapper'">
       <iframe :id="frameId"
               ref="externalFrame"
               :src="iFrameLocation"
@@ -48,6 +46,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  useTemplateRef,
   watch,
 } from 'vue'
 import { appName, wrappedApp } from './config.ts'
@@ -119,10 +118,9 @@ let timerCount = 0
 
 let loadTimer: undefined | ReturnType<typeof setTimeout>
 
-const container = ref<null | HTMLDivElement>(null)
-const loaderContainer = ref<null | HTMLDivElement>(null)
-const frameWrapper = ref<null | HTMLDivElement>(null)
-const externalFrame = ref<null | HTMLIFrameElement>(null)
+const container = useTemplateRef<HTMLDivElement>('container')
+const loaderContainer = useTemplateRef<HTMLDivElement>('loaderContainer')
+const externalFrame = useTemplateRef<HTMLIFrameElement>('externalFrame')
 let iFrameBody: undefined | HTMLBodyElement
 
 watch(requestedLocation, () => {

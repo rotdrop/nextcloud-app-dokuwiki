@@ -50,7 +50,7 @@ const configOptions = [
     },
   },
   {
-    files: ['**/*.js', '**/*.ts', '**/*.cts', '**/*.mts', '**/*.tsx'],
+    files: ['**/*.js', '**/*.mjs', '**/*.ts', '**/*.cts', '**/*.mts', '**/*.tsx'],
     rules: {
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/space-infix-ops': [

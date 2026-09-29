@@ -145,10 +145,9 @@ APPSTORE_FILES =\
 # .htaccess is blacklisted by the app-store installer, so we have to remove it
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
-#@private
-appstore: COMPOSER_OPTIONS := $(COMPOSER_OPTIONS) --no-dev
 #@@ Prepare appstore archive
 appstore: clean dev-setup npm-build
+	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	mkdir -p $(BUILD_CERT_DIR)
@@ -227,3 +226,12 @@ unit-tests:
 integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
+
+#@private
+run-tide:
+	$(EMACS) --batch --file $(SRCDIR)/src/vue-app.ts  -l $(DEV_LIB_DIR)/scripts/tide-project-errors.el|tee tide-errors.log
+.PHONY: run-tide
+
+#@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
+tide: dev-setup ts-app-config ts-types-files run-tide
+.PHONY: tide

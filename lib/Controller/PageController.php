@@ -95,7 +95,6 @@ class PageController extends Controller
     $response = new TemplateResponse($this->appName, self::TEMPLATE, []);
 
     $policy = new ContentSecurityPolicy();
-    $policy->addAllowedChildSrcDomain('*');
     $policy->addAllowedFrameDomain('*');
     $response->setContentSecurityPolicy($policy);
 

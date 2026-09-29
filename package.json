@@ -45,6 +45,7 @@
     "@types/deep-equal": "^1.0.4",
     "axios": "^1.16.0",
     "deep-equal": "^2.2.3",
+    "esbuild": "^0.28.2",
     "floating-vue": "^5.2.2",
     "mini-css-extract-plugin": "2.10.2",
     "patch-package": "^8.0.1",
@@ -86,6 +87,7 @@
   "allowScripts": {
     "@nextcloud/webpack-vue-config": true,
     "@parcel/watcher": true,
-    "core-js": true
+    "core-js": true,
+    "esbuild": true
   }
 }

@@ -1,4 +1,4 @@
-build/**
+/build/
 js/**
 css/**
 node_modules/**
@@ -15,3 +15,4 @@ lib/Toolkit/[A-Z]*
 *~
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock
+.vite/

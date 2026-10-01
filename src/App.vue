@@ -107,8 +107,10 @@ const onIFrameLoaded = async (event: { wikiPath: string[], query: Record<string,
 // wrapper component, so just replace it by the one and only named
 // route.
 router.isReady().then(async () => {
+  logger.debug('CURRENT ROUTE', {
+    currentRoute: { ...currentRoute },
+  })
   if (!currentRoute.name) {
-    logger.info('CURRENT ROUTE', { currentRoute })
     const routerLocation: RouterLocation = {
       name: 'home',
       params: {},
@@ -118,7 +120,7 @@ router.isReady().then(async () => {
       await router.replace(routerLocation)
     } catch (error) {
       logger.debug('NAVIGATION ABORTED', { error })
-      const hint = t(appName, 'The initial navigation failed. This is likely a bug in this app.')
+      const hint = t(appName, 'Unable to load the initial view, this is likely a bug in this app. Please report a bug.')
       onError({
         error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
         hint,

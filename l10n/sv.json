@@ -32,7 +32,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Ange önskat uppdateringsintervall för sessionen. Intervallet mäts i sekunder och bör vara något kortare än den konfigurerade sessionslivslängden för DokuWiki-instansen.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Inaktivera SSL-verifiering, till exempel för självsignerade certifikat eller kända värdnamn som inte matchar, såsom 'localhost'.",
     "Enable SSL verification." : "Aktivera SSL-verifiering.",
-    "The initial navigation failed. This is likely a bug in this app." : "Den inledande navigeringen misslyckades. Det beror troligen på ett fel i appen.",
     "DokuWiki Wrapper for Nextcloud" : "DokuWiki-omslag för Nextcloud",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Det går inte att komma åt innehållet i den inbäddade {wrappedApp}-instansen.\nDet kan bero på begränsningar för åtkomst mellan domäner.\nKontrollera att din Nextcloud-instans ({nextcloudUrl}) och den inbäddade {wrappedApp}-instansen ({iFrameUrl}) tillhandahålls från samma domän.",
     "Link to wiki page \"{href}\"" : "Länk till wikisidan \"{href}\"",

@@ -33,7 +33,6 @@
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "Palun sisesta siia soovitud sessiooni värskendamise välp. Seda mõõdetakse sekundites ja peaks olema veidi lühem kui kasutatava DokuWiki-serveri jaoks seadistatud sessiooni kestus.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "Lülita SSL-i õigsuse kontroll välja. Sobib näiteks kasutamiseks enda allkirjastatud sertifikaatide puhul või tedaolevate nimede mittevastavuse puhul, nt. „localhost“.",
     "Enable SSL verification." : "Lülita SSL-i kontrollimine sisse",
-    "The initial navigation failed. This is likely a bug in this app." : "Algse rakenduses liikumise kuvamine ei õnnestunud. Ilmselt on tegemist selle rakenduse veaga.",
     "DokuWiki Wrapper for Nextcloud" : "DokuWiki Nextcloudi kestas",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis.",
     "Link to wiki page \"{href}\"" : "Link „{href}“ viki lehele",

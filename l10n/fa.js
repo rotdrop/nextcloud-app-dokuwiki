@@ -34,7 +34,6 @@ OC.L10N.register(
     "Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the DokuWiki instance in use." : "لطفاً فاصله به‌روزرسانی نشست مورد نظر را در اینجا وارد کنید. این فاصله بر حسب ثانیه اندازه‌گیری می‌شود و باید کمی کوچک‌تر از طول عمر نشست پیکربندی شده برای نمونه داکوویکی در حال استفاده باشد.",
     "Disable SSL verification, e.g. for self-signed certificates or known mis-matching host-names like 'localhost'." : "غیرفعال کردن تأیید SSL، مثلاً برای گواهی‌های خودامضا یا نام‌های میزبان ناهمخوان شناخته شده مانند «localhost».",
     "Enable SSL verification." : "فعال کردن تأیید SSL.",
-    "The initial navigation failed. This is likely a bug in this app." : "پیمایش اولیه ناموفق بود. این احتمالاً یک باگ در این برنامه است.",
     "DokuWiki Wrapper for Nextcloud" : "پوشش داکوویکی برای نکست‌کلود",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "دسترسی به محتویات نمونه {wrappedApp} پوشش داده شده امکان‌پذیر نیست.",
     "Link to wiki page \"{href}\"" : "پیوند به صفحه ویکی «{href}»",

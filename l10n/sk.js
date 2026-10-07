@@ -6,7 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schéma externej adresy URL musí byť buď „http“ alebo „https“, ale nebolo zadané nič.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Schéma externej adresy URL musí byť buď „http“ alebo „https“, bolo zadané \"%s\".",
     "Host-part of external URL seems to be empty" : "Hostiteľská časť externej adresy URL sa zdá byť prázdna",
-    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Hodnota \"%1$s\" pre nastavenie \"%2$s\" buď nie je konvertibilná na celé číslo alebo je mimo rozsahu (minimum sú %d sekundy).",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Hodnota \"%1$s\" pre nastavenie \"%2$s\" buď nie je konvertibilná na celé číslo alebo je mimo rozsahu (minimum je %d sekúnd).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Hodnota \"%1$s\" pre nastavenie \"%2$s\" nie je konvertibilná na boolovskú hodnotu.",
     "true" : "pravda",
     "false" : "nepravda",

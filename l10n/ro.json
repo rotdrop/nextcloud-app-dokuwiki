@@ -1,7 +1,20 @@
 { "translations": {
+    "Unknown admin setting: \"%1$s\"" : "Setare de administrare necunoscută: „%1$s”",
+    "The admin setting \"%1$s\" is read-only" : "Setarea de administrare „%1$s” este doar în citire",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Valoarea „%1$s” a setării „%2$s” nu poate fi convertită într-o valoare booleană.",
+    "true" : "adevărat",
+    "Unable to register types with DBAL." : "Tipurile nu au putut fi înregistrate în DBAL.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Valorile identificatorului pentru o instanță „%s” nu au putut fi determinate.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Colecția „%1$s” din entitatea de tip „%2$s” este nulă.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Serializarea pentru o instanță „%s” nu a putut fi calculată.",
+    "Unable to serve request to \"%1$s\": %2$s" : "Cererea către „%1$s” nu a putut fi servită: %2$s",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problemă de instalare: resursa necesară „%1$s” de tip „%2$s” nu este instalată pe server. Contactează administratorul de sistem!",
     "User" : "Utilizator",
     "Password" : "Parolă",
+    "Login succeeded." : "Autentificare reușită.",
+    "Login failed." : "Autentificarea a eșuat.",
     "%1$s (renamed)" : "%1$s (redenumit)",
-    "renamed file" : "fișier redenumit"
+    "renamed file" : "fișier redenumit",
+    "Unable to sanitize filename \"%s\"." : "Numele de fișier „%s” nu a putut fi curățat."
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }

@@ -1,8 +1,14 @@
 { "translations": {
     "Unknown admin setting: \"%1$s\"" : "Setare de administrare necunoscută: „%1$s”",
     "The admin setting \"%1$s\" is read-only" : "Setarea de administrare „%1$s” este doar în citire",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schema URL-ului extern trebuie să fie „http” sau „https”, dar nu a fost specificată nicio schemă.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Schema URL-ului extern trebuie să fie „http” sau „https”; a fost furnizat „%s”.",
+    "Host-part of external URL seems to be empty" : "Partea de gazdă a URL-ului extern pare să fie goală",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Valoarea „%1$s” a setării „%2$s” nu poate fi convertită într-o valoare booleană.",
     "true" : "adevărat",
+    "false" : "fals",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Trebuie specificat exact unul dintre parametrii de interogare „%1$s” și „%2$s”.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Entitatea „%1$s” identificată prin „%2$s” nu a putut fi găsită.",
     "Unable to register types with DBAL." : "Tipurile nu au putut fi înregistrate în DBAL.",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Valorile identificatorului pentru o instanță „%s” nu au putut fi determinate.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Colecția „%1$s” din entitatea de tip „%2$s” este nulă.",
@@ -15,6 +21,8 @@
     "Login failed." : "Autentificarea a eșuat.",
     "%1$s (renamed)" : "%1$s (redenumit)",
     "renamed file" : "fișier redenumit",
-    "Unable to sanitize filename \"%s\"." : "Numele de fișier „%s” nu a putut fi curățat."
+    "Unable to sanitize filename \"%s\"." : "Numele de fișier „%s” nu a putut fi curățat.",
+    "Enable SSL verification." : "Activează verificarea SSL.",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Conținutul instanței {wrappedApp} încorporate nu poate fi accesat.\nCauza poate fi restricțiile de acces între domenii.\nVerifică dacă instanța Nextcloud ({nextcloudUrl}) și instanța {wrappedApp} încorporată ({iFrameUrl}) sunt servite de pe același domeniu."
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }

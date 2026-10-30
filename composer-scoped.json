@@ -1,0 +1,37 @@
+{
+  "name": "rotdrop/dokuwiki-nextcloud-scoped",
+  "description": "Scoped dependencies for the DokuWiki Nextcloud app",
+  "type": "project",
+  "license": "AGPL-3.0-or-later",
+  "require": {
+    "doctrine/orm": "^3.7",
+    "globalcitizen/php-iban": "^4.0",
+    "rotdrop/bav": "dev-master",
+    "rotdrop/nextcloud-app-toolkit": "dev-main",
+    "symfony/cache": "^7.4"
+  },
+  "config": {
+    "vendor-dir": "vendor-scoped",
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.4"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/bav.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/bav-php/php-index.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/nextcloud-app-toolkit"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

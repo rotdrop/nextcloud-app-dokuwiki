@@ -2,7 +2,6 @@
 js/**
 css/**
 node_modules/**
-package-lock.json
 build-flavour
 stamp*
 *.html
@@ -10,9 +9,12 @@ stamp*
 composer.lock
 /composer.json
 vendor
-lib/Toolkit/[A-Z]*
+vendor-scoped
+composer-scoped.lock
 *-build-hash
 *~
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock
+!/vendor-bin/php-to-typescript/composer.lock
+patches.lock.json
 .vite/

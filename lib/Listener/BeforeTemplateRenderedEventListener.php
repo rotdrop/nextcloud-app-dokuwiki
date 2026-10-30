@@ -41,8 +41,8 @@ use OCA\DokuWiki\Service\InitialStateService;
 /** Load additional scripts while running interactively. */
 class BeforeTemplateRenderedEventListener implements IEventListener
 {
-  use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
-  use \OCA\DokuWiki\Toolkit\Traits\ApiRequestTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\ApiRequestTrait;
 
   const EVENT = HandledEvent::class;
 

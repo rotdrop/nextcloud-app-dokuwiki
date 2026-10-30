@@ -35,9 +35,10 @@ namespace OCA\DokuWiki\AppInfo;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
 use OCA\DokuWiki\Listener\Registration as ListenerRegistration;
-use OCA\DokuWiki\Toolkit\AppInfo\AbstractApplication;
+use OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\AppInfo\AbstractApplication;
 
-include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
+include_once __DIR__ . '/../../vendor/autoload.php';
+include_once __DIR__ . '/../../vendor-scoped/autoload.php';
 
 /**
  * App entry point.

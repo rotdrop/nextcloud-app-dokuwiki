@@ -22,10 +22,10 @@ namespace OCA\DokuWiki;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-use OCA\DokuWiki\Toolkit\Constants as ToolkitConstants;
+use OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Constants as ToolkitConstants;
 
 /** General constants for the app. */
-#[TSAttributes\Typescript]
+#[TSAttributes\TypeScript]
 class Constants extends ToolkitConstants
 {
   public const INITIAL_STATE_SECTION = 'config';

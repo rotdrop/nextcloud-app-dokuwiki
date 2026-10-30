@@ -26,12 +26,12 @@
 ini_set('display_errors', 'stderr');
 
 $appDir = realpath(__DIR__) . '/..';
+define('ROT_DROP_DEV_SCRIPTS_APP_DIR', $appDir);
 
 try {
-  $autoloader = require_once(__DIR__ . '/lib/scripts/vendor/autoload.php');
+  $autoloader = require_once($appDir . '/vendor-bin/php-to-typescript/vendor/autoload.php');
   require_once($appDir . '/vendor/autoload.php');
-  // require_once($appDir . '/vendor-scoped/autoload.php');
-  require_once($appDir . '/vendor-bin/typescript-transformer/vendor/autoload.php');
+  require_once($appDir . '/vendor-scoped/autoload.php');
 } catch (\Throwable $t) {
   fwrite(STDERR, 'Composer autoloads not set up: ' . $t->getMessage() . PHP_EOL);
   exit(1);
@@ -43,30 +43,12 @@ $autoloader->addPsr4(
   __DIR__ . '/../lib',
   true,
 );
-$autoloader->addPsr4(
-  \OCA\RotDrop\DevScripts\PhpToTypeScript::class . '\\',
-  __DIR__ . '/lib/scripts/php-to-typescript',
-  true,
-);
-$autoloader->addPsr4(
-  \OCA\RotDrop\Toolkit::class . '\\',
-  $appDir . '/php-toolkit/',
-  true,
-);
 
-use OCA\DokuWiki\Toolkit\Console\ConsoleOutput;
+use OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Console\ConsoleOutput;
+use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DTOCollector;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DefaultCollector;
 use OCA\RotDrop\DevScripts\PhpToTypeScript;
-
-// store output of different transformers in different files
-
-$excludes = [
-  'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
-  'lib/Storage',
-  'lib/Toolkit/Common',
-  'lib/Toolkit/Doctrine',
-  'lib/Toolkit/Backend',
-  'lib/Toolkit/Service/ArchiveService.php',
-];
 
 $scopedNamespaces = [
   // \Doctrine::class,
@@ -74,19 +56,14 @@ $scopedNamespaces = [
   // \Ramsey\Uuid::class,
 ];
 
-use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
-use OCA\RotDrop\DevScripts\PhpToTypeScript\DTOCollector;
-
-$collectors = [
-  EnumCollector::class,
-  DTOCollector::class,
-];
-
 $phpToTypeScript = new PhpToTypeScript\PhpToTypeScript(
+  collectors: [
+    EnumCollector::class,
+    DTOCollector::class,
+    DefaultCollector::class,
+  ],
   devScriptsFolder: __DIR__,
-  excludes: $excludes,
   scopedNamespaces: $scopedNamespaces,
-  collectors: $collectors,
 );
 
 try {

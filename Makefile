@@ -11,10 +11,12 @@ ifneq ($(XPATH),)
 APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
 APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
 APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
+SCOPED_NAMESPACE_POSTFIX = $(shell $(XPATH) -q -e '/info/scopednamespace/text()' $(APP_INFO))
 else
 $(error The xpath binary could not be found, falling back to using the CWD as app-name)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
+WRAPPER_NAMESPACE_POSTFIX = $(SCOPED_NAMESPACE_POSTFIX)
 BUILDDIR = ./build
 ABSBUILDDIR = $(CURDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
@@ -31,9 +33,10 @@ NPM = $(shell which npm 2> /dev/null)
 BUNDLER_CONFIG = vite.config.ts
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
-PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
-PHPCS =  ./vendor-bin/phpcs/vendor/bin/phpcs
-PHPMD = ./vendor-bin//phpmd/vendor/bin/phpmd
+PHPUNIT = $(ABSSRCDIR)/vendor-bin/phpunit/vendor/bin/phpunit
+PHP_SCOPER = $(ABSSRCDIR)/vendor-bin/php-scoper/vendor/bin/php-scoper
+PHPCS = $(ABSSRCDIR)/vendor-bin/phpcs/vendor/bin/phpcs
+PHPMD = $(ABSSRCDIR)/vendor-bin/phpmd/vendor/bin/phpmd
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -90,16 +93,47 @@ build-no-dev:
 .PHONY: build-no-dev
 
 #@private
-dev-setup: app-toolkit composer
+dev-setup: composer namespace-wrapper ts-app-config
 .PHONY: dev-setup
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
 
-APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
-APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
-APP_TOOLKIT_NS = DokuWiki
+#@private
+php-scoper-install: $(PHP_SCOPER)
+.PHONY: php-scoper-install
 
-include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
+$(PHP_SCOPER): composer.lock
+	if ! [ -x "$@" ]; then $(COMPOSER) bin php-scoper install; else touch "$@"; fi
+
+composer-scoped.lock: composer-scoped.json Makefile
+	rm -f composer-scoped.lock
+
+$(BUILDDIR)/vendor-scoped: composer-scoped.lock
+	mkdir -p $(BUILDDIR)
+	ln -fs ../vendor $(BUILDDIR)
+	rm -rf $(BUILDDIR)/vendor-scoped
+	ln -sf ../composer-patches $(BUILDDIR)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
+
+$(BUILDDIR)/vendor-scoped/autoload.php: $(BUILDDIR)/vendor-scoped composer-scoped.json $(MAKEFILE_DEP)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) dump-autoload
+
+vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-scoped
+	$(PHP_SCOPER) add-prefix -d$(BUILDDIR) --config=$(ABSSRCDIR)/scoper.inc.php --output-dir=$(ABSSRCDIR)/vendor-scoped --force
+
+vendor-scoped/autoload.php: vendor-scoped
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
+	cd vendor-scoped; if grep -q filesToLoad composer/autoload_real.php; then sed -e 's/@FILE_IDENTIFIER_PREFIX@/OCA_$(APP_NAMESPACE)_$(SCOPED_NAMESPACE_POSTFIX)/g' $(ABSSRCDIR)/composer-patches/composer/scoped_autoload_real.patch|patch -p1; fi
+
+namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
+.PHONY: namespace-wrapper
+
+#@@ Generate the toolkit string catalogue for translation extraction.
+toolkit-l10n: vendor-scoped/autoload.php
+	$(PHP) vendor-scoped/rotdrop/nextcloud-app-toolkit/tools/extract-l10n.php l10n-sources/toolkit-strings.php
+.PHONY: toolkit-l10n
+
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
@@ -121,12 +155,20 @@ WEBPACK_DEPS =\
 include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
-phpcs: composer
-	$(PHPCS) -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
+$(PHPCS): composer.lock
+	if ! [ -x "$@" ]; then $(COMPOSER) bin phpcs install; else touch "$@"; fi
+
+$(PHPMD): composer.lock
+	if ! [ -x "$@" ]; then $(COMPOSER) bin phpmd install; else touch "$@"; fi
+
+phpcs: $(PHPCS)
+	$(PHPCS) -s --runtime-set ignore_warnings_on_exit 1 --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
+.PHONY: phpcs
 
 #@@ Run phpmd on the PHP code
-phpmd: composer
-	$(PHPMD) --ruleset $(SRCDIR)/.phpmd.xml --format text lib/ appinfo/ templates/
+phpmd: $(PHPMD)
+	$(PHPMD) --format text --ruleset $(SRCDIR)/.phpmd.xml lib appinfo templates
+.PHONY: phpmd
 
 # what has to be copied to the appstore archive
 APPSTORE_FILES =\
@@ -138,6 +180,7 @@ APPSTORE_FILES =\
  templates\
  lib\
  vendor\
+ vendor-scoped\
  CHANGELOG.md\
  COPYING\
  README.md
@@ -184,6 +227,7 @@ fi
 #@@ Removes build files
 clean: ## Tidy up local environment
 	rm -rf $(BUILDDIR)
+	rm -rf lib/Toolkit
 .PHONY: clean
 
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm
@@ -191,7 +235,7 @@ distclean: clean ## Clean even more, calls clean
 	rm -rf vendor
 	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
-	rm -rf lib/Toolkit/*
+	rm -rf vendor-scoped
 .PHONY: distclean
 
 #@@ Almost everything but downloads
@@ -200,6 +244,8 @@ mostlyclean: webpack-clean distclean
 	rm -f composer.json
 	rm -f vendor-bin/**/composer.lock
 	rm -f stamp.composer-core-versions
+	rm -f composer-scoped.lock
+	rm -rf vendor-scoped
 	rm -f package-lock.json
 	rm -f *.html
 	rm -f stats.json

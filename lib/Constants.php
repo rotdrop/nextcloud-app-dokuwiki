@@ -22,7 +22,7 @@ namespace OCA\DokuWiki;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-use OCA\DokuWiki\Toolkit\Constants as ToolkitConstants;
+use OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Constants as ToolkitConstants;
 
 /** General constants for the app. */
 #[TSAttributes\Typescript]

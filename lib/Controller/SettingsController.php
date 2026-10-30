@@ -38,9 +38,9 @@ use Psr\Log\LoggerInterface;
  */
 class SettingsController extends Controller
 {
-  use \OCA\DokuWiki\Toolkit\Traits\UtilTrait;
-  use \OCA\DokuWiki\Toolkit\Traits\ResponseTrait;
-  use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   public const EXTERNAL_LOCATION = 'externalLocation';
   public const EXTERNAL_LOCATION_DEFAULT = null;

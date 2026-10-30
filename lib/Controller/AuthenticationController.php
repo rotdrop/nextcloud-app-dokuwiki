@@ -36,7 +36,7 @@ use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
 /** AJAX end points for periodic authentication refresh. */
 class AuthenticationController extends Controller
 {
-  use \OCA\DokuWiki\Toolkit\Traits\LoggerTrait;
+  use \OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(

@@ -1,0 +1,25 @@
+{
+  "name": "rotdrop/dokuwiki-nextcloud-scoped",
+  "description": "Scoped dependencies for the DokuWiki Nextcloud app",
+  "type": "project",
+  "license": "AGPL-3.0-or-later",
+  "require": {
+    "rotdrop/nextcloud-app-toolkit": "dev-main"
+  },
+  "config": {
+    "vendor-dir": "vendor-scoped",
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.4"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/nextcloud-app-toolkit"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

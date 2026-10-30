@@ -9,6 +9,7 @@
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" homepage="https://www.claus-justus-heine.de">Claus-Justus Heine</author>
   <namespace>DokuWiki</namespace>
+  <scopednamespace>Scoped</scopednamespace>
   <category>integration</category>
   <category>organization</category>
   <category>social</category>

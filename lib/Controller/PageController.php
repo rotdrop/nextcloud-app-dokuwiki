@@ -40,7 +40,7 @@ use OCA\DokuWiki\Constants;
 use OCA\DokuWiki\Service\AssetService;
 use OCA\DokuWiki\Service\AuthDokuWiki as Authenticator;
 use OCA\DokuWiki\Service\InitialStateService;
-use OCA\DokuWiki\Toolkit\Traits;
+use OCA\DokuWiki\Scoped\OCA\RotDrop\Toolkit\Traits;
 
 /** Main entry point for web frontend. */
 class PageController extends Controller

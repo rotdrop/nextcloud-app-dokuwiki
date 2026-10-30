@@ -2,7 +2,6 @@
 js/**
 css/**
 node_modules/**
-package-lock.json
 build-flavour
 stamp*
 *.html

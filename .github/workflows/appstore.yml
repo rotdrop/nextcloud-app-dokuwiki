@@ -1,0 +1,75 @@
+name: Appstore build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: appstore-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  appstore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Use HTTPS for submodules
+        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+      # PHP-to-TypeScript generation requires an installed Nextcloud server.
+      - name: Checkout Nextcloud
+        uses: actions/checkout@v4
+        with:
+          repository: rotdrop/nextcloud-server
+          ref: cjh-stable35
+          submodules: recursive
+          path: server
+          persist-credentials: false
+
+      - name: Checkout app
+        uses: actions/checkout@v4
+        with:
+          path: server/apps/dokuwiki
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: ctype, curl, dom, fileinfo, gd, iconv, intl, mbstring, openssl, pdo_sqlite, posix, sqlite3, xml, zip, apcu, bcmath, gmp, imagick
+          tools: composer:v2
+          coverage: none
+          ini-values: apc.enable_cli=1, memory_limit=1G
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install build utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libxml-xpath-perl rsync
+
+      - name: Install Nextcloud
+        working-directory: server
+        run: |
+          composer install --no-interaction --no-progress
+          php occ maintenance:install --database=sqlite \
+            --admin-user=admin --admin-pass=admin --no-interaction
+
+      - name: Make appstore
+        working-directory: server/apps/dokuwiki
+        run: make appstore
+
+      - name: Upload app archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokuwiki-appstore
+          path: server/apps/dokuwiki/build/artifacts/appstore/*.tar.*
+          if-no-files-found: error

@@ -4,11 +4,7 @@
   "type": "project",
   "license": "AGPL-3.0-or-later",
   "require": {
-    "doctrine/orm": "^3.7",
-    "globalcitizen/php-iban": "^4.0",
-    "rotdrop/bav": "dev-master",
-    "rotdrop/nextcloud-app-toolkit": "dev-main",
-    "symfony/cache": "^7.4"
+    "rotdrop/nextcloud-app-toolkit": "dev-main"
   },
   "provide": {
     "psr/cache": "*",
@@ -26,14 +22,6 @@
     }
   },
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/rotdrop/bav.git"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/bav-php/php-index.git"
-    },
     {
       "type": "vcs",
       "url": "https://github.com/rotdrop/nextcloud-app-toolkit"

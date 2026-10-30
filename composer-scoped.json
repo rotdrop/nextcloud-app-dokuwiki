@@ -10,6 +10,13 @@
     "rotdrop/nextcloud-app-toolkit": "dev-main",
     "symfony/cache": "^7.4"
   },
+  "provide": {
+    "psr/cache": "*",
+    "psr/clock": "*",
+    "psr/container": "*",
+    "psr/log": "*",
+    "symfony/console": "*"
+  },
   "config": {
     "vendor-dir": "vendor-scoped",
     "optimize-autoloader": true,

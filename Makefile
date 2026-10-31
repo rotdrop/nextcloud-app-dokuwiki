@@ -108,7 +108,7 @@ vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-s
 
 vendor-scoped/autoload.php: vendor-scoped
 	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
-	cd vendor-scoped; if grep -q filesToLoad composer/autoload_real.php; then sed -e 's/@FILE_IDENTIFIER_PREFIX@/OCA_$(APP_NAMESPACE)_$(SCOPED_NAMESPACE_POSTFIX)/g' $(ABSSRCDIR)/composer-patches/composer/scoped_autoload_real.patch|patch -p1; fi
+	if grep -q filesToLoad vendor-scoped/composer/autoload_real.php; then $(call apply-scoped-autoload-patch,vendor-scoped); fi
 
 namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
 .PHONY: namespace-wrapper

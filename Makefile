@@ -2,26 +2,10 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
-#
-# try to parse the info.xml if we can, only then fall-back to the directory name
-#
-APP_INFO = $(SRCDIR)/appinfo/info.xml
-XPATH = $(shell which xpath 2> /dev/null)
-ifneq ($(XPATH),)
-APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
-APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
-APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
-SCOPED_NAMESPACE_POSTFIX = $(shell $(XPATH) -q -e '/info/scopednamespace/text()' $(APP_INFO))
-else
-$(error The xpath binary could not be found, falling back to using the CWD as app-name)
-endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
-WRAPPER_NAMESPACE_POSTFIX = $(SCOPED_NAMESPACE_POSTFIX)
-BUILDDIR = ./build
-ABSBUILDDIR = $(CURDIR)/build
-BUILD_TOOLS_DIR = $(BUILDDIR)/tools
-TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
-TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+include $(DEV_LIB_DIR)/makefile/setup.mk
+
+# app-specific differences to the defaults from setup.mk
 TS_PHP_SOURCE_DIRS = lib
 
 SILENT = @
@@ -181,6 +165,7 @@ APPSTORE_FILES =\
  lib\
  vendor\
  vendor-scoped\
+ composer\
  CHANGELOG.md\
  COPYING\
  README.md
@@ -189,7 +174,10 @@ APPSTORE_FILES =\
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
 #@@ Prepare appstore archive
-appstore: clean dev-setup npm-build
+appstore:
+	$(MAKE) clean
+	$(MAKE) dev-setup
+	$(MAKE) npm-build
 	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
@@ -227,7 +215,6 @@ fi
 #@@ Removes build files
 clean: ## Tidy up local environment
 	rm -rf $(BUILDDIR)
-	rm -rf lib/Toolkit
 .PHONY: clean
 
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm

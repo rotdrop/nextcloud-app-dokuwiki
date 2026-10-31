@@ -2,9 +2,7 @@ vendor/
 build/
 doc/
 js/
-lib/Toolkit/
-php-toolkit/Service/
-php-toolkit/Traits/UtilTrait.php
+vendor-scoped/
 statistics/
 repositories/
 src/toolkit/

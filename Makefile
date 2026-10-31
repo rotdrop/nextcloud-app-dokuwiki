@@ -165,6 +165,7 @@ APPSTORE_FILES =\
  lib\
  vendor\
  vendor-scoped\
+ composer\
  CHANGELOG.md\
  COPYING\
  README.md
@@ -173,7 +174,10 @@ APPSTORE_FILES =\
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
 #@@ Prepare appstore archive
-appstore: clean dev-setup npm-build
+appstore:
+	$(MAKE) clean
+	$(MAKE) dev-setup
+	$(MAKE) npm-build
 	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
@@ -211,7 +215,6 @@ fi
 #@@ Removes build files
 clean: ## Tidy up local environment
 	rm -rf $(BUILDDIR)
-	rm -rf lib/Toolkit
 .PHONY: clean
 
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm

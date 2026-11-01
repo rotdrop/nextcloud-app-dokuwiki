@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - issue and pull request templates
 - signed GitHub and Nextcloud app-store releases triggered by version tags
+- local release tagging helper and `make release` with metadata and Git checks
 
 ## [1.2.1] - 2026-09-29
 

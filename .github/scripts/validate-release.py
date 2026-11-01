@@ -62,6 +62,7 @@ def main():
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--notes-file", type=Path)
     parser.add_argument("--github-output", type=Path)
+    parser.add_argument("--version-only", action="store_true")
     args = parser.parse_args()
     try:
         version, prerelease, notes = validate(args.root, args.tag)
@@ -73,7 +74,7 @@ def main():
     if args.github_output:
         with args.github_output.open("a") as output:
             output.write(f"version={version}\nprerelease={str(prerelease).lower()}\n")
-    print(f"Release metadata is consistent: {version}")
+    print(version if args.version_only else f"Release metadata is consistent: {version}")
     return 0
 
 

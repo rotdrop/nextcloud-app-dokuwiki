@@ -150,12 +150,24 @@ generated source archives. The publisher checks the archived metadata and
 verifies that the public download matches the signed build before submitting
 that URL and signature to the app store. No local tarball selection is involved.
 
-After the release-preparation PR is merged, tag that commit and push:
+After the release-preparation PR is merged, synchronize your local `master`
+with `origin/master`, then run:
 
 ```sh
-git tag v1.2.2
-git push origin v1.2.2
+make release
 ```
+
+This uses `dev-scripts/release.sh` to select the newest dated changelog
+version, require matching app/npm/lockfile versions and non-empty notes,
+and create and push an annotated tag. It requires Git, Bash, and Python 3,
+not the app's build dependencies. It refuses dirty checkouts, branches other
+than `master`, commits not already on `origin/master`, and existing local
+or remote release tags. It does not push commits or build locally.
+
+To additionally assert a specific version, use `make release VERSION=1.2.2`
+or `bash dev-scripts/release.sh 1.2.2` (RC versions work the same way).
+If a tag push fails, the local tag is retained: inspect the remote and the
+error before retrying the push. The helper will not overwrite any tag.
 
 Approve the `release` environment deployments when prompted. Publishing to
 GitHub precedes the app-store request because the store needs a public URL.

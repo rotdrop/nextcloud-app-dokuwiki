@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - update the app-store build system and add CI checks for release archives
 - use a transparent monochrome DokuWiki outline icon in Nextcloud's app menu
-  and administration section
 
 ### Added
 

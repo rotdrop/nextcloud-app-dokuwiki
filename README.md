@@ -36,6 +36,10 @@ configured to use the same authentication backend, then this will work
 with SSO, otherwise the login window of DokuWiki will appear in the
 embedding iframe.
 
+Nextcloud's app menu and administration section use a transparent,
+monochrome outline icon (`img/app.svg`). The original colored DokuWiki
+logo is retained separately in `img/dokuwiki-logo.svg`.
+
 # Installation
 
 See ![file_list](./INSTALL.md).

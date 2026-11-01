@@ -154,7 +154,7 @@ const saveSetting = async (settingsKey: string) => {
       width: 32px;
       height: 32px;
       background-size:32px;
-      background-image:url('../img/app.svg');
+      background-image:url('../img/dokuwiki-logo.svg');
       background-repeat:no-repeat;
       background-origin:border-box;
       background-position:left center;

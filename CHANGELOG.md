@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-11-01
+
+### Fixed
+
+- improve the error message shown when the initial wiki page cannot be loaded
+- prevent app-store builds from shipping without JavaScript bundles
+
+### Changed
+
+- update the app-store build system and add CI checks for release archives
+
+### Added
+
+- issue and pull request templates
+- signed GitHub and Nextcloud app-store releases triggered by version tags
+- local release tagging helper and `make release` with metadata and Git checks
+
 ## [1.2.1] - 2026-09-29
 
 ### Fixed

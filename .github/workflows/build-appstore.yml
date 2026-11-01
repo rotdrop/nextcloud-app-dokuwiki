@@ -7,6 +7,16 @@ name: Build app archive
 
 on:
   workflow_call:
+    inputs:
+      release:
+        description: Require signing in the protected release environment
+        type: boolean
+        default: false
+    secrets:
+      APP_PRIVATE_KEY:
+        required: false
+      APP_PUBLIC_CRT:
+        required: false
     outputs:
       version:
         description: The app version read from appinfo/info.xml
@@ -21,6 +31,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.release && 'release' || '' }}
     timeout-minutes: 30
     defaults:
       run:
@@ -91,19 +102,61 @@ jobs:
           $(find build/ts-types/php-modules -name '*.ts')
 
       - name: Sanity-check the build
-        # `make appstore` exits 0 even when the webpack build emits nothing, so
-        # guard against shipping a tarball without JS bundles.
         run: |
           count=$(tar tzf build/artifacts/appstore/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz | grep -Ec 'dokuwiki/js/.*\.m?js$' || true)
           echo "JS bundles in archive: $count"
-          test "$count" -gt 0 || { echo "::error::No JS bundles in the archive - the webpack build produced nothing"; exit 1; }
+          test "$count" -gt 0 || { echo "::error::No JS bundles in the archive"; exit 1; }
+          for entry in admin-settings app refresh; do
+            tar tzf build/artifacts/appstore/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz \
+              | grep -E "^dokuwiki/js/(dokuwiki-)?$entry-[^/]+\.m?js$" \
+              || { echo "::error::Missing $entry entry bundle"; exit 1; }
+          done
+
+      - name: Sign and verify release archive
+        if: inputs.release
+        env:
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+          APP_PUBLIC_CRT: ${{ secrets.APP_PUBLIC_CRT }}
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          set -euo pipefail
+          test -n "$APP_PRIVATE_KEY" || { echo "::error::APP_PRIVATE_KEY is missing"; exit 1; }
+          test -n "$APP_PUBLIC_CRT" || { echo "::error::APP_PUBLIC_CRT is missing"; exit 1; }
+          signing_dir=$(mktemp -d "$RUNNER_TEMP/dokuwiki-signing.XXXXXX")
+          trap 'rm -f "$signing_dir/dokuwiki.key" "$signing_dir/dokuwiki.crt" "$signing_dir/public.pem"; rmdir "$signing_dir"' EXIT
+          umask 077
+          printf '%s\n' "$APP_PRIVATE_KEY" > "$signing_dir/dokuwiki.key"
+          printf '%s\n' "$APP_PUBLIC_CRT" > "$signing_dir/dokuwiki.crt"
+          unset APP_PRIVATE_KEY APP_PUBLIC_CRT
+          openssl x509 -in "$signing_dir/dokuwiki.crt" -checkend 0 -noout
+          openssl x509 -in "$signing_dir/dokuwiki.crt" -pubkey -noout > "$signing_dir/public.pem"
+          php ../../occ integrity:sign-app \
+            --privateKey="$signing_dir/dokuwiki.key" \
+            --certificate="$signing_dir/dokuwiki.crt" \
+            --path="$PWD/build/artifacts/appstore/sign/dokuwiki"
+          test -s build/artifacts/appstore/sign/dokuwiki/appinfo/signature.json
+          php ../../occ integrity:check-app --path="$PWD/build/artifacts/appstore/sign/dokuwiki" dokuwiki
+          archive="build/artifacts/appstore/dokuwiki-$VERSION.tar.gz"
+          tar -czf "$archive" -C build/artifacts/appstore/sign dokuwiki
+          openssl dgst -sha512 -sign "$signing_dir/dokuwiki.key" -out "$archive.sig" "$archive"
+          openssl dgst -sha512 -verify "$signing_dir/public.pem" -signature "$archive.sig" "$archive"
 
       - name: Name the artifact after the version
-        run: cp build/artifacts/appstore/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz "dokuwiki-${{ steps.meta.outputs.version }}.tar.gz"
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          cp "build/artifacts/appstore/dokuwiki-$VERSION.tar.gz" .
+          if [ -f "build/artifacts/appstore/dokuwiki-$VERSION.tar.gz.sig" ]; then
+            cp "build/artifacts/appstore/dokuwiki-$VERSION.tar.gz.sig" .
+          fi
+          sha256sum "dokuwiki-$VERSION.tar.gz" > "dokuwiki-$VERSION.tar.gz.sha256"
 
       - name: Upload as workflow artifact
         uses: actions/upload-artifact@v5
         with:
           name: dokuwiki-${{ steps.meta.outputs.version }}
-          path: server/apps/dokuwiki/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz
+          path: |
+            server/apps/dokuwiki/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz
+            server/apps/dokuwiki/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz.sig
+            server/apps/dokuwiki/dokuwiki-${{ steps.meta.outputs.version }}.tar.gz.sha256
           if-no-files-found: error

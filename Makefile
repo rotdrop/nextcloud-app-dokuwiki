@@ -1,5 +1,7 @@
 # This file is licensed under the Affero General Public License version 3 or
 # later. See the COPYING file.
+# Local tagging does not need the Nextcloud build environment.
+ifneq ($(strip $(MAKECMDGOALS)),release)
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
@@ -268,3 +270,9 @@ run-tide:
 #@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
 tide: dev-setup ts-app-config ts-types-files run-tide
 .PHONY: tide
+endif
+
+#@@ Validate the unpublished changelog version, tag it, and push the release tag.
+release:
+	bash dev-scripts/release.sh $(if $(VERSION),"$(VERSION)")
+.PHONY: release

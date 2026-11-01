@@ -1,0 +1,72 @@
+name: Bug report
+description: Report a problem with DokuWiki Integration.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include exact versions and installation details so we can reproduce the problem.
+        Remove passwords, tokens, cookies, and personal information from logs and screenshots.
+  - type: input
+    id: app-version
+    attributes:
+      label: DokuWiki Integration version
+      placeholder: "1.2.2"
+    validations:
+      required: true
+  - type: input
+    id: nextcloud-version
+    attributes:
+      label: Nextcloud version
+      description: Give the numeric version, not only the Hub name.
+      placeholder: "35.0.2"
+    validations:
+      required: true
+  - type: input
+    id: dokuwiki-version
+    attributes:
+      label: DokuWiki version
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Installation source
+      options:
+        - Nextcloud app store
+        - GitHub release archive
+        - Local build
+        - Source checkout
+    validations:
+      required: true
+  - type: input
+    id: archive
+    attributes:
+      label: Archive or commit
+      description: For manual installations, give the archive filename/download URL or commit.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include which settings page or wiki page is affected.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Screenshots are especially useful for missing or broken form fields.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Environment and diagnostics
+      description: |
+        Include PHP and browser versions, relevant Nextcloud logs, browser console/network
+        errors, and whether a reverse proxy or separate DokuWiki domain is used.

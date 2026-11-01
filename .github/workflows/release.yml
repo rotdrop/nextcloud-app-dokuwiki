@@ -37,6 +37,9 @@ jobs:
     uses: ./.github/workflows/build-appstore.yml
     with:
       release: true
+    # Without this, the called workflow's secrets context stays empty,
+    # even though its job runs in the `release` environment.
+    secrets: inherit
 
   publish:
     needs: [validate, build]

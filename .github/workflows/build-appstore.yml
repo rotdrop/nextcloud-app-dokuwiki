@@ -12,11 +12,8 @@ on:
         description: Require signing in the protected release environment
         type: boolean
         default: false
-    secrets:
-      APP_PRIVATE_KEY:
-        required: false
-      APP_PUBLIC_CRT:
-        required: false
+    # Signing secrets come from the `release` environment; the release
+    # caller must use `secrets: inherit` to make them visible here.
     outputs:
       version:
         description: The app version read from appinfo/info.xml

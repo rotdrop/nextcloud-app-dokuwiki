@@ -9,8 +9,6 @@
     "true" : "verdadero",
     "false" : "falso",
     "DokuWiki Integration" : "Integración de DokuWiki",
-    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; el recurso requerido \"%1$s\" del tipo \"%2$s\" no está instalado en el servidor, ¡póngase en contacto con el administrador del sistema!",
-    "User" : "Usuario",
     "DokuWiki" : "DokuWiki",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO." : "Inserta una instancia existente de DokuWiki dentro de Nextcloud, potencialmente con SSO (Single Sign-On).",
     "Embed an existing DokuWiki instance into Nextcloud, potentially with SSO. For SSO DokuWiki users and Nextcloud users have to coincide, e.g. by using a common authentication backend like LDAP, or with an appropriate auth plugin on either side of the integration." : "Inserta una instancia existente de DokuWiki dentro de Nextcloud, potencialmente con SSO. Para SSO, los usuarios de DokuWiki y los usuarios de Nextcloud deben coincidir, por ejemplo, mediante el uso de un backend de autenticación común como LDAP, o con un complemento de autenticación adecuado en cualquiera de los lados de la integración.",

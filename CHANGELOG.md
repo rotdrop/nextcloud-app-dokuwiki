@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - hotfix, remove call to non-existing PHP method
 
+## [1.2.2] - 2026-11-01
+
+### Fixed
+
+- improve the error message shown when the initial wiki page cannot be loaded
+- prevent app-store builds from shipping without JavaScript bundles
+
+### Changed
+
+- update the app-store build system and add CI checks for release archives
+
 ## [1.2.0] - 2026-09-29
 
 ### Changed

@@ -6,6 +6,7 @@
 - ["Official" Releases](#official-releases)
 - [Release-Branches](#release-branches)
 - [Building from Source](#building-from-source)
+- [Automated Releases](#automated-releases)
 
 <!-- markdown-toc end -->
 
@@ -89,3 +90,76 @@ So:
     to just remove every build artifact. Then try again.
   - if you just edit individual files then `make` should just pick up
     your changes and rebuild stuff as needed
+
+## Automated Releases
+
+Pushing `vX.Y.Z` builds a signed GitHub release and publishes its archive to
+the Nextcloud app store. Pushing `vX.Y.Z-rcW` (with `W >= 1`) creates a
+GitHub pre-release and publishes it to the app store as a nightly release.
+The app store replaces previous nightly releases when a new one is uploaded.
+Other version suffixes are rejected.
+
+Before tagging, set the same version (without the leading `v`) in
+`appinfo/info.xml`, `package.json`, and both root version fields of
+`package-lock.json`. Put a dated `## [X.Y.Z] - YYYY-MM-DD` entry (including
+the `-rcW` suffix for candidates) at the top of `CHANGELOG.md`, with
+non-empty release notes. An optional `[Unreleased]` section may precede it.
+CI and the release workflow check consistency; invalid tags or metadata
+stop the release before the build.
+
+### Configure signing and publishing
+
+Create a GitHub Actions environment named `release` in repository settings.
+Configure required reviewers and restrict deployment tags to `v*`, so
+release credentials are not available to ordinary PR builds. Add these
+environment secrets:
+
+| Secret | Value |
+| --- | --- |
+| `APP_PRIVATE_KEY` | The complete PEM code-signing private key for `dokuwiki` |
+| `APP_PUBLIC_CRT` | The matching Nextcloud-issued PEM certificate |
+| `APPSTORE_TOKEN` | A token for an app-store account authorized to publish `dokuwiki` |
+
+The public certificate is not confidential; it is stored alongside the key
+as an environment secret for configuration convenience. Obtain the token
+from https://apps.nextcloud.com/account/token.
+
+Upload the key directly from your local machine, **not through an issue,
+chat, commit, or PR**. For example, with the GitHub CLI authenticated locally:
+
+```sh
+gh secret set APP_PRIVATE_KEY --env release --repo rotdrop/nextcloud-app-dokuwiki < ~/.nextcloud/certificates/dokuwiki.key
+gh secret set APP_PUBLIC_CRT --env release --repo rotdrop/nextcloud-app-dokuwiki < ~/.nextcloud/certificates/dokuwiki.crt
+gh secret set APPSTORE_TOKEN --env release --repo rotdrop/nextcloud-app-dokuwiki
+```
+
+The last command prompts for the token without putting it in shell history.
+The private key must be usable without an interactive passphrase prompt.
+Never commit a key or disable signing checks to get a release out.
+
+The release uses the existing app-store build, signs the staged app files
+with Nextcloud's `occ`, verifies their integrity, repacks the archive, and
+verifies a separate SHA-512 archive signature against the certificate.
+The key is exposed only to the signing step and its temporary files are
+removed on exit. Signing failures and missing secrets fail the workflow.
+PR builds use the same build workflow without signing secrets.
+
+GitHub receives the ready-to-install `.tar.gz`, its binary `.sig`, and a
+`.sha256` checksum. Use this attached archive, **not** GitHub's automatically
+generated source archives. The publisher checks the archived metadata and
+verifies that the public download matches the signed build before submitting
+that URL and signature to the app store. No local tarball selection is involved.
+
+After the release-preparation PR is merged, tag that commit and push:
+
+```sh
+git tag v1.2.2
+git push origin v1.2.2
+```
+
+Approve the `release` environment deployments when prompted. Publishing to
+GitHub precedes the app-store request because the store needs a public URL.
+If app-store publishing fails, the GitHub release remains available; inspect
+the workflow error, resolve the problem, and use **Re-run failed jobs** to retry
+only the app-store job with the existing signed artifact. Do not rerun the
+entire workflow, retag, or overwrite an already published version.

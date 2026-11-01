@@ -21,6 +21,18 @@ permissions:
   contents: read
 
 jobs:
+  release-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check release metadata
+        run: python3 .github/scripts/validate-release.py
+
+      - name: Test release validation
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
   eslint:
     runs-on: ubuntu-latest
     steps:
@@ -58,4 +70,5 @@ jobs:
         run: find lib appinfo templates composer -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
   build:
+    needs: release-metadata
     uses: ./.github/workflows/build-appstore.yml

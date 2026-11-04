@@ -86,10 +86,10 @@ include $(DEV_LIB_DIR)/makefile/composer.mk
 SCOPED_COMPOSER_UPDATE_OPTIONS = --no-dev
 include $(DEV_LIB_DIR)/makefile/namespace-wrapper.mk
 
-#@@ Generate the toolkit string catalogue for translation extraction.
+include $(DEV_LIB_DIR)/makefile/l10n.mk
+
 toolkit-l10n: vendor-scoped/autoload.php
-	$(PHP) vendor-scoped/rotdrop/nextcloud-app-toolkit/tools/extract-l10n.php l10n-sources/toolkit-strings.php
-.PHONY: toolkit-l10n
+vue-components-l10n: node_modules
 
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk

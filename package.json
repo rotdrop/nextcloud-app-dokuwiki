@@ -43,6 +43,7 @@
     "@rotdrop/nextcloud-vue-components": "github:rotdrop/nextcloud-vue-components#main",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/deep-equal": "^1.0.4",
+    "@vue/tsconfig": "^0.9.1",
     "axios": "^1.16.0",
     "deep-equal": "^2.2.3",
     "esbuild": "^0.28.2",

@@ -20,7 +20,6 @@ BUNDLER_CONFIG = vite.config.ts
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHPUNIT = $(ABSSRCDIR)/vendor-bin/phpunit/vendor/bin/phpunit
-PHP_SCOPER = $(ABSSRCDIR)/vendor-bin/php-scoper/vendor/bin/php-scoper
 PHPCS = $(ABSSRCDIR)/vendor-bin/phpcs/vendor/bin/phpcs
 PHPMD = $(ABSSRCDIR)/vendor-bin/phpmd/vendor/bin/phpmd
 
@@ -84,36 +83,8 @@ dev-setup: composer namespace-wrapper ts-app-config
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
 
-#@private
-php-scoper-install: $(PHP_SCOPER)
-.PHONY: php-scoper-install
-
-$(PHP_SCOPER): composer.lock
-	if ! [ -x "$@" ]; then $(COMPOSER) bin php-scoper install; else touch "$@"; fi
-
-composer-scoped.lock: composer-scoped.json Makefile
-	rm -f composer-scoped.lock
-
-$(BUILDDIR)/vendor-scoped: composer-scoped.lock
-	mkdir -p $(BUILDDIR)
-	ln -fs ../vendor $(BUILDDIR)
-	rm -rf $(BUILDDIR)/vendor-scoped
-	ln -sfn ../dev-scripts/lib/patches $(BUILDDIR)/composer-patches
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
-
-$(BUILDDIR)/vendor-scoped/autoload.php: $(BUILDDIR)/vendor-scoped composer-scoped.json $(MAKEFILE_DEP)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) dump-autoload
-
-vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-scoped
-	$(PHP_SCOPER) add-prefix -d$(BUILDDIR) --config=$(ABSSRCDIR)/scoper.inc.php --output-dir=$(ABSSRCDIR)/vendor-scoped --force
-
-vendor-scoped/autoload.php: vendor-scoped
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
-	if grep -q filesToLoad vendor-scoped/composer/autoload_real.php; then $(call apply-scoped-autoload-patch,vendor-scoped); fi
-
-namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
-.PHONY: namespace-wrapper
+SCOPED_COMPOSER_UPDATE_OPTIONS = --no-dev
+include $(DEV_LIB_DIR)/makefile/namespace-wrapper.mk
 
 #@@ Generate the toolkit string catalogue for translation extraction.
 toolkit-l10n: vendor-scoped/autoload.php

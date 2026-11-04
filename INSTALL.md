@@ -65,6 +65,16 @@ that it is installed into a running Nextcloud instance. This is
 unfortunate, please submit a pull request if you do not like the
 current state.
 
+The shared Vue components are installed by npm from
+`rotdrop/nextcloud-vue-components` on GitHub, not from a vendored checkout.
+`package-lock.json` pins the resolved commit; use `npm ci` to install it.
+
+Run `make l10n-sources` before creating POT files, and after updating the
+toolkit or Vue components. This generates `l10n-sources/toolkit-strings.php`
+and `l10n-sources/vue-components-strings.js`; commit both catalogues so the
+translation service can scan them without installing dependencies.
+`make toolkit-l10n` and `make vue-components-l10n` regenerate them separately.
+
 So:
 
 - get yourself terminal access to your Nextcloud instance, probably by ssh

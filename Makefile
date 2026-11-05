@@ -206,7 +206,6 @@ mostlyclean: webpack-clean distclean
 	rm -f stamp.composer-core-versions
 	rm -f composer-scoped.lock
 	rm -rf vendor-scoped
-	rm -f package-lock.json
 	rm -f *.html
 	rm -f stats.json
 

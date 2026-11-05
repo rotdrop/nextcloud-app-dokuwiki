@@ -72,3 +72,79 @@ jobs:
   build:
     needs: release-metadata
     uses: ./.github/workflows/build-appstore.yml
+
+  realclean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: server/apps/dokuwiki
+    steps:
+      - name: Use HTTPS for submodules
+        working-directory: .
+        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+      - name: Checkout Nextcloud
+        uses: actions/checkout@v5
+        with:
+          repository: rotdrop/nextcloud-server
+          ref: cjh-stable35
+          submodules: recursive
+          path: server
+          persist-credentials: false
+
+      - name: Checkout app
+        uses: actions/checkout@v5
+        with:
+          path: server/apps/dokuwiki
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Install build utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libxml-xpath-perl rsync
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: ctype, curl, dom, fileinfo, gd, iconv, intl, mbstring, openssl, pdo_sqlite, posix, sqlite3, xml, zip, apcu, bcmath, gmp, imagick
+          tools: composer:v2
+          coverage: none
+          ini-values: apc.enable_cli=1, memory_limit=1G
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Realclean on a bare checkout
+        run: |
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+
+      - name: Realclean is idempotent on a bare checkout
+        run: |
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+
+      - name: Install Nextcloud
+        working-directory: server
+        run: |
+          composer install --no-interaction --no-progress
+          php occ maintenance:install --database=sqlite \
+            --admin-user=admin --admin-pass=admin --no-interaction
+
+      - name: Full build
+        run: make appstore APP_VERSION=$(php -r 'echo (string)simplexml_load_file("appinfo/info.xml")->version;')
+
+      - name: Realclean after a full build
+        run: |
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+
+      - name: Realclean is idempotent after a full build
+        run: |
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }

@@ -1,6 +1,9 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (zmieniona nazwa)",
+    "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
+    "Choose a folder" : "Wybierz katalog",
     "Unknown admin setting: \"%1$s\"" : "Nieznane ustawienie administracyjne: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Ustawienie administratora \"%1$s\" jest tylko do odczytu",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz nic nie podano.",

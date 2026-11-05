@@ -1,6 +1,16 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (renomeado)",
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "O subcartafol de almacenamento de aplicacións «%s» non existe e non é posíbel crealo.",
+    "Cloud installation problem: instance ID is missing." : "Problema de instalación na nube: falta o ID da instancia.",
+    "Installation instructions:" : "Instrucións de instalación:",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "O cartafol compartido para o punto de montaxe «%1$s» non existe, non é posíbel modificar o xestor «%2$s».",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "O cartafol compartido para o punto de montaxe «%1$s» non existe, non é posíbel retirar o grupo «%2$s».",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Non é posíbel xestionar os ficheiros tar. Comprobe a instalación da aplicación.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Non é posíbel determinar os valores identificadores para unha instancia de «%s».",
+    "Unable to register types with DBAL." : "Non se puideron rexistrar os tipos con DBAL.",
+    "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: «{dir}/{base}/».",
     "Unknown admin setting: \"%1$s\"" : "Axuste de administración descoñecido: «%1$s»",
     "The admin setting \"%1$s\" is read-only" : "O axuste de administración «%1$s» é só de lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "O esquema do URL externo debe ser un de «http» ou «https», mais non se especificou ren.",

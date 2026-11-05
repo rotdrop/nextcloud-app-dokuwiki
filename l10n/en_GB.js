@@ -1,6 +1,9 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "App-storage sub-folder \"%s\" does not exist and cannot be created.",
+    "Installation instructions:" : "Installation instructions:",
+    "Selected path: \"{dir}/{base}/\"." : "Selected path: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Unknown admin setting: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "The admin setting \"%1$s\" is read-only",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified.",

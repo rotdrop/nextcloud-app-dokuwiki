@@ -1,4 +1,11 @@
 { "translations": {
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "زیرپوشه ذخیره‌سازی برنامه \"%s\" وجود ندارد و نمی‌توان آن را ایجاد کرد.",
+    "Cloud installation problem: instance ID is missing." : "مشکل نصب ابری: شناسه نمونه وجود ندارد.",
+    "Installation instructions:" : "دستورالعمل نصب:",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "پوشه اشتراکی برای نقطه اتصال \"%1$s\" وجود ندارد، نمی‌توان مدیر \"%2$s\" را تغییر داد.",
+    "Unable to deal with tar-files. Please check the installation of the app." : "امکان کار با فایل‌های tar وجود ندارد. لطفاً نصب برنامه را بررسی کنید.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "امکان تعیین مقادیر شناسه برای نمونه‌ای از \"%s\" وجود ندارد.",
+    "Selected path: \"{dir}/{base}/\"." : "مسیر انتخاب شده: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "تنظیمات ناشناخته مدیر: «%1$s»",
     "The admin setting \"%1$s\" is read-only" : "تنظیمات مدیر «%1$s» فقط خواندنی است",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "طرح (Scheme) URL خارجی باید یکی از «http» یا «https» باشد، اما چیزی مشخص نشده است.",

@@ -1,6 +1,16 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (renommé)",
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : " Le sous-dossier de stockage de l’application \"%s\" n’existe pas et ne peut pas être créé.",
+    "Cloud installation problem: instance ID is missing." : " Problème d’installation du cloud : l’ID de l’instance est manquant.",
+    "Installation instructions:" : "Instructions d'installation : ",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : " Le dossier partagé pour le point de montage \"%1$s\" n'existe pas, impossible de modifier le gestionnaire \"%2$s\".",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : " Le dossier partagé pour le point de montage \"%1$s\" n'existe pas, impossible de supprimé le groupe \"%2$s\".",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Impossible de gérer les fichiers tar. Veuillez vérifier l'installation de l'application.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Impossible de déterminer les valeurs d'identification pour une instance de \"%s\".",
+    "Unable to register types with DBAL." : "Impossible d'enregistrer des types avec DBAL.",
+    "Selected path: \"{dir}/{base}/\"." : "Chemin sélectionné : « {dir}/{base}/ ».",
     "Unknown admin setting: \"%1$s\"" : "Paramètre administrateur inconnu : \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Le paramètre administrateur \"%1$s\" est en lecture seule",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Le type d'une URL externe doit être \"http\" ou \"https\",  mais rien n'était spécifié.",

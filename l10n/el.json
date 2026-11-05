@@ -1,4 +1,7 @@
 { "translations": {
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "Ο υποφάκελος αποθήκευσης εφαρμογής \"%s\" δεν υπάρχει και δεν μπορεί να δημιουργηθεί.",
+    "Installation instructions:" : "Οδηγίες εγκατάστασης:",
+    "Selected path: \"{dir}/{base}/\"." : "Επιλεγμένη διαδρομή: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Άγνωστη ρύθμιση διαχειριστή: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Η ρύθμιση διαχειριστή \"%1$s\" είναι μόνο για ανάγνωση",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Το σχήμα της εξωτερικής URL πρέπει να είναι ένα από \"http\" ή \"https\", αλλά δεν έχει καθοριστεί τίποτα.",

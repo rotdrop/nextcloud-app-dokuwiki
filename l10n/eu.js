@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Administratzaile ezarpen ezezaguna: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "\"%1$s\" administratzaile-ezarpena soilik irakurtzeko da",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Kanpoko URLaren eskemak \"http\" edo \"https\" izan behar du, baina ez da ezer zehaztu.",

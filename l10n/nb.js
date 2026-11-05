@@ -1,6 +1,13 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (har fått nytt navn)",
+    "The input color values are invalid." : "Inndatafargeverdiene er ugyldige.",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Kan ikke håndtere tar-filer. Vennligst sjekk installasjonen av appen.",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Ukomprimert størrelse på arkivet «%1$s» er for stort: %2$s > %3$s",
+    "factory reset palette" : "Fabrikkinnstilt palett",
+    "Choose a folder" : "Velg en mappe",
+    "Selected path: \"{dir}/{base}/\"." : "Valgt bane: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Ukjent administratorinnstilling: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Administratorinnstillingen \"%1$s\" er skrivebeskyttet",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Oppsettet for ekstern URL må være \"http\" eller \"https\", men ingenting ble spesifisert.",

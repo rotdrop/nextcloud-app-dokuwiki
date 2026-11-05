@@ -1,4 +1,5 @@
 { "translations": {
+    "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Configuración de administrador desconocida: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "La configuración de administrador \"%1$s\" es de solo lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "El esquema de la URL externa debe ser uno de \"http\" o \"https\", pero no se especificó nada.",

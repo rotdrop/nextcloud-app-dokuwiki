@@ -1,4 +1,5 @@
 { "translations": {
+    "%1$s (renamed)" : "%1$s (hernoemd)",
     "Unknown admin setting: \"%1$s\"" : "Onbekende adminstratorinstelling: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "De administratorinstelling \"%1$s\" is alleen-lezen",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schema van externe URL moet een van \"http\" of \"https\" zijn, maar er is niets opgegeven.",

@@ -1,6 +1,14 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (rinominato)",
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "Sottocartella di archiviazione dell' app\"%s\" non esiste e non può essere creato.",
+    "Installation instructions:" : "Istruzioni per l'installazione:",
+    "The input color values are invalid." : "I valori di colore in ingresso non sono validi.",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Impossibile gestire i file tar. Controlla l'installazione dell'applicazione.",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "La dimensione dell'archivio non compresso \"%1$s\" è troppo grande: %2$s > %3$s",
+    "Choose a folder" : "Scegli una cartella",
+    "Selected path: \"{dir}/{base}/\"." : "Percorso selezionato: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Impostazione di amministratore sconosciuta: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "L'impostazione di amministratore \"%1$s\" è in sola lettura",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Il valore \"%1$s\" per l'impostazione \"%2$s\" non può essere convertita in booleano.",

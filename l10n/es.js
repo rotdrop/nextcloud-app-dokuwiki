@@ -1,6 +1,10 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "La sub-carpeta para almacenamiento de datos de aplicaciones \"%s\" no existe y no puede ser creada.",
+    "Installation instructions:" : "Instrucciones de instalación:",
+    "Unable to deal with tar-files. Please check the installation of the app." : "No es posible lidiar con archivos tar. Por favor, verifique la instalación de la app.",
+    "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Ajuste administrativo desconocido: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "El ajuste administrativo \"%1$s\" es de sólo lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "El protocolo de la URL externa deber ser \"http\" ó \"https\", pero no se especificó nada.",

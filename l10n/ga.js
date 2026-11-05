@@ -1,6 +1,16 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (athainmnithe)",
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "Níl an fo-fhillteán stórála aipeanna \"%s\" ann agus ní féidir é a chruthú.",
+    "Cloud installation problem: instance ID is missing." : "Fadhb suiteála scamall: tá aitheantóir an sampla ar iarraidh.",
+    "Installation instructions:" : "Treoracha suiteála:",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "Níl an fillteán comhroinnte don phointe gléasta \"%1$s\" ann, ní féidir an bainisteoir \"%2$s\" a mhodhnú.",
+    "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Níl an fillteán comhroinnte don phointe gléasta \"%1$s\" ann, ní féidir an grúpa \"%2$s\" a bhaint.",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Ní féidir déileáil le tar-chomhaid. Seiceáil le do thoil suiteáil na haipe.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Ní féidir luachanna aitheantais an sampla \"%s\" a chinneadh.",
+    "Unable to register types with DBAL." : "Ní féidir cineálacha a chlárú le DBAL.",
+    "Selected path: \"{dir}/{base}/\"." : "Conair roghnaithe: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Socrú riaracháin anaithnid: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Tá an socrú riaracháin \"%1$s\" inléite amháin",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Ní mór go mbeadh scéim an URL seachtrach mar cheann de \"http\" nó \"https\", ach níor sonraíodh aon rud.",

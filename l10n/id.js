@@ -1,6 +1,10 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "%1$s (renamed)" : "%1$s (diganti nama)",
+    "The input color values are invalid." : "Nilai warna masukan tidak valid.",
+    "Choose a folder" : "Pilih folder",
+    "Selected path: \"{dir}/{base}/\"." : "Path yang dipilih: \"{dir}/{base}/\".",
     "Unknown admin setting: \"%1$s\"" : "Pengaturan admin tidak dikenal: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Pengaturan admin \"%1$s\" bersifat hanya-baca",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Skema URL eksternal harus salah satu dari \"http\" atau \"https\", tetapi tidak ada yang ditentukan.",

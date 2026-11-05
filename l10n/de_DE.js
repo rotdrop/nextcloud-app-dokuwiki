@@ -1,6 +1,10 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "Der App-Speicher-Unterordner \"%s\" existiert nicht und kann nicht erstellt werden.",
+    "Installation instructions:" : "Installationsanleitung:",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Die Bezeichnerwerte für eine Instanz von \"%s\" konnten nicht ermittelt werden.",
+    "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrationseinstellung: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Administrationseinstellung \"%1$s\" kann nur gelesen werden",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, aber es wurde keins von beiden angegeben.",

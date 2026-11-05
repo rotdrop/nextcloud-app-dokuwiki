@@ -89,7 +89,8 @@ include $(DEV_LIB_DIR)/makefile/namespace-wrapper.mk
 include $(DEV_LIB_DIR)/makefile/l10n.mk
 
 toolkit-l10n: vendor-scoped/autoload.php
-vue-components-l10n: node_modules
+vue-components-l10n vue-components-l10n-ignore: node_modules ts-types-files ts-app-config
+L10N_VITE_CONFIG = vite.l10n.config.ts
 
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk

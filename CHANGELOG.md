@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.3-rc1] - 2026-11-06
+
+### Changed
+
+- unify the build system on the shared app.mk and the reusable GitHub workflows of nextcloud-app-build-system, pinned to v1
+
 ## [1.2.2] - 2026-11-01
 
 ### Fixed

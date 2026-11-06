@@ -28,4 +28,4 @@ jobs:
     with:
       php-version: '8.5'
       verify-script: .github/scripts/verify-build.sh
-      publish-to-appstore: true
+      upload-to-appstore: true

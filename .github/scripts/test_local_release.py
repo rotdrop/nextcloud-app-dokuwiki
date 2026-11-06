@@ -23,7 +23,13 @@ class LocalReleaseTests(unittest.TestCase):
         self.git("config", "user.email", "release-test@example.invalid")
         subprocess.run(["git", "init", "--bare", str(self.remote)], check=True, capture_output=True)
         self.git("remote", "add", "origin", str(self.remote))
-        for name in ("dev-scripts/release.sh", ".github/scripts/validate-release.py", "Makefile"):
+        for name in (
+            "dev-scripts/release.sh",
+            ".github/scripts/validate-release.py",
+            "Makefile",
+            # the release target lives in the shared Makefile of the submodule
+            "dev-scripts/lib/makefile/app.mk",
+        ):
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(REPOSITORY / name, target)

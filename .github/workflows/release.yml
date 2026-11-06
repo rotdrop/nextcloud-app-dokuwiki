@@ -1,4 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# Tag-triggered release via the shared release workflow of the build
+# system. The tag must match the version in appinfo/info.xml; the
+# CHANGELOG.md/info.xml consistency is checked before tagging by
+# `make release`.
 name: Release
 
 on:
@@ -14,150 +19,13 @@ permissions:
   contents: read
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    outputs:
-      version: ${{ steps.metadata.outputs.version }}
-      prerelease: ${{ steps.metadata.outputs.prerelease }}
-    steps:
-      - name: Checkout tagged commit
-        uses: actions/checkout@v5
-
-      - name: Validate tag and release metadata
-        id: metadata
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: >-
-          python3 .github/scripts/validate-release.py --tag "$RELEASE_TAG"
-          --notes-file release-notes.md --github-output "$GITHUB_OUTPUT"
-
-  build:
-    needs: validate
-    uses: ./.github/workflows/build-appstore.yml
-    with:
-      release: true
-    # Without this, the called workflow's secrets context stays empty,
-    # even though its job runs in the `release` environment.
+  release:
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/release.yml@main
+    # APP_PRIVATE_KEY, APP_PUBLIC_CRT and APPSTORE_TOKEN
     secrets: inherit
-
-  publish:
-    needs: [validate, build]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment: release
     permissions:
       contents: write
-    env:
-      VERSION: ${{ needs.validate.outputs.version }}
-      RELEASE_TAG: ${{ github.ref_name }}
-      PRERELEASE: ${{ needs.validate.outputs.prerelease }}
-    steps:
-      - name: Checkout tagged commit
-        uses: actions/checkout@v5
-
-      - name: Extract release notes
-        run: python3 .github/scripts/validate-release.py --tag "$RELEASE_TAG" --notes-file release-notes.md
-
-      - name: Download signed build artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: ${{ needs.build.outputs.artifact }}
-          path: artifacts
-
-      - name: Verify signed artifact metadata and checksum
-        run: |
-          set -euo pipefail
-          test -s "artifacts/dokuwiki-$VERSION.tar.gz.sig"
-          (cd artifacts && sha256sum --check "dokuwiki-$VERSION.tar.gz.sha256")
-          python3 - <<'PY'
-          import os
-          import tarfile
-          from pathlib import Path
-          from tempfile import TemporaryDirectory
-          import importlib.util
-
-          spec = importlib.util.spec_from_file_location("release", ".github/scripts/validate-release.py")
-          release = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(release)
-          version = os.environ["VERSION"]
-          with tarfile.open(f"artifacts/dokuwiki-{version}.tar.gz") as archive:
-              with TemporaryDirectory() as directory:
-                  root = Path(directory)
-                  (root / "appinfo").mkdir()
-                  for name in ("appinfo/info.xml", "CHANGELOG.md"):
-                      with archive.extractfile("dokuwiki/" + name) as member:
-                          (root / name).write_bytes(member.read())
-                  for name in ("package.json", "package-lock.json"):
-                      (root / name).write_bytes(Path(name).read_bytes())
-                  release.validate(root, os.environ["RELEASE_TAG"])
-              assert archive.getmember("dokuwiki/appinfo/signature.json").size > 0, "Missing file signatures"
-          PY
-
-      - name: Check app-store credential
-        env:
-          APPSTORE_TOKEN: ${{ secrets.APPSTORE_TOKEN }}
-        run: |
-          test -n "$APPSTORE_TOKEN" || { echo "::error::APPSTORE_TOKEN is missing"; exit 1; }
-
-      - name: Create GitHub release with signed assets
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          options=(--latest)
-          if [ "$PRERELEASE" = true ]; then
-            options=(--prerelease --latest=false)
-          fi
-          gh release create "$RELEASE_TAG" \
-            --verify-tag --title "$RELEASE_TAG" --notes-file release-notes.md \
-            "${options[@]}" \
-            "artifacts/dokuwiki-$VERSION.tar.gz" \
-            "artifacts/dokuwiki-$VERSION.tar.gz.sig" \
-            "artifacts/dokuwiki-$VERSION.tar.gz.sha256"
-
-  appstore:
-    needs: [validate, build, publish]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment: release
-    env:
-      VERSION: ${{ needs.validate.outputs.version }}
-      RELEASE_TAG: ${{ github.ref_name }}
-      PRERELEASE: ${{ needs.validate.outputs.prerelease }}
-    steps:
-      - name: Download signed build artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: ${{ needs.build.outputs.artifact }}
-          path: artifacts
-
-      - name: Verify public download and publish to Nextcloud app store
-        env:
-          APPSTORE_TOKEN: ${{ secrets.APPSTORE_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -n "$APPSTORE_TOKEN" || { echo "::error::APPSTORE_TOKEN is missing"; exit 1; }
-          (cd artifacts && sha256sum --check "dokuwiki-$VERSION.tar.gz.sha256")
-          download_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/dokuwiki-$VERSION.tar.gz"
-          curl --fail --silent --show-error --location --retry 5 --retry-delay 5 --retry-all-errors \
-            "$download_url" --output "$RUNNER_TEMP/dokuwiki-download.tar.gz"
-          cmp "artifacts/dokuwiki-$VERSION.tar.gz" "$RUNNER_TEMP/dokuwiki-download.tar.gz"
-          export DOWNLOAD_URL="$download_url"
-          python3 - <<'PY' > "$RUNNER_TEMP/appstore-release.json"
-          import base64
-          import json
-          import os
-          from pathlib import Path
-
-          signature = Path(f"artifacts/dokuwiki-{os.environ['VERSION']}.tar.gz.sig").read_bytes()
-          print(json.dumps({
-              "download": os.environ["DOWNLOAD_URL"],
-              "signature": base64.b64encode(signature).decode("ascii"),
-              "nightly": os.environ["PRERELEASE"] == "true",
-          }))
-          PY
-          curl --fail-with-body --silent --show-error \
-            --header "Authorization: Token $APPSTORE_TOKEN" \
-            --json "@$RUNNER_TEMP/appstore-release.json" \
-            https://apps.nextcloud.com/api/v1/apps/releases
+    with:
+      php-version: '8.5'
+      verify-script: .github/scripts/verify-build.sh
+      publish-to-appstore: true

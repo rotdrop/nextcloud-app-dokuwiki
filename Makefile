@@ -11,3 +11,6 @@ DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 TS_PHP_SOURCE_DIRS = lib
 
 include $(DEV_LIB_DIR)/makefile/app.mk
+
+toolkit-l10n: vendor-scoped/autoload.php
+vue-components-l10n: node_modules

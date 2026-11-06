@@ -1,0 +1,15 @@
+OC.L10N.register(
+    "dokuwiki",
+    {
+    "%1$s (renamed)" : "%1$s (преименувано)",
+    "Password" : "Лозинка",
+    "User" : "Корисник",
+    "bytes" : "бајти",
+    "renamed file" : "преименувана датотека",
+    "open" : "отвори",
+    "submit" : "испрати",
+    "Choose a folder" : "Избери папка",
+    "Choose {file}" : "Избери {file}",
+    "Choose" : "Избери"
+},
+"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

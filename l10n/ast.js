@@ -1,6 +1,18 @@
 OC.L10N.register(
     "dokuwiki",
     {
+    "Login failed." : "L'aniciu de la sesión falló.",
+    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
+    "Password" : "Contraseña",
+    "User" : "Usuariu",
+    "bytes" : "bytes",
+    "not found" : "nun s'atopó",
+    "open" : "abrir",
+    "submit" : "unviar",
+    "restore palette" : "restaurar la paleta",
+    "Choose {file}" : "Escoyer «{file}»",
+    "Choose" : "Escoyer",
+    "Please select an item!" : "¡Seleiciona un elementu!",
     "true" : "true",
     "false" : "false",
     "DokuWiki Integration" : "Integración de DokuWiki",

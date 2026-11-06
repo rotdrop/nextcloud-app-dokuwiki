@@ -35,7 +35,7 @@ jobs:
         run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
   ci:
-    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@main
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
       php-version: '8.5'
       php-versions: '["8.4", "8.5"]'

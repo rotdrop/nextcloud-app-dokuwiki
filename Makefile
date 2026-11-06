@@ -98,6 +98,9 @@ L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")
 IMG_FILES = $(shell find $(ABSSRCDIR)/img -name "*.svg")
 
+l10n: vendor-scoped/autoload.php l10n-sources l10n-ignore toolkit-l10n-ignore-candidates
+.PHONY: l10n
+
 NPM_INIT_DEPS =\
  Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
@@ -247,3 +250,7 @@ endif
 release:
 	bash dev-scripts/release.sh $(if $(VERSION),"$(VERSION)")
 .PHONY: release
+
+# The Vite builds used to analyse the l10n exclusions need the generated TS files.
+L10N_VITE_CONFIG = vite.l10n.config.ts
+vue-components-l10n-ignore: ts-app-config ts-types-files

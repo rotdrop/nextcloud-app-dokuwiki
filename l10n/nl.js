@@ -1,16 +1,8 @@
 OC.L10N.register(
     "dokuwiki",
     {
-    "%1$s (renamed)" : "%1$s (hernoemd)",
-    "Password" : "Wachtwoord",
     "Please install the \"%s\" program on the server." : "Gelieve het programma \"%s\" op de server te installeren.",
-    "User" : "Gebruiker",
     "bytes" : "bytes",
-    "not found" : "niet gevonden",
-    "renamed file" : "bestand hernoemd",
-    "submit" : "versturen",
-    "Choose {file}" : "Kies {file}",
-    "Choose" : "Kies",
     "Unknown admin setting: \"%1$s\"" : "Onbekende adminstratorinstelling: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "De administratorinstelling \"%1$s\" is alleen-lezen",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schema van externe URL moet een van \"http\" of \"https\" zijn, maar er is niets opgegeven.",

@@ -1,9 +1,6 @@
 OC.L10N.register(
     "dokuwiki",
     {
-    "Password" : "Senhal",
-    "User" : "Utilizator",
-    "Choose" : "Causir",
     "true" : "verai",
     "false" : "fals",
     "DokuWiki Integration" : "Integracion DokuWiki",

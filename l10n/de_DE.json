@@ -18,7 +18,7 @@
     "Unable to detect the archive format of \"%1$s\"." : "Archivformat von \"%1$s\" kann nicht erkannt werden.",
     "Unable to open archive file %s (%s)" : "Kann die Archiv-Datei %s (%s) nicht öffnen",
     "Unable to serve request to \"%1$s\": %2$s" : "Anfrage an \"%1$s\" konnte nicht bearbeitet werden: %2$s",
-    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß: %2$s > %3$s",
     "bytes" : "Bytes",
     "Provided data is not a valid SVG image: \"{data}\"." : "Die bereitgestellten Daten sind kein gültiges SVG-Bild: \"{data}\".",
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrationseinstellung: \"%1$s\"",

@@ -4,7 +4,7 @@
     "Error response from call to internal route \"%1$s\": %2$s --  %3$s" : "Resposta de erro na chamada à rota interna “%1$s”: %2$s -- %3$s",
     "Installation instructions:" : "Instruções de instalação:",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalação; o recurso necessário “%1$s” do tipo “%2$s” não está instalado no servidor, entre em contato com o administrador do sistema!",
-    "Invalid OCS response from call to internal route \"%1$s\": %2$s" : "Resposta OCS inválida da chamada para a rota interna “%1$s”: %2$s",
+    "Invalid OCS response from call to internal route \"%1$s\": %2$s" : "Resposta OCS inválida da chamada à rota interna “%1$s”: %2$s",
     "Invalid response from API call: \"%s\"" : "Resposta inválida da chamada à API: “%s”",
     "Please install the \"%s\" program on the server." : "Por favor, instale o programa “%s” no servidor.",
     "Supported data formats are \"%1$s\" and \"%2$s\", specified was \"%3$s\"." : "Os formatos de dados suportados são “%1$s” e “%2$s”, mas o especificado foi “%3$s”.",

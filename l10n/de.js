@@ -28,7 +28,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, aber es wurde keins von beiden angegeben.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Das Schema der externen URL muss \"http\" oder \"https\", \"%s\" wurde angegeben.",
     "Host-part of external URL seems to be empty" : "Der Host-Teil der externen URL scheint leer zu sein",
-    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Wert %1$sfür die Einstellung %2$skann entweder nicht zu einer ganzen Zahl konvertiert werden oder ist außerhalb des Wertebereichs (Minimum sind %dSekunden).",
+    "Value \"%1$s\" for setting \"%2$s\" is either not convertible to integer or out of range (minimum is %d seconds)." : "Wert \"%1$s\" für die Einstellung \"%2$s\" kann entweder nicht zu einer ganzen Zahl konvertiert werden oder ist außerhalb des Wertebereichs (Minimum sind %d Sekunden).",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen Wahrheitswert konvertiert werden.",
     "true" : "wahr",
     "false" : "falsch",

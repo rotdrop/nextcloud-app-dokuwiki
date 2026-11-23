@@ -12,12 +12,6 @@ const configOptions = [
     ],
   },
   {
-    files: ['l10n-sources/**/*.js'],
-    rules: {
-      '@stylistic/quotes': ['error', 'double'],
-    },
-  },
-  {
     files: ['**/*.vue'],
     rules: {
       'vue/attribute-hyphenation': ['error', 'never'],
